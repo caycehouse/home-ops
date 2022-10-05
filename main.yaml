@@ -1,0 +1,9 @@
+- hosts: all
+
+  vars_files:
+    - vault.yaml
+
+  pre_tasks:
+    - name: Ensure we have up-to-date packages
+      import_tasks: tasks/packages.yaml
+      tags: ["packages", "update"]

@@ -1,0 +1,16 @@
+---
+# TASK DESCRIPTION:
+# Ensures all packages are installed and updated. apt on Debian.  Homebrew on Mac.
+
+- name: "Update and install APT packages"
+  block:
+    - name: update APT package cache
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: "upgrade APT to the latest packages (this may take a while)"
+      become: true
+      ansible.builtin.apt:
+        upgrade: safe

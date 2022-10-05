@@ -1,0 +1,5 @@
+# Ansible Vault password
+.vault_password
+
+# macOS hidden files
+.DS_Store

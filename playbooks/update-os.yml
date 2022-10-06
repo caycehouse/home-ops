@@ -1,5 +1,0 @@
-- name: update-os
-  hosts: all
-  tasks:
-    - name: Ensure we have up-to-date packages
-      import_tasks: ../tasks/packages.yml

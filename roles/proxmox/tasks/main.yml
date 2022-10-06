@@ -1,0 +1,21 @@
+# Configures Proxmox-based servers.
+
+---
+
+- name: 'change proxmox repository from pve-enterprise to pve-no-subscription'
+  become: true
+  block:
+    - name: 'add pve-no-subscription repository'
+      ansible.builtin.apt_repository:
+        repo: 'deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription'
+        state: 'present'
+        update_cache: false
+    - name: 'remove pve-enterprise repository'
+      ansible.builtin.apt_repository:
+        repo: 'deb https://enterprise.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-enterprise'
+        state: 'absent'
+        update_cache: false
+    - name: 'update pkg cache and dist-upgrade'
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: 'dist'

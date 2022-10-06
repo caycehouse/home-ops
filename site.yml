@@ -1,4 +1,12 @@
-- ansible.builtin.import_playbook: playbooks/setup-sudoers.yml
-- ansible.builtin.import_playbook: playbooks/harden-ssh.yml
-- ansible.builtin.import_playbook: playbooks/patch-proxmox.yml
-- ansible.builtin.import_playbook: playbooks/update-os.yml
+# Example usage: ansible-playbook state.yml
+# This playbook deploys my whole homelab.
+
+---
+
+- hosts: 'all'
+  roles:
+    - 'common'
+
+- hosts: 'cupcakes'
+  roles:
+    - 'proxmox'

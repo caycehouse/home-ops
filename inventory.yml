@@ -1,18 +1,26 @@
-home:
-  hosts:
-    cupcakes:
-      ansible_host: cupcakes
-    bakery:
-      ansible_host: bakery
-oci_cleverhouse:
-  hosts:
-    wiki.caycehouse.com:
-      ansible_host: 129.158.211.48
-    oci2.thefryer.games:
-      ansible_host: 132.145.175.137
-oci_houseco:
-  hosts:
-    rss.caycehouse.com:
-      ansible_host: 129.80.172.110
-    oci1.thefryer.games:
-      ansible_host: 158.101.99.108
+# Homelab Inventory
+
+---
+
+all:
+  children:
+    home:
+      hosts:
+        cupcakes:
+          ansible_host: 'cupcakes'
+        bakery:
+          ansible_host: 'bakery'
+    oci:
+      children:
+        cleverhouse:
+          hosts:
+            wiki.caycehouse.com:
+              ansible_host: 129.158.211.48
+            oci2.thefryer.games:
+              ansible_host: 132.145.175.137
+        houseco:
+          hosts:
+            rss.caycehouse.com:
+              ansible_host: 129.80.172.110
+            oci1.thefryer.games:
+              ansible_host: 158.101.99.108

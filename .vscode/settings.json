@@ -3,5 +3,8 @@
         "cleverhouse",
         "houseco",
         "thefryer"
-    ]
+    ],
+    "files.associations": {
+        "*.yml": "ansible"
+    }
 }

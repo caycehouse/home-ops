@@ -1,0 +1,6 @@
+- name: update-os
+  hosts: all
+  vars_files: ../vault.yml
+  tasks:
+    - name: Ensure we have up-to-date packages
+      import_tasks: ../tasks/packages.yml

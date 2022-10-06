@@ -1,6 +1,6 @@
 ---
 # TASK DESCRIPTION:
-# Ensures all packages are installed and updated. apt on Debian.  Homebrew on Mac.
+# Ensures all packages are installed and updated.
 
 - name: "Update and install APT packages"
   block:

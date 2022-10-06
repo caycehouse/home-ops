@@ -1,7 +1,6 @@
 - name: patch-proxmox
   become: yes
   hosts: cupcakes
-  vars_files: ../vault.yml
   tasks:
     - name: add pve-no-subscription repository
       apt_repository:

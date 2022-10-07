@@ -19,3 +19,15 @@
       ansible.builtin.apt:
         update_cache: true
         upgrade: 'dist'
+
+- name: 'ensure root login is enabled'
+  become: true
+  block:
+    - name: 'enable root login'
+      ansible.builtin.lineinfile:
+        dest: '/etc/ssh/sshd_config'
+        state: 'present'
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin yes'
+        validate: 'sshd -t -f %s'
+      notify: 'restart sshd'

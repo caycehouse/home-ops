@@ -56,6 +56,7 @@
         validate: 'sshd -t -f %s'
       notify: 'restart sshd'
     - name: 'disable root login'
+      when: '"proxmox" not in group_names'
       ansible.builtin.lineinfile:
         dest: '/etc/ssh/sshd_config'
         state: 'present'

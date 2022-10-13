@@ -3,7 +3,8 @@
 
 ---
 
-- hosts: 'all'
+- name: Play for all machines
+  hosts: 'all'
   roles:
     - 'common'
     - 'artis3n.tailscale'
@@ -12,6 +13,7 @@
   vars_files:
     - 'vault.yml'
 
-- hosts: 'cupcakes'
+- name: Play for proxmox machines
+  hosts: 'cupcakes'
   roles:
     - 'proxmox'

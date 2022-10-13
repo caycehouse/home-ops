@@ -2,26 +2,26 @@
 
 ---
 
-- name: 'add sudoers with ssh keys'
+- name: 'Add sudoers with ssh keys'
   vars:
     users:
       - name: 'caycehouse'
         github: 'caycehouse'
         password: '$6$zpn8R2g0kxjloJ3J$UpMKBvc/IV.FC76GEEyK9a.tgzjSFJ5ZE.yC7Wxz/.ap07j29Oxm0.gV4kUV6ChcQJD5xUIFgsgo1DXIXC0ho0'
   block:
-    - name: 'install sudo'
+    - name: 'Install sudo'
       become: true
       ansible.builtin.apt:
         name: 'sudo'
         state: 'present'
-    - name: 'add user'
+    - name: 'Add user'
       become: true
       ansible.builtin.user:
         name: '{{ item.name }}'
         password: '{{ item.password }}'
         shell: '/bin/bash'
       with_items: '{{ users }}'
-    - name: 'enable passwordless sudo'
+    - name: 'Enable passwordless sudo'
       become: true
       ansible.builtin.lineinfile:
         dest: '/etc/sudoers.d/99-ansible-users'
@@ -32,30 +32,30 @@
         line: '{{ item.name }} ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
       with_items: '{{ users }}'
-    - name: 'add keys from github'
+    - name: 'Add keys from github'
       ansible.posix.authorized_key:
         key: 'https://github.com/{{ item.github }}.keys'
         user: '{{ item.name }}'
       with_items: '{{ users }}'
 
-- name: 'harden ssh connection'
+- name: 'Harden ssh connection'
   become: true
   block:
-    - name: 'assert non-root user'
+    - name: 'Assert non-root user'
       ansible.builtin.assert:
         that:
           - ansible_user != 'root'
         fail_msg: 'must run this playbook as non-root to ensure SSH works'
         success_msg: 'successfully connected as non-root!'
-    - name: 'disable password login'
+    - name: 'Disable password login'
       ansible.builtin.lineinfile:
         dest: '/etc/ssh/sshd_config'
         state: 'present'
         regexp: '^PasswordAuthentication'
         line: 'PasswordAuthentication no'
         validate: 'sshd -t -f %s'
-      notify: 'restart sshd'
-    - name: 'disable root login'
+      notify: 'Restart sshd'
+    - name: 'Disable root login'
       when: '"proxmox" not in group_names'
       ansible.builtin.lineinfile:
         dest: '/etc/ssh/sshd_config'
@@ -63,15 +63,15 @@
         regexp: '^PermitRootLogin'
         line: 'PermitRootLogin no'
         validate: 'sshd -t -f %s'
-      notify: 'restart sshd'
+      notify: 'Restart sshd'
 
-- name: 'update APT cache and upgrade packages'
+- name: 'Update APT cache and upgrade packages'
   become: true
   block:
-    - name: 'update APT package cache'
+    - name: 'Update APT package cache'
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
-    - name: 'upgrade packages (this may take a while)'
+    - name: 'Upgrade packages (this may take a while)'
       ansible.builtin.apt:
         upgrade: 'safe'

@@ -5,6 +5,10 @@
 all:
   children:
     home:
+      hosts:
+        klipper:
+          ansible_host: klipper
+    gsld:
       children:
         proxmox:
           hosts:

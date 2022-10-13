@@ -6,6 +6,11 @@
 - hosts: 'all'
   roles:
     - 'common'
+    - 'artis3n.tailscale'
+  vars:
+    tailscale_args: "--ssh"
+  vars_files:
+    - 'vault.yml'
 
 - hosts: 'cupcakes'
   roles:

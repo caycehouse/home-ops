@@ -9,22 +9,22 @@ all:
         proxmox:
           hosts:
             cupcakes:
-              ansible_host: 100.95.97.36
+              ansible_host: cupcakes
         vms:
           hosts:
             bakery:
-              ansible_host: 100.125.167.14
+              ansible_host: bakery
     oci:
       children:
         cleverhouse:
           hosts:
             wiki.caycehouse.com:
-              ansible_host: 129.158.211.48
-            oci2.thefryer.games:
-              ansible_host: 132.145.175.137
+              ansible_host: wiki-caycehouse-com
+            oci2:
+              ansible_host: oci2
         houseco:
           hosts:
             rss.caycehouse.com:
-              ansible_host: 129.80.172.110
-            oci1.thefryer.games:
-              ansible_host: 158.101.99.108
+              ansible_host: rss-caycehouse-com
+            oci1:
+              ansible_host: oci1

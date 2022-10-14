@@ -18,7 +18,7 @@
   roles:
     - {role: proxmox, tags: proxmox}
 
-- name: Play for docker machines
+- name: Play for Wings machines
   become: true
   hosts:
     - bakery
@@ -26,3 +26,4 @@
     - oci2
   roles:
     - {role: geerlingguy.docker, tags: docker}
+    - {role: wings, tags: wings}

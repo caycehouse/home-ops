@@ -1,0 +1,56 @@
+- name: Install Wings
+  become: true
+  block:
+    - name: Create required directory structure
+      ansible.builtin.file:
+        path: /etc/pterodactyl
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+    - name: Download wings
+      ansible.builtin.get_url:
+        url: "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"
+        dest: /usr/local/bin/wings
+        owner: root
+        group: root
+        mode: 0755
+      notify: Restart wings
+    - name: Look for existing config file
+      ansible.builtin.stat:
+        path: /etc/pterodactyl/config.yml
+      register: _pterodactyl_wings_config_file
+    - name: Generate Wings Config
+      when: _pterodactyl_wings_config_file.stat.exists
+      block:
+        - name: Read current configuration
+          ansible.builtin.command: cat /etc/pterodactyl/config.yml
+          register: _pterodactyl_wings_config_current
+          changed_when: false
+          check_mode: false
+        - name: Merge existing configuration new config
+          ansible.builtin.set_fact:
+            pterodactyl_wings_config: "{{ _pterodactyl_wings_config_current.stdout | from_yaml | combine(pterodactyl_wings_config, recursive=True) }}"
+    - name: Wings config file is installed
+      ansible.builtin.template:
+        src: config.yml.j2
+        dest: /etc/pterodactyl/config.yml
+        owner: root
+        group: root
+        mode: 0640
+      notify: Restart wings
+      when: (_pterodactyl_wings_config_current.stdout|from_yaml)|default({}) != pterodactyl_wings_config
+    - name: Install Wings service file
+      ansible.builtin.copy:
+        src: wings.service
+        dest: /etc/systemd/system/wings.service
+        owner: root
+        group: root
+        mode: 0644
+      notify: Restart wings
+    - name: Enable and start Wings
+      ansible.builtin.systemd:
+        daemon_reload: true
+        name: wings.service
+        enabled: true
+        state: started

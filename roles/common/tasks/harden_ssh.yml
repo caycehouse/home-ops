@@ -4,7 +4,7 @@
     - name: Assert non-root user
       ansible.builtin.assert:
         that:
-          - ansible_user != root
+          - ansible_user != 'root'
         fail_msg: must run this playbook as non-root to ensure SSH works
         success_msg: successfully connected as non-root!
     - name: Disable password login
@@ -16,7 +16,7 @@
         validate: sshd -t -f %s
       notify: Restart sshd
     - name: Disable root login
-      when: proxmox not in group_names
+      when: "'proxmox' not in group_names"
       ansible.builtin.lineinfile:
         dest: /etc/ssh/sshd_config
         state: present

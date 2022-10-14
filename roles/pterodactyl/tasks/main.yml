@@ -1,0 +1,10 @@
+- name: Install Pterodactyl
+  become: true
+  block:
+    - name: Ensure required packages are installed
+      ansible.builtin.apt:
+        package:
+          - curl
+          - tar
+          - unzip
+          - git

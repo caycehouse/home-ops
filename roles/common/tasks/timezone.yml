@@ -1,0 +1,7 @@
+- name: Set timezone
+  become: true
+  block:
+  - name: Set timezone to UTC
+    community.general.timezone:
+      name: UTC
+    notify: Restart cron

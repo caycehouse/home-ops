@@ -4,16 +4,25 @@
 ---
 
 - name: Play for all machines
-  hosts: 'all'
+  hosts: all
   roles:
-    - 'common'
-    - 'artis3n.tailscale'
+    - {role: common, tags: common}
+    - {role: artis3n.tailscale, tags: tailscale}
   vars:
-    tailscale_args: "--ssh"
+    tailscale_args: --ssh
   vars_files:
-    - 'vault.yml'
+    - vault.yml
 
 - name: Play for proxmox machines
-  hosts: 'cupcakes'
+  hosts: cupcakes
   roles:
-    - 'proxmox'
+    - {role: proxmox, tags: proxmox}
+
+- name: Play for docker machines
+  become: true
+  hosts:
+    - bakery
+    - oci1
+    - oci2
+  roles:
+    - {role: geerlingguy.docker, tags: docker}

@@ -2,32 +2,32 @@
 
 ---
 
-- name: 'Change proxmox repository from pve-enterprise to pve-no-subscription'
+- name: Change proxmox repository from pve-enterprise to pve-no-subscription
   become: true
   block:
-    - name: 'Add pve-no-subscription repository'
+    - name: Add pve-no-subscription repository
       ansible.builtin.apt_repository:
-        repo: 'deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription'
-        state: 'present'
+        repo: deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription
+        state: present
         update_cache: false
-    - name: 'Remove pve-enterprise repository'
+    - name: Remove pve-enterprise repository
       ansible.builtin.apt_repository:
-        repo: 'deb https://enterprise.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-enterprise'
-        state: 'absent'
+        repo: deb https://enterprise.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-enterprise
+        state: absent
         update_cache: false
-    - name: 'Update pkg cache and dist-upgrade'
+    - name: Update pkg cache and dist-upgrade
       ansible.builtin.apt:
         update_cache: true
-        upgrade: 'dist'
+        upgrade: dist
 
-- name: 'Ensure root login is enabled'
+- name: Ensure root login is enabled
   become: true
   block:
-    - name: 'Enable root login'
+    - name: Enable root login
       ansible.builtin.lineinfile:
-        dest: '/etc/ssh/sshd_config'
-        state: 'present'
-        regexp: '^PermitRootLogin'
-        line: 'PermitRootLogin yes'
-        validate: 'sshd -t -f %s'
-      notify: 'Restart sshd'
+        dest: /etc/ssh/sshd_config
+        state: present
+        regexp: ^PermitRootLogin
+        line: PermitRootLogin yes
+        validate: sshd -t -f %s
+      notify: Restart sshd

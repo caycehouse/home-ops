@@ -2,76 +2,11 @@
 
 ---
 
-- name: 'Add sudoers with ssh keys'
-  vars:
-    users:
-      - name: 'caycehouse'
-        github: 'caycehouse'
-        password: '$6$zpn8R2g0kxjloJ3J$UpMKBvc/IV.FC76GEEyK9a.tgzjSFJ5ZE.yC7Wxz/.ap07j29Oxm0.gV4kUV6ChcQJD5xUIFgsgo1DXIXC0ho0'
-  block:
-    - name: 'Install sudo'
-      become: true
-      ansible.builtin.apt:
-        name: 'sudo'
-        state: 'present'
-    - name: 'Add user'
-      become: true
-      ansible.builtin.user:
-        name: '{{ item.name }}'
-        password: '{{ item.password }}'
-        shell: '/bin/bash'
-      with_items: '{{ users }}'
-    - name: 'Enable passwordless sudo'
-      become: true
-      ansible.builtin.lineinfile:
-        dest: '/etc/sudoers.d/99-ansible-users'
-        state: 'present'
-        mode: 0440
-        create: true
-        regexp: '^{{ item.name }}'
-        line: '{{ item.name }} ALL=(ALL) NOPASSWD: ALL'
-        validate: 'visudo -cf %s'
-      with_items: '{{ users }}'
-    - name: 'Add keys from github'
-      ansible.posix.authorized_key:
-        key: 'https://github.com/{{ item.github }}.keys'
-        user: '{{ item.name }}'
-      with_items: '{{ users }}'
-
-- name: 'Harden ssh connection'
-  become: true
-  block:
-    - name: 'Assert non-root user'
-      ansible.builtin.assert:
-        that:
-          - ansible_user != 'root'
-        fail_msg: 'must run this playbook as non-root to ensure SSH works'
-        success_msg: 'successfully connected as non-root!'
-    - name: 'Disable password login'
-      ansible.builtin.lineinfile:
-        dest: '/etc/ssh/sshd_config'
-        state: 'present'
-        regexp: '^PasswordAuthentication'
-        line: 'PasswordAuthentication no'
-        validate: 'sshd -t -f %s'
-      notify: 'Restart sshd'
-    - name: 'Disable root login'
-      when: '"proxmox" not in group_names'
-      ansible.builtin.lineinfile:
-        dest: '/etc/ssh/sshd_config'
-        state: 'present'
-        regexp: '^PermitRootLogin'
-        line: 'PermitRootLogin no'
-        validate: 'sshd -t -f %s'
-      notify: 'Restart sshd'
-
-- name: 'Update APT cache and upgrade packages'
-  become: true
-  block:
-    - name: 'Update APT package cache'
-      ansible.builtin.apt:
-        update_cache: true
-        cache_valid_time: 3600
-    - name: 'Upgrade packages (this may take a while)'
-      ansible.builtin.apt:
-        upgrade: 'safe'
+- name: Install and update packages
+  ansible.builtin.include_tasks: packages.yml
+- name: Configure sudo
+  ansible.builtin.include_tasks: sudo.yml
+- name: Harden SSH connections
+  ansible.builtin.include_tasks: harden_ssh.yml
+- name: Set the timezone
+  ansible.builtin.include_tasks: timezone.yml

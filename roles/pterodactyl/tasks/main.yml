@@ -4,29 +4,103 @@
     - name: Ensure required packages are installed
       ansible.builtin.apt:
         package:
+          - acl
           - curl
           - tar
           - unzip
           - git
           - nginx
-    - name: Create required directory structure
+    - name: Ensure Pterodactyl directory is present
       ansible.builtin.file:
         path: /var/www/pterodactyl
         state: directory
-        owner: root
-        group: root
-        mode: 0755
-    - name: Download Pterodactyl
+        owner: www-data
+        group: www-data
+        mode: 0750
+    - name: Download and unpack Pterodactyl
       ansible.builtin.unarchive:
         src: https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz
         dest: /var/www/pterodactyl
+        owner: www-data
+        group: www-data
         remote_src: true
+    - name: Update owner/group for panel webroot
+      ansible.builtin.file:
+        path: /var/www/pterodactyl
+        owner: www-data
+        group: www-data
+        recurse: true
     - name: Set correct permissions for storage and bootstrap/cache
       ansible.builtin.file:
         path: "{{ item }}"
+        owner: www-data
+        group: www-data
         mode: 0755
         recurse: true
       loop:
-        - /var/www/pterodactyl/storage/
-        - /var/www/pterodactyl/bootstrap/cache/
-    # TODO: cp.env.example .env https://pterodactyl.io/panel/1.0/getting_started.html#installation
+        - /var/www/pterodactyl/storage
+        - /var/www/pterodactyl/bootstrap/cache
+    - name: .env file is installed
+      ansible.builtin.template:
+        src: env.j2
+        dest: /var/www/pterodactyl/.env
+        owner: www-data
+        group: www-data
+        mode: 0600
+    - name: Run composer install
+      community.general.composer:
+        command: install
+        working_dir: /var/www/pterodactyl
+      become: true
+      become_user: www-data
+    - name: Clear compiled template cache
+      ansible.builtin.command: "php artisan {{ item }}:clear"
+      register: output
+      changed_when: output.rc != 0
+      args:
+        chdir: /var/www/pterodactyl
+      loop:
+        - view
+        - config
+    - name: Update database
+      ansible.builtin.command: php artisan migrate --seed --force
+      register: output
+      changed_when: output.rc != 0
+      args:
+        chdir: /var/www/pterodactyl
+    - name: Restart queue workers
+      ansible.builtin.command: php artisan queue:restart
+      register: output
+      changed_when: output.rc != 0
+      args:
+        chdir: /var/ww/pterodactyl
+    - name: Set correct permissions for pterodactyl
+      ansible.builtin.file:
+        path: /var/www/pterodactyl
+        owner: www-data
+        group: www-data
+        mode: 0755
+        recurse: true
+    - name: Configure cron for Pterodactyl
+      ansible.builtin.cron:
+        name: "Pterodactyl Panel - Schedule"
+        job: "php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1"
+    - name: Install Pterodactyl service file
+      ansible.builtin.copy:
+        src: pteroq.service
+        dest: /etc/systemd/system/pteroq.service
+        owner: root
+        group: root
+        mode: 0644
+      notify: Restart Pterodactyl
+    - name: Redis is running and enabled
+      ansible.builtin.systemd:
+        name: redis
+        enabled: true
+        state: started
+    - name: Enable and start Pterodactyl
+      ansible.builtin.systemd:
+        daemon_reload: true
+        name: pteroq.service
+        enabled: true
+        state: started

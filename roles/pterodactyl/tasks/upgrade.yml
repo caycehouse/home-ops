@@ -1,0 +1,64 @@
+- name: Enter maintenance mode
+  ansible.builtin.command: php artisan down
+  register: output
+  changed_when: output.stdout == 'Application is now in maintenance mode.'
+  args:
+    chdir: /var/www/pterodactyl
+
+- name: Download and unpack pterodactyl
+  ansible.builtin.unarchive:
+    src: https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz
+    dest: /var/www/pterodactyl
+    remote_src: true
+
+- name: Ensure storage and bootstrap/cache have the correct permissions
+  ansible.builtin.file:
+    path: "{{ item }}"
+    mode: 0755
+    recurse: true
+  loop:
+    - /var/www/pterodactyl/storage
+    - /var/www/pterodactyl/bootstrap/cache
+
+- name: Run composer install
+  community.general.composer:
+    command: install
+    working_dir: /var/www/pterodactyl
+
+- name: Clear compiled template cache
+  ansible.builtin.command: "php artisan {{ item }}:clear"
+  register: output
+  changed_when: output.stdout != ''
+  args:
+    chdir: /var/www/pterodactyl
+  loop:
+    - view
+    - config
+
+- name: Update database
+  ansible.builtin.command: php artisan migrate --seed --force
+  register: output
+  changed_when: output.stdout != ''
+  args:
+    chdir: /var/www/pterodactyl
+
+- name: Update owner/group for panel webroot
+  ansible.builtin.file:
+    path: /var/www/pterodactyl
+    owner: www-data
+    group: www-data
+    recurse: true
+
+- name: Restart queue workers
+  ansible.builtin.command: php artisan queue:restart
+  register: output
+  changed_when: output.stdout == 'Broadcasting queue restart signal.'
+  args:
+    chdir: /var/www/pterodactyl
+
+- name: Exit maintenance mode
+  ansible.builtin.command: php artisan up
+  register: output
+  changed_when: output.stdout == 'Application is now live.'
+  args:
+    chdir: /var/www/pterodactyl

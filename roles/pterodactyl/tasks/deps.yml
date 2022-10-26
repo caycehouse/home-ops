@@ -1,0 +1,50 @@
+- name: Ensure required packages are installed
+  ansible.builtin.apt:
+    package:
+      - php8.1
+      - php8.1-cli
+      - openssl
+      - php8.1-common
+      - php8.1-gd
+      - php8.1-mysql
+      - php8.1-mbstring
+      - php8.1-tokenizer
+      - php8.1-bcmath
+      - php8.1-xml
+      - php8.1-dom
+      - php8.1-curl
+      - php8.1-zip
+      - php8.1-fpm
+      - mariadb-server
+      - nginx
+      - curl
+      - tar
+      - unzip
+      - git
+      - redis-server
+
+- name: Look for composer executable
+  ansible.builtin.stat:
+    path: /usr/local/bin/composer
+  register: pterodactyl_panel_composer
+
+- name: Install composer
+  when: not pterodactyl_panel_composer.stat.exists
+  block:
+    - name: Download composer install script
+      ansible.builtin.get_url:
+        url: https://getcomposer.org/installer
+        dest: /tmp/composer
+        owner: root
+        group: root
+        mode: 0640
+
+    - name: Install composer
+      ansible.builtin.command: php /tmp/composer --install-dir=/usr/local/bin --filename=composer
+      register: output
+      changed_when: output.rc == 0
+
+    - name: Installer script is absent
+      ansible.builtin.file:
+        path: /tmp/composer
+        state: absent

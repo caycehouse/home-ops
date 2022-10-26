@@ -1,0 +1,4 @@
+- name: Restart pteroq
+  ansible.builtin.service:
+    name: pteroq.service
+    state: restarted

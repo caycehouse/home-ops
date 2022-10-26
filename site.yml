@@ -19,7 +19,6 @@
     - {role: proxmox, tags: proxmox}
 
 - name: Play for Pterodactyl machines
-  become: true
   hosts:
     - bakery
   roles:
@@ -28,7 +27,7 @@
     - {role: geerlingguy.mysql, tags: mysql}
     - {role: geerlingguy.redis, tags: redis}
     - {role: geerlingguy.composer, tags: composer}
-    - {role: pterodactyl, tags: pterodactyl}
+    - {role: pterodactyl, tags: pterodactyl, become: true}
   vars:
     php_version: '8.1'
     php_packages:
@@ -57,7 +56,6 @@
 
 
 - name: Play for Wings machines
-  become: true
   hosts:
     - bakery
     - oci1

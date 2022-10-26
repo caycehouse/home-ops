@@ -1,0 +1,47 @@
+- name: Get latest panel version
+  block:
+    - name: Get latest panel release information
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/pterodactyl/panel/releases/latest
+        body_format: json
+        return_content: true
+      register: pterodactyl_panel_latest_release
+      delegate_to: localhost
+      run_once: true
+      retries: 3
+      delay: 5
+      become: false
+      check_mode: false
+
+    - name: Set latest release version
+      ansible.builtin.set_fact:
+        pterodactyl_panel_version: "{{ (pterodactyl_panel_latest_release.json.tag_name) }}"
+
+- name: Set download url
+  ansible.builtin.set_fact:
+    pterodactyl_panel_download_url: "https://github.com/pterodactyl/panel/releases/download/{{ pterodactyl_panel_version }}/panel.tar.gz"
+
+- name: Check if install is already present
+  ansible.builtin.stat:
+    path: /var/www/pterodactyl/.env
+  register: pterodactyl_panel_envfile
+
+- name: Detect and verify installed version
+  when: pterodactyl_panel_envfile.stat.exists
+  block:
+    - name: Get currently installed version
+      ansible.builtin.shell: 'cat /var/www/pterodactyl/config/app.php  | grep "''version'' =>" | cut -d "''" -f 4'
+      changed_when: false
+      check_mode: false
+      register: pterodactyl_panel_detected_version
+
+    - name: Prepend v to detected version
+      ansible.builtin.set_fact:
+        pterodactyl_panel_detected_version: "v{{ pterodactyl_panel_detected_version.stdout }}"
+
+    - name: Don't allow a version downgrade
+      ansible.builtin.fail:
+        msg: >
+          Detected panel version '{{ pterodactyl_panel_detected_version }}' is newer than desired version '{{ pterodactyl_panel_version }}'.
+          Downgrades to older versions are not supported
+      when: pterodactyl_panel_detected_version is version(pterodactyl_panel_version, '>')

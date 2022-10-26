@@ -10,6 +10,7 @@
       ansible.builtin.apt:
         name: sudo
         state: present
+
     - name: Add user
       become: true
       ansible.builtin.user:
@@ -17,6 +18,7 @@
         password: "{{ item.password }}"
         shell: /bin/bash
       with_items: "{{ users }}"
+
     - name: Enable passwordless sudo
       become: true
       ansible.builtin.lineinfile:
@@ -28,6 +30,7 @@
         line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
         validate: visudo -cf %s
       with_items: "{{ users }}"
+
     - name: Add keys from github
       ansible.posix.authorized_key:
         key: https://github.com/{{ item.github }}.keys

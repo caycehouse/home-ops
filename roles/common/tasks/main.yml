@@ -4,9 +4,15 @@
 
 - name: Install and update packages
   ansible.builtin.include_tasks: packages.yml
+
+- name: Install dependencies
+  ansible.builtin.include_tasks: deps.yml
+
 - name: Configure sudo
   ansible.builtin.include_tasks: sudo.yml
+
 - name: Harden SSH connections
   ansible.builtin.include_tasks: harden_ssh.yml
+
 - name: Set the timezone
   ansible.builtin.include_tasks: timezone.yml

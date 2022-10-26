@@ -7,6 +7,7 @@
           - ansible_user != 'root'
         fail_msg: must run this playbook as non-root to ensure SSH works
         success_msg: successfully connected as non-root!
+
     - name: Disable password login
       ansible.builtin.lineinfile:
         dest: /etc/ssh/sshd_config
@@ -15,6 +16,7 @@
         line: PasswordAuthentication no
         validate: sshd -t -f %s
       notify: Restart sshd
+
     - name: Disable root login
       when: "'proxmox' not in group_names"
       ansible.builtin.lineinfile:

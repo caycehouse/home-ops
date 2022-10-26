@@ -22,35 +22,7 @@
   hosts:
     - bakery
   roles:
-    - {role: geerlingguy.php-versions, tags: php}
-    - {role: geerlingguy.php, tags: php}
-    - {role: geerlingguy.mysql, tags: mysql}
-    - {role: geerlingguy.redis, tags: redis}
-    - {role: geerlingguy.composer, tags: composer}
     - {role: pterodactyl, tags: pterodactyl, become: true}
-  vars:
-    php_version: '8.1'
-    php_packages:
-      - php{{ php_version }}-common
-      - php{{ php_version }}-cli
-      - php{{ php_version }}-gd
-      - php{{ php_version }}-mysql
-      - php{{ php_version }}-mbstring
-      - php{{ php_version }}-bcmath
-      - php{{ php_version }}-xml
-      - php{{ php_version }}-fpm
-      - php{{ php_version }}-curl
-      - php{{ php_version }}-zip
-    php_webserver_daemon: nginx
-    php_enable_apc: false
-    php_opcache_enable: false
-    mysql_packages:
-      - mariadb-client
-      - mariadb-server
-      - python3-mysqldb
-    redis_extra_config: |-
-      supervised auto
-    composer_keep_updated: true
   vars_files:
     - vault.yml
 
@@ -61,5 +33,4 @@
     - oci1
     - oci2
   roles:
-    - {role: geerlingguy.docker, tags: docker}
-    - {role: wings, tags: wings}
+    - {role: wings, tags: wings, become: true}

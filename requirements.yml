@@ -1,15 +1,3 @@
 roles:
   - name: artis3n.tailscale
     version: v3.3.0
-  - name: geerlingguy.docker
-    version: 6.0.1
-  - name: geerlingguy.php-versions
-    version: 5.0.0
-  - name: geerlingguy.php
-    version: 4.8.0
-  - name: geerlingguy.mysql
-    version: 4.1.0
-  - name: geerlingguy.redis
-    version: 1.8.0
-  - name: geerlingguy.composer
-    version: 1.9.2

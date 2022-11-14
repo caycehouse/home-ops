@@ -22,8 +22,6 @@ all:
       children:
         cleverhouse:
           hosts:
-            wiki.caycehouse.com:
-              ansible_host: wiki-caycehouse-com
             oci2:
               ansible_host: oci2
         houseco:

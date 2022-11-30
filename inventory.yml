@@ -22,6 +22,8 @@ all:
       children:
         cleverhouse:
           hosts:
+            hostess:
+              ansible_host: hostess
             oci2:
               ansible_host: oci2
         houseco:

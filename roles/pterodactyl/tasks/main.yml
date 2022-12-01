@@ -9,6 +9,18 @@
     group: www-data
     mode: 0750
 
+- name: Create a new database with name 'panel'
+  community.mysql.mysql_db:
+    name: panel
+    state: present
+
+- name: Create database user with name 'pterodactyl'
+  community.mysql.mysql_user:
+    name: pterodactyl
+    password: "{{ pterodactyl_panel_db_password }}"
+    priv: 'panel.*:ALL,GRANT'
+    state: present
+
 - name: Detect existing install and check for available upgrade
   ansible.builtin.include_tasks: detect_install_upgrade.yml
 
@@ -53,3 +65,47 @@
     name: pteroq.service
     enabled: true
     state: started
+
+- name: Ensure cert directory exists
+  ansible.builtin.file:
+    path: /etc/letsencrypt/live/{{ pterodactyl_panel_domain }}
+    state: directory
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Check if cert is already present
+  ansible.builtin.stat:
+    path: /etc/letsencrypt/live/{{ pterodactyl_panel_domain }}/fullchain.pem
+  register: pterodactyl_panel_cert
+
+- name: SSL cert is present
+  ansible.builtin.command: cd /etc/letsencrypt/live/{{ pterodactyl_panel_domain }} && sudo tailscale cert --cert-file fullchain.pem --key-file privkey.pem {{ pterodactyl_panel_domain }}
+  when: not pterodactyl_panel_cert.stat.exists
+
+- name: SSL cronjob is present
+  ansible.builtin.cron:
+    name: Pterodactyl Panel - SSL
+    job: cd /etc/letsencrypt/live/{{ pterodactyl_panel_domain }} && sudo tailscale cert --cert-file fullchain.pem --key-file privkey.pem {{ pterodactyl_panel_domain }}
+
+- name: Nginx default site is disabled
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Pterodactyl.conf file is installed
+  ansible.builtin.template:
+    src: pterodactyl.conf.j2
+    dest: /etc/nginx/sites-available/pterodactyl.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Nginx pterodactyl site is enabled
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/pterodactyl.conf
+    dest: /etc/nginx/sites-enabled/pterodactyl.conf
+    owner: root
+    group: root
+    state: link
+  notify: Restart nginx

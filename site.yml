@@ -19,7 +19,6 @@
 
 - name: Play for Pterodactyl machines
   hosts:
-    - bakery
     - hostess
   roles:
     - {role: pterodactyl, tags: pterodactyl, become: true}

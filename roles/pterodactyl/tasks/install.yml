@@ -19,6 +19,8 @@
       community.general.composer:
         command: install
         working_dir: /var/www/pterodactyl
+      environment:
+        COMPOSER_ALLOW_SUPERUSER: 1
 
     - name: Run artisan migrate
       ansible.builtin.command: php artisan migrate --seed --force

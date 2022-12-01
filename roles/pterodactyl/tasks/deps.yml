@@ -22,6 +22,7 @@
       - unzip
       - git
       - redis-server
+      - python3-mysqldb
 
 - name: Look for composer executable
   ansible.builtin.stat:

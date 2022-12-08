@@ -7,8 +7,6 @@
   hosts: all
   roles:
     - {role: common, tags: common}
-  vars:
-    tailscale_args: --ssh
   vars_files:
     - vault.yml
 

@@ -87,6 +87,8 @@
   ansible.builtin.cron:
     name: Pterodactyl Panel - SSL
     job: cd /etc/letsencrypt/live/{{ pterodactyl_panel_domain }} && sudo tailscale cert --cert-file fullchain.pem --key-file privkey.pem {{ pterodactyl_panel_domain }}
+    minute: 0
+    hour: 23
 
 - name: Nginx default site is disabled
   ansible.builtin.file:

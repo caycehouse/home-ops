@@ -64,3 +64,4 @@
   changed_when: output.stdout == 'Application is now live.'
   args:
     chdir: /var/www/pterodactyl
+  notify: Restart pteroq

@@ -5,8 +5,11 @@
 
 - name: Play for all machines
   hosts: all
+  vars:
+    tailscale_args: "--ssh"
   roles:
     - {role: common, tags: common, become: true}
+    - {role: artis3n.tailscale, tags: tailscale}
   vars_files:
     - vault.yml
 

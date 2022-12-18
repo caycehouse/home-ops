@@ -6,7 +6,7 @@
 - name: Play for all machines
   hosts: all
   roles:
-    - {role: common, tags: common}
+    - {role: common, tags: common, become: true}
   vars_files:
     - vault.yml
 
@@ -15,6 +15,20 @@
   roles:
     - {role: proxmox, tags: proxmox}
 
+- name: Play for docker machines
+  hosts:
+    - hostess
+    - bakery
+    - oci1
+    - oci2
+  vars:
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+  roles:
+    - {role: geerlingguy.pip, tags: pip, become: true}
+    - {role: geerlingguy.docker, tags: docker, become: true}
+
 - name: Play for Pterodactyl machines
   hosts:
     - hostess
@@ -22,7 +36,6 @@
     - {role: pterodactyl, tags: pterodactyl, become: true}
   vars_files:
     - vault.yml
-
 
 - name: Play for Wings machines
   hosts:

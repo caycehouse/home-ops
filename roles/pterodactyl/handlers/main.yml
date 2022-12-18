@@ -1,9 +1,0 @@
-- name: Restart pteroq
-  ansible.builtin.service:
-    name: pteroq.service
-    state: restarted
-
-- name: Restart nginx
-  ansible.builtin.service:
-    name: nginx.service
-    state: restarted

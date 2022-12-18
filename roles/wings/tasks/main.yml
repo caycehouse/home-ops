@@ -1,25 +1,15 @@
-- name: Install dependencies
-  ansible.builtin.include_tasks: deps.yml
+- name: Ensure wings directory exists
+  ansible.builtin.file:
+    path: /root/wings
+    state: directory
 
-- name: Install Wings
+- name: Ensure docker-compose.yml is in place
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: /root/wings/docker-compose.yml
+
+- name: Install Wings config
   block:
-    - name: Create required directory structure
-      ansible.builtin.file:
-        path: /etc/pterodactyl
-        state: directory
-        owner: root
-        group: root
-        mode: 0755
-
-    - name: Download wings
-      ansible.builtin.get_url:
-        url: "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"
-        dest: /usr/local/bin/wings
-        owner: root
-        group: root
-        mode: 0755
-      notify: Restart wings
-
     - name: Look for existing config file
       ansible.builtin.stat:
         path: /etc/pterodactyl/config.yml
@@ -47,18 +37,32 @@
       notify: Restart wings
       when: (_pterodactyl_wings_config_current.stdout|from_yaml)|default({}) != pterodactyl_wings_config
 
-    - name: Install Wings service file
-      ansible.builtin.copy:
-        src: wings.service
-        dest: /etc/systemd/system/wings.service
-        owner: root
-        group: root
-        mode: 0644
-      notify: Restart wings
+- name: Ensure cert directory exists
+  ansible.builtin.file:
+    path: /etc/letsencrypt/live/{{ wings_domain }}
+    state: directory
+    owner: root
+    group: root
+    mode: 0600
 
-    - name: Enable and start Wings
-      ansible.builtin.systemd:
-        daemon_reload: true
-        name: wings.service
-        enabled: true
-        state: started
+- name: Check if cert is already present
+  ansible.builtin.stat:
+    path: /etc/letsencrypt/live/{{ wings_domain }}/fullchain.pem
+  register: wings_cert
+
+- name: SSL cert is present
+  ansible.builtin.command: cd /etc/letsencrypt/live/{{ wings_domain }} && sudo tailscale cert --cert-file fullchain.pem --key-file privkey.pem {{ wings_domain }}
+  when: not wings_cert.stat.exists
+
+- name: SSL cronjob is present
+  ansible.builtin.cron:
+    name: Pterodactyl Panel - SSL
+    job: cd /etc/letsencrypt/live/{{ wings_domain }} && sudo tailscale cert --cert-file fullchain.pem --key-file privkey.pem {{ wings_domain }}
+    minute: 0
+    hour: 23
+
+- name: Execute docker-compose file
+  community.docker.docker_compose:
+    project_src: /root/wings
+    pull: true
+    state: present

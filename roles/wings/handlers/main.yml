@@ -1,4 +1,0 @@
-- name: Restart wings
-  ansible.builtin.service:
-    name: wings.service
-    state: restarted

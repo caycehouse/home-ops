@@ -1,7 +1,4 @@
-# Sets common configuration.
-
 ---
-
 - name: Install and update packages
   ansible.builtin.include_tasks: packages.yml
 

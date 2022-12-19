@@ -8,7 +8,7 @@
   vars:
     tailscale_args: "--ssh"
   roles:
-    - {role: common, tags: common, become: true}
+    - {role: common, tags: common}
     - {role: artis3n.tailscale, tags: tailscale}
   vars_files:
     - vault.yml

@@ -1,3 +1,4 @@
+---
 - name: Update APT cache and upgrade packages
   become: true
   block:

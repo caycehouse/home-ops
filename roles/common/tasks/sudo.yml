@@ -1,3 +1,4 @@
+---
 - name: Add sudoers with ssh keys
   vars:
     users:

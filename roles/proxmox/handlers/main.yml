@@ -1,8 +1,6 @@
-# Handler to handle proxmox notifications.
-
 ---
-
 - name: Restart sshd
+  become: true
   ansible.builtin.service:
     name: sshd
     state: restarted

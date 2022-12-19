@@ -1,7 +1,4 @@
-# Configures Proxmox-based servers.
-
 ---
-
 - name: Change proxmox repository from pve-enterprise to pve-no-subscription
   become: true
   block:

@@ -1,3 +1,4 @@
+---
 - name: Ensure pterodactyl directory exists
   ansible.builtin.file:
     path: /root/pterodactyl

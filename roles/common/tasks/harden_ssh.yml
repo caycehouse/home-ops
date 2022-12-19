@@ -1,3 +1,4 @@
+---
 - name: Harden ssh connection
   become: true
   block:

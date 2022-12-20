@@ -13,6 +13,18 @@
   vars_files:
     - vault.yml
 
+- name: Play to add swap to needed machines
+  hosts:
+    - rss-caycehouse-com
+    - hostess
+    - bakery
+    - oci1
+    - oci2
+  vars:
+    swap_file_size_mb: '8192'
+  roles:
+    - {role: geerlingguy.swap, tags: swap, become: true}
+
 - name: Play for proxmox machines
   hosts: cupcakes
   roles:

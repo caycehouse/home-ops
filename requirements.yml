@@ -6,3 +6,5 @@ roles:
     version: 6.0.4
   - name: artis3n.tailscale
     version: v3.4.0
+  - name: geerlingguy.swap
+    version: 1.0.2

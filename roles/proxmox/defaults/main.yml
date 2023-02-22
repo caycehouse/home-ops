@@ -1,0 +1,6 @@
+---
+ubuntu_code_name: jammy
+cloud_img_name: "{{ ubuntu_code_name }}-server-cloudimg-amd64.img"
+cloud_img_url: https://cloud-images.ubuntu.com/{{ ubuntu_code_name }}/current/{{ cloud_img_name }}
+proxmox_template_name: ubuntu-{{ ubuntu_code_name }}-cloudinit-template
+proxmox_storage: local-lvm

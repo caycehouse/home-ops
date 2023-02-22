@@ -2,7 +2,7 @@
 klipper
 
 [proxmox_servers]
-cupcakes
+cupcakes    template_vm_id=201
 
 [proxmox_vms]
 bakery

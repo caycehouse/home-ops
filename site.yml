@@ -27,6 +27,7 @@
 
 - name: Play for proxmox machines
   hosts: cupcakes
+  become: true
   roles:
     - {role: proxmox, tags: proxmox}
 

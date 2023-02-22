@@ -1,6 +1,8 @@
 ---
+- name: Create VM Template
+  ansible.builtin.include_tasks: vm_template.yml
+
 - name: Change proxmox repository from pve-enterprise to pve-no-subscription
-  become: true
   block:
     - name: Add pve-no-subscription repository
       ansible.builtin.apt_repository:
@@ -20,7 +22,6 @@
         upgrade: dist
 
 - name: Ensure root login is enabled
-  become: true
   block:
     - name: Enable root login
       ansible.builtin.lineinfile:

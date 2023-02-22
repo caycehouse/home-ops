@@ -1,0 +1,50 @@
+---
+# This indented section should only run on proxmox
+- name: Run proxmox-specific tasks
+  when:
+  - "inventory_hostname in groups['proxmox_servers']"
+  block:
+
+    # Only run these tasks if the controller VM template doesn't exist yet
+    # Sourced from https://pve.proxmox.com/wiki/Cloud-Init_Support
+
+    # Only run this on proxmox hosts
+    - name: Does our VM template exist already?
+      ansible.builtin.shell: qm list | grep -q {{ proxmox_template_name }}
+      register: _vm_template_exists
+      failed_when: _vm_template_exists.rc not in [0,1]
+      when: "inventory_hostname in groups['proxmox_servers']"
+
+    # Create template for controller
+    - name: Create proxmox vm template template if it doesn't already exist
+      when:
+        - _vm_template_exists.rc == 1
+        - "inventory_hostname in groups['proxmox_servers']"
+      block:
+        - name: "[create template] Downloading cloud-init image"
+          ansible.builtin.get_url:
+            url: "{{ cloud_img_url }}"
+            dest: /tmp/
+
+        - name: "[create template] Create a new VM"
+          ansible.builtin.command: qm create {{ template_vm_id | quote }} --name {{ proxmox_template_name }} --memory 2048 --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci
+
+        - name: "[create template] Import the downloaded disk to the {{ proxmox_storage }} storage, attaching it as a SCSI drive"
+          ansible.builtin.command: qm set {{ template_vm_id | quote }} --scsi0 {{ proxmox_storage }}:0,import-from=/tmp/{{ cloud_img_name }}
+
+        - name: "[create template] Create CDROM image to pass cloud-init params to template VM"
+          ansible.builtin.command: qm set {{ template_vm_id | quote }} --ide2 {{ proxmox_storage }}:cloudinit
+
+        - name: "[create template] Set template VM to boot from hard disk only (speeds up boot)"
+          ansible.builtin.command: qm set {{ template_vm_id | quote }} --boot order=scsi0
+
+        - name: "[create template] Add a serial console to the template for good measure"
+          ansible.builtin.command: qm set {{ template_vm_id | quote }} --serial0 socket --vga serial0
+
+        - name: "[create template] Turn VM into template"
+          ansible.builtin.command: qm template {{ template_vm_id | quote }}
+
+        - name: "Cleanup cloud-init image"
+          ansible.builtin.file:
+            name: /tmp/{{ cloud_img_name }}
+            state: absent

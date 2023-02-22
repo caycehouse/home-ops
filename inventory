@@ -1,15 +1,15 @@
 [home]
 klipper
 
-[proxmox]
+[proxmox_servers]
 cupcakes
 
-[vms]
+[proxmox_vms]
 bakery
 
 [gsld:children]
-proxmox
-vms
+proxmox_servers
+proxmox_vms
 
 [houseco]
 oci1

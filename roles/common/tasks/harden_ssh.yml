@@ -19,7 +19,7 @@
       notify: Restart sshd
 
     - name: Disable root login
-      when: "'proxmox' not in group_names"
+      when: "'proxmox_servers' not in group_names"
       ansible.builtin.lineinfile:
         dest: /etc/ssh/sshd_config
         state: present

@@ -1,0 +1,13 @@
+{
+  "appName": "mc-example",
+  "userGivenName": "mc-example",
+  "destNamespace": "default",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "kustomize/base",
+  "srcRepoURL": "https://github.com/itzg/docker-minecraft-server.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null,
+  "exclude": "",
+  "include": ""
+}

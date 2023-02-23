@@ -1,0 +1,11 @@
+---
+k3s_control_node: true
+k3s_server:
+  node-label:
+    - "topology.kubernetes.io/zone=cloud"
+    - "topology.kubernetes.io/region=oracle"
+  node-ip: "{{ ts_ip }}"
+  bind-address: "{{ ts_ip }}"
+  disable:
+    - traefik
+    - svclb

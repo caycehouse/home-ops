@@ -6,6 +6,9 @@ cupcakes    template_vm_id=201
 
 [proxmox_vms]
 bakery
+dingdongs
+twinkies
+zingers
 
 [gsld:children]
 proxmox_servers
@@ -18,3 +21,14 @@ rss-caycehouse-com
 [cleverhouse]
 oci2
 hostess
+
+[k3s_server]
+dingdongs   ts_ip=100.104.131.107
+
+[k3s_agents]
+twinkies    ts_ip=100.109.108.20
+zingers     ts_ip=100.103.126.14
+
+[k3s_cluster:children]
+k3s_server
+k3s_agents

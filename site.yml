@@ -80,3 +80,11 @@
     - {role: geerlingguy.pip, tags: pip, become: true}
     - {role: geerlingguy.docker, tags: docker, become: true}
     - {role: nomad, tags: nomad}
+
+- name: Play for jobs
+  hosts:
+    - nomad
+  vars:
+    volume_dir: /home/caycehouse/
+  roles:
+    - {role: jobs, tags: jobs}

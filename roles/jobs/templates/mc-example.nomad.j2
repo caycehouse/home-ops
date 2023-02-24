@@ -1,0 +1,49 @@
+job "mc-example" {
+  datacenters = ["homelab"]
+  type        = "service"
+
+  group "mc" {
+    network {
+      port "mc" {
+        static = 25565
+      }
+    }
+
+    service {
+      name     = "mc"
+      tags     = ["global", "mc"]
+      port     = "mc"
+      provider = "nomad"
+    }
+
+    reschedule {
+      attempts  = 0
+      unlimited = false
+    }
+
+    task "mc" {
+      driver = "docker"
+
+      config {
+        image = "itzg/minecraft-server"
+        ports = ["mc"]
+
+        volumes = [
+          "{{ volume_dir }}mc-example:/data"
+        ]
+
+        volume_driver = "local"
+      }
+
+      env {
+        EULA = "true"
+        TYPE = "vanilla"
+      }
+
+      resources {
+        cores  = 1
+        memory = 2048
+      }
+    }
+  }
+}

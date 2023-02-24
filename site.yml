@@ -72,5 +72,11 @@
 - name: Play for nomad
   hosts:
     - nomad
+  vars:
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
   roles:
+    - {role: geerlingguy.pip, tags: pip, become: true}
+    - {role: geerlingguy.docker, tags: docker, become: true}
     - {role: nomad, tags: nomad}

@@ -27,6 +27,59 @@
     mode: 0640
   notify: Restart nomad
 
+- name: Copy ca cert
+  ansible.builtin.copy:
+    src: nomad-ca.pem
+    dest: /etc/nomad.d/
+    owner: nomad
+    group: nomad
+    mode: 0600
+  notify: Restart nomad
+
+- name: Copy server certs
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /etc/nomad.d/
+    owner: nomad
+    group: nomad
+    mode: 0600
+  loop:
+    - server.pem
+    - server-key.pem
+  when: "'nomad_server' in group_names"
+  notify: Restart nomad
+
+- name: Ensure agents do not have certs
+  ansible.builtin.file:
+    path: "/etc/nomad.d/{{ item }}"
+    state: absent
+  loop:
+    - server.pem
+    - server-key.pem
+  when: "'nomad_agents' in group_names"
+
+- name: Copy client certs
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /etc/nomad.d/
+    owner: nomad
+    group: nomad
+    mode: 0600
+  loop:
+    - client.pem
+    - client-key.pem
+  when: "'nomad_agents' in group_names"
+  notify: Restart nomad
+
+- name: Ensure servers do not have client certs
+  ansible.builtin.file:
+    path: "/etc/nomad.d/{{ item }}"
+    state: absent
+  loop:
+    - client.pem
+    - client-key.pem
+  when: "'nomad_server' in group_names"
+
 - name: Ensure proper permissions
   ansible.builtin.file:
     path: /etc/nomad.d

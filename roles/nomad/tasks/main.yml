@@ -17,3 +17,26 @@
   ansible.builtin.apt:
     pkg:
       - nomad
+
+- name: Copy nomad base config file
+  ansible.builtin.template:
+    src: nomad.hcl.j2
+    dest: /etc/nomad.d/nomad.hcl
+    owner: nomad
+    group: nomad
+    mode: 0640
+  notify: Restart nomad
+
+- name: Ensure proper permissions
+  ansible.builtin.file:
+    path: /etc/nomad.d
+    owner: nomad
+    group: nomad
+    recurse: true
+  notify: Restart nomad
+
+- name: Enable nomad
+  ansible.builtin.service:
+    name: nomad
+    enabled: true
+    state: started

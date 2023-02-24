@@ -24,14 +24,15 @@ hostess
 
 [nomad_server]
 dingdongs
-
-[nomad_agents]
 twinkies
 zingers
 
+[nomad_agents]
+honeybun
+
 [nomad:children]
-consul_server
-consul_agents
+nomad_server
+nomad_agents
 
 [consul_server]
 dingdongs

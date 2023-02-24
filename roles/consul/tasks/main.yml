@@ -22,23 +22,49 @@
   ansible.builtin.copy:
     src: consul-agent-ca.pem
     dest: /etc/consul.d/
-    mode: 0755
+    owner: consul
+    group: consul
+    mode: 0600
+  notify: Restart consul
 
 - name: Copy server certs
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /etc/consul.d/
-    mode: 0755
+    owner: consul
+    group: consul
+    mode: 0600
   loop:
     - homelab-server-consul-0.pem
     - homelab-server-consul-0-key.pem
   when: "'consul_server' in group_names"
+  notify: Restart consul
+
+- name: Ensure agents do not have certs
+  ansible.builtin.file:
+    path: "/etc/consul.d/{{ item }}"
+    state: absent
+  loop:
+    - homelab-server-consul-0.pem
+    - homelab-server-consul-0-key.pem
+  when: "'consul_agents' in group_names"
 
 - name: Copy consul base config file
   ansible.builtin.template:
     src: consul.hcl.j2
     dest: /etc/consul.d/consul.hcl
-    mode: 0644
+    owner: consul
+    group: consul
+    mode: 0640
+  notify: Restart consul
+
+- name: Ensure proper permissions
+  ansible.builtin.file:
+    path: /etc/consul.d
+    owner: consul
+    group: consul
+    recurse: true
+  notify: Restart consul
 
 - name: Enable consul
   ansible.builtin.service:

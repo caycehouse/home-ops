@@ -61,8 +61,16 @@
   roles:
     - {role: wings, tags: wings, become: true}
 
-- name: Play for k3s cluster
+- name: Play for consul
   hosts:
-    - k3s_cluster
+    - consul
   roles:
-    - {role: xanmanning.k3s, tags: k3s-cluster}
+    - {role: consul, tags: consul}
+  vars_files:
+    - vault.yml
+
+- name: Play for nomad
+  hosts:
+    - nomad
+  roles:
+    - {role: nomad, tags: nomad}

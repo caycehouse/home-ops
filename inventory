@@ -22,13 +22,25 @@ rss-caycehouse-com
 oci2
 hostess
 
-[k3s_server]
-dingdongs   ts_ip=100.104.131.107
+[nomad_server]
+dingdongs
 
-[k3s_agents]
-twinkies    ts_ip=100.109.108.20
-zingers     ts_ip=100.103.126.14
+[nomad_agents]
+twinkies
+zingers
 
-[k3s_cluster:children]
-k3s_server
-k3s_agents
+[nomad:children]
+consul_server
+consul_agents
+
+[consul_server]
+dingdongs
+twinkies
+zingers
+
+[consul_agents]
+honeybun
+
+[consul:children]
+consul_server
+consul_agents

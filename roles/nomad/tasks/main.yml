@@ -1,0 +1,19 @@
+---
+- name: Add Hashicorp apt repository key.
+  ansible.builtin.get_url:
+    url: "https://apt.releases.hashicorp.com/gpg"
+    dest: /usr/share/keyrings/hashicorp-archive-keyring.asc
+    mode: '0644'
+    force: true
+
+- name: Add Hashicorp apt repository.
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    filename: "hashicorp"
+    state: present
+    update_cache: true
+
+- name: Install nomad
+  ansible.builtin.apt:
+    pkg:
+      - nomad

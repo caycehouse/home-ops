@@ -1,0 +1,22 @@
+# Full configuration options can be found at https://www.nomadproject.io/docs/configuration
+
+data_dir  = "/opt/nomad/data"
+bind_addr = "0.0.0.0"
+
+advertise {
+    http = "{{ '{{' }} GetInterfaceIP \"tailscale0\" {{ '}}' }}"
+    rpc  = "{{ '{{' }} GetInterfaceIP \"tailscale0\" {{ '}}' }}"
+    serf = "{{ '{{' }} GetInterfaceIP \"tailscale0\" {{ '}}' }}"
+}
+
+{% if 'nomad_server' in group_names %}
+server {
+  enabled          = true
+  bootstrap_expect = {{ groups['nomad_server'] | length }}
+}
+{% endif %}
+
+client {
+  enabled = true
+  network_interface = "tailscale0"
+}

@@ -4,7 +4,7 @@ datacenter = "homelab"
 data_dir = "/opt/consul"
 bind_addr = "{{ '{{' }} GetInterfaceIP \"tailscale0\" {{ '}}' }}"
 encrypt = "{{ consul_gossip_encryption_key }}"
-retry_join = ["{{ hostvars['dingdongs']['ansible_facts']['tailscale0']['ipv4']['address'] }}"]
+retry_join = ["{{ groups['consul_server'] | map('extract', hostvars, ['ansible_tailscale0', 'ipv4', 'address']) | join('\", \"') }}"]
 client_addr = "0.0.0.0"
 
 {% if 'consul_server' in group_names %}

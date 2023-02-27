@@ -10,3 +10,7 @@
 
 - name: Set the timezone
   ansible.builtin.include_tasks: timezone.yml
+
+- name: Configure oracle cloud specific settings
+  ansible.builtin.include_tasks: oracle.yml
+  when: "'oracle' in ansible_kernel"

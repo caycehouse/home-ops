@@ -8,27 +8,31 @@ cupcakes    template_vm_id=201
 bakery
 dingdongs
 twinkies
-zingers
 
 [gsld:children]
 proxmox_servers
 proxmox_vms
 
 [houseco]
-oci1
-rss-caycehouse-com
+houseco-1
+houseco-2
+houseco-3
 
 [cleverhouse]
 oci2
 hostess
+cleverhouse-3
 
 [nomad_server]
 dingdongs
 twinkies
-zingers
+houseco-1
 
 [nomad_agents]
 honeybun
+houseco-2
+houseco-3
+cleverhouse-3
 
 [nomad:children]
 nomad_server
@@ -37,10 +41,13 @@ nomad_agents
 [consul_server]
 dingdongs
 twinkies
-zingers
+houseco-1
 
 [consul_agents]
 honeybun
+houseco-2
+houseco-3
+cleverhouse-3
 
 [consul:children]
 consul_server

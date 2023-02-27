@@ -15,11 +15,7 @@
 
 - name: Play to add swap to needed machines
   hosts:
-    - rss-caycehouse-com
-    - hostess
-    - bakery
-    - oci1
-    - oci2
+    - all,!proxmox_servers,!klipper
   vars:
     swap_file_size_mb: '8192'
   roles:
@@ -35,7 +31,6 @@
   hosts:
     - hostess
     - bakery
-    - oci1
     - oci2
   vars:
     pip_install_packages:
@@ -56,7 +51,6 @@
 - name: Play for Wings machines
   hosts:
     - bakery
-    - oci1
     - oci2
   roles:
     - {role: wings, tags: wings, become: true}

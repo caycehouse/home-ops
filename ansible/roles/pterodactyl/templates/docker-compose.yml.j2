@@ -1,0 +1,78 @@
+version: '3.8'
+x-common:
+  database:
+    &db-environment
+    # Do not remove the "&db-password" from the end of the line below, it is important
+    # for Panel functionality.
+    MYSQL_PASSWORD: &db-password "{{ pterodactyl_panel_db_password }}"
+    MYSQL_ROOT_PASSWORD: "{{ pterodactyl_panel_db_password }}"
+  panel:
+    &panel-environment
+    APP_URL: "{{ pterodactyl_panel_url }}"
+    APP_KEY: "{{ pterodactyl_panel_app_key }}"
+    # Set this so the SSL config gets deployed, even though we use tailscale cert.
+    LE_EMAIL: "{{ pterodactyl_panel_egg_author }}"
+    APP_TIMEZONE: "America/New_York"
+    APP_SERVICE_AUTHOR: "{{ pterodactyl_panel_egg_author }}"
+    APP_BACKUP_DRIVER: s3
+    AWS_DEFAULT_REGION: "{{ pterodactyl_panel_aws_default_region }}"
+    AWS_ACCESS_KEY_ID: "{{ pterodactyl_panel_aws_access_key_id }}"
+    AWS_SECRET_ACCESS_KEY: "{{ pterodactyl_panel_aws_secret_access_key }}"
+    AWS_BACKUPS_BUCKET: "{{ pterodactyl_panel_aws_backups_bucket }}"
+    AWS_ENDPOINT: "{{ pterodactyl_panel_aws_endpoint }}"
+  mail:
+    &mail-environment
+    MAIL_FROM: "no-reply@{{ pterodactyl_panel_domain }}"
+    MAIL_DRIVER: "mail"
+
+#
+# ------------------------------------------------------------------------------------------
+# DANGER ZONE BELOW
+#
+# The remainder of this file likely does not need to be changed. Please only make modifications
+# below if you understand what you are doing.
+#
+services:
+  database:
+    image: mariadb:10.5
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "/srv/pterodactyl/database:/var/lib/mysql"
+    environment:
+      <<: *db-environment
+      MYSQL_DATABASE: "panel"
+      MYSQL_USER: "pterodactyl"
+  cache:
+    image: redis:alpine
+    restart: always
+  panel:
+    image: ghcr.io/pterodactyl/panel:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - database
+      - cache
+    volumes:
+      - "/srv/pterodactyl/var/:/app/var/"
+      - "/srv/pterodactyl/nginx/:/etc/nginx/http.d/"
+      - "/etc/letsencrypt/:/etc/letsencrypt/"
+      - "/srv/pterodactyl/logs/:/app/storage/logs"
+    environment:
+      <<: [*panel-environment, *mail-environment]
+      DB_PASSWORD: *db-password
+      APP_ENV: "production"
+      APP_ENVIRONMENT_ONLY: "false"
+      CACHE_DRIVER: "redis"
+      SESSION_DRIVER: "redis"
+      QUEUE_DRIVER: "redis"
+      REDIS_HOST: "cache"
+      DB_HOST: "database"
+      DB_PORT: "3306"
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

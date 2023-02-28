@@ -1,6 +1,6 @@
-# homelab-ansible
+# home-ops
 
 Configures my homelab environment.
 
 ## Example
-`ansible-playbook site.yml`
+`cd ansible && ansible-playbook site.yml`

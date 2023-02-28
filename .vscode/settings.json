@@ -5,6 +5,8 @@
         "thefryer"
     ],
     "files.associations": {
-        "*.yml": "ansible"
+        "*.yml": "ansible",
+        "*.hcl.j2": "hcl",
+        "*.tpl": "hcl"
     }
 }

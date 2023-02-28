@@ -1,0 +1,42 @@
+---
+- name: Add Hashicorp apt repository key.
+  ansible.builtin.get_url:
+    url: "https://apt.releases.hashicorp.com/gpg"
+    dest: /usr/share/keyrings/hashicorp-archive-keyring.asc
+    mode: "0644"
+    force: true
+
+- name: Add Hashicorp apt repository.
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    filename: "hashicorp"
+    state: present
+    update_cache: true
+
+- name: Install consul
+  ansible.builtin.apt:
+    pkg:
+      - consul
+
+- name: Copy consul base config file
+  ansible.builtin.template:
+    src: consul.hcl.j2
+    dest: /etc/consul.d/consul.hcl
+    owner: consul
+    group: consul
+    mode: "0640"
+  notify: Restart consul
+
+- name: Ensure proper permissions
+  ansible.builtin.file:
+    path: /etc/consul.d
+    owner: consul
+    group: consul
+    recurse: true
+  notify: Restart consul
+
+- name: Enable consul
+  ansible.builtin.service:
+    name: consul
+    enabled: true
+    state: started

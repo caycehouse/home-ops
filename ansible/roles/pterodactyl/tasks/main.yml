@@ -1,0 +1,40 @@
+---
+- name: Ensure pterodactyl directory exists
+  ansible.builtin.file:
+    path: /root/pterodactyl
+    state: directory
+
+- name: Ensure docker-compose.yml is in place
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: /root/pterodactyl/docker-compose.yml
+
+- name: Ensure cert directory exists
+  ansible.builtin.file:
+    path: /etc/letsencrypt/live/{{ pterodactyl_panel_domain }}
+    state: directory
+    owner: root
+    group: root
+
+- name: Check if cert is already present
+  ansible.builtin.stat:
+    path: /etc/letsencrypt/live/{{ pterodactyl_panel_domain }}/fullchain.pem
+  register: pterodactyl_panel_cert
+
+- name: SSL cert is present
+  ansible.builtin.command: |
+    tailscale cert --cert-file="/etc/letsencrypt/live/{{ pterodactyl_panel_domain }}/fullchain.pem" --key-file="/etc/letsencrypt/live/{{ pterodactyl_panel_domain }}/privkey.pem" "{{ pterodactyl_panel_domain }}"
+  when: not pterodactyl_panel_cert.stat.exists
+
+- name: SSL cronjob is present
+  ansible.builtin.cron:
+    name: Pterodactyl Panel - SSL
+    job: cd /etc/letsencrypt/live/{{ pterodactyl_panel_domain }} && sudo tailscale cert --cert-file fullchain.pem --key-file privkey.pem {{ pterodactyl_panel_domain }}
+    minute: 0
+    hour: 23
+
+- name: Execute docker-compose file
+  community.docker.docker_compose:
+    project_src: /root/pterodactyl
+    pull: true
+    state: present

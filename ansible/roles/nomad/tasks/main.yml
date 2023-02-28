@@ -17,6 +17,7 @@
   ansible.builtin.apt:
     pkg:
       - nomad
+      - containernetworking-plugins
 
 - name: Copy nomad base config file
   ansible.builtin.template:

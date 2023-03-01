@@ -1,0 +1,43 @@
+---
+- name: Install on specific node
+  vars:
+    install_node: "houseco-1"
+  block:
+    - name: Create needed dir
+      when: inventory_hostname == install_node
+      ansible.builtin.file:
+        path: /var/data/config/heimdall
+        recurse: true
+        owner: 1000
+        group: 1000
+    - name: Deploy Stacks
+      when: inventory_hostname == play_hosts[0]
+      community.docker.docker_stack:
+        state: present
+        name: heimdall
+        compose:
+          - services:
+              heimdall:
+                image: lscr.io/linuxserver/heimdall:2.5.5
+                volumes:
+                  - /etc/localtime:/etc/localtime:ro
+                  - /var/data/config/heimdall:/config
+                networks:
+                  - traefik_public
+                deploy:
+                  mode: replicated
+                  replicas: 1
+                  labels:
+                    - "traefik.docker.network=traefik_public"
+                    - "traefik.http.routers.heimdall.rule=Host(`heimdall.caycehouse.com`)"
+                    - "traefik.http.routers.heimdall.entrypoints=https"
+                    - "traefik.http.services.heimdall.loadbalancer.server.port=80"
+                    - "traefik.enable=true"
+                  placement:
+                    constraints:
+                      - node.hostname == {{ install_node }}
+          - networks:
+              traefik_public:
+                external: true
+                driver_opts:
+                  com.docker.network.driver.mtu: 1280

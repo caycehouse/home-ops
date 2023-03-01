@@ -28,6 +28,7 @@
   hosts: swarm_nodes
   vars:
     pip_install_packages:
+      - docker
       - jsondiff
   vars_files: vault.yml
   roles:
@@ -38,6 +39,7 @@
     # Infrastructure Stacks
     - {role: portainer, tags: portainer}
     - {role: traefik, tags: traefik}
+    - {role: heimdall, tags: heimdall}
 
     # App Stacks
     - {role: miniflux, tags: miniflux}

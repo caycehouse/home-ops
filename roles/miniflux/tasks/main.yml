@@ -1,0 +1,49 @@
+---
+- name: Install on specific node
+  vars:
+    install_node: "houseco-3"
+  block:
+    - name: Create needed dir
+      when: inventory_hostname == install_node
+      ansible.builtin.file:
+        path: /var/data/miniflux/database
+        recurse: true
+
+    - name: Deploy Stacks
+      when: inventory_hostname == play_hosts[0]
+      community.docker.docker_stack:
+        state: present
+        name: miniflux
+        compose:
+          - services:
+              miniflux:
+                image: miniflux/miniflux:2.0.42
+                ports:
+                  - "80:8080"
+                environment:
+                  DATABASE_URL: postgres://{{ miniflux.postgres_user }}:{{ miniflux.postgres_password }}@db/miniflux?sslmode=disable
+                  RUN_MIGRATIONS: 1
+                  CREATE_ADMIN: 1
+                  ADMIN_USERNAME: "{{ miniflux.admin_username }}"
+                  ADMIN_PASSWORD: "{{ miniflux.admin_password }}"
+                healthcheck:
+                  test: ["CMD", "/usr/bin/miniflux", "-healthcheck", "auto"]
+                deploy:
+                  placement:
+                    constraints:
+                      - node.hostname == {{ install_node }}
+              db:
+                image: postgres:15
+                environment:
+                  POSTGRES_USER: "{{ miniflux.postgres_user }}"
+                  POSTGRES_PASSWORD: "{{ miniflux.postgres_password }}"
+                volumes:
+                  - /var/data/miniflux/database:/var/lib/postgresql/data
+                healthcheck:
+                  test: ["CMD", "pg_isready", "-U", "miniflux"]
+                  interval: 10s
+                  start_period: 30s
+                deploy:
+                  placement:
+                    constraints:
+                      - node.hostname == {{ install_node }}

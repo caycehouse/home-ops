@@ -37,6 +37,7 @@
 
     # Infrastructure Stacks
     - {role: portainer, tags: portainer}
+    - {role: traefik, tags: traefik}
 
     # App Stacks
     - {role: miniflux, tags: miniflux}

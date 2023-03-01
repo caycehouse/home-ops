@@ -2,6 +2,11 @@
     "cSpell.words": [
         "cleverhouse",
         "houseco",
-        "thefryer"
-    ]
+        "thefryer",
+        "tlsskipverify",
+        "traefik"
+    ],
+    "files.associations": {
+        "*.yml": "ansible"
+    }
 }

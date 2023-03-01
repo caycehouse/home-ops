@@ -18,8 +18,6 @@
           - services:
               miniflux:
                 image: miniflux/miniflux:2.0.42
-                ports:
-                  - "80:8080"
                 environment:
                   DATABASE_URL: postgres://{{ miniflux.postgres_user }}:{{ miniflux.postgres_password }}@db/miniflux?sslmode=disable
                   RUN_MIGRATIONS: 1
@@ -28,7 +26,16 @@
                   ADMIN_PASSWORD: "{{ miniflux.admin_password }}"
                 healthcheck:
                   test: ["CMD", "/usr/bin/miniflux", "-healthcheck", "auto"]
+                networks:
+                  - internal
+                  - traefik_public
                 deploy:
+                  labels:
+                    - "traefik.docker.network=traefik_public"
+                    - "traefik.http.routers.miniflux.rule=Host(`rss.caycehouse.com`)"
+                    - "traefik.http.routers.miniflux.entrypoints=https"
+                    - "traefik.http.services.miniflux.loadbalancer.server.port=8080"
+                    - "traefik.enable=true"
                   placement:
                     constraints:
                       - node.hostname == {{ install_node }}
@@ -43,7 +50,21 @@
                   test: ["CMD", "pg_isready", "-U", "miniflux"]
                   interval: 10s
                   start_period: 30s
+                networks:
+                  - internal
                 deploy:
                   placement:
                     constraints:
                       - node.hostname == {{ install_node }}
+          - networks:
+              traefik_public:
+                external: true
+                driver_opts:
+                  com.docker.network.driver.mtu: 1280
+              internal:
+                driver: overlay
+                driver_opts:
+                  com.docker.network.driver.mtu: 1280
+                ipam:
+                  config:
+                    - subnet: 172.16.22.0/24

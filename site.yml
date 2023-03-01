@@ -35,5 +35,8 @@
     - {role: geerlingguy.docker, tags: docker}
     - {role: docker-swarm, tags: docker-swarm}
 
-    # Docker Stacks after here.
+    # Infrastructure Stacks
+    - {role: portainer, tags: portainer}
+
+    # App Stacks
     - {role: miniflux, tags: miniflux}

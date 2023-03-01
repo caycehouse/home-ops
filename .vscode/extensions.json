@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "redhat.ansible",
-        "hashicorp.hcl"
+        "redhat.ansible"
     ]
 }

@@ -1,0 +1,42 @@
+# Example usage: ansible-playbook state.yml
+# This playbook deploys my whole homelab.
+
+---
+
+- name: Play for all machines
+  hosts: all
+  vars:
+    tailscale_args: "--ssh"
+  roles:
+    - {role: common, tags: common}
+    - {role: artis3n.tailscale, tags: tailscale}
+  vars_files: vault.yml
+
+- name: Play to add swap to needed machines
+  hosts: all,!proxmox_servers,!klipper
+  vars:
+    swap_file_size_mb: '8192'
+  roles:
+    - {role: geerlingguy.swap, tags: swap}
+
+- name: Play for proxmox machines
+  hosts: cupcakes
+  roles:
+    - {role: proxmox, tags: proxmox}
+
+- name: Play for docker swarm nodes
+  hosts: swarm_nodes
+  vars:
+    pip_install_packages:
+      - jsondiff
+  vars_files: vault.yml
+  roles:
+    - {role: geerlingguy.pip, tags: pip}
+    - {role: geerlingguy.docker, tags: docker}
+    - {role: docker-swarm, tags: docker-swarm}
+
+    # Infrastructure Stacks
+    - {role: portainer, tags: portainer}
+
+    # App Stacks
+    - {role: miniflux, tags: miniflux}

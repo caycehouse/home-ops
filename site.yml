@@ -46,3 +46,12 @@
     - {role: miniflux, tags: miniflux}
     - {role: monica, tags: monica}
     - {role: archisteamfarm, tags: archisteamfarm}
+
+    # TODO:
+    # - Duplicati
+    # - MC Servers
+    # - Satisfactory
+    # - Valheim
+    # - Foundry VTT
+    # - Excalidraw
+    # - vscode-server

@@ -37,8 +37,8 @@
     - {role: docker-swarm, tags: docker-swarm}
 
     # Infrastructure Stacks
-    - {role: portainer, tags: portainer}
     - {role: traefik, tags: traefik}
+    - {role: portainer, tags: portainer}
     - {role: prometheus, tags: prometheus}
     - {role: heimdall, tags: heimdall}
 

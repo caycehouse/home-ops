@@ -133,7 +133,7 @@
                     reservations:
                       memory: 128M
               cadvisor:
-                image: gcr.io/cadvisor/cadvisor:v0.47.0
+                image: gcr.io/cadvisor/cadvisor:v0.47.1
                 networks:
                   - internal
                 command: -logtostderr -docker_only

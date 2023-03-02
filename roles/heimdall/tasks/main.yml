@@ -18,7 +18,7 @@
         compose:
           - services:
               heimdall:
-                image: lscr.io/linuxserver/heimdall:2.5.5
+                image: lscr.io/linuxserver/heimdall:2021.11.28
                 volumes:
                   - /etc/localtime:/etc/localtime:ro
                   - /var/data/config/heimdall:/config

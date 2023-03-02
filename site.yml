@@ -44,3 +44,4 @@
 
     # App Stacks
     - {role: miniflux, tags: miniflux}
+    - {role: monica, tags: monica}

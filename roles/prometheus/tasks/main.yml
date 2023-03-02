@@ -64,7 +64,7 @@
                     reservations:
                       memory: 64M
               grafana:
-                image: grafana/grafana-oss:9.4.1
+                image: grafana/grafana-oss:9.4.2
                 networks:
                   - internal
                   - traefik_public

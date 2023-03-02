@@ -4,6 +4,9 @@ klipper
 [proxmox_servers]
 cupcakes
 
+[proxmox_vms]
+bakery
+
 [gsld:children]
 proxmox_servers
 proxmox_vms

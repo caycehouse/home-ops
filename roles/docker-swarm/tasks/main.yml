@@ -69,7 +69,7 @@
   register: ingress_mtu_set
 
 - name: Correct ingress overlay mtu
-  when: ingress_mtu_set.network.Options["com.docker.network.driver.mtu"] != "1280"
+  when: ingress_mtu_set.network.Options["com.docker.network.driver.mtu"] is undefined
   notify: Restart docker
   block:
     - name: Remove ingress overlay

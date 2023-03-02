@@ -8,3 +8,6 @@
   ansible.builtin.service:
     name: cron
     state: restarted
+
+- name: Reboot
+  ansible.builtin.reboot:

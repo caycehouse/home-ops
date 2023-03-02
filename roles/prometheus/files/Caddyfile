@@ -1,0 +1,7 @@
+{
+    auto_https off
+}
+
+:9323 {
+    reverse_proxy / 172.19.0.1:9323
+}

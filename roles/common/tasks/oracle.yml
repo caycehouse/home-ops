@@ -8,7 +8,4 @@
         owner: root
         group: root
         mode: "0644"
-      register: firewall_changed
-    - name: Reboot the server (if required).
-      ansible.builtin.reboot:
-      when: firewall_changed.rc != 0
+      notify: Reboot

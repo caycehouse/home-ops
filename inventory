@@ -2,12 +2,7 @@
 klipper
 
 [proxmox_servers]
-cupcakes template_vm_id=201
-
-[proxmox_vms]
-bakery
-dingdongs
-twinkies
+cupcakes
 
 [gsld:children]
 proxmox_servers
@@ -24,8 +19,6 @@ hostess
 cleverhouse-3
 
 [swarm_nodes]
-dingdongs
-twinkies
 houseco-1
 houseco-2
 houseco-3

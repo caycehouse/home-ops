@@ -26,6 +26,8 @@
                   TYPE: AUTO_CURSEFORGE
                   MEMORY: "4G"
                   USE_AIKAR_FLAGS: "true"
+                networks:
+                  - internal
                 volumes:
                   - /var/data/atm8:/data
                 healthcheck:

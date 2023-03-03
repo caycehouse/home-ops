@@ -48,6 +48,7 @@
     - {role: archisteamfarm, tags: archisteamfarm}
     - {role: oceanblock, tags: oceanblock}
     - {role: atm8, tags: atm8}
+    - {role: code-server, tags: code-server}
 
     # TODO:
     # - Duplicati
@@ -56,4 +57,3 @@
     # - Valheim
     # - Foundry VTT
     # - Excalidraw
-    # - vscode-server

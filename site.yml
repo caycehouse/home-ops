@@ -47,6 +47,7 @@
     - {role: monica, tags: monica}
     - {role: archisteamfarm, tags: archisteamfarm}
     - {role: oceanblock, tags: oceanblock}
+    - {role: atm8, tags: atm8}
 
     # TODO:
     # - Duplicati

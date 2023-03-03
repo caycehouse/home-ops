@@ -21,13 +21,17 @@
                 image: lscr.io/linuxserver/code-server:4.10.0
                 environment:
                   DOCKER_MODS: linuxserver/mods:code-server-python3
-                  TZ: America/New_York
                   PGID: 1000
                   PUID: 1000
+                  SUDO_PASSWORD: "{{ code_server.sudo_password }}"
+                  TZ: America/New_York
                 volumes:
                   - /var/data/config/code-server:/config
+                  - /dev/net/tun:/dev/net/tun
                 networks:
                   - traefik_public
+                cap_add:
+                  - NET_ADMIN
                 deploy:
                   mode: replicated
                   replicas: 1

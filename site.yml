@@ -46,6 +46,7 @@
     - {role: miniflux, tags: miniflux}
     - {role: monica, tags: monica}
     - {role: archisteamfarm, tags: archisteamfarm}
+    - {role: oceanblock, tags: oceanblock}
 
     # TODO:
     # - Duplicati

@@ -4,7 +4,7 @@
     - name: Perform a dist-upgrade (this may take a while).
       ansible.builtin.apt:
         upgrade: dist
-        update_cache: true
+        cache_valid_time: 3600
       ignore_unreachable: true
 
     - name: Check if a reboot is required.

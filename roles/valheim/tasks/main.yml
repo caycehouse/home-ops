@@ -1,0 +1,43 @@
+---
+- name: Install on specific node
+  vars:
+    install_node: "bakery"
+    valheim_config_dir: /var/data/config/valheim
+    valheim_runtime_dir: /var/data/runtime/valheim
+  block:
+    - name: Create needed dir
+      when: inventory_hostname == install_node
+      ansible.builtin.file:
+        path: "{{ item }}"
+        recurse: true
+      loop:
+        - "{{ valheim_config_dir }}"
+        - "{{ valheim_runtime_dir }}"
+    - name: Deploy Stacks
+      when: inventory_hostname == play_hosts[0]
+      community.docker.docker_stack:
+        state: present
+        name: valheim
+        compose:
+          - services:
+              valheim:
+                image: ghcr.io/lloesche/valheim-server
+                cap_add:
+                  - sys_nice
+                environment:
+                  SERVER_NAME: "The Fryer's Valheim Server"
+                  SERVER_PASS: "{{ valheim.server_pass }}"
+                  TZ: America/New_York
+                volumes:
+                  - "{{ valheim_config_dir }}:/config"
+                  - "{{ valheim_runtime_dir }}:/opt/valheim"
+                ports:
+                  - "2456-2457:2456-2457/udp"
+                  - "9001:9001/tcp"
+                stop_grace_period: 2m
+                deploy:
+                  mode: replicated
+                  replicas: 1
+                  placement:
+                    constraints:
+                      - node.hostname == {{ install_node }}

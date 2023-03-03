@@ -44,3 +44,11 @@
                   placement:
                     constraints:
                       - node.hostname == {{ install_node }}
+          - networks:
+              internal:
+                driver: overlay
+                driver_opts:
+                  com.docker.network.driver.mtu: 1280
+                ipam:
+                  config:
+                    - subnet: 172.16.25.0/24

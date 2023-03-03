@@ -26,6 +26,8 @@
                   MEMORY: "4G"
                   TYPE: FTBA
                   USE_AIKAR_FLAGS: "true"
+                networks:
+                  - internal
                 volumes:
                   - /var/data/oceanblock:/data
                 healthcheck:

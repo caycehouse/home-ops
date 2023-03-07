@@ -1,0 +1,60 @@
+clusterName: home-cluster
+talosVersion: v1.3.5
+kubernetesVersion: v1.26.1
+endpoint: https://192.168.6.65:6443
+allowSchedulingOnMasters: true
+nodes:
+  - hostname: kmaster1
+    ipAddress: 192.168.6.65
+    controlPlane: true
+    installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+  - hostname: kmaster2
+    ipAddress: 192.168.6.66
+    controlPlane: true
+    installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+  - hostname: kmaster3
+    ipAddress: 192.168.6.67
+    controlPlane: true
+    installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+
+controlPlane:
+  patches:
+    - |-
+      - op: add
+        path: /machine/kubelet/extraMounts
+        value:
+          - destination: /var/openebs/local
+            type: bind
+            source: /var/openebs/local
+            options:
+              - bind
+              - rshared
+              - rw
+      - op: add
+        path: /machine/install/extensions
+        value:
+          - image: ghcr.io/siderolabs/iscsi-tools:v0.1.1
+    - "@./kubespan-patch.yaml"
+
+workers:
+  patches:
+    - |-
+    - "@./kubespan-patch.yaml"

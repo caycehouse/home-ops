@@ -1,0 +1,22 @@
+---
+- name: Update APT cache and upgrade packages
+  block:
+    - name: Perform a dist-upgrade (this may take a while).
+      ansible.builtin.apt:
+        upgrade: dist
+        cache_valid_time: 3600
+      ignore_unreachable: true
+
+    - name: Check if a reboot is required.
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+        get_md5: false
+      register: reboot_required_file
+
+    - name: Reboot the server (if required).
+      ansible.builtin.reboot:
+      when: reboot_required_file.stat.exists and ("'proxmox_servers' not in group_names")
+
+    - name: Remove dependencies that are no longer required.
+      ansible.builtin.apt:
+        autoremove: true

@@ -1,0 +1,162 @@
+---
+- name: Install on specific node
+  vars:
+    install_node: "houseco-1"
+  block:
+    - name: Create prometheus dir
+      when: inventory_hostname == install_node
+      ansible.builtin.file:
+        path: /var/data/runtime/prometheus
+        recurse: true
+        owner: nobody
+
+    - name: Create needed dir
+      when: inventory_hostname == install_node
+      ansible.builtin.file:
+        path: /var/data/runtime/grafana
+        recurse: true
+        owner: 472
+
+    - name: Copy prometheus config
+      when: inventory_hostname == install_node
+      ansible.builtin.copy:
+        src: prometheus.yml
+        dest: /var/data/config/prometheus/
+        mode: "0600"
+        owner: nobody
+
+    - name: Copy Caddyfile
+      ansible.builtin.copy:
+        src: Caddyfile
+        dest: /var/data/config/prometheus/
+        mode: "0600"
+
+    - name: Ensure node-exporter directory exists
+      ansible.builtin.file:
+        path: /var/data/config/node-exporter
+        recurse: true
+
+    - name: Copy node-meta
+      ansible.builtin.template:
+        src: node-meta.prom.j2
+        dest: /var/data/config/node-exporter/node-meta.prom
+        mode: "0600"
+        owner: nobody
+
+    - name: Deploy Stacks
+      when: inventory_hostname == play_hosts[0]
+      community.docker.docker_stack:
+        state: present
+        name: prometheus
+        compose:
+          - services:
+              dockerd-exporter:
+                image: caddy:2.6.4
+                networks:
+                  - internal
+                volumes:
+                  - /var/data/config/prometheus/Caddyfile:/etc/caddy/Caddyfile
+                deploy:
+                  mode: global
+                  resources:
+                    limits:
+                      memory: 128M
+                    reservations:
+                      memory: 64M
+              grafana:
+                image: grafana/grafana-oss:9.4.2
+                networks:
+                  - internal
+                  - traefik_public
+                volumes:
+                  - /var/data/runtime/grafana:/var/lib/grafana
+                deploy:
+                  mode: replicated
+                  replicas: 1
+                  labels:
+                    - "traefik.docker.network=traefik_public"
+                    - "traefik.http.routers.grafana.rule=Host(`grafana.caycehouse.com`)"
+                    - "traefik.http.routers.grafana.entrypoints=https"
+                    - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+                    - "traefik.enable=true"
+                  placement:
+                    constraints:
+                      - node.role == manager
+                      - node.hostname == {{ install_node }}
+                  resources:
+                    limits:
+                      memory: 128M
+                    reservations:
+                      memory: 64M
+              node-exporter:
+                image: quay.io/prometheus/node-exporter:v1.5.0
+                command:
+                  - '--path.rootfs=/host'
+                  - '--collector.textfile.directory=/etc/node-exporter/'
+                  - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+                networks:
+                  - internal
+                volumes:
+                  - /var/data/config/node-exporter:/etc/node-exporter
+                  - /:/host:ro,rslave
+                deploy:
+                  mode: global
+                  resources:
+                    limits:
+                      memory: 128M
+                    reservations:
+                      memory: 64M
+              prometheus:
+                image: prom/prometheus:v2.42.0
+                networks:
+                  - internal
+                  - traefik_public
+                volumes:
+                  - /var/data/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+                  - /var/data/runtime/prometheus:/prometheus
+                deploy:
+                  mode: replicated
+                  replicas: 1
+                  labels:
+                    - "traefik.docker.network=traefik_public"
+                    - "traefik.http.routers.prometheus.rule=Host(`prometheus.caycehouse.com`)"
+                    - "traefik.http.routers.prometheus.entrypoints=https"
+                    - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+                    - "traefik.enable=true"
+                  placement:
+                    constraints:
+                      - node.role == manager
+                      - node.hostname == {{ install_node }}
+                  resources:
+                    limits:
+                      memory: 2048M
+                    reservations:
+                      memory: 128M
+              cadvisor:
+                image: gcr.io/cadvisor/cadvisor:v0.47.1
+                networks:
+                  - internal
+                command: -logtostderr -docker_only
+                volumes:
+                  - /var/run/docker.sock:/var/run/docker.sock:ro
+                  - /:/rootfs:ro
+                  - /var/run:/var/run
+                  - /sys:/sys:ro
+                  - /var/lib/docker/:/var/lib/docker:ro
+                deploy:
+                  mode: global
+                  resources:
+                    limits:
+                      memory: 128M
+                    reservations:
+                      memory: 64M
+          - networks:
+              traefik_public:
+                external: true
+              internal:
+                driver: overlay
+                driver_opts:
+                  com.docker.network.driver.mtu: 1280
+                ipam:
+                  config:
+                    - subnet: 172.16.29.0/24

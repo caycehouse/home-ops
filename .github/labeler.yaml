@@ -1,5 +1,0 @@
----
-area/github:
-  - ".github/**/*"
-area/kubernetes:
-  - "kubernetes/**/*"

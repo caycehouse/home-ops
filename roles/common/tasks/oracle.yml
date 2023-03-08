@@ -1,0 +1,11 @@
+---
+- name: Fix tailscale ingress on oracle cloud
+  block:
+    - name: Ensure pre-made firewall state is in place
+      ansible.builtin.copy:
+        src: rules.v4
+        dest: /etc/iptables/
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Reboot

@@ -1,0 +1,51 @@
+---
+- name: Install on specific node
+  vars:
+    install_node: "cleverhouse-1"
+  block:
+    - name: Create needed dir
+      when: inventory_hostname == install_node
+      ansible.builtin.file:
+        path: /var/data/config/code-server
+        recurse: true
+        owner: 1000
+        group: 1000
+    - name: Deploy Stacks
+      when: inventory_hostname == play_hosts[0]
+      community.docker.docker_stack:
+        state: present
+        name: code-server
+        compose:
+          - services:
+              code-server:
+                image: lscr.io/linuxserver/code-server:4.10.0
+                environment:
+                  DOCKER_MODS: linuxserver/mods:code-server-python3
+                  PGID: 1000
+                  PUID: 1000
+                  SUDO_PASSWORD: "{{ code_server.sudo_password }}"
+                  TZ: America/New_York
+                volumes:
+                  - /var/data/config/code-server:/config
+                  - /dev/net/tun:/dev/net/tun
+                networks:
+                  - traefik_public
+                cap_add:
+                  - NET_ADMIN
+                deploy:
+                  mode: replicated
+                  replicas: 1
+                  labels:
+                    - "traefik.docker.network=traefik_public"
+                    - "traefik.http.routers.code-server.rule=Host(`code-server.caycehouse.com`)"
+                    - "traefik.http.routers.code-server.entrypoints=https"
+                    - "traefik.http.services.code-server.loadbalancer.server.port=8443"
+                    - "traefik.enable=true"
+                  placement:
+                    constraints:
+                      - node.hostname == {{ install_node }}
+          - networks:
+              traefik_public:
+                external: true
+                driver_opts:
+                  com.docker.network.driver.mtu: 1280

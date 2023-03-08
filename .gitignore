@@ -1,12 +1,2 @@
-# Trash
+# macOS hidden files
 .DS_Store
-Thumbs.db
-talos/*/charts
-# k8s
-kubeconfig
-# vscode-sops
-.decrypted~*.yaml
-.config.env
-*.agekey
-*.pub
-*.key

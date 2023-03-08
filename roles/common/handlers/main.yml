@@ -1,0 +1,13 @@
+---
+- name: Restart sshd
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+
+- name: Restart cron
+  ansible.builtin.service:
+    name: cron
+    state: restarted
+
+- name: Reboot
+  ansible.builtin.reboot:

@@ -1,0 +1,88 @@
+---
+- name: Init the swarm on the first node
+  community.docker.docker_swarm:
+    state: present
+  register: docker_swarm_init
+  delegate_to: "{{ play_hosts[0] }}"
+  run_once: true
+
+- name: Set swarm facts
+  ansible.builtin.set_fact:
+    worker_token: "{{ docker_swarm_init.swarm_facts.JoinTokens.Worker }}"
+    manager_token: "{{ docker_swarm_init.swarm_facts.JoinTokens.Manager }}"
+    master_ip: "{{ hostvars[play_hosts[0]].ansible_tailscale0.ipv4.address }}"
+
+- name: When we have an even number of nodes
+  when: ansible_play_hosts | length is even
+  block:
+    - name: Join the swarm on the remaining nodes as a manager
+      community.docker.docker_swarm:
+        advertise_addr: "{{ ansible_tailscale0.ipv4.address }}"
+        remote_addrs: "{{ master_ip }}"
+        join_token: "{{ manager_token }}"
+        dispatcher_heartbeat_period: 120
+        state: join
+      when: (inventory_hostname != ansible_play_hosts[0]) and (inventory_hostname != ansible_play_hosts[-1])
+
+    - name: Join the swarm on the remaining node as a worker
+      community.docker.docker_swarm:
+        advertise_addr: "{{ ansible_tailscale0.ipv4.address }}"
+        remote_addrs: "{{ master_ip }}"
+        join_token: "{{ worker_token }}"
+        dispatcher_heartbeat_period: 120
+        state: join
+        force: true
+      when: (inventory_hostname == ansible_play_hosts[-1])
+
+- name: When we have an odd number of nodes
+  when: ansible_play_hosts | length is odd
+  block:
+    - name: Join the swarm on the remaining nodes as a manager
+      community.docker.docker_swarm:
+        advertise_addr: "{{ ansible_tailscale0.ipv4.address }}"
+        remote_addrs: "{{ master_ip }}"
+        join_token: "{{ manager_token }}"
+        dispatcher_heartbeat_period: 120
+        state: join
+      when: inventory_hostname != play_hosts[0]
+
+- name: Log into DockerHub (to avoid ratelimits)
+  community.docker.docker_login:
+    username: "{{ docker_hub_username }}"
+    password: "{{ docker_hub_password }}"
+  when:
+    - docker_hub_username is defined
+    - docker_hub_password is defined
+
+- name: Ensure daemon.json is in place
+  ansible.builtin.copy:
+    src: daemon.json
+    dest: /etc/docker/
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart docker
+
+- name: Get ingress overlay mtu
+  community.docker.docker_network_info:
+    name: ingress
+  register: ingress_mtu_set
+
+- name: Correct ingress overlay mtu
+  when: ingress_mtu_set.network.Options["com.docker.network.driver.mtu"] is undefined
+  notify: Restart docker
+  block:
+    - name: Remove ingress overlay
+      community.docker.docker_network:
+        name: ingress
+        state: absent
+        scope: "swarm"
+        force: true
+
+    - name: Ensure ingress overlay mtu is 1280
+      community.docker.docker_network:
+        name: ingress
+        driver: overlay
+        driver_options:
+          com.docker.network.driver.mtu: 1280
+        scope: "swarm"

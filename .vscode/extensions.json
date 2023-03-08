@@ -1,12 +1,6 @@
 {
-  "recommendations": [
-    "albert.TabOut",
-    "britesnow.vscode-toggle-quotes",
-    "fcrespo82.markdown-table-formatter",
-    "mitchdenny.ecdc",
-    "signageos.signageos-vscode-sops",
-    "will-stone.in-any-case",
-    "EditorConfig.editorconfig",
-    "PKief.material-icon-theme",
-  ]
+    "recommendations": [
+        "redhat.ansible",
+        "bungcip.better-toml"
+    ]
 }

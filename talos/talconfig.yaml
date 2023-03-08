@@ -3,6 +3,8 @@ talosVersion: v1.3.5
 kubernetesVersion: v1.26.1
 endpoint: https://192.168.6.65:6443
 allowSchedulingOnMasters: true
+cniConfig:
+  name: none
 nodes:
   - hostname: kmaster1
     ipAddress: 192.168.6.65

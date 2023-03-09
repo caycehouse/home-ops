@@ -1,0 +1,42 @@
+services:
+  miniflux:
+    image: miniflux/miniflux:2.0.42
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@db/miniflux?sslmode=disable
+      RUN_MIGRATIONS: 1
+      CREATE_ADMIN: 1
+      ADMIN_USERNAME: $MINIFLUX_USERNAME
+      ADMIN_PASSWORD: $MINIFLUX_PASSWORD
+    healthcheck:
+      test: [ "CMD", "/usr/bin/miniflux", "-healthcheck", "auto" ]
+    networks:
+      - internal
+      - traefik_public
+    labels:
+      - "traefik.docker.network=traefik_public"
+      - "traefik.http.routers.miniflux.rule=Host(`rss.caycehouse.com`)"
+      - "traefik.http.routers.miniflux.entrypoints=https"
+      - "traefik.http.services.miniflux.loadbalancer.server.port=8080"
+      - "traefik.enable=true"
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    volumes:
+      - miniflux:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "miniflux" ]
+      interval: 10s
+      start_period: 30s
+    networks:
+      - internal
+networks:
+  traefik_public:
+    external: true
+  internal:
+volumes:
+  miniflux:

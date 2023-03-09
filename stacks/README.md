@@ -7,7 +7,6 @@ Stacks to be deployed using the stacks feature inside of portainer. Env file exa
 - atm8
 - code-server
 - heimdall (or other dashboard)
-- monica
 - oceanblock
 - prometheus (or other monitoring)
 - satisfactory

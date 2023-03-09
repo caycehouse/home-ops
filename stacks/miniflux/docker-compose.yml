@@ -18,7 +18,7 @@ services:
     labels:
       - "traefik.docker.network=traefik_public"
       - "traefik.http.routers.miniflux.rule=Host(`rss.caycehouse.com`)"
-      - "traefik.http.routers.miniflux.entrypoints=https"
+      - "traefik.http.routers.miniflux.entrypoints=websecure"
       - "traefik.http.services.miniflux.loadbalancer.server.port=8080"
       - "traefik.enable=true"
   db:

@@ -7,6 +7,7 @@
         "traefik"
     ],
     "files.associations": {
-        "*.yml": "ansible"
+        "*.yml": "ansible",
+        "**/stacks/**/*.yml": "dockercompose"
     }
 }

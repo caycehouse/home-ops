@@ -24,36 +24,9 @@
   roles:
     - {role: proxmox, tags: proxmox}
 
-- name: Play for docker swarm nodes
-  hosts: swarm_nodes
-  vars:
-    pip_install_packages:
-      - docker
-      - jsondiff
+- name: Play for docker nodes
+  hosts: docker_nodes
   vars_files: vault.yml
   roles:
-    - {role: geerlingguy.pip, tags: pip}
     - {role: geerlingguy.docker, tags: docker}
-    - {role: docker-swarm, tags: docker-swarm}
-
-    # Infrastructure Stacks
-    - {role: traefik, tags: traefik}
     - {role: portainer, tags: portainer}
-    - {role: prometheus, tags: prometheus}
-    - {role: heimdall, tags: heimdall}
-
-    # App Stacks
-    - {role: miniflux, tags: miniflux}
-    - {role: monica, tags: monica}
-    - {role: archisteamfarm, tags: archisteamfarm}
-    - {role: oceanblock, tags: oceanblock}
-    - {role: atm8, tags: atm8}
-    - {role: code-server, tags: code-server}
-
-    # TODO:
-    # - Duplicati
-    # - MC Servers
-    # - Satisfactory
-    # - Valheim
-    # - Foundry VTT
-    # - Excalidraw

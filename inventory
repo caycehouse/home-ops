@@ -18,12 +18,17 @@ houseco-3
 
 [cleverhouse]
 cleverhouse-1
-hostess
+cleverhouse-2
 cleverhouse-3
 
-[swarm_nodes]
+[docker_nodes]
+bakery
 houseco-1
 houseco-2
 houseco-3
 cleverhouse-1
+cleverhouse-2
 cleverhouse-3
+
+[portainer_server]
+houseco-1

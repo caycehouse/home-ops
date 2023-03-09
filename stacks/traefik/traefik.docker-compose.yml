@@ -1,0 +1,47 @@
+services:
+  agent:
+    image: traefik:v2.9
+    container_name: traefik
+    command:
+      # - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - --providers.docker.network=traefik_public
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge=true"
+      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.provider=cloudflare"
+      - "--entrypoints.websecure.http.tls.certResolver=letsencrypt"
+      - --entryPoints.web.http.redirections.entryPoint.to=websecure
+      - --entryPoints.web.http.redirections.entryPoint.scheme=https
+      - --entryPoints.web.http.redirections.entrypoint.permanent=true
+      # - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesResolvers.letsencrypt.acme.email=cayce@caycehouse.com"
+      - "--certificatesResolvers.letsencrypt.acme.storage=acme/acme.json"
+    restart: always
+    environment:
+      CLOUDFLARE_EMAIL: $CLOUDFLARE_EMAIL
+      CLOUDFLARE_API_KEY: $CLOUDFLARE_API_KEY
+      NODENAME: $NODENAME
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/hostname:/etc/hostname:ro
+      - traefik_acme:/acme
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_public"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${NODENAME}.caycehouse.com`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+    networks:
+      - traefik_public
+networks:
+  traefik_public:
+    external: true
+volumes:
+  traefik_acme:

@@ -34,7 +34,7 @@ services:
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
     volumes:
-      - mysql:/var/lib/postgresql/data
+      - mysql:/var/lib/mysql
     networks:
       - internal
     restart: always

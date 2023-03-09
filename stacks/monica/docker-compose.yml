@@ -1,6 +1,6 @@
 services:
   monica:
-    image: monica:4.0.0
+    image: monica:4.0.0-alpine
     depends_on:
       - db
     environment:

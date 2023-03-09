@@ -1,0 +1,47 @@
+services:
+  monica:
+    image: monica:4.0.0
+    depends_on:
+      - db
+    environment:
+      APP_ENV: production
+      APP_KEY: $APP_KEY
+      DB_HOST: db
+      DB_DATABASE: monica
+      DB_USERNAME: $MYSQL_USER
+      DB_PASSWORD: $MYSQL_PASSWORD
+      LOG_CHANNEL: stderr
+      CACHE_DRIVER: database
+      SESSION_DRIVER: database
+      QUEUE_DRIVER: sync
+    volumes:
+      - data:/var/www/html/storage
+    networks:
+      - internal
+      - traefik_public
+    labels:
+      - "traefik.docker.network=traefik_public"
+      - "traefik.http.routers.monica.rule=Host(`monica.caycehouse.com`)"
+      - "traefik.http.routers.monica.entrypoints=websecure"
+      - "traefik.http.services.monica.loadbalancer.server.port=80"
+      - "traefik.enable=true"
+    restart: always
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_DATABASE: monica
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    volumes:
+      - mysql:/var/lib/postgresql/data
+    networks:
+      - internal
+    restart: always
+networks:
+  traefik_public:
+    external: true
+  internal:
+volumes:
+  data:
+  mysql:

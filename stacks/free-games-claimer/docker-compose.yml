@@ -4,8 +4,16 @@ services:
     image: ghcr.io/vogler/free-games-claimer@sha256:d437c3ea3d7a8b6eea0f7b91dd408eceef09420c57e4e7da38f8beae53f14ab7
     volumes:
       - fgc:/fgc/data
-    env_file:
-      - ../stack.env
+    environment:
+      - EMAIL=$EMAIL
+      - EG_PASSWORD=$EG_PASSWORD
+      - EG_OTPKEY=$EG_OTPKEY
+      - PG_PASSWORD=$PG_PASSWORD
+      - PG_OTPKEY=$PG_OTPKEY
+      - PG_REDEEM=1
+      - PG_CLAIMDLC=1
+      - GOG_PASSWORD=$GOG_PASSWORD
+      - NOTIFY=$NOTIFY
     networks:
       - traefik_public
     labels:

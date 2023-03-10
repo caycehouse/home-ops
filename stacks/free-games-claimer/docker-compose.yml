@@ -11,7 +11,6 @@ services:
       - PG_PASSWORD=$PG_PASSWORD
       - PG_OTPKEY=$PG_OTPKEY
       - PG_REDEEM=1
-      - PG_CLAIMDLC=1
       - GOG_PASSWORD=$GOG_PASSWORD
       - NOTIFY=$NOTIFY
     networks:

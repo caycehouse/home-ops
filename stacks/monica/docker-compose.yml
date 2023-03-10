@@ -14,6 +14,14 @@ services:
       CACHE_DRIVER: database
       SESSION_DRIVER: database
       QUEUE_DRIVER: sync
+      MAIL_MAILER: smtp
+      MAIL_HOST: smtp.sendgrid.net
+      MAIL_PORT: 587
+      MAIL_USERNAME: apikey
+      MAIL_PASSWORD: $MAIL_PASSWORD
+      MAIL_ENCRYPTION: tls
+      MAIL_FROM_ADDRESS: no-reply@homelab.caycehouse.com
+      MAIL_FROM_NAME: Monica
     volumes:
       - data:/var/www/html/storage
     networks:

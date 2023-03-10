@@ -1,7 +1,7 @@
 services:
   free-games-claimer:
     container_name: fgc
-    image: ghcr.io/vogler/free-games-claimer@sha256:d437c3ea3d7a8b6eea0f7b91dd408eceef09420c57e4e7da38f8beae53f14ab7
+    image: ghcr.io/vogler/free-games-claimer:latest@sha256:5159604eff840b75e75293f90c11f733d20ab4cab3d9f2369f2c3a854705cff0
     volumes:
       - fgc:/fgc/data
     environment:

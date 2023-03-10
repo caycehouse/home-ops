@@ -26,6 +26,9 @@
 
 - name: Play for docker nodes
   hosts: docker_nodes
+  vars:
+    docker_daemon_options:
+      mtu: 1280
   vars_files: vault.yml
   roles:
     - {role: geerlingguy.docker, tags: docker}

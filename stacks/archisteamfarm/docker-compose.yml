@@ -11,6 +11,7 @@ services:
       - "traefik.http.routers.archisteamfarm.entrypoints=websecure"
       - "traefik.http.services.archisteamfarm.loadbalancer.server.port=1242"
       - "traefik.enable=true"
+    restart: always
 networks:
   traefik_public:
     external: true

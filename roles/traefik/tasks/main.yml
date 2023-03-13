@@ -4,3 +4,24 @@
     name: traefik_public
     driver_options:
       com.docker.network.driver.mtu: 1280
+
+- name: Create Traefik folder.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/traefik"
+    state: directory
+    mode: "0755"
+  become: false
+  register: traefik_dir
+
+- name: Copy Traefik docker-compose template to server.
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "{{ traefik_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart traefik
+
+- name: Ensure Traefik is running.
+  community.docker.docker_compose:
+    project_src: "{{ traefik_dir.path }}/"
+  become: false

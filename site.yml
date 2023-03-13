@@ -37,6 +37,7 @@
     docker_users:
       - caycehouse
     config_dir: '~'
+  vars_files: vault.yml
   roles:
     - {role: geerlingguy.pip, tags: pip}
     - {role: geerlingguy.docker, tags: docker}

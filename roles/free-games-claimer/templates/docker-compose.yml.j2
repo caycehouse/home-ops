@@ -1,18 +1,21 @@
+# {{ ansible_managed }}
+---
+
 services:
   free-games-claimer:
     container_name: fgc
     image: ghcr.io/vogler/free-games-claimer:latest@sha256:5159604eff840b75e75293f90c11f733d20ab4cab3d9f2369f2c3a854705cff0
     volumes:
-      - fgc:/fgc/data
+      - ./fgc-data:/fgc/data
     environment:
-      - EMAIL=$EMAIL
-      - EG_PASSWORD=$EG_PASSWORD
-      - EG_OTPKEY=$EG_OTPKEY
-      - PG_PASSWORD=$PG_PASSWORD
-      - PG_OTPKEY=$PG_OTPKEY
+      - EMAIL={{ free_games_claimer.email }}
+      - EG_PASSWORD={{ free_games_claimer.eg_password }}
+      - EG_OTPKEY={{ free_games_claimer.eg_otpkey }}
+      - PG_PASSWORD={{ free_games_claimer.pg_password }}
+      - PG_OTPKEY={{ free_games_claimer.pg_otpkey }}
       - PG_REDEEM=1
-      - GOG_PASSWORD=$GOG_PASSWORD
-      - NOTIFY=$NOTIFY
+      - GOG_PASSWORD={{ free_games_claimer.gog_password }}
+      - NOTIFY={{ free_games_claimer.notify }}
     networks:
       - traefik_public
     labels:
@@ -24,5 +27,3 @@ services:
 networks:
   traefik_public:
     external: true
-volumes:
-  fgc:

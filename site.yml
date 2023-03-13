@@ -32,9 +32,22 @@
       - docker
       - docker-compose
     docker_daemon_options:
+      log-driver: "local"
       mtu: 1280
-  vars_files: vault.yml
+    docker_users:
+      - caycehouse
   roles:
     - {role: geerlingguy.pip, tags: pip}
     - {role: geerlingguy.docker, tags: docker}
+
+- name: Play for Portainer
+  hosts: houseco-1
+  vars:
+    config_dir: '~'
+  roles:
     - {role: portainer, tags: portainer}
+
+- name: Play for Portainer agent
+  hosts: docker_nodes
+  roles:
+    - {role: portainer-agent, tags: portainer_agent}

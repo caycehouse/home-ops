@@ -1,58 +1,21 @@
 ---
-- name: Create traefik_public network
-  community.docker.docker_network:
-    name: traefik_public
-    driver_options:
-      com.docker.network.driver.mtu: 1280
+- name: Create Portainer folder.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/portainer"
+    state: directory
+    mode: "0755"
+  become: false
+  register: portainer_dir
 
-- name: Start portainer server
-  community.docker.docker_compose:
-    project_name: portainer
-    definition:
-      services:
-        portainer:
-          image: portainer/portainer-ce:2.17.1-alpine
-          container_name: portainer
-          ports:
-            - "9443:9443"
-          volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock"
-            - "portainer_data:/data"
-          restart: always
-          labels:
-            - "traefik.enable=true"
-            - "traefik.docker.network=traefik_public"
-            - "traefik.http.routers.portainer.rule=Host(`portainer.caycehouse.com`)"
-            - "traefik.http.routers.portainer.entrypoints=websecure"
-            - "traefik.http.services.portainer.loadbalancer.server.port=9000"
-          networks:
-            - traefik_public
-      networks:
-        traefik_public:
-          external: true
-      volumes:
-        portainer_data:
-  when: "'portainer_server' in group_names"
+- name: Copy Portainer docker-compose template to server.
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "{{ portainer_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart portainer
 
-- name: Start portainer agent(s)
+- name: Ensure Portainer is running.
   community.docker.docker_compose:
-    project_name: portainer_agent
-    definition:
-      services:
-        portainer_agent:
-          image: portainer/agent:2.17.1-alpine
-          container_name: portainer_agent
-          networks:
-            - default
-          ports:
-            - "9001:9001"
-          volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock"
-            - "/var/lib/docker/volumes:/var/lib/docker/volumes"
-          restart: always
-      networks:
-        default:
-          driver: bridge
-          driver_opts:
-            com.docker.network.driver.mtu: 1280
-  when: "'portainer_server' not in group_names"
+    project_src: "{{ portainer_dir.path }}/"
+  become: false

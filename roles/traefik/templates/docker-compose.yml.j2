@@ -1,3 +1,6 @@
+# {{ ansible_managed }}
+---
+
 services:
   agent:
     image: traefik:v2.9
@@ -21,9 +24,8 @@ services:
       - "--certificatesResolvers.letsencrypt.acme.storage=acme/acme.json"
     restart: always
     environment:
-      CLOUDFLARE_EMAIL: $CLOUDFLARE_EMAIL
-      CLOUDFLARE_API_KEY: $CLOUDFLARE_API_KEY
-      NODENAME: $NODENAME
+      CLOUDFLARE_EMAIL: "{{ traefik.cloudflare_email }}"
+      CLOUDFLARE_API_KEY: "{{ traefik.cloudflare_api_key }}"
     ports:
       - "80:80"
       - "443:443"
@@ -31,11 +33,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/hostname:/etc/hostname:ro
-      - traefik_acme:/acme
+      - ./acme:/acme
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik_public"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.${NODENAME}.caycehouse.com`)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.{{ ansible_host }}.caycehouse.com`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
     networks:
@@ -43,5 +45,3 @@ services:
 networks:
   traefik_public:
     external: true
-volumes:
-  traefik_acme:

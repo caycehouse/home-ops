@@ -36,18 +36,17 @@
       mtu: 1280
     docker_users:
       - caycehouse
+    config_dir: '~'
   roles:
     - {role: geerlingguy.pip, tags: pip}
     - {role: geerlingguy.docker, tags: docker}
-
-- name: Play for Portainer
-  hosts: houseco-1
-  vars:
-    config_dir: '~'
-  roles:
-    - {role: portainer, tags: portainer}
-
-- name: Play for Portainer agent
-  hosts: docker_nodes
-  roles:
-    - {role: portainer-agent, tags: portainer_agent}
+  tasks:
+    - name: Include roles based on docker_compose_roles
+      ansible.builtin.include_role:
+        name: "{{ item }}"
+        apply:
+          tags:
+            - "{{ item }}"
+            - "compose"
+      tags: always
+      loop: "{{ docker_compose_roles }}"

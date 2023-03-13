@@ -22,13 +22,10 @@ cleverhouse-2
 cleverhouse-3
 
 [docker_nodes]
-bakery
+bakery docker_compose_roles='["portainer-agent"]'
 houseco-1
-houseco-2
-houseco-3
-cleverhouse-1
-cleverhouse-2
-cleverhouse-3
-
-[portainer_server]
-houseco-1
+houseco-2 docker_compose_roles='["portainer-agent"]'
+houseco-3 docker_compose_roles='["portainer-agent"]'
+cleverhouse-1 docker_compose_roles='["portainer-agent"]'
+cleverhouse-2 docker_compose_roles='["portainer-agent"]'
+cleverhouse-3 docker_compose_roles='["portainer-agent"]'

@@ -1,0 +1,29 @@
+# {{ ansible_managed }}
+---
+
+services:
+  portainer:
+    image: portainer/portainer-ce:2.17.0-alpine
+    container_name: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+    ports:
+      - "9443:9443"
+    networks:
+      - default
+      - traefik_public
+    labels:
+      - traefik.docker.network=traefik_public
+      - traefik.enable=true
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.routers.portainer.rule=Host(`portainer.caycehouse.com`)
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+    restart: always
+networks:
+  traefik_public:
+    external: true
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1280

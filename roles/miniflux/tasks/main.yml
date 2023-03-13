@@ -1,0 +1,21 @@
+---
+- name: Create Miniflux folder.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/miniflux"
+    state: directory
+    mode: "0755"
+  become: false
+  register: miniflux_dir
+
+- name: Copy Miniflux docker-compose template to server.
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "{{ miniflux_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart miniflux
+
+- name: Ensure Miniflux is running.
+  community.docker.docker_compose:
+    project_src: "{{ miniflux_dir.path }}/"
+  become: false

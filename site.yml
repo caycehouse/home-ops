@@ -16,6 +16,7 @@
   hosts: all,!proxmox_servers,!klipper
   vars:
     swap_file_size_mb: '8192'
+    swap_swappiness: '1'
   roles:
     - {role: geerlingguy.swap, tags: swap}
 
@@ -27,9 +28,13 @@
 - name: Play for docker nodes
   hosts: docker_nodes
   vars:
+    pip_install_packages:
+      - docker
+      - docker-compose
     docker_daemon_options:
       mtu: 1280
   vars_files: vault.yml
   roles:
+    - {role: geerlingguy.pip, tags: pip}
     - {role: geerlingguy.docker, tags: docker}
     - {role: portainer, tags: portainer}

@@ -25,7 +25,7 @@ cleverhouse-3
 bakery          docker_compose_roles='["traefik", "portainer-agent", "free-games-claimer"]'
 houseco-1
 houseco-2       docker_compose_roles='["traefik", "portainer-agent", "archisteamfarm"]'
-houseco-3       docker_compose_roles='["traefik", "portainer-agent"]'
+houseco-3       docker_compose_roles='["traefik", "portainer-agent", "miniflux"]'
 cleverhouse-1   docker_compose_roles='["portainer-agent"]'
 cleverhouse-2   docker_compose_roles='["portainer-agent"]'
 cleverhouse-3   docker_compose_roles='["portainer-agent"]'

@@ -1,3 +1,6 @@
+# {{ ansible_managed }}
+---
+
 services:
   miniflux:
     image: miniflux/miniflux:2.0.42
@@ -5,11 +8,11 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@db/miniflux?sslmode=disable
+      DATABASE_URL: postgres://{{ miniflux.postgres_user }}:{{ miniflux.postgres_password }}@db/miniflux?sslmode=disable
       RUN_MIGRATIONS: 1
       CREATE_ADMIN: 1
-      ADMIN_USERNAME: $MINIFLUX_USERNAME
-      ADMIN_PASSWORD: $MINIFLUX_PASSWORD
+      ADMIN_USERNAME: {{ miniflux.admin_username }}
+      ADMIN_PASSWORD: {{ miniflux.admin_password }}
     healthcheck:
       test: [ "CMD", "/usr/bin/miniflux", "-healthcheck", "auto" ]
     networks:
@@ -25,10 +28,10 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_USER: {{ miniflux.postgres_user }}
+      POSTGRES_PASSWORD: {{ miniflux.postgres_password }}
     volumes:
-      - miniflux:/var/lib/postgresql/data
+      - ./var-lib-postgresql-data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "miniflux" ]
       interval: 10s
@@ -40,5 +43,3 @@ networks:
   traefik_public:
     external: true
   internal:
-volumes:
-  miniflux:

@@ -1,0 +1,6 @@
+---
+- name: Restart portainer-agent
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/portainer-agent/"
+    restarted: true
+  become: false

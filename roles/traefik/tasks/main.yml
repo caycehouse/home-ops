@@ -1,0 +1,6 @@
+---
+- name: Create traefik_public network
+  community.docker.docker_network:
+    name: traefik_public
+    driver_options:
+      com.docker.network.driver.mtu: 1280

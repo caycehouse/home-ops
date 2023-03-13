@@ -3,10 +3,11 @@
 
 services:
   portainer:
-    image: portainer/portainer-ce:2.17.0-alpine
+    image: portainer/portainer-ce:2.17.1-alpine
     container_name: portainer
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/data
     ports:
       - "9443:9443"

@@ -10,6 +10,7 @@
 :OUTPUT ACCEPT [463:49013]
 :InstanceServices - [0:0]
 -A INPUT -i tailscale0 -j ACCEPT
+-A INPUT -s 172.16.0.0/12 -j ACCEPT
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT

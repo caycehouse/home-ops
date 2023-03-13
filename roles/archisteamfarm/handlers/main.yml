@@ -1,0 +1,6 @@
+---
+- name: Restart archisteamfarm
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/archisteamfarm/"
+    restarted: true
+  become: false

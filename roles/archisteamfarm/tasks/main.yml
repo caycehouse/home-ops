@@ -1,0 +1,21 @@
+---
+- name: Create ArchiSteamFarm folder.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/archisteamfarm"
+    state: directory
+    mode: "0755"
+  become: false
+  register: archisteamfarm_dir
+
+- name: Copy ArchiSteamFarm docker-compose template to server.
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "{{ archisteamfarm_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart archisteamfarm
+
+- name: Ensure ArchiSteamFarm is running.
+  community.docker.docker_compose:
+    project_src: "{{ archisteamfarm_dir.path }}/"
+  become: false

@@ -1,0 +1,6 @@
+---
+- name: Restart free-games-claimer
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/free-games-claimer/"
+    restarted: true
+  become: false

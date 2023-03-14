@@ -1,0 +1,6 @@
+---
+- name: Restart code-server
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/code-server/"
+    restarted: true
+  become: false

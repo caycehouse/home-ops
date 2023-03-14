@@ -8,5 +8,3 @@ Configures my homelab environment.
 ## TODO
 - atm8
 - prometheus (or other monitoring)
-- satisfactory
-- valheim

@@ -1,0 +1,6 @@
+---
+- name: Install Satisfactory
+  vars:
+    service: satisfactory
+  ansible.builtin.include_role:
+    name: service

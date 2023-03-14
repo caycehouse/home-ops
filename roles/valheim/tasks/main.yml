@@ -1,0 +1,6 @@
+---
+- name: Install Valheim
+  vars:
+    service: valheim
+  ansible.builtin.include_role:
+    name: service

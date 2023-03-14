@@ -1,0 +1,21 @@
+---
+- name: Create folder for {{ service }}
+  ansible.builtin.file:
+    path: "{{ config_dir }}/{{ service }}"
+    state: directory
+    mode: "0755"
+  become: false
+  register: service_dir
+
+- name: Copy docker-compose template to server for {{ service }}
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "{{ service_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart {{ service }}
+
+- name: Start {{ service }}
+  community.docker.docker_compose:
+    project_src: "{{ service_dir.path }}/"
+  become: false

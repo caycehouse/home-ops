@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+---
+
+services:
+  valheim:
+    image: ghcr.io/lloesche/valheim-server:latest@sha256:61c35feee7040e130ff8c4e9d6863efe66d751e3fc51e3a74ee1802ae135de53
+    cap_add:
+      - sys_nice
+    container_name: valheim
+    environment:
+      SERVER_NAME: "The Fryer's Valheim Server"
+      SERVER_PASS: "{{ valheim.server_pass }}"
+      TZ: America/New_York
+    networks:
+      - default
+    volumes:
+      - ./config:/config
+      - ./opt-valheim:/opt/valheim
+    ports:
+      - "2456-2457:2456-2457/udp"
+    stop_grace_period: 2m
+    restart: always
+networks:
+  default:
+    driver_opts:
+      com.docker.network.driver.mtu: 1280

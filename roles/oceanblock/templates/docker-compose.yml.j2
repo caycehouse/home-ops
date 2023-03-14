@@ -23,6 +23,7 @@ services:
       start_period: 5m
       interval: 5s
       retries: 20
+    restart: always
 networks:
   default:
     driver_opts:

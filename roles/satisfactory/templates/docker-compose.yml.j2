@@ -1,0 +1,24 @@
+# {{ ansible_managed }}
+---
+
+services:
+  satisfactory:
+    image: wolveix/satisfactory-server:v1.4.6
+    container_name: satisfactory
+    environment:
+      AUTOPAUSE: "false"
+      PGID: 1000
+      PUID: 1000
+    networks:
+      - default
+    volumes:
+      - ./config:/config
+    ports:
+      - 7777:7777/udp
+      - 15000:15000/udp
+      - 15777:15777/udp
+    restart: always
+networks:
+  default:
+    driver_opts:
+      com.docker.network.driver.mtu: 1280

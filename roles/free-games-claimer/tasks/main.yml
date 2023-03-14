@@ -1,24 +1,9 @@
 ---
-- name: Create free-games-claimer folder.
-  ansible.builtin.file:
-    path: "{{ config_dir }}/free-games-claimer"
-    state: directory
-    mode: "0755"
-  become: false
-  register: free_games_claimer_dir
-
-- name: Copy free-games-claimer docker-compose template to server.
-  ansible.builtin.template:
-    src: templates/docker-compose.yml.j2
-    dest: "{{ free_games_claimer_dir.path }}/docker-compose.yml"
-    mode: '0640'
-  become: false
-  notify: Restart free-games-claimer
-
-- name: Ensure free-games-claimer is running.
-  community.docker.docker_compose:
-    project_src: "{{ free_games_claimer_dir.path }}/"
-  become: false
+- name: Install free-games-claimer
+  vars:
+    service: free-games-claimer
+  ansible.builtin.include_role:
+    name: service
 
 - name: Set daily cron to run free-games-claimer.
   ansible.builtin.cron:

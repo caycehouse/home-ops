@@ -1,6 +1,0 @@
----
-- name: Restart portainer
-  community.docker.docker_compose:
-    project_src: "{{ config_dir }}/portainer/"
-    restarted: true
-  become: false

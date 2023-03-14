@@ -1,21 +1,6 @@
 ---
-- name: Create Portainer folder.
-  ansible.builtin.file:
-    path: "{{ config_dir }}/portainer"
-    state: directory
-    mode: "0755"
-  become: false
-  register: portainer_dir
-
-- name: Copy Portainer docker-compose template to server.
-  ansible.builtin.template:
-    src: templates/docker-compose.yml.j2
-    dest: "{{ portainer_dir.path }}/docker-compose.yml"
-    mode: '0640'
-  become: false
-  notify: Restart portainer
-
-- name: Ensure Portainer is running.
-  community.docker.docker_compose:
-    project_src: "{{ portainer_dir.path }}/"
-  become: false
+- name: Install Portainer
+  vars:
+    service: portainer
+  ansible.builtin.include_role:
+    name: service

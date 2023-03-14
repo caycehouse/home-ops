@@ -1,0 +1,176 @@
+# {{ ansible_managed }}
+---
+
+appConfig:
+  theme: crayola
+  layout: auto
+  iconSize: medium
+  language: en
+  hideComponents:
+    hideFooter: true
+pageInfo:
+  title: Dashy
+  description: ''
+  navLinks:
+    - title: GitHub
+      path: https://github.com/Lissy93/dashy
+      target: newtab
+    - title: Documentation
+      path: https://dashy.to/docs
+      target: newtab
+  footerText: ''
+sections:
+  - name: Automation
+    icon: fas fa-robot
+    items:
+      - title: ArchiSteamFarm
+        description: >-
+          C# application with primary purpose of farming Steam cards from
+          multiple accounts simultaneously.
+        icon: >-
+          https://raw.githubusercontent.com/JustArchiNET/ArchiSteamFarm/main/resources/ASF_184x184.png
+        url: https://asf.caycehouse.com
+        statusCheck: true
+        id: 0_1057_archisteamfarm
+      - title: Free Games Claimer
+        description: >-
+          Automatically claims free games on the Epic Games Store, Amazon Prime
+          Gaming and GOG.
+        icon: >-
+          https://user-images.githubusercontent.com/493741/214589922-093d6557-6393-421c-b577-da58ff3671bc.png
+        url: https://fgc.caycehouse.com
+        statusCheck: true
+        id: 1_1057_freegamesclaimer
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+  - name: Game Servers
+    icon: fas fa-gamepad
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Oceanblock
+        description: >-
+          OceanBlock is a new unique modpack created by the FTB Team inspired by
+          the countless island-based modpacks.
+        icon: >-
+          https://www.feed-the-beast.com/_next/image?url=https%3A%2F%2Fapps.modpacks.ch%2Fmodpacks%2Fart%2F87%2Flogo.png&w=256&q=100
+        url: cleverhouse-1:25565
+        target: clipboard
+        id: 0_1156_oceanblock
+      - title: Satisfactory
+        description: A Dockerized version of the Satisfactory dedicated server
+        icon: https://icon.horse/icon/www.satisfactorygame.com
+        url: bakery:7777
+        target: clipboard
+        id: 1_1156_satisfactory
+      - title: Valheim
+        description: >-
+          Valheim dedicated gameserver with automatic update, World backup,
+          BepInEx and ValheimPlus support
+        icon: https://icon.horse/icon/www.valheimgame.com
+        url: bakery:2456
+        target: clipboard
+        id: 2_1156_valheim
+  - name: News
+    icon: fas fa-newspaper
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Miniflux
+        description: Miniflux is a minimalist and opinionated feed reader.
+        icon: https://icon.horse/icon/miniflux.app
+        url: https://rss.caycehouse.com
+        statusCheck: true
+        id: 0_413_miniflux
+  - name: Traefik
+    icon: fas fa-globe
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: bakery
+        description: Cloud Native Networking Platform
+        icon: >-
+          https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png
+        url: https://traefik.bakery.caycehouse.com
+        statusCheck: true
+        id: 0_710_bakery
+      - title: houseco-1
+        description: Cloud Native Networking Platform
+        icon: >-
+          https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png
+        url: https://traefik.houseco-1.caycehouse.com
+        statusCheck: true
+        id: 1_710_houseco
+      - title: houseco-2
+        description: Cloud Native Networking Platform
+        icon: >-
+          https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png
+        url: https://traefik.houseco-2.caycehouse.com
+        statusCheck: true
+        id: 2_710_houseco
+      - title: houseco-3
+        description: Cloud Native Networking Platform
+        icon: >-
+          https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png
+        url: https://traefik.houseco-3.caycehouse.com
+        statusCheck: true
+        id: 3_710_houseco
+      - title: cleverhouse-1
+        description: Cloud Native Networking Platform
+        icon: >-
+          https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png
+        url: https://traefik.cleverhouse-1.caycehouse.com
+        statusCheck: true
+        id: 4_710_cleverhouse
+  - name: Management
+    icon: fas fa-tasks
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Portainer
+        description: Container management software
+        icon: https://icon.horse/icon/www.portainer.io
+        url: https://portainer.caycehouse.com
+        id: 0_1021_portainer
+        statusCheck: true
+  - name: Productivity
+    icon: fas fa-chart-line
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Monica
+        description: Open source personal CRM
+        icon: https://icon.horse/icon/www.monicahq.com
+        url: https://monica.caycehouse.com
+        statusCheck: true
+        id: 0_1302_monica
+      - title: code-server
+        description: Self-Hosted Remote Development Platform
+        icon: https://icon.horse/icon/coder.com
+        url: https://code-server.caycehouse.com
+        statusCheck: true
+        id: 1_1302_codeserver

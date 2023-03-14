@@ -1,0 +1,31 @@
+# {{ ansible_managed }}
+---
+
+services:
+  dashy:
+    image: lissy93/dashy:2.1.1
+    container_name: Dashy
+    volumes:
+      - ./app-public:/app/public
+    networks:
+      - traefik_public
+    environment:
+      - NODE_ENV=production
+      - UID=1002
+      - GID=1002
+    restart: always
+    healthcheck:
+      test: [ 'CMD', 'node', '/app/services/healthcheck' ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.docker.network=traefik_public"
+      - "traefik.http.routers.dashy.rule=Host(`dashy.caycehouse.com`)"
+      - "traefik.http.routers.dashy.entrypoints=websecure"
+      - "traefik.http.services.dashy.loadbalancer.server.port=80"
+      - "traefik.enable=true"
+networks:
+  traefik_public:
+    external: true

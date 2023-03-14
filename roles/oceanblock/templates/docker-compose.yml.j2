@@ -1,0 +1,29 @@
+# {{ ansible_managed }}
+---
+
+services:
+  oceanblock:
+    image: itzg/minecraft-server:2023.1.0-java8-multiarch
+    container_name: oceanblock
+    ports:
+      - 25565:25565
+    environment:
+      EULA: "TRUE"
+      FTB_MODPACK_ID: "91"
+      FTB_MODPACK_VERSION_ID: "2245"
+      MEMORY: "4G"
+      TYPE: FTBA
+      USE_AIKAR_FLAGS: "true"
+    networks:
+      - default
+    volumes:
+      - ./data:/data
+    healthcheck:
+      test: mc-health
+      start_period: 5m
+      interval: 5s
+      retries: 20
+networks:
+  default:
+    driver_opts:
+      com.docker.network.driver.mtu: 1280

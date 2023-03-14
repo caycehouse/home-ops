@@ -1,0 +1,6 @@
+---
+- name: Install Oceanblock
+  vars:
+    service: oceanblock
+  ansible.builtin.include_role:
+    name: service

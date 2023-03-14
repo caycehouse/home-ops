@@ -4,3 +4,4 @@ docker_compose_roles:
   - portainer
   - portainer-agent
   - dashy
+  - oceanblock

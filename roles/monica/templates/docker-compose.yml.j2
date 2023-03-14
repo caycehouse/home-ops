@@ -1,3 +1,6 @@
+# {{ ansible_managed }}
+---
+
 services:
   monica:
     image: monica:4.0.0
@@ -5,11 +8,11 @@ services:
       - db
     environment:
       APP_ENV: production
-      APP_KEY: $APP_KEY
+      APP_KEY: {{ monica.app_key }}
       DB_HOST: db
       DB_DATABASE: monica
-      DB_USERNAME: $MYSQL_USER
-      DB_PASSWORD: $MYSQL_PASSWORD
+      DB_USERNAME: {{ monica.mysql_user }}
+      DB_PASSWORD: {{ monica.mysql_password }}
       LOG_CHANNEL: stderr
       CACHE_DRIVER: database
       SESSION_DRIVER: database
@@ -18,14 +21,14 @@ services:
       MAIL_HOST: smtp.sendgrid.net
       MAIL_PORT: 587
       MAIL_USERNAME: apikey
-      MAIL_PASSWORD: $MAIL_PASSWORD
+      MAIL_PASSWORD: {{ monica.mail_password }}
       MAIL_ENCRYPTION: tls
       MAIL_FROM_ADDRESS: no-reply@homelab.caycehouse.com
       MAIL_FROM_NAME: Monica
     volumes:
-      - data:/var/www/html/storage
+      - ./var-www-html-storage:/var/www/html/storage
     networks:
-      - internal
+      - default
       - traefik_public
     labels:
       - "traefik.docker.network=traefik_public"
@@ -39,17 +42,14 @@ services:
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "true"
       MYSQL_DATABASE: monica
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_USER: {{ monica.mysql_user }}
+      MYSQL_PASSWORD: {{ monica.mysql_password }}
     volumes:
-      - mysql:/var/lib/mysql
+      - ./var-lib-mysql:/var/lib/mysql
     networks:
-      - internal
+      - default
     restart: always
 networks:
   traefik_public:
     external: true
-  internal:
-volumes:
-  data:
-  mysql:
+  default:

@@ -7,9 +7,6 @@ Configures my homelab environment.
 
 ## TODO
 - atm8
-- code-server
-- heimdall (or other dashboard)
-- oceanblock
 - prometheus (or other monitoring)
 - satisfactory
 - valheim

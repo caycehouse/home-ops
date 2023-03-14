@@ -3,3 +3,4 @@ docker_compose_roles:
   - traefik
   - portainer
   - portainer-agent
+  - dashy

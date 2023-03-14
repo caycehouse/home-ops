@@ -1,0 +1,6 @@
+---
+- name: Install Dashy
+  vars:
+    service: dashy
+  ansible.builtin.include_role:
+    name: service

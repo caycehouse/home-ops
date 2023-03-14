@@ -1,6 +1,0 @@
----
-- name: Restart monica
-  community.docker.docker_compose:
-    project_src: "{{ config_dir }}/monica/"
-    restarted: true
-  become: false

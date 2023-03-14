@@ -1,6 +1,0 @@
----
-- name: Restart miniflux
-  community.docker.docker_compose:
-    project_src: "{{ config_dir }}/miniflux/"
-    restarted: true
-  become: false

@@ -1,0 +1,21 @@
+---
+- name: Create Monica folder.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/monica"
+    state: directory
+    mode: "0755"
+  become: false
+  register: monica_dir
+
+- name: Copy Monica docker-compose template to server.
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "{{ monica_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart monica
+
+- name: Ensure Monica is running.
+  community.docker.docker_compose:
+    project_src: "{{ monica_dir.path }}/"
+  become: false

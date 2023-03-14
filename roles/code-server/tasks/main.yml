@@ -1,0 +1,21 @@
+---
+- name: Create code-server folder.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/code-server"
+    state: directory
+    mode: "0755"
+  become: false
+  register: code_server_dir
+
+- name: Copy code-server docker-compose template to server.
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "{{ code_server_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart code-server
+
+- name: Ensure code-server is running.
+  community.docker.docker_compose:
+    project_src: "{{ code_server_dir.path }}/"
+  become: false

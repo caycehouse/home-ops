@@ -4,3 +4,10 @@
     service: dashy
   ansible.builtin.include_role:
     name: service
+
+- name: Copy conf.yml
+  ansible.builtin.template:
+    src: conf.yml.j2
+    dest: "{{ service_dir.path }}/app-public/conf.yml"
+    mode: "0600"
+  notify: Restart dashy

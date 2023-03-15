@@ -4,3 +4,21 @@
     service: archisteamfarm
   ansible.builtin.include_role:
     name: service
+
+- name: Copy IPC.config to server
+  ansible.builtin.copy:
+    src: IPC.config
+    dest: "{{ service_dir.path }}/app-config"
+    mode: "0600"
+    owner: 1000
+    group: 1000
+  notify: Restart archisteamfarm
+
+- name: Copy ASF.json to server
+  ansible.builtin.template:
+    src: ASF.json.j2
+    dest: "{{ service_dir.path }}/app-config/ASF.json"
+    mode: "0600"
+    owner: 1000
+    group: 1000
+  notify: Restart archisteamfarm

@@ -1,5 +1,17 @@
-- name: Run playbook
-  uses: dawidd6/action-ansible-playbook@v2
-  with:
-    playbook: site.yml
-    key: ${{secrets.SSH_PRIVATE_KEY}}
+name: Deploy with Ansible
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: site.yml
+          key: ${{secrets.SSH_PRIVATE_KEY}}

@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      
+concurrency: ci
 
 jobs:
   deploy:

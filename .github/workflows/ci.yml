@@ -35,5 +35,4 @@ jobs:
         with:
           playbook: site.yml
           requirements: requirements.yml
-          key: ${{secrets.SSH_PRIVATE_KEY}}
           vault_password: ${{secrets.VAULT_PASSWORD}}

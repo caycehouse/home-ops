@@ -3,7 +3,8 @@
 
 services:
   miniflux:
-    image: miniflux/miniflux:2.0.42
+    image: miniflux/miniflux:2.0.43
+    container_name: miniflux
     depends_on:
       db:
         condition: service_healthy
@@ -27,6 +28,7 @@ services:
     restart: always
   db:
     image: postgres:15
+    container_name: postgres
     environment:
       POSTGRES_USER: {{ miniflux.postgres_user }}
       POSTGRES_PASSWORD: {{ miniflux.postgres_password }}

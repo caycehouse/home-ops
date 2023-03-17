@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Check out source code
         uses: actions/checkout@v2
+      - name: Tailscale
+        uses: tailscale/github-action@v1
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:

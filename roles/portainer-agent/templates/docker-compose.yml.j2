@@ -3,7 +3,7 @@
 
 services:
   portainer_agent:
-    image: portainer/agent:2.17.1-alpine
+    image: portainer/agent:2.17.1-alpine@sha256:572bdb97113b64d4fd0eb37528814480b4c0169c02044335c63c9cd44f2c25c5
     container_name: portainer_agent
     volumes:
       - /var/lib/docker/volumes:/var/lib/docker/volumes

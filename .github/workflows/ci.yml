@@ -13,9 +13,9 @@ jobs:
 
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
       - name: Tailscale
-        uses: tailscale/github-action@main
+        uses: tailscale/github-action@ce41a99162202a647a4b24c30c558a567b926709
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
           version: 1.38.1
@@ -31,7 +31,7 @@ jobs:
             sudo echo "100.89.62.93 cleverhouse-2" | sudo tee -a /etc/hosts
             sudo echo "100.121.106.98 cleverhouse-3" | sudo tee -a /etc/hosts
       - name: Run playbook
-        uses: dawidd6/action-ansible-playbook@v2
+        uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1
         with:
           playbook: site.yml
           requirements: requirements.yml

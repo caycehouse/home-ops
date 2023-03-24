@@ -3,7 +3,7 @@
 
 services:
   monica:
-    image: monica:4.0.0
+    image: monica:4.0.0@sha256:4e452f428846a71dae039ec5e7a6fae60312e27875d8a8fcfddabba441dc7417
     depends_on:
       - db
     environment:
@@ -38,7 +38,7 @@ services:
       - "traefik.enable=true"
     restart: always
   db:
-    image: mysql:8.0
+    image: mysql:8.0@sha256:ca114710bb35b862062fd51733a7dba1ba3e93be33e4eede442b0ce15c77b718
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "true"
       MYSQL_DATABASE: monica

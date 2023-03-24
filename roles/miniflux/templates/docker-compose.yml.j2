@@ -3,7 +3,7 @@
 
 services:
   miniflux:
-    image: miniflux/miniflux:2.0.43-distroless
+    image: miniflux/miniflux:2.0.43-distroless@sha256:203aa96b3e120d00faceee0698feb9cb2c8aa9a6082bfe8a5170327dbe45dcd9
     container_name: miniflux
     depends_on:
       db:
@@ -27,7 +27,7 @@ services:
       - "traefik.enable=true"
     restart: always
   db:
-    image: postgres:15
+    image: postgres:15@sha256:44ff1c71ec6b29232d51cfe15a86cd9827d9e254a95aa1f7a341299fc30261c5
     container_name: postgres
     environment:
       POSTGRES_USER: {{ miniflux.postgres_user }}

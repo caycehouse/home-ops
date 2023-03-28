@@ -27,7 +27,7 @@ services:
       - "traefik.enable=true"
     restart: always
   db:
-    image: postgres:15@sha256:9e3b538a581247a22f8e452d1b797373bb3e1bfae6e3273e9c49b637e080c797
+    image: postgres:15@sha256:aefa264a224ed48c4ec456646e3942f3145a9b35b5f7e112175bc2b9d128b199
     container_name: postgres
     environment:
       POSTGRES_USER: {{ miniflux.postgres_user }}

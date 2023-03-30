@@ -1,0 +1,6 @@
+---
+- name: Install changedetection
+  vars:
+    service: changedetection
+  ansible.builtin.include_role:
+    name: service

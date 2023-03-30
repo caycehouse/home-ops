@@ -8,6 +8,7 @@ services:
       - sys_nice
     container_name: valheim
     environment:
+      SERVER_ARGS: "-crossplay"
       SERVER_NAME: "The Fryer's Valheim Server"
       SERVER_PASS: "{{ valheim.server_pass }}"
       TZ: America/New_York
@@ -16,8 +17,6 @@ services:
     volumes:
       - ./config:/config
       - ./opt-valheim:/opt/valheim
-    ports:
-      - "2456-2457:2456-2457/udp"
     stop_grace_period: 2m
     restart: always
 networks:

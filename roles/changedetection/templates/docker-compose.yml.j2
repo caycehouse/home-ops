@@ -6,7 +6,10 @@ services:
     image: ghcr.io/dgtlmoon/changedetection.io:0.41@sha256:6eea7f213d35c8e6155d1aa462a1c1180b5fa16c46b8988a6201d6aa93829a54
     container_name: changedetection
     hostname: changedetection
+    environment:
+      - PLAYWRIGHT_DRIVER_URL=ws://playwright-chrome:3000/?stealth=1&--disable-web-security=true
     networks:
+      - default
       - traefik_public
     volumes:
       - ./datastore:/datastore
@@ -17,6 +20,15 @@ services:
       - "traefik.http.routers.changedetection.entrypoints=websecure"
       - "traefik.http.services.changedetection.loadbalancer.server.port=5000"
       - "traefik.enable=true"
+
+playwright-chrome:
+  hostname: playwright-chrome
+  image: browserless/chrome:latest
+  networks:
+    - default
+  restart: always
+
 networks:
+  default:
   traefik_public:
     external: true

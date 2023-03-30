@@ -6,6 +6,8 @@ services:
     image: ghcr.io/dgtlmoon/changedetection.io:0.41
     container_name: changedetection
     hostname: changedetection
+    networks:
+      - traefik_public
     volumes:
       - ./datastore:/datastore
     restart: always
@@ -15,3 +17,6 @@ services:
       - "traefik.http.routers.changedetection.entrypoints=websecure"
       - "traefik.http.services.changedetection.loadbalancer.server.port=5000"
       - "traefik.enable=true"
+networks:
+  traefik_public:
+    external: true

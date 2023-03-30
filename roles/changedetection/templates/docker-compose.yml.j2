@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+---
+
+services:
+  changedetection:
+    image: ghcr.io/dgtlmoon/changedetection.io:0.41
+    container_name: changedetection
+    hostname: changedetection
+    volumes:
+      - ./datastore:/datastore
+    restart: always
+    labels:
+      - "traefik.docker.network=traefik_public"
+      - "traefik.http.routers.changedetection.rule=Host(`changedetection.caycehouse.com`)"
+      - "traefik.http.routers.changedetection.entrypoints=websecure"
+      - "traefik.http.services.changedetection.loadbalancer.server.port=5000"
+      - "traefik.enable=true"

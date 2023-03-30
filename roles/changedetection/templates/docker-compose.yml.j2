@@ -20,10 +20,27 @@ services:
       - "traefik.http.routers.changedetection.entrypoints=websecure"
       - "traefik.http.services.changedetection.loadbalancer.server.port=5000"
       - "traefik.enable=true"
+    depends_on:
+      playwright-chrome:
+        condition: service_started
 
   playwright-chrome:
     hostname: playwright-chrome
     image: browserless/chrome:latest
+    environment:
+      - SCREEN_WIDTH=1920
+      - SCREEN_HEIGHT=1024
+      - SCREEN_DEPTH=16
+      - ENABLE_DEBUGGER=false
+      - PREBOOT_CHROME=true
+      - CONNECTION_TIMEOUT=300000
+      - MAX_CONCURRENT_SESSIONS=10
+      - CHROME_REFRESH_TIME=600000
+      - DEFAULT_BLOCK_ADS=true
+      - DEFAULT_STEALTH=true
+
+      # Ignore HTTPS errors, like for self-signed certs
+      - DEFAULT_IGNORE_HTTPS_ERRORS=true
     networks:
       - default
     restart: always

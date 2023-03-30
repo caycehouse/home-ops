@@ -21,12 +21,12 @@ services:
       - "traefik.http.services.changedetection.loadbalancer.server.port=5000"
       - "traefik.enable=true"
 
-playwright-chrome:
-  hostname: playwright-chrome
-  image: browserless/chrome:latest
-  networks:
-    - default
-  restart: always
+  playwright-chrome:
+    hostname: playwright-chrome
+    image: browserless/chrome:latest
+    networks:
+      - default
+    restart: always
 
 networks:
   default:

@@ -18,7 +18,7 @@ jobs:
         uses: tailscale/github-action@ce41a99162202a647a4b24c30c558a567b926709
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          version: 1.38.1
+          version: 1.38.3
       - name: Add hosts to /etc/hosts
         run: |
             sudo echo "100.110.210.21 klipper" | sudo tee -a /etc/hosts

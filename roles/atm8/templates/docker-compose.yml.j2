@@ -8,10 +8,11 @@ services:
     ports:
       - 25565:25565
     environment:
-      EULA: "TRUE"
+      CF_API_KEY: "{{ cf_api_key }}"
       CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-8
-      CF_FILENAME_MATCHER: "1.0.13"
-      MEMORY: "4G"
+      CF_FILENAME_MATCHER: "1.0.15"
+      EULA: "true"
+      MEMORY: 4G
       TYPE: AUTO_CURSEFORGE
       USE_AIKAR_FLAGS: "true"
     networks:

@@ -1,6 +1,0 @@
----
-- name: Install serge
-  vars:
-    service: serge
-  ansible.builtin.include_role:
-    name: service

@@ -11,10 +11,15 @@ services:
       CF_API_KEY: "{{ cf_api_key }}"
       CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-8
       CF_FILENAME_MATCHER: "1.0.15"
+      ENABLE_ROLLING_LOGS: "true"
       EULA: "true"
       MEMORY: 4G
       TYPE: AUTO_CURSEFORGE
+      TZ: "America/New_York"
       USE_AIKAR_FLAGS: "true"
+      VERSION:
+    tty: true
+    stdin_open: true
     networks:
       - default
     volumes:

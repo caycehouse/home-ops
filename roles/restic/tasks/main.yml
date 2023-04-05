@@ -1,0 +1,6 @@
+---
+- name: Install restic
+  vars:
+    service: restic
+  ansible.builtin.include_role:
+    name: service

@@ -22,10 +22,10 @@ cleverhouse-2
 cleverhouse-3
 
 [docker_nodes]
-bakery          docker_compose_roles='["traefik", "portainer-agent", "free-games-claimer", "satisfactory", "valheim", "changedetection"]'
+bakery          docker_compose_roles='["traefik", "portainer-agent", "restic", "free-games-claimer", "satisfactory", "valheim", "changedetection"]'
 houseco-1
-houseco-2       docker_compose_roles='["traefik", "portainer-agent", "archisteamfarm"]'
-houseco-3       docker_compose_roles='["traefik", "portainer-agent", "miniflux", "monica"]'
-cleverhouse-1   docker_compose_roles='["traefik", "portainer-agent", "code-server", "atm8"]'
-cleverhouse-2   docker_compose_roles='["portainer-agent"]'
-cleverhouse-3   docker_compose_roles='["portainer-agent"]'
+houseco-2       docker_compose_roles='["traefik", "portainer-agent", "restic", "archisteamfarm"]'
+houseco-3       docker_compose_roles='["traefik", "portainer-agent", "restic", "miniflux", "monica"]'
+cleverhouse-1   docker_compose_roles='["traefik", "portainer-agent", "restic", "code-server", "atm8"]'
+cleverhouse-2   docker_compose_roles='["portainer-agent", "restic"]'
+cleverhouse-3   docker_compose_roles='["portainer-agent", "restic"]'

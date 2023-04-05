@@ -1,0 +1,50 @@
+# {{ ansible_managed }}
+---
+
+services:
+  backup:
+    image: mazzolino/restic:1.7
+    hostname: "{{ ansible_host }}"
+    restart: unless-stopped
+    environment:
+      RUN_ON_STARTUP: "true"
+      BACKUP_CRON: "0 30 3 * * *"
+      RESTIC_REPOSITORY: "{{ restic.repository }}"
+      RESTIC_PASSWORD: "{{ restic.password }}"
+      AWS_ACCESS_KEY_ID: "{{ restic.aws_access_key_id }}"
+      AWS_SECRET_ACCESS_KEY: "{{ restic.aws_secret_access_key }}"
+      TZ: America/New_York
+    volumes:
+      - /home/caycehouse:/data:ro
+
+{% if ansible_host == "houseco-1" %}
+  prune:
+    image: mazzolino/restic:1.7
+    hostname: "{{ ansible_host }}"
+    restart: unless-stopped
+    environment:
+      RUN_ON_STARTUP: "true"
+      PRUNE_CRON: "0 0 4 * * *"
+      RESTIC_FORGET_ARGS: >-
+        --prune --keep-last 1 --keep-daily 7 --keep-monthly 12
+      RESTIC_REPOSITORY: "{{ restic.repository }}"
+      RESTIC_PASSWORD: "{{ restic.password }}"
+      AWS_ACCESS_KEY_ID: "{{ restic.aws_access_key_id }}"
+      AWS_SECRET_ACCESS_KEY: "{{ restic.aws_secret_access_key }}"
+      TZ: America/New_York
+
+  check:
+    image: mazzolino/restic:1.7
+    hostname: "{{ ansible_host }}"
+    restart: unless-stopped
+    environment:
+      RUN_ON_STARTUP: "false"
+      CHECK_CRON: "0 15 5 * * *"
+      RESTIC_CHECK_ARGS: >-
+        --read-data-subset=10%
+      RESTIC_REPOSITORY: "{{ restic.repository }}"
+      RESTIC_PASSWORD: "{{ restic.password }}"
+      AWS_ACCESS_KEY_ID: "{{ restic.aws_access_key_id }}"
+      AWS_SECRET_ACCESS_KEY: "{{ restic.aws_secret_access_key }}"
+      TZ: America/New_York
+{% endif %}

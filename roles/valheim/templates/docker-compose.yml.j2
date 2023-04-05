@@ -15,7 +15,7 @@ services:
       - default
     volumes:
       - ./config:/config
-      - ./opt-valheim:/opt/valheim
+      - valheim:/opt/valheim
     ports:
       - "2456-2457:2456-2457/udp"
     stop_grace_period: 2m
@@ -24,3 +24,5 @@ networks:
   default:
     driver_opts:
       com.docker.network.driver.mtu: 1280
+volumes:
+  valheim:

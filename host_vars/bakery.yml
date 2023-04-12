@@ -1,0 +1,9 @@
+---
+docker_compose_roles:
+  - traefik
+  - portainer-agent
+  - restic
+  - free-games-claimer
+  - satisfactory
+  - valheim
+  - changedetection

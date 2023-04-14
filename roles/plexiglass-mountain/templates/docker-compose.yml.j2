@@ -1,0 +1,46 @@
+# {{ ansible_managed }}
+---
+
+services:
+  plexiglass-mountain:
+    image: itzg/minecraft-server:java17@sha256:96cf7234b7b6edcb76c4e3cc1d474af16e4cfb27f6588d0d2f0545ef4f211ed4
+    container_name: plexiglass-mountain
+    ports:
+      - 25566:25565
+    environment:
+      ALLOW_FLIGHT: "true"
+      DIFFICULTY: hard
+      ENABLE_ROLLING_LOGS: "true"
+      EULA: "true"
+      FORCE_GAMEMODE: "true"
+      FTB_MODPACK_ID: 96
+      FTB_MODPACK_VERSION_ID: 2302
+      MEMORY: 4G
+      MOTD: The Fryer's Plexiglass Mountain Server | v1.2.4
+      OPS: FryyourBacon
+      OVERRIDE_SERVER_PROPERTIES: "true"
+      SIMULATION_DISTANCE: 4
+      SNOOPER_ENABLED: "false"
+      SPAWN_PROTECTION: 0
+      SYNC_CHUNK_WRITES: "false"
+      TYPE: FTBA
+      USE_AIKAR_FLAGS: "true"
+      VERSION: 1.18.2
+      VIEW_DISTANCE: 7
+    tty: true
+    stdin_open: true
+    networks:
+      - default
+    volumes:
+      - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
+    healthcheck:
+      test: mc-health
+      start_period: 7m
+      interval: 5s
+      retries: 20
+    restart: always
+networks:
+  default:
+    driver_opts:
+      com.docker.network.driver.mtu: 1280

@@ -1,0 +1,6 @@
+---
+- name: Install Minecraft
+  vars:
+    service: minecraft
+  ansible.builtin.include_role:
+    name: service

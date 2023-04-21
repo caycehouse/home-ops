@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+---
+
+services:
+  twitchdropsminer:
+    image: ghcr.io/valentin-metz/twitchdropsminer:master
+    container_name: twitchdropsminer
+    volumes:
+      - ./cookies.jar:/TwitchDropsMiner/cookies.jar
+      - ./settings.json:/TwitchDropsMiner/settings.json:ro
+    restart: always
+    tty: true
+    stdin_open: true

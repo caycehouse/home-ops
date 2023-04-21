@@ -1,0 +1,28 @@
+{
+    "autostart": false,
+    "autostart_tray": false,
+    "exclude": {
+        "__type": "set",
+        "data": []
+    },
+    "language": "English",
+    "priority": [
+        "Warframe",
+        "Disney Dreamlight Valley",
+        "Sea of Thieves",
+        "Rocket League",
+        "Overwatch 2",
+        "New World",
+        "Lost Ark",
+        "Tom Clancy's The Division 2",
+        "The Elder Scrolls Online",
+        "Elite: Dangerous",
+        "Cult of the Lamb"
+    ],
+    "priority_only": false,
+    "proxy": {
+        "__type": "URL",
+        "data": ""
+    },
+    "tray_notifications": true
+}

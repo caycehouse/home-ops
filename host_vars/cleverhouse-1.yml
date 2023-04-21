@@ -5,3 +5,4 @@ docker_compose_roles:
   - restic
   - code-server
   - atm8
+  - twitchdropsminer

@@ -1,0 +1,24 @@
+---
+- name: Install TwitchDropsMiner
+  vars:
+    service: twitchdropsminer
+  ansible.builtin.include_role:
+    name: service
+
+- name: Copy settings.json to server
+  ansible.builtin.copy:
+    src: settings.json
+    dest: "{{ service_dir.path }}/settings.json"
+    mode: "0600"
+    owner: root
+    group: root
+  notify: Restart twitchdropsminer
+
+- name: Copy cookies.jar to server
+  ansible.builtin.copy:
+    src: cookies.jar
+    dest: "{{ service_dir.path }}/cookies.jar"
+    mode: "0600"
+    owner: root
+    group: root
+  notify: Restart twitchdropsminer

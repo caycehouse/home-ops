@@ -18,18 +18,18 @@ jobs:
         uses: tailscale/github-action@ce41a99162202a647a4b24c30c558a567b926709
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          version: 1.38.3
-      - name: Add hosts to /etc/hosts
-        run: |
-            sudo echo "100.110.210.21 klipper" | sudo tee -a /etc/hosts
-            sudo echo "100.95.97.36 cupcakes" | sudo tee -a /etc/hosts
-            sudo echo "100.125.167.14 bakery" | sudo tee -a /etc/hosts
-            sudo echo "100.93.34.93 houseco-1" | sudo tee -a /etc/hosts
-            sudo echo "100.121.212.56 houseco-2" | sudo tee -a /etc/hosts
-            sudo echo "100.124.210.65 houseco-3" | sudo tee -a /etc/hosts
-            sudo echo "100.115.37.26 cleverhouse-1" | sudo tee -a /etc/hosts
-            sudo echo "100.89.62.93 cleverhouse-2" | sudo tee -a /etc/hosts
-            sudo echo "100.121.106.98 cleverhouse-3" | sudo tee -a /etc/hosts
+          version: 1.38.4
+#       - name: Add hosts to /etc/hosts
+#         run: |
+#             sudo echo "100.110.210.21 klipper" | sudo tee -a /etc/hosts
+#             sudo echo "100.95.97.36 cupcakes" | sudo tee -a /etc/hosts
+#             sudo echo "100.125.167.14 bakery" | sudo tee -a /etc/hosts
+#             sudo echo "100.93.34.93 houseco-1" | sudo tee -a /etc/hosts
+#             sudo echo "100.121.212.56 houseco-2" | sudo tee -a /etc/hosts
+#             sudo echo "100.124.210.65 houseco-3" | sudo tee -a /etc/hosts
+#             sudo echo "100.115.37.26 cleverhouse-1" | sudo tee -a /etc/hosts
+#             sudo echo "100.89.62.93 cleverhouse-2" | sudo tee -a /etc/hosts
+#             sudo echo "100.121.106.98 cleverhouse-3" | sudo tee -a /etc/hosts
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@f2bfd4510d1d0e52fedcb894e622c178cb06227d
         with:

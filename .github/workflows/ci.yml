@@ -20,7 +20,7 @@ jobs:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
           version: 1.38.4
       - name: Run playbook
-        uses: dawidd6/action-ansible-playbook@f2bfd4510d1d0e52fedcb894e622c178cb06227d
+        uses: dawidd6/action-ansible-playbook@9c825aa4d5c39496e71448bb7ae16a71f5fc75e1
         with:
           playbook: site.yml
           requirements: requirements.yml

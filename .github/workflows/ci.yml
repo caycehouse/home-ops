@@ -15,7 +15,7 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
       - name: Tailscale
-        uses: tailscale/github-action@ce41a99162202a647a4b24c30c558a567b926709
+        uses: tailscale/github-action@7bd8039bf25c23c4ab1b8d6e2cc2da2280601966
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
           version: 1.38.4

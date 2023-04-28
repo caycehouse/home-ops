@@ -7,7 +7,7 @@ services:
     container_name: twitchdropsminer
     volumes:
       - ./cookies.jar:/TwitchDropsMiner/cookies.jar
-      - ./settings.json:/TwitchDropsMiner/settings.json:ro
+      - ./settings.json:/TwitchDropsMiner/settings.json
     restart: always
     tty: true
     stdin_open: true

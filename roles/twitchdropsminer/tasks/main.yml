@@ -1,10 +1,4 @@
 ---
-- name: Install TwitchDropsMiner
-  vars:
-    service: twitchdropsminer
-  ansible.builtin.include_role:
-    name: service
-
 - name: Copy settings.json to server
   ansible.builtin.copy:
     src: settings.json
@@ -22,3 +16,9 @@
     owner: root
     group: root
   notify: Restart twitchdropsminer
+
+- name: Install TwitchDropsMiner
+  vars:
+    service: twitchdropsminer
+  ansible.builtin.include_role:
+    name: service

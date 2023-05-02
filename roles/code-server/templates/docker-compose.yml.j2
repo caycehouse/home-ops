@@ -3,7 +3,7 @@
 
 services:
   code-server:
-    image: lscr.io/linuxserver/code-server:4.12.0@sha256:9d55d62bee8aaab3312cf2ce46c9acf9c03d2e6c8c9c028f7a84ab04381f87f8
+    image: lscr.io/linuxserver/code-server:4.12.0
     environment:
       DOCKER_MODS: linuxserver/mods:code-server-python3
       PGID: 1002
@@ -14,15 +14,9 @@ services:
       - ./config:/config
       - /dev/net/tun:/dev/net/tun
     networks:
-      - traefik_public
+      - tunnel
     cap_add:
       - NET_ADMIN
-    labels:
-      - "traefik.docker.network=traefik_public"
-      - "traefik.http.routers.code-server.rule=Host(`code-server.caycehouse.com`)"
-      - "traefik.http.routers.code-server.entrypoints=websecure"
-      - "traefik.http.services.code-server.loadbalancer.server.port=8443"
-      - "traefik.enable=true"
 networks:
-  traefik_public:
+  tunnel:
     external: true

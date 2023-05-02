@@ -3,8 +3,7 @@
         "cleverhouse",
         "houseco",
         "thefryer",
-        "tlsskipverify",
-        "traefik"
+        "tlsskipverify"
     ],
     "files.associations": {
         "*.yml": "ansible",

@@ -4,8 +4,7 @@
     "config:base",
     "default:automergeBranch",
     "default:automergeDigest",
-    "docker:enableMajor",
-    "docker:pinDigests"
+    "docker:enableMajor"
   ],
   "regexManagers": [
     {
@@ -15,6 +14,17 @@
       ],
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPaths": [
+        "**/docker-compose.yml.j2"
+      ],
+      "pinDigests": true
     }
   ]
 }

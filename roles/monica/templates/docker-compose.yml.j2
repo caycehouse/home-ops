@@ -28,14 +28,8 @@ services:
     volumes:
       - ./var-www-html-storage:/var/www/html/storage
     networks:
-      - default
-      - traefik_public
-    labels:
-      - "traefik.docker.network=traefik_public"
-      - "traefik.http.routers.monica.rule=Host(`monica.caycehouse.com`)"
-      - "traefik.http.routers.monica.entrypoints=websecure"
-      - "traefik.http.services.monica.loadbalancer.server.port=80"
-      - "traefik.enable=true"
+      - internal
+      - tunnel
     restart: always
   db:
     image: mysql:8.0@sha256:a43f6e7e7f3a5e5b90f857fbed4e3103ece771b19f0f75880f767cf66bbb6577
@@ -47,9 +41,9 @@ services:
     volumes:
       - ./var-lib-mysql:/var/lib/mysql
     networks:
-      - default
+      - internal
     restart: always
 networks:
-  traefik_public:
+  tunnel:
     external: true
-  default:
+  internal:

@@ -17,14 +17,8 @@ services:
     healthcheck:
       test: [ "CMD", "/usr/bin/miniflux", "-healthcheck", "auto" ]
     networks:
+      - tunnel
       - internal
-      - traefik_public
-    labels:
-      - "traefik.docker.network=traefik_public"
-      - "traefik.http.routers.miniflux.rule=Host(`rss.caycehouse.com`)"
-      - "traefik.http.routers.miniflux.entrypoints=websecure"
-      - "traefik.http.services.miniflux.loadbalancer.server.port=8080"
-      - "traefik.enable=true"
     restart: always
   db:
     image: postgres:15@sha256:6cc97262444f1c45171081bc5a1d4c28b883ea46a6e0d1a45a8eac4a7f4767ab
@@ -42,6 +36,6 @@ services:
       - internal
     restart: always
 networks:
-  traefik_public:
+  tunnel:
     external: true
   internal:

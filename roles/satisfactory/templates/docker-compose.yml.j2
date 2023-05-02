@@ -3,14 +3,14 @@
 
 services:
   satisfactory:
-    image: wolveix/satisfactory-server:latest@sha256:56ca73cb8a64e7bedfe0b72c9490ce1d32e547a16c753ffcb7e96c8364e8c348
+    image: wolveix/satisfactory-server:v1.4.8
     container_name: satisfactory
     environment:
       AUTOPAUSE: "false"
       PGID: 1000
       PUID: 1000
     networks:
-      - default
+      - internal
     volumes:
       - ./config-backups:/config/backups
       - ./config-saved:/config/saved
@@ -21,7 +21,7 @@ services:
       - 15777:15777/udp
     restart: always
 networks:
-  default:
+  internal:
     driver_opts:
       com.docker.network.driver.mtu: 1280
 volumes:

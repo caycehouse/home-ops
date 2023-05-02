@@ -3,7 +3,7 @@
 
 services:
   backup:
-    image: mazzolino/restic:1.7
+    image: mazzolino/restic:1.7.0
     hostname: "{{ ansible_host }}"
     restart: unless-stopped
     environment:
@@ -19,7 +19,7 @@ services:
 
 {% if ansible_host == "houseco-1" %}
   prune:
-    image: mazzolino/restic:1.7
+    image: mazzolino/restic:1.7.0
     hostname: "{{ ansible_host }}"
     restart: unless-stopped
     environment:
@@ -34,7 +34,7 @@ services:
       TZ: America/New_York
 
   check:
-    image: mazzolino/restic:1.7
+    image: mazzolino/restic:1.7.0
     hostname: "{{ ansible_host }}"
     restart: unless-stopped
     environment:

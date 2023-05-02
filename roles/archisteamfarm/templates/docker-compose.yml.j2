@@ -3,19 +3,13 @@
 
 services:
   archisteamfarm:
-    image: justarchi/archisteamfarm:latest@sha256:2e0619cc96436d99e6e9634c9a812dab896f39941312cc3ad5c8e2b631b3afb7
+    image: justarchi/archisteamfarm:5.4.5.2
     container_name: archisteamfarm
     volumes:
       - ./app-config:/app/config
     networks:
-      - traefik_public
-    labels:
-      - "traefik.docker.network=traefik_public"
-      - "traefik.http.routers.archisteamfarm.rule=Host(`asf.caycehouse.com`)"
-      - "traefik.http.routers.archisteamfarm.entrypoints=websecure"
-      - "traefik.http.services.archisteamfarm.loadbalancer.server.port=1242"
-      - "traefik.enable=true"
+      - tunnel
     restart: always
 networks:
-  traefik_public:
+  tunnel:
     external: true

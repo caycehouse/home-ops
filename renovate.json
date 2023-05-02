@@ -2,6 +2,9 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
+    "default:automergeBranch",
+    "default:automergeDigest",
+    "docker:enableMajor",
     "docker:pinDigests"
   ],
   "docker-compose": {

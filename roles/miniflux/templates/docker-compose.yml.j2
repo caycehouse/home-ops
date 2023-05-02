@@ -3,7 +3,7 @@
 
 services:
   miniflux:
-    image: miniflux/miniflux:2.0.43-distroless@sha256:203aa96b3e120d00faceee0698feb9cb2c8aa9a6082bfe8a5170327dbe45dcd9
+    image: miniflux/miniflux:2.0.43-distroless
     container_name: miniflux
     depends_on:
       db:
@@ -21,7 +21,7 @@ services:
       - internal
     restart: always
   db:
-    image: postgres:15@sha256:6cc97262444f1c45171081bc5a1d4c28b883ea46a6e0d1a45a8eac4a7f4767ab
+    image: postgres:15.2
     container_name: postgres
     environment:
       POSTGRES_USER: {{ miniflux.postgres_user }}

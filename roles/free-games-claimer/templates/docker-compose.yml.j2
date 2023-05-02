@@ -4,7 +4,7 @@
 services:
   free-games-claimer:
     container_name: fgc
-    image: ghcr.io/vogler/free-games-claimer:latest@sha256:33168da3139405293e9d8c1f33d40d018d773e83085ea8f2a59606b9558afd24
+    image: ghcr.io/vogler/free-games-claimer:latest
     volumes:
       - ./fgc-data:/fgc/data
     environment:
@@ -17,13 +17,7 @@ services:
       - GOG_PASSWORD={{ free_games_claimer.gog_password }}
       - NOTIFY={{ free_games_claimer.notify }}
     networks:
-      - traefik_public
-    labels:
-      - "traefik.docker.network=traefik_public"
-      - "traefik.http.routers.fgc.rule=Host(`fgc.caycehouse.com`)"
-      - "traefik.http.routers.fgc.entrypoints=websecure"
-      - "traefik.http.services.fgc.loadbalancer.server.port=6080"
-      - "traefik.enable=true"
+      - tunnel
 networks:
-  traefik_public:
+  tunnel:
     external: true

@@ -3,7 +3,7 @@
 
 services:
   portainer:
-    image: portainer/portainer-ce:2.18.2-alpine@sha256:790b0eede06acefcd44366e44b651b4e55818dcae3081598d0a125aae12f3397
+    image: portainer/portainer-ce:2.18.2-alpine
     container_name: portainer
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -12,19 +12,13 @@ services:
     ports:
       - "9443:9443"
     networks:
-      - default
-      - traefik_public
-    labels:
-      - traefik.docker.network=traefik_public
-      - traefik.enable=true
-      - traefik.http.routers.portainer.entrypoints=websecure
-      - traefik.http.routers.portainer.rule=Host(`portainer.caycehouse.com`)
-      - traefik.http.services.portainer.loadbalancer.server.port=9000
+      - internal
+      - tunnel
     restart: always
 networks:
-  traefik_public:
+  tunnel:
     external: true
-  default:
+  internal:
     driver: bridge
     driver_opts:
       com.docker.network.driver.mtu: 1280

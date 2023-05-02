@@ -3,12 +3,12 @@
 
 services:
   dashy:
-    image: lissy93/dashy:2.1.1@sha256:541e46d0e3b49ec940574812c10cbed47d94efc7745339d0e3fce3507a5d55e8
+    image: lissy93/dashy:2.1.1
     container_name: Dashy
     volumes:
       - ./app-public:/app/public
     networks:
-      - traefik_public
+      - tunnel
     environment:
       - NODE_ENV=production
       - UID=1002
@@ -20,12 +20,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    labels:
-      - "traefik.docker.network=traefik_public"
-      - "traefik.http.routers.dashy.rule=Host(`dashy.caycehouse.com`)"
-      - "traefik.http.routers.dashy.entrypoints=websecure"
-      - "traefik.http.services.dashy.loadbalancer.server.port=80"
-      - "traefik.enable=true"
 networks:
-  traefik_public:
+  tunnel:
     external: true

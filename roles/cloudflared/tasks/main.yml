@@ -1,0 +1,10 @@
+---
+- name: Create tunnel network
+  community.docker.docker_network:
+    name: tunnel
+
+- name: Install cloudflared
+  vars:
+    service: cloudflared
+  ansible.builtin.include_role:
+    name: service

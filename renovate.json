@@ -1,12 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
+    "github>caycehouse/renovate-config",
     ":skipStatusChecks",
-    "config:base",
     "default:automergeBranch",
     "default:automergeDigest",
-    "docker:enableMajor",
-    "helpers:pinGitHubActionDigests"
+    "docker:enableMajor"
   ],
   "regexManagers": [
     {
@@ -14,6 +13,7 @@
       "matchStrings": [
         "(?:image: )(?<depName>.*?)(?::(?<currentValue>.*?))?(?:@(?<currentDigest>sha256:[a-f0-9]+))?\\n"
       ],
+      "autoReplaceStringTemplate": "image: {{depName}}{{#if newValue}}:{{newValue}}{{/if}}{{#if newDigest}}@{{newDigest}}{{/if}}"
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker"
     }

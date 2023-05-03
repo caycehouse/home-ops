@@ -2,10 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>caycehouse/renovate-config",
-    ":skipStatusChecks",
-    "default:automergeBranch",
-    "default:automergeDigest",
-    "docker:enableMajor"
+    ":skipStatusChecks"
   ],
   "regexManagers": [
     {

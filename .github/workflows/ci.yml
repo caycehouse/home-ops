@@ -15,7 +15,7 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v3.5.2
       - name: Tailscale
-        uses: tailscale/github-action@main
+        uses: tailscale/github-action@v1
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
           version: 1.38.4

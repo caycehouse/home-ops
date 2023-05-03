@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
 concurrency: ci
 
 jobs:
@@ -13,14 +13,14 @@ jobs:
 
     steps:
       - name: Check out source code
-        uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+        uses: actions/checkout@v3.5.2
       - name: Tailscale
-        uses: tailscale/github-action@7bd8039bf25c23c4ab1b8d6e2cc2da2280601966
+        uses: tailscale/github-action@main
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
           version: 1.38.4
       - name: Run playbook
-        uses: dawidd6/action-ansible-playbook@9c825aa4d5c39496e71448bb7ae16a71f5fc75e1
+        uses: dawidd6/action-ansible-playbook@v2.6.1
         with:
           playbook: site.yml
           requirements: requirements.yml

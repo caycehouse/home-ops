@@ -4,7 +4,8 @@
     "config:base",
     "default:automergeBranch",
     "default:automergeDigest",
-    "docker:enableMajor"
+    "docker:enableMajor",
+    "helpers:pinGitHubActionDigests"
   ],
   "regexManagers": [
     {

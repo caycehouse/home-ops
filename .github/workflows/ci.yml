@@ -18,7 +18,7 @@ jobs:
         uses: tailscale/github-action@cc6818dd6930277a6e4b5d249e32ba2f4cf6ea32 # v1
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          version: 1.38.4
+          version: 1.40.0
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1 # v2.6.1
         with:

@@ -1,13 +1,11 @@
 ---
 docker_compose_roles:
-  - traefik
   - cloudflared
   - portainer
   - portainer-agent
   - restic
   - dashy
   - oceanblock
-  - headscale
 
 tunnel_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;home-ops

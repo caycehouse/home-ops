@@ -9,7 +9,7 @@ appConfig:
     hideFooter: true
 pageInfo:
   title: Dashy
-  description: ""
+  description: ''
   navLinks:
     - title: GitHub
       path: https://github.com/Lissy93/dashy
@@ -17,7 +17,7 @@ pageInfo:
     - title: Documentation
       path: https://dashy.to/docs
       target: newtab
-  footerText: ""
+  footerText: ''
 sections:
   - name: Automation
     icon: fas fa-robot
@@ -56,12 +56,12 @@ sections:
       hideForGuests: false
     items:
       - title: ATM8
-        description: >-
-          All the Mods 8 - Minecraft 1.19.2 kitchen-sink pack by ATM Team.
+        description: All the Mods 8 - Minecraft 1.19.2 kitchen-sink pack by ATM Team.
         icon: >-
           https://media.forgecdn.net/avatars/thumbnails/611/496/64/64/637995823847751059.png
         url: cleverhouse-1:25565
         target: clipboard
+        id: 0_1156_atm
       - title: Oceanblock
         description: >-
           OceanBlock is a new unique modpack created by the FTB Team inspired by
@@ -70,13 +70,13 @@ sections:
           https://www.feed-the-beast.com/_next/image?url=https%3A%2F%2Fapps.modpacks.ch%2Fmodpacks%2Fart%2F87%2Flogo.png&w=256&q=100
         url: houseco-1:25565
         target: clipboard
-        id: 0_1156_oceanblock
+        id: 1_1156_oceanblock
       - title: Satisfactory
         description: A Dockerized version of the Satisfactory dedicated server
         icon: https://icon.horse/icon/www.satisfactorygame.com
         url: bakery:7777
         target: clipboard
-        id: 1_1156_satisfactory
+        id: 2_1156_satisfactory
       - title: Valheim
         description: >-
           Valheim dedicated gameserver with automatic update, World backup,
@@ -84,7 +84,23 @@ sections:
         icon: https://icon.horse/icon/www.valheimgame.com
         url: bakery:2456
         target: clipboard
-        id: 2_1156_valheim
+        id: 3_1156_valheim
+      - title: Minecraft
+        description: Minecraft Vanilla
+        icon: https://icon.horse/icon/minecraft.net
+        url: bakery:25565
+        target: clipboard
+        id: 4_1156_minecraft
+      - title: Plexiglass Mountain
+        description: >-
+          Plexiglass Mountain is a new freeplay kitchen-sink modpack by the FTB
+          Team. With an optional quest-line, a vast variety of mods and unique
+          custom structures generating throughout the world.
+        icon: >-
+          https://feed-the-beast.com/_next/image?url=https%3A%2F%2Fapps.modpacks.ch%2Fmodpacks%2Fart%2F91%2Fplexiglass-splash-discord.png&w=256&q=75
+        url: cleverhouse-1:25566
+        target: clipboard
+        id: 5_1156_plexiglassmountain
   - name: News
     icon: fas fa-newspaper
     displayData:
@@ -100,6 +116,12 @@ sections:
         url: https://rss.caycehouse.com
         statusCheck: true
         id: 0_413_miniflux
+      - title: changedetection.io
+        description: Web Site Change Detection, Restock monitoring and notifications.
+        icon: https://icon.horse/icon/changedetection.io
+        url: https://changedetection.caycehouse.com/
+        statusCheck: true
+        id: 1_413_changedetectionio
   - name: Management
     icon: fas fa-tasks
     displayData:

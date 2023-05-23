@@ -3,7 +3,7 @@
 
 services:
   changedetection:
-    image: ghcr.io/dgtlmoon/changedetection.io:0.41@sha256:6eea7f213d35c8e6155d1aa462a1c1180b5fa16c46b8988a6201d6aa93829a54
+    image: ghcr.io/dgtlmoon/changedetection.io:0.42@sha256:0f07c22ec0e4f98e3911fd4e096d9d1f73822d8c8557d5834a9128cf7dd9f41a
     container_name: changedetection
     hostname: changedetection
     environment:
@@ -20,7 +20,7 @@ services:
 
   playwright-chrome:
     hostname: playwright-chrome
-    image: browserless/chrome:1.58-chrome-stable@sha256:3c2822d484e69d9176b6ea82529fe275ef82955cbbe7e831bf9153ed784ff990
+    image: browserless/chrome:1.59-chrome-stable@sha256:6d9e5e2b004c776aaf2f06990487d159413d56e91d3ce603def452a0ec5899ec
     environment:
       - SCREEN_WIDTH=1920
       - SCREEN_HEIGHT=1024

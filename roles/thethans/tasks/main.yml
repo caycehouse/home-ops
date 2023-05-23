@@ -1,0 +1,6 @@
+---
+- name: Install Thethans
+  vars:
+    service: thethans
+  ansible.builtin.include_role:
+    name: service

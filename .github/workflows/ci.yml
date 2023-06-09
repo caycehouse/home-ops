@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Check out source code
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Tailscale
         uses: tailscale/github-action@cc6818dd6930277a6e4b5d249e32ba2f4cf6ea32 # v1
         with:

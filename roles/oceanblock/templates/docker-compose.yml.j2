@@ -27,6 +27,7 @@ services:
       - default
     volumes:
       - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: mc-health
       start_period: 5m

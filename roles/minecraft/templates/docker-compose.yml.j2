@@ -8,29 +8,32 @@ services:
     ports:
       - 25565:25565
     environment:
-      DIFFICULTY: hard
+      DIFFICULTY: "hard"
       ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
       EULA: "true"
       FORCE_GAMEMODE: "true"
-      MAX_PLAYERS: 10
-      MEMORY: 4G
-      MOTD: The Fryer's Minecraft Server
-      OPS: FryyourBacon
+      MAX_PLAYERS: "10"
+      MEMORY: "4G"
+      MOTD: "The Fryer's Minecraft Server"
+      OPS: "FryyourBacon"
       OVERRIDE_SERVER_PROPERTIES: "true"
-      PACKWIZ_URL: https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/master/pack.toml
+      OVERRIDE_WHITELIST: "true"
+      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/master/pack.toml"
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule playersSleepingPercentage 0
         scoreboard objectives setdisplay list ts_Deaths
-      SPAWN_PROTECTION: 0
+      SPAWN_PROTECTION: "0"
       SNOOPER_ENABLED: "false"
-      SIMULATION_DISTANCE: 4
+      SIMULATION_DISTANCE: "4"
       SYNC_CHUNK_WRITES: "false"
-      TYPE: FABRIC
+      TYPE: "FABRIC"
       USE_AIKAR_FLAGS: "true"
-      VANILLATWEAKS_SHARECODE: AsglKj,xnqI8i
+      VANILLATWEAKS_SHARECODE: "EaW0rS,KR1Q4G"
       VERSION: "1.20"
-      VIEW_DISTANCE: 7
+      VIEW_DISTANCE: "7"
+      WHITELIST: "FryyourBacon"
     tty: true
     stdin_open: true
     networks:

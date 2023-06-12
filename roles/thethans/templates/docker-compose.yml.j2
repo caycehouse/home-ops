@@ -8,24 +8,27 @@ services:
     ports:
       - 25566:25565
     environment:
-      DIFFICULTY: hard
+      DIFFICULTY: "hard"
       ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
       EULA: "true"
       FORCE_GAMEMODE: "true"
-      MAX_PLAYERS: 10
-      MEMORY: 4G
-      MOTD: Thethan's Minecraft Server
-      OPS: EthanKruse,0_Burnt_Toast_0
+      MAX_PLAYERS: "10"
+      MEMORY: "4G"
+      MOTD: "Thethan's Minecraft Server"
+      OPS: "EthanKruse,0_Burnt_Toast_0"
       OVERRIDE_SERVER_PROPERTIES: "true"
+      OVERRIDE_WHITELIST: "true"
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule playersSleepingPercentage 0
-      SPAWN_PROTECTION: 0
+      SPAWN_PROTECTION: "0"
       SNOOPER_ENABLED: "false"
-      SIMULATION_DISTANCE: 10
+      SIMULATION_DISTANCE: "10"
       SYNC_CHUNK_WRITES: "false"
       USE_AIKAR_FLAGS: "true"
-      VIEW_DISTANCE: 10
+      VIEW_DISTANCE: "10"
+      WHITELIST: "EthanKruse,0_Burnt_Toast_0,FryyourBacon"
     tty: true
     stdin_open: true
     volumes:

@@ -8,5 +8,6 @@
     "files.associations": {
         "*.yml": "ansible",
         "*docker-compose.yml.j2": "dockercompose"
-    }
+    },
+    "ansible.python.interpreterPath": "/bin/python"
 }

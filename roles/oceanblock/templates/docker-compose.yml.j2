@@ -8,12 +8,21 @@ services:
     ports:
       - 25565:25565
     environment:
+      DIFFICULTY: "hard"
+      ENABLE_ROLLING_LOGS: "true"
       EULA: "TRUE"
       FTB_MODPACK_ID: "91"
-      FTB_MODPACK_VERSION_ID: "2245"
+      FORCE_GAMEMODE: "true"
+      MAX_PLAYERS: "10"
       MEMORY: "4G"
+      MOTD: "The Fryer's OceanBlock Server"
+      OPS: "FryyourBacon"
+      OVERRIDE_SERVER_PROPERTIES: "true"
+      SNOOPER_ENABLED: "false"
+      SYNC_CHUNK_WRITES: "false"
       TYPE: FTBA
       USE_AIKAR_FLAGS: "true"
+      VIEW_DISTANCE: "7"
     networks:
       - default
     volumes:

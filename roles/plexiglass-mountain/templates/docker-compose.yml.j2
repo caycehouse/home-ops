@@ -9,24 +9,26 @@ services:
       - 25566:25565
     environment:
       ALLOW_FLIGHT: "true"
-      DIFFICULTY: hard
+      DIFFICULTY: "hard"
       ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
       EULA: "true"
       FORCE_GAMEMODE: "true"
-      FTB_MODPACK_ID: 96
-      FTB_MODPACK_VERSION_ID: 2302
-      MEMORY: 4G
-      MOTD: The Fryer's Plexiglass Mountain Server | v1.2.4
-      OPS: FryyourBacon
+      FTB_MODPACK_ID: "96"
+      MAX_PLAYERS: "10"
+      MEMORY: "4G"
+      MOTD: "The Fryer's Plexiglass Mountain Server"
+      OPS: "FryyourBacon"
       OVERRIDE_SERVER_PROPERTIES: "true"
-      SIMULATION_DISTANCE: 4
+      OVERRIDE_WHITELIST: "true"
+      SIMULATION_DISTANCE: "4"
       SNOOPER_ENABLED: "false"
-      SPAWN_PROTECTION: 0
+      SPAWN_PROTECTION: "0"
       SYNC_CHUNK_WRITES: "false"
-      TYPE: FTBA
+      TYPE: "FTBA"
       USE_AIKAR_FLAGS: "true"
-      VERSION: 1.18.2
-      VIEW_DISTANCE: 7
+      VIEW_DISTANCE: "7"
+      WHITELIST: "FryyourBacon"
     tty: true
     stdin_open: true
     networks:

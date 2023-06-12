@@ -8,22 +8,34 @@ services:
     ports:
       - 25565:25565
     environment:
+      ALLOW_FLIGHT: "true"
       CF_API_KEY: "{{ cf_api_key }}"
-      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-8
-      CF_FILENAME_MATCHER: "1.0.15"
+      CF_FILENAME_MATCHER: "1.0.19"
+      CF_SLUG: "all-the-mods-8"
+      DIFFICULTY: "hard"
       ENABLE_ROLLING_LOGS: "true"
       EULA: "true"
-      MEMORY: 4G
-      TYPE: AUTO_CURSEFORGE
-      TZ: "America/New_York"
+      FORCE_GAMEMODE: "true"
+      MAX_PLAYERS: "10"
+      MAX_TICK_TIME: "180000"
+      MEMORY: "4G"
+      MOTD: "All the Mods 8 | 1.0.19b"
+      OPS: "FryyourBacon"
+      OVERRIDE_SERVER_PROPERTIES: "true"
+      SPAWN_PROTECTION: "0"
+      SNOOPER_ENABLED: "false"
+      SIMULATION_DISTANCE: "4"
+      SYNC_CHUNK_WRITES: "false"
+      TYPE: "AUTO_CURSEFORGE"
       USE_AIKAR_FLAGS: "true"
-      VERSION: 1.19.2
+      VIEW_DISTANCE: "7"
     tty: true
     stdin_open: true
     networks:
       - default
     volumes:
       - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: mc-health
       start_period: 7m

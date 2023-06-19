@@ -6,6 +6,7 @@ docker_compose_roles:
   - code-server
   - atm8
   - twitchdropsminer
+  - paperless-ngx
 
 tunnel_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;home-ops

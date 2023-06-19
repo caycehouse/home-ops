@@ -3,7 +3,7 @@
 
 services:
   broker:
-    image: docker.io/library/redis:7
+    image: docker.io/library/redis:7@sha256:6ccde0cb87c24c09b1970802b10e702ab4491ac932b79f69682609787379fa42
     restart: unless-stopped
     volumes:
       - ./redis-data:/data
@@ -11,7 +11,7 @@ services:
       - internal
 
   db:
-    image: docker.io/library/postgres:13
+    image: docker.io/library/postgres:13@sha256:4957dd6a7c50192cdbccfa86a67ba38e57c247604e7c4e35a1f6781055fc16fd
     restart: unless-stopped
     volumes:
       - ./pg-data:/var/lib/postgresql/data
@@ -23,7 +23,7 @@ services:
       - internal
 
   paperless-ngx:
-    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest@sha256:94200178bbec7c864cfe4789a90964bb5b0c4805b6739f67218dd79512d16f3c
     restart: unless-stopped
     depends_on:
       - db

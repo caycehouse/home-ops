@@ -1,0 +1,13 @@
+---
+- name: Install Paperless-ngx
+  vars:
+    service: paperless-ngx
+  ansible.builtin.include_role:
+    name: service
+
+- name: Copy docker-compose.env
+  ansible.builtin.template:
+    src: docker-compose.env.j2
+    dest: "{{ service_dir.path }}/docker-compose.env"
+    mode: "0600"
+  notify: Restart paperless-ngx

@@ -9,6 +9,7 @@ services:
       - TUNNEL_TOKEN={{ tunnel_token }}
     networks:
       - tunnel
+    restart: unless-stopped
 networks:
   tunnel:
     external: true

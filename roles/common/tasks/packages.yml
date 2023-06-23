@@ -13,9 +13,10 @@
         get_md5: false
       register: reboot_required_file
 
-    - name: Reboot the server (if required) and hostname != cupcakes.
+    - name: Reboot the server (if required) and prevent_reboot != true.
       ansible.builtin.reboot:
-      when: (reboot_required_file.stat.exists) and (inventory_hostname != 'cupcakes')
+      when: (reboot_required_file.stat.exists) and
+        (hostvars[inventory_hostname].prevent_reboot is not defined)
 
     - name: Remove dependencies that are no longer required.
       ansible.builtin.apt:

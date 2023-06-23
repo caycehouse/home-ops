@@ -1,8 +1,8 @@
 [home]
-klipper
+klipper prevent_reboot=true
 
 [proxmox_servers]
-cupcakes
+cupcakes prevent_reboot=true
 
 [proxmox_vms]
 bakery

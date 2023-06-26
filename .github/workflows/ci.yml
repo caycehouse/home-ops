@@ -17,8 +17,8 @@ jobs:
       - name: Tailscale
         uses: tailscale/github-action@oauth
         with:
-          oauth_client_id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth_secret: ${{ secrets.TS_OAUTH_SECRET }}
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:server,tag:ssh
           version: 1.40.0
       - name: Run playbook

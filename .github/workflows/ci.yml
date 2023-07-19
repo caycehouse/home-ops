@@ -15,7 +15,7 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Tailscale
-        uses: tailscale/github-action@v2
+        uses: tailscale/github-action@65cdd9a05d7ebe4ef4e8c70141f5d84e1cd4cab4 # v2
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}

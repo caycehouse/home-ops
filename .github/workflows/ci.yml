@@ -15,12 +15,12 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Tailscale
-        uses: tailscale/github-action@oauth
+        uses: tailscale/github-action@@v2
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:server,tag:ssh
-          version: 1.40.0
+          version: 1.46.0
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1 # v2.6.1
         with:

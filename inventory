@@ -1,5 +1,5 @@
 [home]
-klipper prevent_reboot=true
+octopi prevent_reboot=true
 
 [proxmox_servers]
 cupcakes prevent_reboot=true

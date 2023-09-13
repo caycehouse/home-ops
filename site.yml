@@ -13,7 +13,7 @@
   vars_files: vault.yml
 
 - name: Play to add swap to needed machines
-  hosts: all,!proxmox_servers,!klipper
+  hosts: all,!proxmox_servers,!octopi
   vars:
     swap_file_size_mb: '8192'
     swap_swappiness: '1'

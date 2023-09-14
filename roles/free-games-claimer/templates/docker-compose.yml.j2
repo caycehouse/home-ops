@@ -16,6 +16,8 @@ services:
       - PG_REDEEM=1
       - GOG_PASSWORD={{ free_games_claimer.gog_password }}
       - NOTIFY={{ free_games_claimer.notify }}
+      - WIDTH=1920
+      - HEIGHT=1080
     networks:
       - tunnel
 networks:

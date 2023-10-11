@@ -11,6 +11,6 @@ roles:
   - name: geerlingguy.docker
     version: 7.0.1
   - name: artis3n.tailscale
-    version: v4.2.2
+    version: v4.2.3
   - name: geerlingguy.swap
     version: 1.0.2

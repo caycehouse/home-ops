@@ -7,9 +7,8 @@
         password: $6$zpn8R2g0kxjloJ3J$UpMKBvc/IV.FC76GEEyK9a.tgzjSFJ5ZE.yC7Wxz/.ap07j29Oxm0.gV4kUV6ChcQJD5xUIFgsgo1DXIXC0ho0
   block:
     - name: Install sudo
-      ansible.builtin.apt:
+      ansible.builtin.package:
         name: sudo
-        cache_valid_time: 3600
         state: present
 
     - name: Add user

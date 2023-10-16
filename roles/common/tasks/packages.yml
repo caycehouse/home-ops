@@ -1,11 +1,19 @@
 ---
-- name: Update APT cache and upgrade packages
+- name: Update package cache and upgrade packages
   block:
-    - name: Perform a dist-upgrade (this may take a while).
+    - name: Upgrade all packages on {{ ansible_distribution }}
       ansible.builtin.apt:
         upgrade: dist
         cache_valid_time: 3600
       ignore_unreachable: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Upgrade all packages on {{ ansible_distribution }}
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_only: true
+      when: ansible_os_family == 'RedHat'
 
     - name: Check if a reboot is required.
       ansible.builtin.stat:
@@ -18,6 +26,7 @@
       when: (reboot_required_file.stat.exists) and
         (hostvars[inventory_hostname].prevent_reboot is not defined)
 
-    - name: Remove dependencies that are no longer required.
+    - name: Remove dependencies that are no longer required on {{ ansible_distribution }}
       ansible.builtin.apt:
         autoremove: true
+      when: ansible_os_family == 'Debian'

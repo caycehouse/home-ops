@@ -2,6 +2,7 @@
 - name: Install free-games-claimer
   vars:
     service: free-games-claimer
+    start: false
   ansible.builtin.include_role:
     name: service
 

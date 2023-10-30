@@ -19,3 +19,4 @@
   community.docker.docker_compose:
     project_src: "{{ service_dir.path }}/"
   become: false
+  when: start

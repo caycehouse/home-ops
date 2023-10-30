@@ -8,7 +8,7 @@ services:
       - sys_nice
     container_name: valheim
     environment:
-      BACKUPS: false
+      BACKUPS: "false"
       SERVER_NAME: "The Fryer's Valheim Server"
       SERVER_PASS: "{{ valheim.server_pass }}"
       TZ: America/New_York

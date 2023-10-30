@@ -14,6 +14,7 @@ services:
       - PG_PASSWORD={{ free_games_claimer.pg_password }}
       - PG_OTPKEY={{ free_games_claimer.pg_otpkey }}
       - PG_REDEEM=1
+      - PG_CLAIMDLC=1
       - GOG_PASSWORD={{ free_games_claimer.gog_password }}
       - NOTIFY={{ free_games_claimer.notify }}
       - WIDTH=1920

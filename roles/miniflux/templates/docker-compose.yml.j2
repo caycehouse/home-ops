@@ -21,7 +21,7 @@ services:
       - internal
     restart: always
   db:
-    image: postgres:15.5@sha256:52cab7da36d8468e598723642c9254bddbe452367550cf0395f6cb1d5231fa80
+    image: postgres:15.5@sha256:a76de2b9fe8c687d04ff2a6d10174fc5d11952515591cce102e28ede079b8d1c
     container_name: postgres
     environment:
       POSTGRES_USER: {{ miniflux.postgres_user }}

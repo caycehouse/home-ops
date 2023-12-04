@@ -4,23 +4,31 @@
     "exclude": {
         "__type": "set",
         "data": [
-            "NARAKA: BLADEPOINT"
+            "Mir Korabley",
+            "NARAKA: BLADEPOINT",
+            "Ninja Must Die",
+            "Shakes and Fidget",
+            "Summoners War: Chronicles",
+            "Warhaven",
+            "World of Tanks",
+            "World of Warships"
         ]
     },
     "language": "English",
     "priority": [
+        "Cult of the Lamb",
         "Diablo IV",
-        "Warframe",
         "Disney Dreamlight Valley",
-        "Sea of Thieves",
-        "Rocket League",
-        "Overwatch 2",
-        "New World",
-        "Lost Ark",
-        "Tom Clancy's The Division 2",
-        "The Elder Scrolls Online",
         "Elite: Dangerous",
-        "Cult of the Lamb"
+        "Lost Ark",
+        "New World",
+        "Overwatch 2",
+        "Rocket League",
+        "Sea of Thieves",
+        "Temtem",
+        "The Elder Scrolls Online",
+        "Tom Clancy's The Division 2",
+        "Warframe"
     ],
     "priority_only": false,
     "proxy": {

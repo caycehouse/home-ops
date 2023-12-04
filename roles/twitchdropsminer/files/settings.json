@@ -3,7 +3,9 @@
     "autostart_tray": false,
     "exclude": {
         "__type": "set",
-        "data": []
+        "data": [
+            "NARAKA: BLADEPOINT"
+        ]
     },
     "language": "English",
     "priority": [

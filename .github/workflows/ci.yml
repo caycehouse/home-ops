@@ -27,3 +27,10 @@ jobs:
           playbook: site.yml
           requirements: requirements.yml
           vault_password: ${{secrets.VAULT_PASSWORD}}
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1 # v2.6.1
+        with:
+          playbook: docker_prune.yml
+          directory: ./playbooks/
+          requirements: requirements.yml
+          vault_password: ${{secrets.VAULT_PASSWORD}}

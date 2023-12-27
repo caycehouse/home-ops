@@ -17,6 +17,11 @@
   ],
   "packageRules": [
     {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["ghcr.io/dgtlmoon/changedetection.io"],
+      "versioning": "loose"
+    },
+    {
       "matchPackageNames": [
         "justarchi/archisteamfarm"
       ],

@@ -11,7 +11,7 @@ services:
       - internal
 
   db:
-    image: docker.io/library/postgres:15@sha256:11019308d1b8c73d225f1c3b8ddcb1380d5957e7b934ef27050b1f91c8859ce2
+    image: docker.io/library/postgres:15@sha256:23ddd7177ddf41d9465cd10eaef64aaf480cea5dde9f1da034ecb77d59185a35
     restart: unless-stopped
     volumes:
       - ./pg-data:/var/lib/postgresql/data

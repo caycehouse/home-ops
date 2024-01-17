@@ -1,0 +1,6 @@
+---
+- name: Install All in One [Modded One Block]
+  vars:
+    service: allinone
+  ansible.builtin.include_role:
+    name: service

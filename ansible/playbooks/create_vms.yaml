@@ -1,0 +1,8 @@
+---
+- name: VM Creation
+  hosts: localhost
+  gather_facts: true
+  any_errors_fatal: true
+  tasks:
+    - name: Create VM template
+      ansible.builtin.include_tasks: tasks/vm_template.yaml

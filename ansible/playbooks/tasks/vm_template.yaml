@@ -1,0 +1,79 @@
+---
+- name: Get VM current state
+  community.general.proxmox_kvm:
+    api_user: "{{ proxmox_user }}"
+    api_token_id: "{{ proxmox_token_id }}"
+    api_token_secret: "{{ proxmox_token_secret }}"
+    api_host: "{{ proxmox_host }}"
+    name: "{{ proxmox_template_name }}"
+    state: current
+  ignore_errors: true
+  register: _vm_template_exists
+
+# Create template for controller
+- name: Create proxmox vm template template if it doesn't al ready exist
+  when: _vm_template_exists.failed is true
+  block:
+    - name: Download cloud image
+      ansible.builtin.get_url:
+        url: "{{ cloud_img_url }}"
+        dest: "/tmp/"
+      delegate_to: "{{ proxmox_host }}"
+      become: true
+
+    - name: Create template VM with cloud-init
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_user }}"
+        api_token_id: "{{ proxmox_token_id }}"
+        api_token_secret: "{{ proxmox_token_secret }}"
+        api_host: "{{ proxmox_host }}"
+        agent: "enabled=1,fstrim_cloned_disks=1"
+        boot: "order=scsi0"
+        cpu: "host"
+        ide:
+          ide2: '{{ proxmox_storage }}:cloudinit,format=qcow2'
+        memory: 2048
+        name: "{{ proxmox_template_name }}"
+        net:
+          net0:
+            'virtio,bridge=vmbr0'
+        node: "{{ proxmox_host }}"
+        numa_enabled: true
+        onboot: true
+        ostype: "l26"
+        scsihw: "virtio-scsi-single"
+        serial:
+          serial0: socket
+        sockets: 2
+        startup: "order=10"
+        tags: "{{ proxmox_template_tags }}"
+        vga: "serial0"
+
+    - name: Import cloud image to storage
+      community.general.proxmox_disk:
+        api_user: "root@pam"
+        api_password: "{{ proxmox_root_pass }}"
+        api_host: "{{ proxmox_host }}"
+        discard: "on"
+        disk: scsi0
+        format: "qcow2"
+        import_from: "/tmp/{{ cloud_img_name }}"
+        iothread: true
+        name: "{{ proxmox_template_name }}"
+        storage: "{{ proxmox_storage }}"
+
+    - name: Convert VM to template
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_user }}"
+        api_token_id: "{{ proxmox_token_id }}"
+        api_token_secret: "{{ proxmox_token_secret }}"
+        api_host: "{{ proxmox_host }}"
+        state: template
+        name: "{{ proxmox_template_name }}"
+
+    - name: "Cleanup cloud-init image"
+      ansible.builtin.file:
+        name: /tmp/{{ cloud_img_name }}
+        state: absent
+      delegate_to: "{{ proxmox_host }}"
+      become: true

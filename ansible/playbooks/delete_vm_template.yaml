@@ -1,0 +1,14 @@
+---
+- name: Delete VM template
+  hosts: localhost
+  gather_facts: true
+  any_errors_fatal: true
+  tasks:
+    - name: Delete vm template
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_user }}"
+        api_token_id: "{{ proxmox_token_id }}"
+        api_token_secret: "{{ proxmox_token_secret }}"
+        api_host: "{{ proxmox_host }}"
+        name: "{{ proxmox_template_name }}"
+        state: absent

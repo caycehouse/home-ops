@@ -29,11 +29,10 @@
     api_host: "{{ proxmox_host }}"
     node: "{{ proxmox_host }}"
     name: "{{ item }}"
-    memory: 8192
-    cores: 2
+    memory: 32768
+    cores: 12
     tags:
-      - controlplane
-      - etcd
+      - worker
       - home-cluster
       - k8s
       - "{{ template_os_name }}"
@@ -49,4 +48,3 @@
     disk: scsi0
     state: resized
     size: 50G
-  register: result

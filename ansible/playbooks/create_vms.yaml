@@ -11,7 +11,6 @@
       ansible.builtin.include_tasks: tasks/create_master_vm.yaml
       with_items: "{{ groups['master'] }}"
 
-    - name: Create worker vms
-      ansible.builtin.debug:
-        msg: "Creating worker node {{item}}"
+    - name: Create worker vms=
+      ansible.builtin.include_tasks: tasks/create_worker_vm.yaml
       with_items: "{{ groups['worker'] }}"

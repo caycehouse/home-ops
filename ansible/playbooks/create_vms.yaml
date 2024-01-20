@@ -6,3 +6,12 @@
   tasks:
     - name: Create VM template
       ansible.builtin.include_tasks: tasks/vm_template.yaml
+
+    - name: Create master vms
+      ansible.builtin.include_tasks: tasks/create_master_vm.yaml
+      with_items: "{{ groups['master'] }}"
+
+    - name: Create worker vms
+      ansible.builtin.debug:
+        msg: "Creating worker node {{item}}"
+      with_items: "{{ groups['worker'] }}"

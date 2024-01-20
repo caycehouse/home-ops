@@ -1,0 +1,56 @@
+---
+- name: Get VM current state
+  community.general.proxmox_kvm:
+    api_user: "{{ proxmox_user }}"
+    api_token_id: "{{ proxmox_token_id }}"
+    api_token_secret: "{{ proxmox_token_secret }}"
+    api_host: "{{ proxmox_host }}"
+    name: "{{ item }}"
+    state: current
+  ignore_errors: true
+  register: _vm_exists
+
+- name: Create VM if does not exist
+  community.general.proxmox_kvm:
+    api_user: "{{ proxmox_user }}"
+    api_token_id: "{{ proxmox_token_id }}"
+    api_token_secret: "{{ proxmox_token_secret }}"
+    api_host: "{{ proxmox_host }}"
+    node: "{{ proxmox_host }}"
+    name: "{{ item }}"
+    clone: "{{ proxmox_template_name }}"
+  when: _vm_exists.failed is true
+
+- name: Update VM config
+  community.general.proxmox_kvm:
+    api_user: "{{ proxmox_user }}"
+    api_token_id: "{{ proxmox_token_id }}"
+    api_token_secret: "{{ proxmox_token_secret }}"
+    api_host: "{{ proxmox_host }}"
+    node: "{{ proxmox_host }}"
+    name: "{{ item }}"
+    memory: 8192
+    cores: 2
+    tags:
+      - controlplane
+      - etcd
+      - home-cluster
+      - k8s
+      - "{{ template_os_name }}"
+    update: true
+
+- name: Ensure VM disk size is correct
+  community.general.proxmox_disk:
+    api_user: "{{ proxmox_user }}"
+    api_token_id: "{{ proxmox_token_id }}"
+    api_token_secret: "{{ proxmox_token_secret }}"
+    api_host: "{{ proxmox_host }}"
+    name: "{{ item }}"
+    disk: scsi0
+    state: resized
+    size: 50G
+  register: result
+
+- ansible.builtin.debug:
+    var: result
+

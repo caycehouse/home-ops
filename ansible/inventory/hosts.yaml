@@ -4,4 +4,15 @@ all:
     ansible_user: caycehouse
   children:
     proxmox:
-      hosts: cupcakes
+      hosts:
+        cupcakes:
+    kubernetes:
+      children:
+        master:
+          hosts:
+            dingdongs:
+        worker:
+          hosts:
+            zingers:
+            hohos:
+            snoballs:

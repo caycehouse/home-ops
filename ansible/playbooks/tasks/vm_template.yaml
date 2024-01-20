@@ -55,7 +55,9 @@
         sockets: 2
         sshkeys: "{{ template_ssh_key }}"
         startup: "order=10"
-        tags: "{{ proxmox_template_tags }}"
+        tags: 
+          - template
+          - "{{ template_os_name }}"
         vga: "serial0"
 
     - name: Import cloud image to storage

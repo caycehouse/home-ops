@@ -29,11 +29,18 @@
         api_host: "{{ proxmox_host }}"
         agent: "enabled=1,fstrim_cloned_disks=1"
         boot: "order=scsi0"
+        ciuser: "{{ template_user }}"
+        cipassword: "{{ template_password }}"
         cpu: "host"
         ide:
           ide2: '{{ proxmox_storage }}:cloudinit,format=qcow2'
+        ipconfig:
+          ipconfig0: 'ip=dhcp,ip6=dhcp'
         memory: 2048
         name: "{{ proxmox_template_name }}"
+        nameservers:
+          - 1.1.1.1
+          - 8.8.8.8
         net:
           net0:
             'virtio,bridge=vmbr0'
@@ -42,9 +49,11 @@
         onboot: true
         ostype: "l26"
         scsihw: "virtio-scsi-single"
+        searchdomains: localdomain
         serial:
           serial0: socket
         sockets: 2
+        sshkeys: "{{ template_ssh_key }}"
         startup: "order=10"
         tags: "{{ proxmox_template_tags }}"
         vga: "serial0"

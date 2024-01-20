@@ -9,3 +9,6 @@ proxmox_template_tags:
 
 proxmox_host: cupcakes
 proxmox_storage: local
+
+template_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA1fE9oGJZyOliB/NeqUaz+QeYrwam+gcb+ZLrFRNp/l cayce@caycehouse.com
+template_user: caycehouse

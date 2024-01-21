@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>caycehouse/renovate-config",
-    ":skipStatusChecks"
+    "local>caycehouse/renovate-config"
   ]
 }

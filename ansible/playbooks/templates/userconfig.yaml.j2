@@ -13,4 +13,4 @@ users:
 package_upgrade: true
 runcmd:
   - ['sh', '-c', 'curl -fsSL https://tailscale.com/install.sh | sh']
-  - ['tailscale', 'up', "--authkey={{ tailscale_auth_key }}"]
+  - ['tailscale', 'up', '--authkey={{ tailscale_auth_key }}', '--ssh']

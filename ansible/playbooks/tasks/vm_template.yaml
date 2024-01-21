@@ -60,6 +60,10 @@
           - "{{ template_os_name }}"
         vga: "serial0"
 
+    - name: Pause for 10 seconds to ensure VM has been created
+      ansible.builtin.pause:
+        seconds: 10
+
     - name: Import cloud image to storage
       community.general.proxmox_disk:
         api_user: "root@pam"

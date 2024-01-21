@@ -32,3 +32,18 @@
         state: absent
         force: true
       with_items: "{{ groups['worker'] }}"
+
+    - name: Delete template userconfig snippet
+      ansible.builtin.file:
+        path: "{{ proxmox_storage_dir }}/snippets/userconfig-{{ proxmox_template_name }}.yaml"
+        state: absent
+      delegate_to: "{{ proxmox_host }}"
+      become: true
+
+    - name: Delete vm userconfig snippets
+      ansible.builtin.file:
+        path: "{{ proxmox_storage_dir }}/snippets/userconfig-{{ item }}.yaml"
+        state: absent
+      with_items: "{{ groups['kubernetes'] }}"
+      delegate_to: "{{ proxmox_host }}"
+      become: true

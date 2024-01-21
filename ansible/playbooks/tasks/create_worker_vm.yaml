@@ -33,6 +33,7 @@
     api_host: "{{ proxmox_host }}"
     node: "{{ proxmox_host }}"
     name: "{{ item }}"
+    cicustom: "user={{ proxmox_storage }}:snippets/userconfig-{{ item }}.yaml"
     memory: 32768
     cores: 12
     tags:
@@ -52,3 +53,19 @@
     disk: scsi0
     state: resized
     size: 50G
+
+- name: Copy cloudinit to storage
+  ansible.builtin.template:
+    src: templates/userconfig.yaml.j2
+    dest: "{{ proxmox_storage_dir }}/snippets/userconfig-{{ item }}.yaml"
+  delegate_to: "{{ proxmox_host }}"
+  become: true
+
+- name: Start VM
+  community.general.proxmox_kvm:
+    api_user: "{{ proxmox_user }}"
+    api_token_id: "{{ proxmox_token_id }}"
+    api_token_secret: "{{ proxmox_token_secret }}"
+    api_host: "{{ proxmox_host }}"
+    name: "{{ item }}"
+    state: started

@@ -29,8 +29,7 @@
         api_host: "{{ proxmox_host }}"
         agent: "enabled=1,fstrim_cloned_disks=1"
         boot: "order=scsi0"
-        ciuser: "{{ template_user }}"
-        cipassword: "{{ template_password }}"
+        cicustom: "user={{ proxmox_storage }}:snippets/userconfig-{{ proxmox_template_name }}.yaml"
         cpu: "host"
         ide:
           ide2: '{{ proxmox_storage }}:cloudinit,format=qcow2'
@@ -53,7 +52,6 @@
         serial:
           serial0: socket
         sockets: 2
-        sshkeys: "{{ template_ssh_key }}"
         startup: "order=10"
         tags: 
           - template
@@ -85,6 +83,13 @@
         api_host: "{{ proxmox_host }}"
         state: template
         name: "{{ proxmox_template_name }}"
+
+    - name: Copy cloudinit to storage
+      ansible.builtin.template:
+        src: templates/userconfig.yaml.j2
+        dest: "{{ proxmox_storage_dir }}/snippets/userconfig-{{ proxmox_template_name }}.yaml"
+      delegate_to: "{{ proxmox_host }}"
+      become: true     
 
     - name: "Cleanup cloud-init image"
       ansible.builtin.file:

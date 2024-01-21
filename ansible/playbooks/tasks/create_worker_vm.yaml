@@ -21,6 +21,10 @@
     clone: "{{ proxmox_template_name }}"
   when: _vm_exists.failed is true
 
+- name: Pause for 10 seconds to ensure VM has been created
+  ansible.builtin.pause:
+    seconds: 10
+
 - name: Update VM config
   community.general.proxmox_kvm:
     api_user: "{{ proxmox_user }}"

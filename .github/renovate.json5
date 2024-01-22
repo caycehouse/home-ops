@@ -3,6 +3,12 @@
   "extends": [
     "local>caycehouse/renovate-config"
   ],
+  "kubernetes": {
+    "fileMatch": [
+      "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
+      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+    ]
+  },
   // custom managers
   "customManagers": [
     {

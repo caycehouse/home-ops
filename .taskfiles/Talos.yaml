@@ -31,6 +31,7 @@ tasks:
 
   genconfig:
     desc: Generate talos config
+    prompt: This will overwrite the existing talosconfig... continue?
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper genconfig
     preconditions:

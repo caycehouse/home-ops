@@ -2,7 +2,6 @@
 version: "3"
 
 vars:
-  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
   SOPS_CONFIG_FILE: "{{.ROOT_DIR}}/.sops.yaml"
 
 tasks:

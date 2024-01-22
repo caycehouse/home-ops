@@ -2,6 +2,7 @@ version: "3"
 
 env:
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 tasks:
   default: task -l

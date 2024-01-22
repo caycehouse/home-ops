@@ -9,5 +9,8 @@ tasks:
   default: task -l
 
 includes:
+  kubernetes:
+    aliases: ["k8s"]
+    taskfile: .taskfiles/Kubernetes.yaml
   sops: .taskfiles/Sops.yaml
   talos: .taskfiles/Talos.yaml

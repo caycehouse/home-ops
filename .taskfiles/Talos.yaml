@@ -3,7 +3,7 @@ version: "3"
 
 vars:
   TALOS_DIR: "{{.ROOT_DIR}}/kubernetes/talos"
-  TALHELPER_SECRET_FILE: "{{.TALOS_DIR}}/talhelper.sops.yaml"
+  TALHELPER_SECRET_FILE: "{{.TALOS_DIR}}/talsecret.sops.yaml"
   TALHELPER_CONFIG_FILE: "{{.TALOS_DIR}}/talconfig.yaml"
 
 tasks:
@@ -14,6 +14,15 @@ tasks:
     cmd: talhelper gencommand apply | bash
     preconditions:
       - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
+
+  apply-extras:
+    desc: Apply extras
+    dir: "{{.TALOS_DIR}}"
+    cmds:
+      - kubectl --kubeconfig {{.KUBECONFIG_FILE}} kustomize --enable-helm ./cilium | kubectl apply --kubeconfig {{.KUBECONFIG_FILE}} --server-side --filename -
+      - kubectl --kubeconfig {{.KUBECONFIG_FILE}} kustomize --enable-helm ./kubelet-csr-approver | kubectl apply --kubeconfig {{.KUBECONFIG_FILE}} --server-side --filename -
+    preconditions:
+      - { msg: "Missing kubeconfig", sh: "test -f {{.KUBECONFIG_FILE}}" }
 
   apply-insecure:
     desc: Apply talos config on a node
@@ -31,7 +40,6 @@ tasks:
 
   genconfig:
     desc: Generate talos config
-    prompt: This will overwrite the existing talosconfig... continue?
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper genconfig
     preconditions:

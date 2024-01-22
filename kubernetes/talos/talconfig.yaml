@@ -26,5 +26,13 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+
+controlPlane:
+  patches:
+    - |-
+      cluster:
+        proxy:
+          disabled: true
+
 patches:
   - "@./tailscale-patch.yaml"

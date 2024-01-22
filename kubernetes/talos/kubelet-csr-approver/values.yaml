@@ -1,0 +1,3 @@
+---
+providerRegex: ^(dingdongs)$
+bypassDnsResolution: true

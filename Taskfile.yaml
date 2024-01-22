@@ -1,6 +1,7 @@
 version: "3"
 
 env:
+  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 

@@ -52,7 +52,9 @@ tasks:
     desc: Generate talos kubeconfig
     prompt: This will overwrite the existing kubeconfig... continue?
     dir: "{{.TALOS_DIR}}"
-    cmd: talosctl kubeconfig {{.ROOT_DIR}} --force
+    requires:
+      vars: [node]
+    cmd: talosctl kubeconfig --talosconfig {{.TALOS_DIR}}/clusterconfig/talosconfig -n {{.node}} {{.ROOT_DIR}} --force
 
   upgrade-talos:
     desc: Upgrade talos on a node

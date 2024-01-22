@@ -4,8 +4,14 @@ clusterName: home-cluster
 talosVersion: v1.6.0
 # renovate: datasource=github-releases depName=kubernetes/kubernetes extractVersion=^v(?<version>.*)$
 kubernetesVersion: v1.27.0
-allowSchedulingOnControlPlanes: true
+
 endpoint: https://dingdongs:6443
+
+allowSchedulingOnControlPlanes: true
+
+cniConfig:
+  name: none
+
 nodes:
   - hostname: dingdongs
     ipAddress: dingdongs

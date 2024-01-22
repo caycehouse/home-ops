@@ -1,0 +1,24 @@
+---
+clusterName: home-cluster
+# renovate: datasource=github-releases depName=siderolabs/talos
+talosVersion: v1.6.0
+# renovate: datasource=github-releases depName=kubernetes/kubernetes extractVersion=^v(?<version>.*)$
+kubernetesVersion: v1.27.0
+allowSchedulingOnControlPlanes: true
+endpoint: https://dingdongs:6443
+nodes:
+  - hostname: dingdongs
+    ipAddress: dingdongs
+    controlPlane: true
+    installDisk: /dev/sda
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/qemu-guest-agent
+            - siderolabs/tailscale
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+patches:
+  - "@./tailscale-patch.yaml"

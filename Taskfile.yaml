@@ -1,0 +1,11 @@
+version: "3"
+
+env:
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+
+tasks:
+  default: task -l
+
+includes:
+  sops: .taskfiles/Sops.yaml
+  talos: .taskfiles/Talos.yaml

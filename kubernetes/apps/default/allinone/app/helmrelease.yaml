@@ -31,6 +31,8 @@ spec:
     serviceAnnotations:
       tailscale.com/expose: "true"
       tailscale.com/hostname: *app
+    livenessProbe:
+      initialDelaySeconds: 120
     minecraftServer:
       difficulty: "hard"
       eula: "true"

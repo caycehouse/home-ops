@@ -27,6 +27,9 @@ spec:
       create: true
       createSecret: false
       username: admin
+    service:
+      annotations:
+        tailscale.com/expose: "true"
     networkPolicy:
       create: false
     metrics:

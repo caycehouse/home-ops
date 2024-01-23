@@ -22,11 +22,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  defaultBackend:
-    service:
-      name: &host weave-gitops
-      port:
-        number: 80
   values:
     adminUser:
       create: true
@@ -36,10 +31,12 @@ spec:
       enabled: true
       className: tailscale
       hosts:
-        - host: *host
+        - host: &host weave-gitops
           paths:
             - path: /
-              pathType: Prefix
+              pathType:
+              port:
+                number: 80
       tls:
         - hosts:
             - *host

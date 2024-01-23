@@ -29,7 +29,7 @@ spec:
       username: admin
     service:
       annotations:
-        - tailscale.com/expose: "true"
+        tailscale.com/expose: "true"
     networkPolicy:
       create: false
     metrics:

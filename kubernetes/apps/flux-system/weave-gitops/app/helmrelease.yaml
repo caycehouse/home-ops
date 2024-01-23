@@ -34,7 +34,7 @@ spec:
         - host: &host weave-gitops
           paths:
             - path: /
-              pathType:
+              pathType: Prefix
               port:
                 number: 80
       tls:

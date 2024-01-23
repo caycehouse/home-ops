@@ -26,6 +26,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    image:
+      tag: 2024.1.0-java8-multiarch
     serviceAnnotations:
       tailscale.com/expose: "true"
       tailscale.com/hostname: *app

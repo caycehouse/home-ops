@@ -30,3 +30,5 @@ spec:
       tailscale.com/expose: "true"
     minecraftServer:
       eula: "TRUE"
+    serviceType: LoadBalancer
+    

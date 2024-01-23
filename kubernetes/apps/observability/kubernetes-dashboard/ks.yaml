@@ -9,9 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: cert-manager
-    - name: metrics-server
   path: ./kubernetes/apps/observability/kubernetes-dashboard/app
   prune: true
   sourceRef:

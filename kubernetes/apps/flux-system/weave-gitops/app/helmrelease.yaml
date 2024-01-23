@@ -29,9 +29,9 @@ spec:
       username: admin
     ingress:
       enabled: true
-      className: "tailscale"
+      className: tailscale
       hosts:
-        - host: &host weave-gitops
+        - host: &host "weave-gitops"
           paths:
             - path: /
               pathType: Prefix

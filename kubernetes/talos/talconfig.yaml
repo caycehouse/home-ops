@@ -34,5 +34,29 @@ controlPlane:
         proxy:
           disabled: true
 
+    # Configure containerd
+    - |-
+      machine:
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
+
+    # Disable default API server admission plugins.
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
+
+    # Kubelet configuration
+    - |-
+      machine:
+        kubelet:
+          extraArgs:
+            rotate-server-certificates: "true"
+
 patches:
   - "@./tailscale-patch.yaml"

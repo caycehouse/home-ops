@@ -1,0 +1,4 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/itzg/minecraft-server-charts/master/charts/minecraft/values.schema.json
+minecraftServer:
+  eula: "TRUE"

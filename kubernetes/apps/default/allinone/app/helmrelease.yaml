@@ -27,6 +27,6 @@ spec:
     keepHistory: false
   values:
     serviceAnnotations:
-      tailscale.com/expose: "TRUE"
+      tailscale.com/expose: "true"
     minecraftServer:
       eula: "TRUE"

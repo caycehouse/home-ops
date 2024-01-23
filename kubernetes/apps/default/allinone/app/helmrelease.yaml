@@ -42,12 +42,12 @@ spec:
       spawnProtection: 0
       type: "AUTO_CURSEFORGE"
       viewDistance: 7
-    autoCurseForge:
-      apiKey:
-        name: cluster-secrets
-        key: CF_API_KEY
-      filenameMatcher: "1.5.4"
-      slug: "all-in-one-modded-one-block"
+      autoCurseForge:
+        apiKey:
+          existingSecret: cluster-secrets
+          key: CF_API_KEY
+        filenameMatcher: "1.5.4"
+        slug: "all-in-one-modded-one-block"
     # extraEnv:
     #   allow_flight: "true"
     #   enable_rolling_logs: "true"

@@ -30,26 +30,30 @@ spec:
       tailscale.com/expose: "true"
       tailscale.com/hostname: *app
     minecraftServer:
-      allow_flight: "true"
-      cf_api_key: "${ CF_API_KEY }"
-      cf_filename_matcher: "1.5.4"
-      cf_slug: "all-in-one-modded-one-block"
       difficulty: "hard"
-      enable_rolling_logs: "true"
       eula: "true"
-      force_gamemode: "true"
-      max_players: "10"
-      max_tick_time: "180000"
+      forcegameMode: "true"
+      maxPlayers: "10"
+      maxTickTime: "180000"
       memory: "6G"
       motd: "All in One | 1.5.4b"
       ops: "FryyourBacon"
-      override_server_properties: "true"
-      spawn_protection: "0"
+      overrideServerProperties: "true"
+      spawnProtection: "0"
+      type: "AUTO_CURSEFORGE"
+      viewDistance: "7"
+    autoCurseForge:
+      apiKey:
+        name: cluster-secrets
+        key: CF_API_KEY
+      filenameMatcher: "1.5.4"
+      slug: "all-in-one-modded-one-block"
+    extraEnv:
+      allow_flight: "true"
+      enable_rolling_logs: "true"
       snooper_enabled: "false"
       sync_chunk_writes: "false"
-      type: "AUTO_CURSEFORGE"
       use_aikar_flags: "true"
-      view_distance: "7"
     resources:
       requests:
         memory: 8192Mi

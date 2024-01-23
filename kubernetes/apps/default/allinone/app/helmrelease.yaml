@@ -32,8 +32,6 @@ spec:
     minecraftServer:
       eula: "TRUE"
       memory: 8192M
-      serviceType: LoadBalancer
-      externalTrafficPolicy: Cluster
     resources:
       requests:
         memory: 8192Mi

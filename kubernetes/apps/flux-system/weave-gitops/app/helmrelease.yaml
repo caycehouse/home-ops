@@ -30,14 +30,14 @@ spec:
     ingress:
       enabled: true
       className: tailscale
-      # hosts:
-      #   - host: &host "gitops.${SECRET_DOMAIN}"
-      #     paths:
-      #       - path: /
-      #         pathType: Prefix
+      hosts:
+        - host: &host weave-gitops
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
         - hosts:
-            - weave-gitops
+            - *host
     networkPolicy:
       create: false
     metrics:

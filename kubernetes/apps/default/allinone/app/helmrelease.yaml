@@ -25,7 +25,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  valuesFrom:
-    - name: allinone-values
-      kind: ConfigMap
-      valuesKey: values.yaml
+  values:
+    minecraftServer:
+      eula: "TRUE"

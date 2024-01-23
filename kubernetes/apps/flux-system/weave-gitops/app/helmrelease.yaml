@@ -3,6 +3,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: weave-gitops
+  annotations:
+    tailscale.com/expose: "true"
 spec:
   interval: 30m
   chart:
@@ -27,9 +29,6 @@ spec:
       create: true
       createSecret: false
       username: admin
-    service:
-      annotations:
-        tailscale.com/expose: "true"
     networkPolicy:
       create: false
     metrics:

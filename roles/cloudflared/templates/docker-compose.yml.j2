@@ -3,7 +3,7 @@
 
 services:
   cloudflared:
-    image: cloudflare/cloudflared:2023.10.0@sha256:c18744ae1767c17c5562cc731c24e64a5a2f93f35c3dd6629b90dedaff6dff8f
+    image: cloudflare/cloudflared:2024.1.4@sha256:90a3eb006af86cba5ea3b3ac08c3f5979c8efa0e98bf490788de8c629e46eb1f
     command: tunnel --no-autoupdate run
     environment:
       - TUNNEL_TOKEN={{ tunnel_token }}

@@ -44,8 +44,7 @@ spec:
       viewDistance: 7
       autoCurseForge:
         apiKey:
-          existingSecret: cluster-secrets
-          key: CF_API_KEY
+          key: ${CF_API_KEY}
         filenameMatcher: "1.5.4"
         slug: "all-in-one-modded-one-block"
     # extraEnv:

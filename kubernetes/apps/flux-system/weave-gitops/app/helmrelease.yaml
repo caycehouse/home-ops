@@ -27,19 +27,9 @@ spec:
       create: true
       createSecret: false
       username: admin
-    ingress:
-      enabled: true
-      className: tailscale
-      hosts:
-        - host: &host weave-gitops
-          paths:
-            - path: /
-              pathType: Prefix
-              port:
-                number: 9001
-      tls:
-        - hosts:
-            - *host
+    service:
+      annotations:
+        - tailscale.com/expose: "true"
     networkPolicy:
       create: false
     metrics:

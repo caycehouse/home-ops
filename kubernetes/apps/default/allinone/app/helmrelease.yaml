@@ -32,16 +32,16 @@ spec:
     minecraftServer:
       difficulty: "hard"
       eula: "true"
-      forcegameMode: "true"
-      maxPlayers: "10"
-      maxTickTime: "180000"
+      forcegameMode: true
+      maxPlayers: 10
+      maxTickTime: 180000
       memory: "6G"
       motd: "All in One | 1.5.4b"
       ops: "FryyourBacon"
       overrideServerProperties: "true"
-      spawnProtection: "0"
+      spawnProtection: 0
       type: "AUTO_CURSEFORGE"
-      viewDistance: "7"
+      viewDistance: 7
     autoCurseForge:
       apiKey:
         name: cluster-secrets

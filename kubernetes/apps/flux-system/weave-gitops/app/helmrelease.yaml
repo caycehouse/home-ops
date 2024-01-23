@@ -36,7 +36,7 @@ spec:
             - path: /
               pathType: Prefix
               port:
-                number: 80
+                number: 9001
       tls:
         - hosts:
             - *host

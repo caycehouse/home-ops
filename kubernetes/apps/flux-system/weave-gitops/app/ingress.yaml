@@ -4,12 +4,17 @@ kind: Ingress
 metadata:
   name: weave-gitops
 spec:
-  defaultBackend:
-    service:
-      name: weave-gitops
-      port:
-        number: 9001
   ingressClassName: tailscale
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: weave-gitops
+            port:
+              number: 9001
   tls:
     - hosts:
         - weave-gitops

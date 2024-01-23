@@ -25,4 +25,5 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
+   minecraftServer:
+    eula: "TRUE"

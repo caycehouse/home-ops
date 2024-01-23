@@ -32,3 +32,4 @@ spec:
     minecraftServer:
       eula: "TRUE"
       serviceType: LoadBalancer
+      externalTrafficPolicy: Cluster

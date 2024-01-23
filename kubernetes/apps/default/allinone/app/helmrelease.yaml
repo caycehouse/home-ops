@@ -48,12 +48,12 @@ spec:
         key: CF_API_KEY
       filenameMatcher: "1.5.4"
       slug: "all-in-one-modded-one-block"
-    extraEnv:
-      allow_flight: "true"
-      enable_rolling_logs: "true"
-      snooper_enabled: "false"
-      sync_chunk_writes: "false"
-      use_aikar_flags: "true"
+    # extraEnv:
+    #   allow_flight: "true"
+    #   enable_rolling_logs: "true"
+    #   snooper_enabled: "false"
+    #   sync_chunk_writes: "false"
+    #   use_aikar_flags: "true"
     resources:
       requests:
         memory: 8192Mi

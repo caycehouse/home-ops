@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - ./cilium.yaml
   - ./itzg.yaml
+  - ./kubernetes-dashboard.yaml
   - ./tailscale.yaml
   - ./weave-gitops.yaml

@@ -38,7 +38,7 @@ spec:
       memory: "6G"
       motd: "All in One | 1.5.4b"
       ops: "FryyourBacon"
-      overrideServerProperties: "true"
+      overrideServerProperties: true
       spawnProtection: 0
       type: "AUTO_CURSEFORGE"
       viewDistance: 7

@@ -4,7 +4,6 @@ kind: HelmRelease
 metadata:
   name: weave-gitops
 spec:
-  ingressClassName: tailscale
   interval: 30m
   chart:
     spec:
@@ -30,7 +29,7 @@ spec:
       username: admin
     ingress:
       enabled: true
-      className: internal
+      className: tailscale
       hosts:
         - host: &host weave-gitops
           paths:

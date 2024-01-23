@@ -31,4 +31,4 @@ spec:
       tailscale.com/hostname: *app
     minecraftServer:
       eula: "TRUE"
-    serviceType: "LoadBalancer"
+      serviceType: LoadBalancer

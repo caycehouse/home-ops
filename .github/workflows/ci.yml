@@ -30,6 +30,7 @@ jobs:
           requirements: ./ansible/requirements.yaml
           configuration: |
             [defaults]
+            remote_user = caycehouse
             inventory = ./ansible/inventory/hosts.yaml
             roles_path = ./ansible/roles
           vault_password: ${{secrets.VAULT_PASSWORD}}
@@ -40,6 +41,7 @@ jobs:
           requirements: ./ansible/requirements.yaml
           configuration: |
             [defaults]
+            remote_user = caycehouse
             inventory = ./ansible/inventory/hosts.yaml
             roles_path = ./ansible/roles
           vault_password: ${{secrets.VAULT_PASSWORD}}

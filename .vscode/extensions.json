@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "mikestead.dotenv",
+        "mkhl.direnv",
         "redhat.ansible",
         "PKief.material-icon-theme"
     ]

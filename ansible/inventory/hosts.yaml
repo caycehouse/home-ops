@@ -1,0 +1,29 @@
+---
+all:
+  children:
+    home:
+      hosts:
+        octopi:
+          vars:
+            prevent_reboot: true
+    gsld:
+      children:
+        proxmox_servers:
+          hosts:
+            cupcakes:
+              vars:
+                prevent_reboot: true
+        proxmox_vms:
+          hosts:
+            bakery:
+    cleverhouse:
+      hosts:
+        cleverhouse-[1:3]:
+    houseco:
+      hosts:
+        houseco-[1:3]:
+    docker_nodes:
+      hosts:
+        bakery:
+        cleverhouse-[1:3]:
+        houseco-[1:3]:

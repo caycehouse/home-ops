@@ -6,5 +6,4 @@ Configures my homelab environment.
 `ansible-playbook site.yml`
 
 ## TODO
-- backups
 - prometheus (or other monitoring)

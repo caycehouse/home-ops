@@ -10,7 +10,6 @@
   roles:
     - {role: common, tags: common}
     - {role: artis3n.tailscale, tags: tailscale}
-  vars_files: vault.yml
 
 - name: Play to add swap to needed machines
   hosts: all,!proxmox_servers,!octopi
@@ -37,7 +36,6 @@
     docker_users:
       - caycehouse
     config_dir: '~'
-  vars_files: vault.yml
   roles:
     - {role: geerlingguy.pip, tags: pip}
     - {role: geerlingguy.docker, tags: docker}

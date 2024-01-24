@@ -2,7 +2,7 @@ version: "3"
 
 env:
   # Directories
-  ANSIBLE_DIR: "{{.ROOT_DIR}}"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   # Binaries
   PYTHON_BIN: python3
 

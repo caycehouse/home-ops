@@ -31,6 +31,12 @@ services:
       - internal
       - tunnel
     restart: always
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=Monica
+      - homepage.icon=monica
+      - homepage.href=https://monica.caycehouse.com
+      - homepage.description=Open source personal CRM
   db:
     image: mysql:8.2.0@sha256:212fe73edca5df6ff14826d5eb975c914bfb91f82a2e923f9050568f99525da1
     environment:

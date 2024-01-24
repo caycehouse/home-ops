@@ -10,6 +10,12 @@ services:
     networks:
       - tunnel
     restart: always
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=ArchiSteamFarm
+      - homepage.icon=archisteamfarm
+      - homepage.href=https://asf.caycehouse.com
+      - homepage.description=Steam cards farmer
 networks:
   tunnel:
     external: true

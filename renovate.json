@@ -4,8 +4,10 @@
     "github>caycehouse/renovate-config",
     ":skipStatusChecks"
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
+      "description": "Process docker compose jinja2 files",
       "fileMatch": "(^|/)(?:docker-)?compose[^/]*\\.ya?ml\\.j2$",
       "matchStrings": [
         "(?:image: )(?<depName>.*?)(?::(?<currentValue>.*?))?(?:@(?<currentDigest>sha256:[a-f0-9]+))?\\n"

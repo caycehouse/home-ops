@@ -1,6 +1,7 @@
 ---
 tailscale_args: "--ssh"
 tailscale_oauth_ephemeral: false
+tailscale_oauth_preauthorized: true
 tailscale_tags:
   - "server"
 

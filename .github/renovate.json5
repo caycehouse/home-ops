@@ -33,7 +33,7 @@
       "matchDatasources": [
         "docker"
       ],
-      "matchPaths": [
+      "matchFileNames": [
         "**/docker-compose.yml.j2"
       ],
       "pinDigests": true

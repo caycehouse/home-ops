@@ -5,7 +5,7 @@ metadata:
   name: "nfs"
 provisioner: nfs.csi.k8s.io
 parameters:
-  server: "truenas-scale"
+  server: "twinkies"
   share: "/mnt/storage/k8s"
 reclaimPolicy: Delete
 volumeBindingMode: Immediate

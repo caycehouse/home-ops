@@ -10,6 +10,7 @@ docker_compose_roles:
   - minecraft
   - plexiglass-mountain
   - allinone
+  - homepage
 
 tunnel_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;home-ops

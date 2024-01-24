@@ -1,0 +1,16 @@
+---
+docker_compose_roles:
+  - cloudflared
+  - portainer-agent
+  - restic
+  - allinone
+  - archisteamfarm
+  - changedetection
+  - free-games-claimer
+  - homepage
+  - minecraft
+  - miniflux
+  - monica
+  - plexiglass-mountain
+  - satisfactory
+  - valheim

@@ -3,7 +3,6 @@
     "ansible.python.activationScript": ".venv/bin/activate",
     "ansible.python.interpreterPath": ".venv/bin/python3",
     "ansible.validation.enabled": true,
-    "ansible.validation.lint.arguments": "-c ansible/.ansible-lint",
     "ansible.validation.lint.enabled": true,
     "ansible.validation.lint.path": ".venv/bin/ansible-lint",
     "cSpell.words": [

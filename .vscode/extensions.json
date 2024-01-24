@@ -1,6 +1,7 @@
 {
     "recommendations": [
+        "mikestead.dotenv",
         "redhat.ansible",
-        "bungcip.better-toml"
+        "PKief.material-icon-theme"
     ]
 }

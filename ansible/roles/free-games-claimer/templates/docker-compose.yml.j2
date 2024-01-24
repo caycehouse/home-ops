@@ -21,6 +21,13 @@ services:
       - HEIGHT=1080
     networks:
       - tunnel
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=free-games-claimer
+      - homepage.icon=mdi-gamepad
+      - homepage.href=https://fgc.caycehouse.com
+      - homepage.description=Free games claimer
+
 networks:
   tunnel:
     external: true

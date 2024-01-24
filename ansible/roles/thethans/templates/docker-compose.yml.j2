@@ -6,7 +6,7 @@ services:
     image: itzg/minecraft-server:2024.1.0-java17@sha256:ca62acdcdf24be6292da5da92c7d797879c47b93951b40a7f86bfda8d3d2f830
     container_name: thethans
     ports:
-      - 25566:25565
+      - 25569:25565
     environment:
       DIFFICULTY: "hard"
       ENABLE_ROLLING_LOGS: "true"
@@ -29,6 +29,11 @@ services:
       USE_AIKAR_FLAGS: "true"
       VIEW_DISTANCE: "10"
       WHITELIST: "EthanKruse,0_Burnt_Toast_0,FryyourBacon"
+    labels:
+      - homepage.group=Games
+      - homepage.name=TheThans
+      - homepage.icon=minecraft
+      - homepage.description=Vanilla Minecraft server
     tty: true
     stdin_open: true
     volumes:

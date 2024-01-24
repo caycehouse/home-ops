@@ -1,6 +1,7 @@
 ---
 docker_compose_roles:
   - cloudflared
+  - portainer
   - portainer-agent
   - restic
   - allinone
@@ -11,6 +12,8 @@ docker_compose_roles:
   - minecraft
   - miniflux
   - monica
+  - oceanblock
   - plexiglass-mountain
   - satisfactory
+  - thethans
   - valheim

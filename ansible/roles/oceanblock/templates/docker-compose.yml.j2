@@ -6,7 +6,7 @@ services:
     image: itzg/minecraft-server:2024.1.0-java8-multiarch@sha256:8a7581dccabd91a6dcede1910319e4719f173b592f01fc4a4c4dba49e8acf744
     container_name: oceanblock
     ports:
-      - 25565:25565
+      - 25568:25565
     environment:
       DIFFICULTY: "hard"
       ENABLE_ROLLING_LOGS: "true"
@@ -34,6 +34,11 @@ services:
       interval: 5s
       retries: 20
     restart: always
+    labels:
+      - homepage.group=Games
+      - homepage.name=OceanBlock
+      - homepage.icon=https://www.feed-the-beast.com/_next/image?url=https%3A%2F%2Fapps.modpacks.ch%2Fmodpacks%2Fart%2F87%2Flogo.png&w=256&q=100
+      - homepage.description=Time to dive in!
 networks:
   default:
     driver_opts:

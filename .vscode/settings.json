@@ -7,7 +7,6 @@
     "ansible.validation.lint.path": ".venv/bin/ansible-lint",
     "cSpell.words": [
         "cleverhouse",
-        "houseco",
         "thefryer",
         "tlsskipverify"
     ],

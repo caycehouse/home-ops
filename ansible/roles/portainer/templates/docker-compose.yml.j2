@@ -15,6 +15,12 @@ services:
       - internal
       - tunnel
     restart: always
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=Portainer
+      - homepage.icon=portainer
+      - homepage.href=https://portainer.caycehouse.com
+      - homepage.description=Container management software
 networks:
   tunnel:
     external: true

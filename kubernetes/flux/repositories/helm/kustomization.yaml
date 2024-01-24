@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./cilium.yaml
-  - ./democratic-csi.yaml
+  - ./csi-driver-nfs.yaml
   - ./itzg.yaml
   - ./kubernetes-dashboard.yaml
   - ./tailscale.yaml

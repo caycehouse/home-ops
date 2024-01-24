@@ -3,7 +3,7 @@
 Configures my homelab environment.
 
 ## Example
-`ansible-playbook site.yml`
+`task ansible:run playbook=site`
 
 ## TODO
 - prometheus (or other monitoring)

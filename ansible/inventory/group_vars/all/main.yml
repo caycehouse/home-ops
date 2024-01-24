@@ -1,5 +1,7 @@
 ---
 tailscale_args: "--ssh"
+tailscale_oauth_ephemeral: false
+tailscale_tags: "server"
 
 swap_file_size_mb: '8192'
 swap_swappiness: '1'

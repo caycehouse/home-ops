@@ -13,11 +13,11 @@
     ],
     "files.associations": {
         "*.json5": "jsonc",
-        "./ansible/**/*.yaml": "ansible",
-        "./ansible/**/inventory/**/*.yaml": "yaml",
+        "./ansible/**/*.yml": "ansible",
+        "./ansible/**/inventory/**/*.yml": "yaml",
         "*docker-compose.yml.j2": "dockercompose"
     },
     "yaml.schemas": {
-        "ansible": "./ansible/*.yaml",
+        "ansible": "./ansible/*.yml",
     }
 }

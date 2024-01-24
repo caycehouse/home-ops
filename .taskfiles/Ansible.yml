@@ -10,8 +10,8 @@ env:
   VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
 
 vars:
-  ANSIBLE_INVENTORY_FILE: "{{.ANSIBLE_DIR}}/inventory/hosts.yaml"
-  ANSIBLE_REQUIREMENTS_FILE: "{{.ANSIBLE_DIR}}/requirements.yaml"
+  ANSIBLE_INVENTORY_FILE: "{{.ANSIBLE_DIR}}/inventory/hosts.yml"
+  ANSIBLE_REQUIREMENTS_FILE: "{{.ANSIBLE_DIR}}/requirements.yml"
   ANSIBLE_PIP_REQUIREMENTS_FILE: "{{.ANSIBLE_DIR}}/requirements.txt"
 
 tasks:
@@ -41,7 +41,7 @@ tasks:
         playbook: Playbook to run (required)
     prompt: Run Ansible playbook '{{.playbook}}'... continue?
     deps: ["deps"]
-    cmd: .venv/bin/ansible-playbook --inventory {{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_DIR}}/playbooks/{{.playbook}}.yaml {{.CLI_ARGS}}
+    cmd: .venv/bin/ansible-playbook --inventory {{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_DIR}}/playbooks/{{.playbook}}.yml {{.CLI_ARGS}}
     requires:
       vars: ["playbook"]
     preconditions:

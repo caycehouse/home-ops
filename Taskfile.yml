@@ -10,5 +10,5 @@ tasks:
   default: task -l
 
 includes:
-  ansible: .taskfiles/Ansible.yaml
-  workstation: .taskfiles/Workstation.yaml
+  ansible: .taskfiles/Ansible.yml
+  workstation: .taskfiles/Workstation.yml

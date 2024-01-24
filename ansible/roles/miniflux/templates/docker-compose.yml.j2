@@ -20,6 +20,12 @@ services:
       - tunnel
       - internal
     restart: always
+    labels:
+      - homepage.group=News
+      - homepage.name=Miniflux
+      - homepage.icon=miniflux
+      - homepage.href=https://rss.caycehouse.com
+      - homepage.description=Minimalist and opinionated feed reader
   db:
     image: postgres:15.5@sha256:89d430f5f7e680e67f81de534eb459a3b86afd818e3330d9b18d29a6b9ec98cd
     container_name: postgres

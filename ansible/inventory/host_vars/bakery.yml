@@ -3,14 +3,15 @@ docker_compose_roles:
   - cloudflared
   - portainer-agent
   - restic
+  - allinone
+  - changedetection
   - free-games-claimer
+  - homepage
+  - minecraft
+  - miniflux
+  - plexiglass-mountain
   - satisfactory
   - valheim
-  - changedetection
-  - minecraft
-  - plexiglass-mountain
-  - allinone
-  - homepage
 
 tunnel_token: !vault |
   $ANSIBLE_VAULT;1.2;AES256;home-ops

@@ -2,6 +2,10 @@
     "ansible.ansible.path": ".venv/bin/ansible",
     "ansible.python.activationScript": ".venv/bin/activate",
     "ansible.python.interpreterPath": ".venv/bin/python3",
+    "ansible.validation.enabled": true,
+    "ansible.validation.lint.arguments": "-c ansible/.ansible-lint",
+    "ansible.validation.lint.enabled": true,
+    "ansible.validation.lint.path": ".venv/bin/ansible-lint",
     "cSpell.words": [
         "cleverhouse",
         "houseco",
@@ -9,7 +13,12 @@
         "tlsskipverify"
     ],
     "files.associations": {
-        "*.yml": "ansible",
+        "*.json5": "jsonc",
+        "./ansible/**/*.yaml": "ansible",
+        "./ansible/**/inventory/**/*.yaml": "yaml",
         "*docker-compose.yml.j2": "dockercompose"
+    },
+    "yaml.schemas": {
+        "ansible": "./ansible/*.yaml",
     }
 }

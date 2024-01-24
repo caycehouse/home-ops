@@ -4,7 +4,6 @@ docker_compose_roles:
   - portainer
   - portainer-agent
   - restic
-  - dashy
   - oceanblock
   - thethans
 

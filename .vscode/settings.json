@@ -5,11 +5,6 @@
     "ansible.validation.enabled": true,
     "ansible.validation.lint.enabled": true,
     "ansible.validation.lint.path": ".venv/bin/ansible-lint",
-    "cSpell.words": [
-        "cleverhouse",
-        "thefryer",
-        "tlsskipverify"
-    ],
     "files.associations": {
         "*.json5": "jsonc",
         "./ansible/**/*.yml": "ansible",

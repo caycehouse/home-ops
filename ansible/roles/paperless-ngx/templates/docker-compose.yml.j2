@@ -54,6 +54,12 @@ services:
     networks:
       - tunnel
       - internal
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=Paperless-ngx
+      - homepage.icon=paperless-ngx
+      - homepage.href=https://paperless.caycehouse.com
+      - homepage.description=Document management system
 
 networks:
   internal:

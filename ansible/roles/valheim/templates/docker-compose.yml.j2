@@ -21,6 +21,12 @@ services:
       - "2456-2457:2456-2457/udp"
     stop_grace_period: 2m
     restart: always
+    labels:
+      - homepage.group=Games
+      - homepage.name=Valheim
+      - homepage.icon=mdi-axe
+      - homepage.description=Skål!
+
 networks:
   default:
     driver_opts:

@@ -20,6 +20,12 @@ services:
       - 15000:15000/udp
       - 15777:15777/udp
     restart: always
+    labels:
+      - homepage.group=Games
+      - homepage.name=Satisfactory
+      - homepage.icon=mdi-factory
+      - homepage.description=The factory must prevail!
+
 networks:
   internal:
     driver_opts:

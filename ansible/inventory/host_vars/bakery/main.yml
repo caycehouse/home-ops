@@ -1,19 +1,26 @@
 ---
 docker_compose_roles:
+  # home-ops services
   - cloudflared
   - portainer
   - portainer-agent
   - restic
+
+  # Apps
   - allinone
   - archisteamfarm
+  - atm8
   - changedetection
+  - code-server
   - free-games-claimer
   - homepage
   - minecraft
   - miniflux
   - monica
   - oceanblock
+  - paperless-ngx
   - plexiglass-mountain
   - satisfactory
   - thethans
+  - twitchdropsminer
   - valheim

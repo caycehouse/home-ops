@@ -42,6 +42,11 @@ services:
       - ./data:/data
       - /etc/timezone:/etc/timezone:ro
     restart: always
+    labels:
+      - homepage.group=Games
+      - homepage.name=Minecraft
+      - homepage.icon=minecraft
+      - homepage.description=Vanilla Minecraft server
 networks:
   default:
     driver_opts:

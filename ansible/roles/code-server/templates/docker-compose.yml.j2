@@ -17,6 +17,12 @@ services:
       - tunnel
     cap_add:
       - NET_ADMIN
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=code-server
+      - homepage.icon=code-server
+      - homepage.href=https://code-server.caycehouse.com
+      - homepage.description=Code anywhere
 networks:
   tunnel:
     external: true

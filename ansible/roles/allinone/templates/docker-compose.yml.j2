@@ -41,6 +41,11 @@ services:
       interval: 5s
       retries: 20
     restart: always
+    labels:
+      - homepage.group=Games
+      - homepage.name=All in One
+      - homepage.icon=https://media.forgecdn.net/avatars/342/91/637485703554418199.png
+      - homepage.description=Modded One Block
 networks:
   default:
     driver_opts:

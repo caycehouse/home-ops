@@ -30,7 +30,7 @@ jobs:
           requirements: ./ansible/requirements.yaml
           configuration: |
             [defaults]
-            inventory_path = ./ansible/inventory/hosts.yaml
+            inventory = ./ansible/inventory/hosts.yaml
             roles_path = ./ansible/roles
           vault_password: ${{secrets.VAULT_PASSWORD}}
       - name: Run playbook
@@ -40,6 +40,6 @@ jobs:
           requirements: ./ansible/requirements.yaml
           configuration: |
             [defaults]
-            inventory_path = ./ansible/inventory/hosts.yaml
+            inventory = ./ansible/inventory/hosts.yaml
             roles_path = ./ansible/roles
           vault_password: ${{secrets.VAULT_PASSWORD}}

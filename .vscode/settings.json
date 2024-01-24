@@ -1,4 +1,7 @@
 {
+    "ansible.ansible.path": ".venv/bin/ansible",
+    "ansible.python.activationScript": ".venv/bin/activate",
+    "ansible.python.interpreterPath": ".venv/bin/python3",
     "cSpell.words": [
         "cleverhouse",
         "houseco",
@@ -8,6 +11,5 @@
     "files.associations": {
         "*.yml": "ansible",
         "*docker-compose.yml.j2": "dockercompose"
-    },
-    "ansible.python.interpreterPath": "/bin/python"
+    }
 }

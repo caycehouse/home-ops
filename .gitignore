@@ -1,2 +1,6 @@
+# Ansible
+.venv*
+# Taskfile
+.task
 # macOS hidden files
 .DS_Store

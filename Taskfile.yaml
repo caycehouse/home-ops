@@ -1,0 +1,14 @@
+version: "3"
+
+env:
+  # Directories
+  ANSIBLE_DIR: "{{.ROOT_DIR}}"
+  # Binaries
+  PYTHON_BIN: python3
+
+tasks:
+  default: task -l
+
+includes:
+  ansible: .taskfiles/Ansible.yaml
+  workstation: .taskfiles/Workstation.yaml

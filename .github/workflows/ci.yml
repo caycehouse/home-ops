@@ -1,3 +1,4 @@
+---
 name: Deploy with Ansible
 
 on:
@@ -6,6 +7,11 @@ on:
       - main
 
 concurrency: ci
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./ansible
 
 jobs:
   deploy:
@@ -25,12 +31,12 @@ jobs:
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@00765f79cffbf77b8bef397c00d492d8241502be # v2.7.0
         with:
-          playbook: ./ansible/playbooks/site.yaml
-          requirements: ./ansible/requirements.yaml
+          playbook: ./playbooks/site.yaml
+          requirements: ./requirements.yaml
           vault_password: ${{secrets.VAULT_PASSWORD}}
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@00765f79cffbf77b8bef397c00d492d8241502be # v2.7.0
         with:
-          playbook: ./ansible/playbooks/docker_prune.yaml
-          requirements: ./ansible/requirements.yaml
+          playbook: ./playbooks/docker_prune.yaml
+          requirements: ./requirements.yaml
           vault_password: ${{secrets.VAULT_PASSWORD}}

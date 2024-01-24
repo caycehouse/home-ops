@@ -1,0 +1,15 @@
+---
+tailscale_args: "--ssh"
+
+swap_file_size_mb: '8192'
+swap_swappiness: '1'
+
+pip_install_packages:
+  - docker
+  - docker-compose
+docker_daemon_options:
+  log-driver: "local"
+  mtu: 1280
+docker_users:
+  - caycehouse
+config_dir: '~'

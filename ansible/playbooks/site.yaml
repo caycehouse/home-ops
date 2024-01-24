@@ -1,21 +1,14 @@
 # Example usage: ansible-playbook state.yml
 # This playbook deploys my whole homelab.
-
 ---
-
 - name: Play for all machines
   hosts: all
-  vars:
-    tailscale_args: "--ssh"
   roles:
     - {role: common, tags: common}
     - {role: artis3n.tailscale, tags: tailscale}
 
 - name: Play to add swap to needed machines
   hosts: all,!proxmox_servers,!octopi
-  vars:
-    swap_file_size_mb: '8192'
-    swap_swappiness: '1'
   roles:
     - {role: geerlingguy.swap, tags: swap}
 
@@ -26,16 +19,6 @@
 
 - name: Play for docker nodes
   hosts: docker_nodes
-  vars:
-    pip_install_packages:
-      - docker
-      - docker-compose
-    docker_daemon_options:
-      log-driver: "local"
-      mtu: 1280
-    docker_users:
-      - caycehouse
-    config_dir: '~'
   roles:
     - {role: geerlingguy.pip, tags: pip}
     - {role: geerlingguy.docker, tags: docker}

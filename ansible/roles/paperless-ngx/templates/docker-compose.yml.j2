@@ -24,6 +24,7 @@ services:
 
   paperless-ngx:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest@sha256:398276c395c8f3833e87b6d48dd21bed975c5c1bb183ecb623a36eb4fffa75c5
+    container_name: paperless-ngx
     restart: unless-stopped
     depends_on:
       - db
@@ -55,11 +56,16 @@ services:
       - tunnel
       - internal
     labels:
+      # Homepage
       - homepage.group=Utilities
       - homepage.name=Paperless-ngx
       - homepage.icon=paperless-ngx
       - homepage.href=https://paperless.caycehouse.com
       - homepage.description=Document management system
+      # AutoKuma
+      - kuma.paperless-ngx.docker.name=Paperless-ngx
+      - kuma.paperless-ngx.docker.docker_container=paperless-ngx
+      - kuma.paperless-ngx.docker.docker_host=1
 
 networks:
   internal:

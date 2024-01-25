@@ -4,6 +4,7 @@
 services:
   monica:
     image: monica:4.0.0@sha256:f0dfcad04ebd7e4108158542cc0cfae9687e9789b87d483387553acebaeb4c8a
+    container_name: monica
     depends_on:
       - db
     environment:
@@ -32,11 +33,17 @@ services:
       - tunnel
     restart: always
     labels:
+      # Homepage
       - homepage.group=Utilities
       - homepage.name=Monica
       - homepage.icon=monica
       - homepage.href=https://monica.caycehouse.com
       - homepage.description=Open source personal CRM
+      # AutoKuma
+      - kuma.monica.docker.name=Monica
+      - kuma.monica.docker.docker_container=monica
+      - kuma.monica.docker.docker_host=1
+
   db:
     image: mysql:8.2.0@sha256:212fe73edca5df6ff14826d5eb975c914bfb91f82a2e923f9050568f99525da1
     environment:
@@ -49,6 +56,7 @@ services:
     networks:
       - internal
     restart: always
+
 networks:
   tunnel:
     external: true

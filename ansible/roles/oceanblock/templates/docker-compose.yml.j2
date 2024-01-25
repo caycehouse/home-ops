@@ -35,10 +35,16 @@ services:
       retries: 20
     restart: always
     labels:
+      # Homepage
       - homepage.group=Games
       - homepage.name=OceanBlock
       - homepage.icon=https://www.feed-the-beast.com/_next/image?url=https%3A%2F%2Fapps.modpacks.ch%2Fmodpacks%2Fart%2F87%2Flogo.png&w=256&q=100
       - homepage.description=Time to dive in!
+      # AutoKuma
+      - kuma.oceanblock.docker.name=OceanBlock
+      - kuma.oceanblock.docker.docker_container=oceanblock
+      - kuma.oceanblock.docker.docker_host=1
+
 networks:
   default:
     driver_opts:

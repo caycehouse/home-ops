@@ -4,12 +4,19 @@
 services:
   cloudflared:
     image: cloudflare/cloudflared:2024.1.4@sha256:90a3eb006af86cba5ea3b3ac08c3f5979c8efa0e98bf490788de8c629e46eb1f
+    container_name: cloudflared
     command: tunnel --no-autoupdate run
     environment:
       - TUNNEL_TOKEN={{ tunnel_token }}
     networks:
       - tunnel
     restart: unless-stopped
+    labels:
+      # AutoKuma
+      - kuma.cloudflared.docker.name=cloudflared
+      - kuma.cloudflared.docker.docker_container=cloudflared
+      - kuma.cloudflared.docker.docker_host=1
+
 networks:
   tunnel:
     external: true

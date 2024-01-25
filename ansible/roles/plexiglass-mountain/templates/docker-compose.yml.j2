@@ -43,10 +43,15 @@ services:
       retries: 20
     restart: always
     labels:
+      # Homepage
       - homepage.group=Games
       - homepage.name=FTB Plexiglass Mountain
       - homepage.icon=https://www.feed-the-beast.com/_next/image?url=https%3A%2F%2Fapps.modpacks.ch%2Fmodpacks%2Fart%2F91%2Fplexiglass-splash-discord.png&w=256&q=100
       - homepage.description=1.18.2 kitchen-sink modpack
+      # AutoKuma
+      - kuma.plexiglass-mountain.docker.name=FTB Plexiglass Mountain
+      - kuma.plexiglass-mountain.docker.docker_container=plexiglass-mountain
+      - kuma.plexiglass-mountain.docker.docker_host=1
 
 networks:
   default:

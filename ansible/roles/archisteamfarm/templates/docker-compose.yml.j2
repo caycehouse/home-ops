@@ -11,11 +11,17 @@ services:
       - tunnel
     restart: always
     labels:
+      # Homepage
       - homepage.group=Utilities
       - homepage.name=ArchiSteamFarm
       - homepage.icon=archisteamfarm
       - homepage.href=https://asf.caycehouse.com
       - homepage.description=Steam cards farmer
+      # AutoKuma
+      - kuma.archisteamfarm.docker.name=ArchiSteamFarm
+      - kuma.archisteamfarm.docker.docker_container=archisteamfarm
+      - kuma.archisteamfarm.docker.docker_host=1
+
 networks:
   tunnel:
     external: true

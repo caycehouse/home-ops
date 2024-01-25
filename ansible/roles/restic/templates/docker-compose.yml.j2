@@ -4,6 +4,7 @@
 services:
   backup:
     image: mazzolino/restic:1.7.1@sha256:d3d2d726434ad92a2cd38de6e1981e74fd969724169bd8bfa38f40b967e9aceb
+    container_name: restic-backup
     hostname: "{{ ansible_host }}"
     restart: unless-stopped
     environment:
@@ -16,6 +17,11 @@ services:
       TZ: America/New_York
     volumes:
       - /home/caycehouse:/data:ro
+    labels:
+      # AutoKuma
+      - kuma.restic-backup.docker.name=Restic
+      - kuma.restic-backup.docker.docker_container=restic-backup
+      - kuma.restic-backup.docker.docker_host=1
 
 {% if ansible_host == "bakery" %}
   prune:

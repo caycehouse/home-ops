@@ -15,11 +15,16 @@ services:
       - ./datastore:/datastore
     restart: always
     labels:
+      # Homepage
       - homepage.group=Utilities
       - homepage.name=changedetection.io
       - homepage.icon=changedetection-io
       - homepage.href=https://changedetection.caycehouse.com
       - homepage.description=Website change detection
+      # AutoKuma
+      - kuma.changedetection.docker.name=changedetection.io
+      - kuma.changedetection.docker.docker_container=changedetection
+      - kuma.changedetection.docker.docker_host=1
     depends_on:
       playwright-chrome:
         condition: service_started

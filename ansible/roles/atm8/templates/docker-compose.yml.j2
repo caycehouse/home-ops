@@ -43,10 +43,16 @@ services:
       retries: 20
     restart: always
     labels:
+      # Homepage
       - homepage.group=Games
       - homepage.name=All the Mods 8
       - homepage.icon=https://media.forgecdn.net/avatars/902/339/638350403928080320.png
       - homepage.description=All the Mods...again
+      # AutoKuma
+      - kuma.atm8.docker.name=All the Mods 8
+      - kuma.atm8.docker.docker_container=atm8
+      - kuma.atm8.docker.docker_host=1
+
 networks:
   default:
     driver_opts:

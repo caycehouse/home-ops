@@ -22,11 +22,16 @@ services:
     networks:
       - tunnel
     labels:
+      # Homepage
       - homepage.group=Utilities
       - homepage.name=free-games-claimer
       - homepage.icon=mdi-gamepad
       - homepage.href=https://fgc.caycehouse.com
       - homepage.description=Free games claimer
+      # AutoKuma
+      - kuma.fgc.docker.name=free-games-claimer
+      - kuma.fgc.docker.docker_container=fgc
+      - kuma.fgc.docker.docker_host=1
 
 networks:
   tunnel:

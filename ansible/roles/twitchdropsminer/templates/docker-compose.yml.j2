@@ -12,7 +12,12 @@ services:
     tty: true
     stdin_open: true
     labels:
+      # Homepage
       - homepage.group=Utilities
       - homepage.name=TwitchDropsMiner
       - homepage.icon=mdi-twitch
       - homepage.description=AFK Twitch drops miner
+      # AutoKuma
+      - kuma.twitchdropsminer.docker.name=TwitchDropsMiner
+      - kuma.twitchdropsminer.docker.docker_container=twitchdropsminer
+      - kuma.twitchdropsminer.docker.docker_host=1

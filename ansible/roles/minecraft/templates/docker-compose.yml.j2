@@ -43,10 +43,16 @@ services:
       - /etc/timezone:/etc/timezone:ro
     restart: always
     labels:
+      # Homepage
       - homepage.group=Games
       - homepage.name=Minecraft
       - homepage.icon=minecraft
       - homepage.description=Vanilla Minecraft server
+      # AutoKuma
+      - kuma.minecraft.docker.name=Minecraft
+      - kuma.minecraft.docker.docker_container=minecraft
+      - kuma.minecraft.docker.docker_host=1
+
 networks:
   default:
     driver_opts:

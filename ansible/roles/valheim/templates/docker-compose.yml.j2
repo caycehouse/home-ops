@@ -22,10 +22,15 @@ services:
     stop_grace_period: 2m
     restart: always
     labels:
+      # Homepage
       - homepage.group=Games
       - homepage.name=Valheim
       - homepage.icon=https://cdn2.steamgriddb.com/icon/a0b83c02d720415dada82e08bc09e9f3/32/256x256.png
       - homepage.description=Skål!
+      # AutoKuma
+      - kuma.valheim.docker.name=Valheim
+      - kuma.valheim.docker.docker_container=valheim
+      - kuma.valheim.docker.docker_host=1
 
 networks:
   default:

@@ -21,10 +21,15 @@ services:
       - 15777:15777/udp
     restart: always
     labels:
+      # Homepage
       - homepage.group=Games
       - homepage.name=Satisfactory
       - homepage.icon=https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
       - homepage.description=The factory must prevail!
+      # AutoKuma
+      - kuma.satisfactory.docker.name=Satisfactory
+      - kuma.satisfactory.docker.docker_container=satisfactory
+      - kuma.satisfactory.docker.docker_host=1
 
 networks:
   internal:

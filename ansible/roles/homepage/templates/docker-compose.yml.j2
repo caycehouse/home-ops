@@ -11,6 +11,12 @@ services:
     networks:
       - tunnel
     restart: unless-stopped
+    labels:
+      # AutoKuma
+      - kuma.homepage.docker.name=Homepage
+      - kuma.homepage.docker.docker_container=homepage
+      - kuma.homepage.docker.docker_host=1
+
 networks:
   tunnel:
     external: true

@@ -13,6 +13,12 @@ services:
     networks:
       - internal
     restart: always
+    labels:
+      # AutoKuma
+      - kuma.portainer_agent.docker.name=Portainer Agent
+      - kuma.portainer_agent.docker.docker_container=portainer_agent
+      - kuma.portainer_agent.docker.docker_host=1
+
 networks:
   internal:
     driver: bridge

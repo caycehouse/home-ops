@@ -1,6 +1,8 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-env:
+vars:
   # Directories
   ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   # Binaries

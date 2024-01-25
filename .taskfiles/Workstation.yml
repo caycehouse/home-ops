@@ -14,7 +14,7 @@ tasks:
   venv:
     desc: Set up virtual environment
     cmds:
-      - "{{.PYTHON_BIN}} -m venv {{.ROOT_DIR}}/.venv"
+      - "chmod 644 .venv/bin/{a,A}ctivate* && {{.PYTHON_BIN}} -m venv {{.ROOT_DIR}}/.venv"
       - .venv/bin/python3 -m pip install --upgrade pip
     generates:
       - "{{.ROOT_DIR}}/.venv/pyvenv.cfg"

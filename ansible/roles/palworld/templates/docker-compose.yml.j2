@@ -1,0 +1,35 @@
+# {{ ansible_managed }}
+---
+
+services:
+  palworld:
+    image: thijsvanloef/palworld-server-docker:v0.13.0
+    container_name: palworld
+    ports:
+      - 8211:8211/udp
+      - 27015:27015/udp
+    environment:
+      PLAYERS: 31
+      PORT: 8211
+      PUID: 1000
+      PGID: 1000
+      MULTITHREADING: true
+      SERVER_NAME: TheFryer's Palworld Server
+      SERVER_PASSWORD: {{ palworld.server_password }}
+      ADMIN_PASSWORD: {{ palworld.admin_password }}
+    networks:
+      - default
+    volumes:
+      - ./palworld:/palworld
+      - /etc/timezone:/etc/timezone:ro
+    restart: always
+    labels:
+      - homepage.group=Games
+      - homepage.name=All the Mods 8
+      - homepage.icon=https://media.forgecdn.net/avatars/902/339/638350403928080320.png
+      - homepage.description=All the Mods...again
+
+networks:
+  default:
+    driver_opts:
+      com.docker.network.driver.mtu: 1280

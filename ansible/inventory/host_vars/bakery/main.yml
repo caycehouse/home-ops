@@ -19,6 +19,7 @@ docker_compose_roles:
   - monica
   - oceanblock
   - paperless-ngx
+  - palworld
   - plexiglass-mountain
   - satisfactory
   - thethans

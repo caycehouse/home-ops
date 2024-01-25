@@ -20,6 +20,7 @@ services:
       - ./var-lib-tailscale:/var/lib/tailscale
     networks:
       - tunnel
+    restart: unless-stopped
     labels:
       - homepage.group=Utilities
       - homepage.name=code-server

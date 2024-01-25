@@ -2,6 +2,22 @@
 ---
 
 services:
+  auto-kuma:
+    image: ghcr.io/bigboot/autokuma:0.3.0
+    container_name: auto-kuma
+    environment:
+      AUTOKUMA__KUMA__URL: http://uptime-kuma:3001
+      AUTOKUMA__KUMA__USERNAME: "{{ uptime_kuma.username }}"
+      AUTOKUMA__KUMA__PASSWORD: "{{ uptime_kuma.password }}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - default
+    restart: unless-stopped
+    labels:
+      - kuma.autokuma.docker.name=AutoKuma
+      - kuma.autokuma.docker.docker_container=auto-kuma
+      - kuma.autokuma.docker.docker_host=1
   uptime-kuma:
     image: louislam/uptime-kuma:1.23.11@sha256:c326fd83d8da2d8fff3feb0e47433546139513bd823d9accc12977176b05b31f
     container_name: uptime-kuma
@@ -9,6 +25,7 @@ services:
       - ./uptime-kuma-data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
+      - default
       - tunnel
     restart: unless-stopped
     labels:
@@ -19,5 +36,6 @@ services:
       - homepage.description=Uptime monitoring
 
 networks:
+  default:
   tunnel:
     external: true

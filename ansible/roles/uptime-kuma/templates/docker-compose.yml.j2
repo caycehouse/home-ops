@@ -1,0 +1,22 @@
+# {{ ansible_managed }}
+---
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1.23.11
+    container_name: uptime-kuma
+    volumes:
+      - ./uptime-kuma-data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - tunnel
+    restart: unless-stopped
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=Uptime Kuma
+      - homepage.icon=uptime-kuma
+      - homepage.description=Uptime monitoring
+
+networks:
+  tunnel:
+    external: true

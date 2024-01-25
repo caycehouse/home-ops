@@ -24,4 +24,5 @@ docker_compose_roles:
   - satisfactory
   - thethans
   - twitchdropsminer
+  - uptime-kuma
   - valheim

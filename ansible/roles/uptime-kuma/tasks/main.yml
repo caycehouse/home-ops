@@ -1,0 +1,6 @@
+---
+- name: Install Uptime Kuma
+  vars:
+    service: uptime-kuma
+  ansible.builtin.include_role:
+    name: service

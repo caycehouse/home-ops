@@ -6,4 +6,7 @@ Configures my homelab environment.
 `task ansible:run playbook=site`
 
 ## TODO
-- prometheus (or other monitoring)
+- setup calibre-web [calibre-web](https://docs.linuxserver.io/images/docker-calibre-web/)
+- investigate [dockge gitops](https://github.com/ebaldebo/dockge-gitops)
+- investigate [docker-pgautoupgrade](https://github.com/pgautoupgrade/docker-pgautoupgrade)
+- investigate [autoheal](https://github.com/willfarrell/docker-autoheal)

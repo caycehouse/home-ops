@@ -13,7 +13,7 @@ services:
       PORT: 8211
       PUID: 1000
       PGID: 1000
-      MULTITHREADING: true
+      MULTITHREADING: "true"
       SERVER_NAME: TheFryer's Palworld Server
       SERVER_PASSWORD: {{ palworld.server_password }}
       ADMIN_PASSWORD: {{ palworld.admin_password }}
@@ -25,9 +25,9 @@ services:
     restart: always
     labels:
       - homepage.group=Games
-      - homepage.name=All the Mods 8
-      - homepage.icon=https://media.forgecdn.net/avatars/902/339/638350403928080320.png
-      - homepage.description=All the Mods...again
+      - homepage.name=Palworld
+      - homepage.icon=https://cdn2.steamgriddb.com/icon/9ce60c64ac4510df68537de96631261f/32/256x256.png
+      - homepage.description=It's not Pokémon...right?
 
 networks:
   default:

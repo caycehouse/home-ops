@@ -22,13 +22,3 @@
   roles:
     - {role: geerlingguy.pip, tags: pip}
     - {role: geerlingguy.docker, tags: docker}
-  tasks:
-    - name: Include roles based on docker_compose_roles
-      ansible.builtin.include_role:
-        name: "{{ item }}"
-        apply:
-          tags:
-            - "{{ item }}"
-            - "compose"
-      tags: always
-      loop: "{{ docker_compose_roles }}"

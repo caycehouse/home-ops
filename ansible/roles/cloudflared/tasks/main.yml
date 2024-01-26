@@ -1,4 +1,17 @@
 ---
+
+- name: Increase UDP buffer sizes (rmem_max)
+  ansible.posix.sysctl:
+    name: net.core.rmem_max
+    value: '2500000'
+    sysctl_set: true
+
+- name: Increase UDP buffer sizes (wmem_max)
+  ansible.posix.sysctl:
+    name: net.core.wmem_max
+    value: '2500000'
+    sysctl_set: true
+
 - name: Create tunnel network
   community.docker.docker_network:
     name: tunnel

@@ -26,7 +26,7 @@ jobs:
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@00765f79cffbf77b8bef397c00d492d8241502be # v2.7.0
         with:
-          playbook: ./playbooks/site.yml
+          playbook: ./playbooks/infrastructure.yml
           directory: ./ansible
           requirements: requirements.yml
           vault_password: ${{secrets.VAULT_PASSWORD}}

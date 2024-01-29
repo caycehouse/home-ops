@@ -1,0 +1,59 @@
+# {{ ansible_managed }}
+---
+
+services:
+  calibre:
+    image: lscr.io/linuxserver/calibre:7.4.0
+    container_name: calibre
+    environment:
+      - PUID=1000
+      - PGID=1000
+    networks:
+      - tunnel
+    volumes:
+      - ./calibre-config:/config
+      - ./calibre-uploads:/uploads
+      - ./calibre-plugins:/plugins
+      - ./books:/Calibre_Library
+      - /etc/timezone:/etc/timezone:ro
+    labels:
+      # Homepage
+      - homepage.group=Utilities
+      - homepage.name=Calibre
+      - homepage.icon=calibre
+      - homepage.href=https://calibre.caycehouse.com
+      - homepage.description=An eBook Manager
+      # AutoKuma
+      - kuma.calibre.docker.name=Calibre
+      - kuma.calibre.docker.docker_container=calibre
+      - kuma.calibre.docker.docker_host=1
+
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:0.6.21
+    container_name: calibre-web
+    environment:
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      - PUID=1000
+      - PGID=1000
+    networks:
+      - tunnel
+    volumes:
+      - ./calibre-web-config:/config
+      - ./books:/books
+      - /etc/timezone:/etc/timezone:ro
+    restart: unless-stopped
+    labels:
+      # Homepage
+      - homepage.group=Utilities
+      - homepage.name=Calibre-Web
+      - homepage.icon=calibre-web
+      - homepage.href=https://calibre-web.caycehouse.com
+      - homepage.description=An eBook Library
+      # AutoKuma
+      - kuma.calibre-web.docker.name=Calibre-Web
+      - kuma.calibre-web.docker.docker_container=calibre-web
+      - kuma.calibre-web.docker.docker_host=1
+
+networks:
+  tunnel:
+    external: true

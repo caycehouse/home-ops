@@ -1,0 +1,6 @@
+---
+- name: Install calibre
+  vars:
+    service: calibre
+  ansible.builtin.include_role:
+    name: service

@@ -10,6 +10,7 @@ docker_compose_roles:
   - allinone
   - archisteamfarm
   - atm8
+  - calibre
   - changedetection
   - code-server
   - free-games-claimer

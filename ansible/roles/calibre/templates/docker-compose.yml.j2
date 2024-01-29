@@ -3,7 +3,7 @@
 
 services:
   calibre:
-    image: lscr.io/linuxserver/calibre:7.4.0
+    image: lscr.io/linuxserver/calibre:7.4.0@sha256:b2ed61e2b25102a15903f29e97a3972a3af6585e20bf149475b68ff8aec1c8bc
     container_name: calibre
     environment:
       - PUID=1000
@@ -29,7 +29,7 @@ services:
       - kuma.calibre.docker.docker_host=1
 
   calibre-web:
-    image: lscr.io/linuxserver/calibre-web:0.6.21
+    image: lscr.io/linuxserver/calibre-web:0.6.21@sha256:663decefd1c715dd8691802775ab6a70d5c8cce0b97fc039fbe4f563f5d63635
     container_name: calibre-web
     environment:
       - DOCKER_MODS=linuxserver/mods:universal-calibre

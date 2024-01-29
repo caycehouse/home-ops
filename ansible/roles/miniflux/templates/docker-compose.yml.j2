@@ -33,8 +33,8 @@ services:
       - kuma.miniflux.docker.docker_host=1
 
   db:
-    image: postgres:15.5@sha256:89d430f5f7e680e67f81de534eb459a3b86afd818e3330d9b18d29a6b9ec98cd
-    container_name: postgres
+    image: postgres:16.1
+    container_name: miniflux_postgres
     environment:
       POSTGRES_USER: {{ miniflux.postgres_user }}
       POSTGRES_PASSWORD: {{ miniflux.postgres_password }}

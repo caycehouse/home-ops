@@ -7,16 +7,26 @@
   become: false
   register: service_dir
 
-- name: Copy docker-compose template to server for {{ service }}
+- name: Generate docker-compose template for {{ service }}
   ansible.builtin.template:
     src: templates/docker-compose.yml.j2
+    dest: "/tmp/docker-compose-{{ service }}.yml"
+    mode: '0640'
+  become: false
+  delegate_to: localhost
+  register: template
+
+- name: Copy docker-compose template to server for {{ service }}
+  ansible.builtin.copy:
+    src: "/tmp/docker-compose-{{ service }}.yml"
     dest: "{{ service_dir.path }}/docker-compose.yml"
     mode: '0640'
   become: false
-  notify: Restart {{ service }}
+  when: template.changed
+  register: copy
 
 - name: Start {{ service }}
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ service_dir.path }}/"
   become: false
-  when: start
+  when: start and copy.changed

@@ -1,6 +1,6 @@
 ---
 - name: Restart {{ service }}
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ config_dir }}/{{ service }}/"
-    restarted: true
+    state: restarted
   become: false

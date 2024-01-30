@@ -37,6 +37,15 @@
         "**/docker-compose.yml.j2"
       ],
       "pinDigests": true
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "lscr.io/linuxserver/calibre-web"
+      ],
+      "allowedVersions": "<1"
     }
   ]
 }

@@ -11,7 +11,7 @@
   ansible.builtin.template:
     src: templates/docker-compose.yml.j2
     dest: "/tmp/docker-compose-{{ service }}.yml"
-    mode: '0640'
+    mode: "0640"
   become: false
   delegate_to: localhost
   register: template
@@ -20,7 +20,7 @@
   ansible.builtin.copy:
     src: "/tmp/docker-compose-{{ service }}.yml"
     dest: "{{ service_dir.path }}/docker-compose.yml"
-    mode: '0640'
+    mode: "0640"
   become: false
   when: template.changed
   register: copy
@@ -28,5 +28,6 @@
 - name: Start {{ service }}
   community.docker.docker_compose_v2:
     project_src: "{{ service_dir.path }}/"
+    remove_orphans: true
   become: false
   when: start and copy.changed

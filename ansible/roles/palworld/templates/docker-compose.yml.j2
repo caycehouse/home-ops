@@ -5,10 +5,14 @@ services:
   palworld:
     image: thijsvanloef/palworld-server-docker:v0.19.1@sha256:b0a9408d9380ff1bc32f6e21bd668b7cb81fd9561bff5711851482f9a4499f1c
     container_name: palworld
+    stop_grace_period: 120s
     ports:
       - 8211:8211/udp
       - 27015:27015/udp
     environment:
+      ###
+      # Container Settings
+      ###
       PLAYERS: 31
       PORT: 8211
       PUID: 1000
@@ -17,6 +21,21 @@ services:
       SERVER_NAME: TheFryer\'s Palworld Server
       SERVER_PASSWORD: {{ palworld.server_password }}
       ADMIN_PASSWORD: {{ palworld.admin_password }}
+      DELETE_OLD_BACKUPS: "true"
+      AUTO_UPDATE_ENABLED: "true"
+      ###
+      # Server Settings
+      ###
+      DIFFICULTY: "Normal"
+      NIGHTTIME_SPEEDRATE: 2.000000
+      EXP_RATE: 3.000000
+      PLAYER_STOMACH_DECREASE_RATE: 0.700000
+      PLAYER_STAMINA_DECREASE_RATE: 0.700000
+      PAL_STOMACH_DECREASE_RATE: 0.500000
+      PAL_STAMINA_DECREASE_RATE: 0.700000
+      COLLECTION_DROP_RATE: 1.500000
+      ENEMY_DROP_ITEM_RATE: 1.500000
+      DEATH_PENALTY: "None"
     networks:
       - default
     volumes:

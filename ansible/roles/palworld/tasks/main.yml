@@ -4,3 +4,20 @@
     service: palworld
   ansible.builtin.include_role:
     name: service
+
+- name: Copy restart script to server
+  ansible.builtin.copy:
+    src: restart-palworld.sh
+    dest: "{{ service_dir.path }}/restart-palworld.sh"
+    mode: "0744"
+    owner: 1000
+    group: 1000
+  become: false
+
+- name: Set cron to restart Palworld
+  ansible.builtin.cron:
+    name: "restart palworld"
+    minute: "0"
+    hour: "*/8"
+    job: "{{ service_dir.path }}/restart-palworld.sh"
+  become: false

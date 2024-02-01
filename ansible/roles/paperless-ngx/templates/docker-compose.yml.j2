@@ -12,7 +12,7 @@ services:
       - internal
 
   db:
-    image: postgres:16.1@sha256:a7a6f58f52e8f494ff93dd8b4e8d8a68fc13907b944075b963bf1244a6930b26
+    image: postgres:16.1@sha256:db2d3c872d97299dfbb777d004264ed010aa577f62be581ab71624c88252fc5c
     container_name: paperless-ngx_db
     restart: unless-stopped
     volumes:

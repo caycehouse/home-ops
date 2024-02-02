@@ -33,6 +33,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./acme:/acme
     labels:
+      # AutoKuma
+      - "kuma.traefik.docker.name=Traefik"
+      - "kuma.traefik.docker.docker_container=traefik"
+      - "kuma.traefik.docker.docker_host=1"
+      # Traefik
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`traefik.caycehouse.com`)"
       - "traefik.http.routers.traefik.service=api@internal"

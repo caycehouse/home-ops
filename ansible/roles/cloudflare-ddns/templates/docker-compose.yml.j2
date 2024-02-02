@@ -1,0 +1,27 @@
+# {{ ansible_managed }}
+---
+
+services:
+  cloudflare-ddns:
+    image: favonia/cloudflare-ddns:latest
+    container_name: cloudflare-ddns
+    network_mode: host
+    cap_add:
+      - SETUID
+      - SETGID
+    cap_drop:
+      - all
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - CF_API_TOKEN={{ cloudflare_ddns.cf_api_token }}
+      - DOMAINS=gsld.caycehouse.com
+    restart: unless-stopped
+    labels:
+      # AutoKuma
+      - kuma.cloudflare-ddns.docker.name=Cloudflare DDNS
+      - kuma.cloudflare-ddns.docker.docker_container=cloudflare-ddns
+      - kuma.cloudflare-ddns.docker.docker_host=1

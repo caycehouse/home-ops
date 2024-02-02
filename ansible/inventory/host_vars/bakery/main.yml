@@ -12,6 +12,7 @@ docker_compose_roles:
   - atm8
   - calibre
   - changedetection
+  - cloudflare-ddns
   - code-server
   - free-games-claimer
   - homepage

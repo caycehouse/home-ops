@@ -1,0 +1,6 @@
+---
+- name: Install Cloudflare DDNS
+  vars:
+    service: cloudflare-ddns
+  ansible.builtin.include_role:
+    name: service

@@ -3,7 +3,7 @@
 
 services:
   palworld:
-    image: thijsvanloef/palworld-server-docker:v0.19.1@sha256:b0a9408d9380ff1bc32f6e21bd668b7cb81fd9561bff5711851482f9a4499f1c
+    image: thijsvanloef/palworld-server-docker:v0.21.0@sha256:0d7be6d641a11ab049de358b05dd55c17312d6e34ca4dc4e955f6181cd67bbbc
     container_name: palworld
     stop_grace_period: 120s
     ports:
@@ -23,6 +23,7 @@ services:
       ADMIN_PASSWORD: {{ palworld.admin_password }}
       DELETE_OLD_BACKUPS: "true"
       AUTO_UPDATE_ENABLED: "true"
+      AUTO_REBOOT_ENABLED: "true"
       ###
       # Server Settings
       ###

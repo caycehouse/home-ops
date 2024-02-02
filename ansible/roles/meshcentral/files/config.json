@@ -1,0 +1,24 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
+    "settings": {
+        "plugins": {
+            "enabled": false
+        },
+        "cert": "meshcentral.caycehouse.com",
+        "port": 443,
+        "redirPort": 80,
+        "AgentPong": 300,
+        "TLSOffload": true,
+        "SelfUpdate": false,
+        "AllowFraming": false,
+        "WebRTC": false
+    },
+    "domains": {
+        "": {
+            "minify": true,
+            "NewAccounts": false,
+            "localSessionRecording": false,
+            "certUrl": "https://meshcentral.caycehouse.com"
+        }
+    }
+}

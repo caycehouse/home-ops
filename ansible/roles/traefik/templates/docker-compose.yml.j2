@@ -1,0 +1,48 @@
+# {{ ansible_managed }}
+---
+
+services:
+  agent:
+    image: traefik:v2.9@sha256:8d81a9df1435f9f3d36ac9398465ef2d5d61e671059974db753faaed14b627de
+    container_name: traefik
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.docker.network=traefik_public"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge=true"
+      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.provider=cloudflare"
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesResolvers.letsencrypt.acme.email=cayce@caycehouse.com"
+      - "--certificatesResolvers.letsencrypt.acme.storage=acme/acme.json"
+      - "--entrypoints.websecure.http.tls.certResolver=letsencrypt"
+      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entryPoints.web.http.redirections.entrypoint.permanent=true"
+    restart: always
+    environment:
+      CLOUDFLARE_EMAIL: "{{ traefik.cloudflare_email }}"
+      CLOUDFLARE_API_KEY: "{{ traefik.cloudflare_api_key }}"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./acme:/acme
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.caycehouse.com`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users={{ traefik.dashboard_auth }}"
+    networks:
+      - traefik_public
+
+networks:
+  traefik_public:
+    external: true

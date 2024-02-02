@@ -1,0 +1,40 @@
+# {{ ansible_managed }}
+---
+
+services:
+  meshcentral:
+    restart: unless-stopped
+    container_name: meshcentral
+    image: ghcr.io/ylianst/meshcentral:1.1.20
+    networks:
+      - traefik_public
+    volumes:
+      # config.json and other important files live here. A must for data persistence
+      - ./meshcentral-data:/opt/meshcentral/meshcentral-data
+      # where file uploads for users live
+      - ./meshcentral-user_files:/opt/meshcentral/meshcentral-files
+      # location for the meshcentral-backups - this should be mounted to an external storage
+      - ./meshcentral-backup:/opt/meshcentral/meshcentral-backups
+      # location for site customization files
+      - ./meshcentral-web:/opt/meshcentral/meshcentral-web
+    labels:
+      # Homepage
+      - homepage.group=Utilities
+      - homepage.name=MeshCentral
+      - homepage.icon=meshcentral
+      - homepage.href=https://meshcentral.caycehouse.com
+      - homepage.description=Agent-based remote desktop
+      # AutoKuma
+      - kuma.meshcentral.docker.name=MeshCentral
+      - kuma.meshcentral.docker.docker_container=meshcentral
+      - kuma.meshcentral.docker.docker_host=1
+      # Traefik
+      - "traefik.enable=true"
+      - "traefik.http.routers.meshcentral.rule=Host(`meshcentral.caycehouse.com`)"
+      - "traefik.http.routers.meshcentral.entrypoints=websecure"
+      - "traefik.http.routers.meshcentral.tls=true"
+      - "traefik.http.services.meshcentral.loadbalancer.server.port=443"
+
+networks:
+  traefik_public:
+    external: true

@@ -5,6 +5,7 @@ docker_compose_roles:
   - portainer
   - portainer-agent
   - restic
+  - traefik
 
   # Apps
   - allinone
@@ -18,6 +19,7 @@ docker_compose_roles:
   - homepage
   - minecraft
   - miniflux
+  - meshcentral
   - monica
   - oceanblock
   - paperless-ngx

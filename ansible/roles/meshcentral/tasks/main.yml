@@ -1,0 +1,16 @@
+---
+
+- name: Install MeshCentral
+  vars:
+    service: meshcentral
+  ansible.builtin.include_role:
+    name: service
+
+- name: Copy config.json to server
+  ansible.builtin.copy:
+    src: config.json
+    dest: "{{ service_dir.path }}/meshcentral-data"
+    mode: "0600"
+    owner: root
+    group: root
+  notify: Restart meshcentral

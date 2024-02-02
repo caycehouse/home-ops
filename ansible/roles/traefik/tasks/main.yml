@@ -1,0 +1,11 @@
+---
+
+- name: Create traefik_public network
+  community.docker.docker_network:
+    name: traefik_public
+
+- name: Install Traefik
+  vars:
+    service: traefik
+  ansible.builtin.include_role:
+    name: service

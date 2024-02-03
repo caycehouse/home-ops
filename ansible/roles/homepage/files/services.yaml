@@ -1,0 +1,10 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+
+- Utilities:
+    - Proxmox:
+        icon: proxmox
+        description: Virtualization platform
+        href: https://cupcakes.dog-hen.ts.net:8006
+        ping: localhost

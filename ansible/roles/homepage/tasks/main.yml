@@ -4,3 +4,11 @@
     service: homepage
   ansible.builtin.include_role:
     name: service
+
+- name: Copy config to server
+  ansible.builtin.copy:
+    src: files/
+    dest: "{{ service_dir.path }}/app-config"
+    mode: "0664"
+    owner: root
+    group: root

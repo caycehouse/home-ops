@@ -1,0 +1,14 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/service-widgets
+
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+    uptime: true
+
+- search:
+    provider: google
+    focus: true
+    target: _blank

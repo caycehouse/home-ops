@@ -9,6 +9,8 @@ services:
       AUTOKUMA__KUMA__URL: http://uptime-kuma:3001
       AUTOKUMA__KUMA__USERNAME: "{{ uptime_kuma.username }}"
       AUTOKUMA__KUMA__PASSWORD: "{{ uptime_kuma.password }}"
+      AUTOKUMA__DEFAULT_SETTINGS: >-
+        *.notification_id_list: {"1":true}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:

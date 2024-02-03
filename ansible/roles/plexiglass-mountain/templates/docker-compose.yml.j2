@@ -21,6 +21,8 @@ services:
       OPS: "FryyourBacon"
       OVERRIDE_SERVER_PROPERTIES: "true"
       OVERRIDE_WHITELIST: "true"
+      PUID: "{{ user_id }}"
+      PGID: "{{ group_id }}"
       SIMULATION_DISTANCE: "4"
       SNOOPER_ENABLED: "false"
       SPAWN_PROTECTION: "0"

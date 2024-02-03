@@ -54,6 +54,8 @@ services:
     environment:
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_DBHOST: db
+      USERMAP_UID: "{{ user_id }}"
+      USERMAP_GID: "{{ group_id }}"
     networks:
       - tunnel
       - internal

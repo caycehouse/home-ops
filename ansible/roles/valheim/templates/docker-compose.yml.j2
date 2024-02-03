@@ -9,6 +9,8 @@ services:
     container_name: valheim
     environment:
       BACKUPS: "false"
+      PUID: "{{ user_id }}"
+      PGID: "{{ group_id }}"
       SERVER_NAME: "The Fryer's Valheim Server"
       SERVER_PASS: "{{ valheim.server_pass }}"
       TZ: America/New_York

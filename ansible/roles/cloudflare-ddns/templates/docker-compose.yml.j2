@@ -15,8 +15,8 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID="{{ user_id }}"
+      - PGID="{{ group_id }}"
       - CF_API_TOKEN={{ cloudflare_ddns.cf_api_token }}
       - DOMAINS=gsld.caycehouse.com
     restart: unless-stopped

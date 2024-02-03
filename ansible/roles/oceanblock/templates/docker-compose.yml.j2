@@ -18,6 +18,8 @@ services:
       MOTD: "The Fryer's OceanBlock Server"
       OPS: "FryyourBacon"
       OVERRIDE_SERVER_PROPERTIES: "true"
+      PUID: "{{ user_id }}"
+      PGID: "{{ group_id }}"
       SNOOPER_ENABLED: "false"
       SYNC_CHUNK_WRITES: "false"
       TYPE: FTBA

@@ -8,8 +8,8 @@ services:
     environment:
       # https://github.com/tailscale-dev/docker-mod/issues/19
       DOCKER_MODS: gauravsuman007/tailscale-docker-mod:latest|linuxserver/mods:code-server-python3
-      PGID: 1002
-      PUID: 1002
+      PUID: "{{ user_id }}"
+      PGID: "{{ group_id }}"
       SUDO_PASSWORD: "{{ code_server.sudo_password }}"
       TZ: America/New_York
       # tailscale information

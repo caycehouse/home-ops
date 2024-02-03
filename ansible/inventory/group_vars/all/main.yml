@@ -17,3 +17,6 @@ docker_daemon_options:
 docker_users:
   - caycehouse
 config_dir: "~"
+
+user_id: 1000
+group_id: 1000

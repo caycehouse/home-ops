@@ -19,6 +19,8 @@ services:
       OPS: "EthanKruse,0_Burnt_Toast_0"
       OVERRIDE_SERVER_PROPERTIES: "true"
       OVERRIDE_WHITELIST: "true"
+      PUID: "{{ user_id }}"
+      PGID: "{{ group_id }}"
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule playersSleepingPercentage 0

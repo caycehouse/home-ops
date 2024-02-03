@@ -26,6 +26,7 @@ services:
 {% if ansible_host == "bakery" %}
   prune:
     image: mazzolino/restic:1.7.1@sha256:d3d2d726434ad92a2cd38de6e1981e74fd969724169bd8bfa38f40b967e9aceb
+    container_name: restic-prune
     hostname: "{{ ansible_host }}"
     restart: unless-stopped
     environment:
@@ -41,6 +42,7 @@ services:
 
   check:
     image: mazzolino/restic:1.7.1@sha256:d3d2d726434ad92a2cd38de6e1981e74fd969724169bd8bfa38f40b967e9aceb
+    container_name: restic-cron
     hostname: "{{ ansible_host }}"
     restart: unless-stopped
     environment:

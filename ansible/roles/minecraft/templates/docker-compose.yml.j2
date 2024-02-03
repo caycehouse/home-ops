@@ -20,6 +20,8 @@ services:
       OVERRIDE_SERVER_PROPERTIES: "true"
       OVERRIDE_WHITELIST: "true"
       PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/master/pack.toml"
+      PUID: "{{ user_id }}"
+      PGID: "{{ group_id }}"
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule playersSleepingPercentage 0

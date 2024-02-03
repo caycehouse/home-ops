@@ -15,8 +15,8 @@ services:
       ###
       PLAYERS: 31
       PORT: 8211
-      PUID: 1000
-      PGID: 1000
+      PUID: "{{ user_id }}"
+      PGID: "{{ group_id }}"
       MULTITHREADING: "true"
       SERVER_NAME: TheFryer\'s Palworld Server
       SERVER_PASSWORD: {{ palworld.server_password }}

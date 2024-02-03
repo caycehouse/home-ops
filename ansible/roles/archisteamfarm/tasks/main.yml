@@ -10,8 +10,8 @@
     src: IPC.config
     dest: "{{ service_dir.path }}/app-config"
     mode: "0600"
-    owner: 1000
-    group: 1000
+    owner: "{{ user_id }}"
+    group: "{{ group_id }}"
   notify: Restart archisteamfarm
 
 - name: Copy ASF.json to server
@@ -19,6 +19,6 @@
     src: ASF.json.j2
     dest: "{{ service_dir.path }}/app-config/ASF.json"
     mode: "0600"
-    owner: 1000
-    group: 1000
+    owner: "{{ user_id }}"
+    group: "{{ group_id }}"
   notify: Restart archisteamfarm

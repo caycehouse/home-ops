@@ -6,8 +6,8 @@ services:
     image: lscr.io/linuxserver/calibre:7.4.0@sha256:f372e1a05619472f382578253907f969647f81b24acc444319a99bdb661ff58a
     container_name: calibre
     environment:
-      - PUID=1000
-      - PGID=1000
+      PUID: "{{ user_id }}"
+      PGID: "{{ group_id }}"
     networks:
       - tunnel
     volumes:
@@ -34,8 +34,8 @@ services:
     container_name: calibre-web
     environment:
       - DOCKER_MODS=linuxserver/mods:universal-calibre
-      - PUID=1000
-      - PGID=1000
+      - PUID="{{ user_id }}"
+      - PGID="{{ group_id }}"
     networks:
       - tunnel
     volumes:

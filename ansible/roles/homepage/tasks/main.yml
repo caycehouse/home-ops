@@ -2,6 +2,5 @@
 - name: Install homepage
   vars:
     service: homepage
-    start: false
   ansible.builtin.include_role:
     name: service

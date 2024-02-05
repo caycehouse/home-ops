@@ -15,6 +15,7 @@ docker_compose_roles:
   - changedetection
   - cloudflare-ddns
   - code-server
+  - foundryvtt
   - free-games-claimer
   - homepage
   - minecraft

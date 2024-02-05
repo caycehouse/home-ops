@@ -1,0 +1,38 @@
+# {{ ansible_managed }}
+---
+
+services:
+  foundryvtt:
+    image: felddy/foundryvtt:11.315.1
+    container_name: foundryvtt
+    environment:
+      - FOUNDRY_PASSWORD={{ foundryvtt.password }}
+      - FOUNDRY_USERNAME={{ foundryvtt.username }}
+      - FOUNDRY_ADMIN_KEY={{ foundryvtt.admin_key }}
+      - FOUNDRY_GID={{ group_id }}
+      - FOUNDRY_UID={{ user_id }}
+      - FOUNDRY_MINIFY_STATIC_FILES=true
+      - FOUNDRY_COMPRESS_WEBSOCKET=true
+      - FOUNDRY_PROXY_PORT=443
+      - FOUNDRY_PROXY_SSL=true
+    volumes:
+      - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
+    networks:
+      - tunnel
+    restart: unless-stopped
+    labels:
+      # Homepage
+      - homepage.group=Games
+      - homepage.name=Foundry VTT
+      - homepage.icon=foundry-vtt
+      - homepage.href=https://foundry.caycehouse.com
+      - homepage.description=Roleplaying Platform
+      # AutoKuma
+      - kuma.foundryvtt.docker.name=Foundry VTT
+      - kuma.foundryvtt.docker.docker_container=foundryvtt
+      - kuma.foundryvtt.docker.docker_host=1
+
+networks:
+  tunnel:
+    external: true

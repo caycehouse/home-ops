@@ -1,0 +1,6 @@
+---
+- name: Install Foundry VTT
+  vars:
+    service: foundryvtt
+  ansible.builtin.include_role:
+    name: service

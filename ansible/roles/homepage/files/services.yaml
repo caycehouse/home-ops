@@ -3,6 +3,11 @@
 # https://gethomepage.dev/latest/configs/services
 
 - Utilities:
+    - OctoPi:
+        icon: octoprint
+        description: 3D printer web interface
+        href: https://octopi
+        ping: localhost
     - Proxmox:
         icon: proxmox
         description: Virtualization platform

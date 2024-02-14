@@ -2,5 +2,6 @@
 - name: Install Plexiglass Mountain
   vars:
     service: plexiglass-mountain
+    start: false
   ansible.builtin.include_role:
     name: service

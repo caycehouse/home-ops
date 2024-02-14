@@ -2,5 +2,6 @@
 - name: Install Palworld
   vars:
     service: palworld
+    start: false
   ansible.builtin.include_role:
     name: service

@@ -2,5 +2,6 @@
 - name: Install All the Mods 8
   vars:
     service: atm8
+    start: false
   ansible.builtin.include_role:
     name: service

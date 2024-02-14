@@ -10,7 +10,7 @@ services:
       - TUNNEL_TOKEN={{ tunnel_token }}
     networks:
       - tunnel
-    restart: unless-stopped
+    restart: always
     labels:
       # AutoKuma
       - kuma.cloudflared.docker.name=cloudflared

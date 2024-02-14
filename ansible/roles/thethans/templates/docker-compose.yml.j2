@@ -47,4 +47,4 @@ services:
     volumes:
       - ./data:/data
       - /etc/timezone:/etc/timezone:ro
-    restart: always
+    restart: unless-stopped

@@ -31,7 +31,7 @@ services:
     networks:
       - internal
       - tunnel
-    restart: always
+    restart: unless-stopped
     labels:
       # Homepage
       - homepage.group=Utilities
@@ -55,7 +55,7 @@ services:
       - ./var-lib-mysql:/var/lib/mysql
     networks:
       - internal
-    restart: always
+    restart: unless-stopped
 
 networks:
   tunnel:

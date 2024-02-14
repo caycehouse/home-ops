@@ -10,7 +10,7 @@ services:
       - ./app-config:/app/config
     networks:
       - tunnel
-    restart: always
+    restart: unless-stopped
     labels:
       # Homepage
       - homepage.group=Utilities

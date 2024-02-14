@@ -13,7 +13,7 @@ services:
       - tunnel
     volumes:
       - ./datastore:/datastore
-    restart: always
+    restart: unless-stopped
     labels:
       # Homepage
       - homepage.group=Utilities
@@ -47,7 +47,7 @@ services:
       - DEFAULT_IGNORE_HTTPS_ERRORS=true
     networks:
       - internal
-    restart: always
+    restart: unless-stopped
 
 networks:
   internal:

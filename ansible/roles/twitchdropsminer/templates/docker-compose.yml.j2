@@ -8,7 +8,7 @@ services:
     volumes:
       - ./cookies.jar:/TwitchDropsMiner/cookies.jar
       - ./settings.json:/TwitchDropsMiner/settings.json:ro
-    restart: always
+    restart: unless-stopped
     tty: true
     stdin_open: true
     labels:

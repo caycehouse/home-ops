@@ -19,7 +19,7 @@ services:
     networks:
       - tunnel
       - internal
-    restart: always
+    restart: unless-stopped
     labels:
       # Homepage
       - homepage.group=News
@@ -46,7 +46,7 @@ services:
       start_period: 30s
     networks:
       - internal
-    restart: always
+    restart: unless-stopped
 
 networks:
   tunnel:

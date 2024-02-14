@@ -43,7 +43,7 @@ services:
     volumes:
       - ./data:/data
       - /etc/timezone:/etc/timezone:ro
-    restart: always
+    restart: unless-stopped
     labels:
       # Homepage
       - homepage.group=Games

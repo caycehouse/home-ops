@@ -35,7 +35,7 @@ services:
       start_period: 5m
       interval: 5s
       retries: 20
-    restart: always
+    restart: unless-stopped
     labels:
       # Homepage
       - homepage.group=Games

@@ -3,7 +3,7 @@
 
 services:
   broker:
-    image: docker.io/library/redis:7@sha256:dbf3e87ae4fd1d58cb715700d96be03224b3f35b27e53e0039bb76b281361bdc
+    image: docker.io/library/redis:7@sha256:e647cfe134bf5e8e74e620f66346f93418acfc240b71dd85640325cb7cd01402
     container_name: paperless-ngx_broker
     restart: unless-stopped
     volumes:
@@ -25,7 +25,7 @@ services:
       - internal
 
   paperless-ngx:
-    image: ghcr.io/paperless-ngx/paperless-ngx:latest@sha256:5a15480ddb64de3f2a821dc748feabc2b17f51af6033fa41122bbb9b9f80d6f2
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest@sha256:eb8de15061e3ac896a1147f97c6d43fce96d88402ee8bdc1470f98d5310d8499
     container_name: paperless-ngx
     restart: unless-stopped
     depends_on:

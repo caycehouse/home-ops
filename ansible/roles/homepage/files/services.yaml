@@ -3,13 +3,23 @@
 # https://gethomepage.dev/latest/configs/services
 
 - Utilities:
-    - OctoPi:
-        icon: octoprint
-        description: 3D printer web interface
-        href: https://octopi
-        ping: localhost
-    - Proxmox:
-        icon: proxmox
-        description: Virtualization platform
-        href: https://cupcakes.dog-hen.ts.net:8006
-        ping: localhost
+      - OctoPi:
+            icon: octoprint
+            description: 3D printer web interface
+            href: https://octopi
+            ping: localhost
+      - Proxmox:
+            icon: proxmox
+            description: Virtualization platform
+            href: https://cupcakes.dog-hen.ts.net:8006
+            ping: localhost
+      - R630 iDRAC:
+            icon: idrac
+            description: Dell Remote Access Controller
+            href: https://192.168.6.248
+            ping: localhost
+      - R730XD iDRAC:
+            icon: idrac
+            description: Dell Remote Access Controller
+            href: https://192.168.5.198
+            ping: localhost

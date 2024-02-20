@@ -1,6 +1,7 @@
 {
     "autostart": false,
     "autostart_tray": false,
+    "connection_quality": 1,
     "exclude": {
         "__type": "set",
         "data": [

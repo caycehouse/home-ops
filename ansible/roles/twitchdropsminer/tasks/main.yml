@@ -2,6 +2,7 @@
 - name: Install TwitchDropsMiner
   vars:
     service: twitchdropsminer
+    start: false
   ansible.builtin.include_role:
     name: service
 
@@ -22,3 +23,9 @@
     owner: root
     group: root
   notify: Restart twitchdropsminer
+
+- name: Start twitchdropsminer
+  community.docker.docker_compose_v2:
+    project_src: "{{ service_dir.path }}/"
+    remove_orphans: true
+  become: false

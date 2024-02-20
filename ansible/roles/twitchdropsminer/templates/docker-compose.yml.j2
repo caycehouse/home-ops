@@ -10,6 +10,7 @@ services:
       - ./settings.json:/TwitchDropsMiner/settings.json:ro
     restart: unless-stopped
     tty: true
+    init: true
     stdin_open: true
     labels:
       # Homepage

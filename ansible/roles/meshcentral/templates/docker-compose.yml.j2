@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     container_name: meshcentral
     image: ghcr.io/ylianst/meshcentral:1.1.21@sha256:5a328e842d804ba6c28491fc371f0c270a30b053f8f10351c84a0ddede0699d9
-    networks:
-      - traefik_public
+    ports:
+      - "4430:4430"
     volumes:
       # config.json and other important files live here. A must for data persistence
       - ./meshcentral-data:/opt/meshcentral/meshcentral-data
@@ -28,13 +28,3 @@ services:
       - kuma.meshcentral.docker.name=MeshCentral
       - kuma.meshcentral.docker.docker_container=meshcentral
       - kuma.meshcentral.docker.docker_host=1
-      # Traefik
-      - "traefik.enable=true"
-      - "traefik.http.routers.meshcentral.rule=Host(`meshcentral.caycehouse.com`)"
-      - "traefik.http.routers.meshcentral.entrypoints=websecure"
-      - "traefik.http.routers.meshcentral.tls=true"
-      - "traefik.http.services.meshcentral.loadbalancer.server.port=443"
-
-networks:
-  traefik_public:
-    external: true

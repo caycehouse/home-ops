@@ -5,18 +5,15 @@
             "enabled": false
         },
         "cert": "meshcentral.caycehouse.com",
-        "port": 443,
-        "redirPort": 80,
+        "port": 4430,
+        "AliasPort": 443,
+        "redirPort": 800,
         "AgentPong": 300,
-        "TLSOffload": true,
-        "SelfUpdate": false,
-        "AllowFraming": false,
-        "WebRTC": false
+        "TLSOffload": true
     },
     "domains": {
         "": {
             "minify": true,
-            "NewAccounts": false,
             "localSessionRecording": false,
             "certUrl": "https://meshcentral.caycehouse.com"
         }

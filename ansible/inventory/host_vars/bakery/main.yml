@@ -4,7 +4,6 @@ docker_compose_roles:
   - cloudflared
   - portainer
   - portainer-agent
-  - traefik
 
   # Apps
   - allinone

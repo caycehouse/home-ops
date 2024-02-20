@@ -1,0 +1,97 @@
+---
+- name: Create VM template
+  hosts: proxmox_servers
+  tasks:
+    - name: Get VM current state
+      community.general.proxmox_kvm:
+        api_user: "root@pam"
+        api_password: "{{ proxmox_root_pass }}"
+        api_host: "{{ proxmox_host }}"
+        name: "{{ proxmox_template_name }}"
+        state: current
+      delegate_to: "localhost"
+      ignore_errors: true
+      register: _vm_template_exists
+
+    # Create template for controller
+    - name: Create proxmox vm template template if it doesn't al ready exist
+      when: _vm_template_exists.failed is true
+      block:
+        - name: Download cloud image
+          ansible.builtin.get_url:
+            url: "{{ cloud_img_url }}"
+            dest: "/tmp/"
+            mode: '0644'
+          become: true
+
+        - name: Create template VM with cloud-init
+          delegate_to: "localhost"
+          community.general.proxmox_kvm:
+            api_user: "root@pam"
+            api_password: "{{ proxmox_root_pass }}"
+            api_host: "{{ proxmox_host }}"
+            agent: "enabled=1,fstrim_cloned_disks=1"
+            boot: "order=scsi0"
+            ciuser: "{{ template_user }}"
+            cipassword: "{{ template_password }}"
+            cpu: "host"
+            ide:
+              ide2: '{{ proxmox_storage }}:cloudinit'
+            ipconfig:
+              ipconfig0: 'ip=dhcp'
+            memory: 2048
+            name: "{{ proxmox_template_name }}"
+            nameservers:
+              - 1.1.1.1
+              - 8.8.8.8
+            net:
+              net0:
+                'virtio,bridge=vmbr0'
+            node: "{{ proxmox_host }}"
+            numa_enabled: true
+            onboot: true
+            ostype: "l26"
+            scsihw: "virtio-scsi-single"
+            searchdomains: localdomain
+            serial:
+              serial0: socket
+            sockets: 2
+            sshkeys: "{{ template_ssh_key }}"
+            tags:
+              - template
+              - "{{ template_os_name }}"
+            vga: "serial0"
+
+        - name: Pause for 10 seconds to ensure VM has been created
+          ansible.builtin.pause:
+            seconds: 10
+
+        - name: Import cloud image to storage
+          delegate_to: "localhost"
+          community.general.proxmox_disk:
+            api_user: "root@pam"
+            api_password: "{{ proxmox_root_pass }}"
+            api_host: "{{ proxmox_host }}"
+            aio: "native"
+            discard: "on"
+            disk: scsi0
+            format: "raw"
+            import_from: "/tmp/{{ cloud_img_name }}"
+            iothread: true
+            name: "{{ proxmox_template_name }}"
+            storage: "{{ proxmox_storage }}"
+
+        - name: Convert VM to template
+          delegate_to: "localhost"
+          community.general.proxmox_kvm:
+            api_user: "root@pam"
+            api_password: "{{ proxmox_root_pass }}"
+            api_host: "{{ proxmox_host }}"
+            state: template
+            name: "{{ proxmox_template_name }}"
+
+        - name: "Cleanup cloud-init image"
+          ansible.builtin.file:
+            name: /tmp/{{ cloud_img_name }}
+            state: absent
+          become: true

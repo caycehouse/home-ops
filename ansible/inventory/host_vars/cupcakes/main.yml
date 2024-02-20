@@ -1,0 +1,13 @@
+---
+debian_codename: bookworm
+debian_version: 12
+cloud_img_name: debian-{{ debian_version }}-genericcloud-amd64.qcow2
+cloud_img_url: https://cloud.debian.org/images/cloud/{{ debian_codename }}/latest/{{cloud_img_name}}
+proxmox_template_name: debian-{{ debian_version }}-{{ debian_codename }}-cloud-init
+template_os_name: debian
+
+proxmox_host: cupcakes
+proxmox_storage: local-zfs
+
+template_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA1fE9oGJZyOliB/NeqUaz+QeYrwam+gcb+ZLrFRNp/l cayce@caycehouse.com
+template_user: caycehouse

@@ -2,6 +2,30 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/latest/configs/services
 
+- Remote Access:
+      - R630 iDRAC:
+            icon: idrac
+            description: Dell Remote Access Controller
+            href: https://192.168.6.248
+            ping: 192.168.6.248
+      - R730XD iDRAC:
+            icon: idrac
+            description: Dell Remote Access Controller
+            href: https://192.168.5.198
+            ping: 192.168.5.198
+
+- Storage:
+      - Nextcloud:
+            icon: nextcloud
+            description: Personal cloud
+            href: https://nc.caycehouse.com
+            siteMonitor: nc.caycehouse.com
+      - TrueNAS Scale:
+            icon: truenas-scale
+            description: Storage Server
+            href: https://truenas-scale
+            ping: 192.168.7.28
+
 - Utilities:
       - OctoPi:
             icon: octoprint
@@ -13,23 +37,3 @@
             description: Virtualization platform
             href: https://cupcakes.dog-hen.ts.net:8006
             ping: localhost
-      - R630 iDRAC:
-            icon: idrac
-            description: Dell Remote Access Controller
-            href: https://192.168.6.248
-            ping: 192.168.6.248
-      - R730XD iDRAC:
-            icon: idrac
-            description: Dell Remote Access Controller
-            href: https://192.168.5.198
-            ping: 192.168.5.198
-      - TrueNAS Scale:
-            icon: truenas-scale
-            description: Storage Server
-            href: https://truenas-scale
-            ping: 192.168.7.28
-      - Nextcloud:
-            icon: nextcloud
-            description: Personal cloud
-            href: https://nc.caycehouse.com
-            siteMonitor: nc.caycehouse.com

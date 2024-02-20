@@ -19,7 +19,7 @@
             icon: nextcloud
             description: Personal cloud
             href: https://nc.caycehouse.com
-            siteMonitor: nc.caycehouse.com
+            siteMonitor: https://nc.caycehouse.com
       - TrueNAS Scale:
             icon: truenas-scale
             description: Storage Server
@@ -37,3 +37,8 @@
             description: Virtualization platform
             href: https://cupcakes.dog-hen.ts.net:8006
             ping: localhost
+      - NGINX Proxy Manager:
+            icon: nginx-proxy-manager
+            description: NGINX Proxy Manager
+            href: http://192.168.7.35:81
+            siteMonitor: http://192.168.7.35:81

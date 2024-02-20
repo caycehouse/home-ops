@@ -10,7 +10,6 @@ swap_swappiness: "1"
 
 pip_install_packages:
   - docker
-  - docker-compose
 docker_daemon_options:
   log-driver: "local"
   mtu: 1280

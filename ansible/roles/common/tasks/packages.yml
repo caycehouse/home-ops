@@ -15,6 +15,13 @@
         update_only: true
       when: ansible_os_family == 'RedHat'
 
+    - name: Install qemu-guest-agent on qemu guests
+      ansible.builtin.package:
+        name: qemu-guest-agent
+        state: present
+      notify: Restart qemu-guest-agent
+      when: "'proxmox_vms' in group_names"
+
     - name: Check if a reboot is required.
       ansible.builtin.stat:
         path: /var/run/reboot-required

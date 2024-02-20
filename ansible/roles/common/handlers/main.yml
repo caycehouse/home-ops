@@ -9,5 +9,10 @@
     name: cron
     state: restarted
 
+- name: Restart qemu-guest-agent
+  ansible.builtin.service:
+    name: qemu-guest-agent
+    state: restarted
+
 - name: Reboot
   ansible.builtin.reboot:

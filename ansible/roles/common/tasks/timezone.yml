@@ -1,6 +1,12 @@
 ---
 - name: Set timezone
   block:
+    - name: Ensure cron is installed
+      ansible.builtin.apt:
+        name: cron
+        state: present
+      when: ansible_os_family == 'Debian'
+
     - name: Set timezone to UTC
       community.general.timezone:
         name: UTC

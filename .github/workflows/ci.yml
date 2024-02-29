@@ -22,7 +22,7 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:server,tag:ssh
           # renovate: depName=tailscale/tailscale datasource=github-releases
-          version: 1.60.0
+          version: 1.60.1
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@c97d71562fcba83cc1ea0602d5a77013427f7571 # v2.8.0
         with:

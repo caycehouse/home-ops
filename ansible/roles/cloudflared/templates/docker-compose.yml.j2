@@ -3,7 +3,7 @@
 
 services:
   cloudflared:
-    image: cloudflare/cloudflared:2024.2.1@sha256:60e94a8669dccbe461b6913ce33ab759104334220b49042ec03cfca62a2f01e7
+    image: cloudflare/cloudflared:2024.3.0@sha256:8acfc9e4e65e0d1e26686177a3a0c4baa3b0330c0fc6adc899c2b673bc938e77
     container_name: cloudflared
     command: tunnel --no-autoupdate run
     environment:

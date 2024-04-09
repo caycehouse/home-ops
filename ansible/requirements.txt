@@ -1,3 +1,3 @@
 ansible==9.1.0
-ansible-lint==6.22.2
+ansible-lint==24.2.2
 proxmoxer==2.0.1

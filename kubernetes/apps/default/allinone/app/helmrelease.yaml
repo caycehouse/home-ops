@@ -53,8 +53,7 @@ spec:
         slug: "all-in-one-modded-one-block"
     persistence:
       dataDir:
-        enabled: true
-      storageClass: nfs
+        existingClaim: *app
     # extraEnv:
     #   allow_flight: "true"
     #   enable_rolling_logs: "true"

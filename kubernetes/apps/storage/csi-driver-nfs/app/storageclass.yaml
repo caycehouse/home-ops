@@ -5,8 +5,8 @@ metadata:
   name: "nfs"
 provisioner: nfs.csi.k8s.io
 parameters:
-  server: "192.168.6.251"
-  share: "/mnt/storage/k8s"
+  server: "192.168.7.28"
+  share: "/mnt/storage0/nfs_k8s"
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 mountOptions: ["hard", "noatime"]

@@ -53,6 +53,7 @@ spec:
         slug: "all-in-one-modded-one-block"
     persistence:
       dataDir:
+        enabled: true
         existingClaim: *app
     # extraEnv:
     #   allow_flight: "true"

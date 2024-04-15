@@ -5,7 +5,7 @@ talosVersion: v1.6.0
 # renovate: depName=kubernetes/kubernetes datasource=github-releases extractVersion=^v(?<version>.*)$
 kubernetesVersion: v1.27.0
 
-endpoint: https://dingdongs:6443
+endpoint: https://hohos:6443
 
 allowSchedulingOnControlPlanes: true
 
@@ -13,8 +13,8 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: dingdongs
-    ipAddress: dingdongs
+  - hostname: hohos
+    ipAddress: hohos
     controlPlane: true
     installDisk: /dev/sda
     schematic:

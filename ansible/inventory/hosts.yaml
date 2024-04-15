@@ -10,7 +10,7 @@ all:
       children:
         master:
           hosts:
-            dingdongs:
+            hohos:
         worker:
           hosts:
             zingers:

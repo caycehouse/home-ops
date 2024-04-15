@@ -66,11 +66,8 @@ tasks:
 
   kubeconfig:
     desc: Generate talos kubeconfig
-    prompt: This will overwrite the existing kubeconfig... continue?
     dir: "{{.TALOS_DIR}}"
-    requires:
-      vars: [node]
-    cmd: talosctl kubeconfig --talosconfig {{.TALOS_DIR}}/clusterconfig/talosconfig -n {{.node}} {{.ROOT_DIR}} --force
+    cmd: until talhelper gencommand kubeconfig --extra-flags "{{.ROOT_DIR}} --force" | bash; do sleep 10; done
 
   upgrade-talos:
     desc: Upgrade talos on a node

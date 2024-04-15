@@ -2,10 +2,16 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-env:
-  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
+vars:
+  # Directories
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
-  SOPS_AGE_FILE: "{{.ROOT_DIR}}/age.key"
+  # Files
+  AGE_FILE: "{{.ROOT_DIR}}/age.key"
+  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
+
+env:
+  KUBECONFIG: "{{.KUBECONFIG_FILE}}"
+  SOPS_AGE_KEY_FILE: "{{.AGE_FILE}}"
 
 tasks:
 

@@ -1,7 +1,3 @@
 {
-    "ansible.ansible.path": ".venv/bin/ansible",
-    "ansible.python.activationScript": ".venv/bin/activate",
-    "ansible.python.interpreterPath": ".venv/bin/python3",
-    "ansible.validation.lint.path": ".venv/bin/ansible-lint",
     "sops.defaults.ageKeyFile": "age.key"
 }

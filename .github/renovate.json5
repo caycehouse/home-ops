@@ -5,7 +5,6 @@
   ],
   "kubernetes": {
     "fileMatch": [
-      "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
     ]
   },
@@ -16,7 +15,6 @@
       "description": "Process various other dependencies",
       "fileMatch": [
         "(^|/).taskfiles/.+\\.ya?ml$",
-        "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
         "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
       ],
       "matchStrings": [

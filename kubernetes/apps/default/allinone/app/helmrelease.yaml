@@ -57,6 +57,18 @@ spec:
               TYPE: "AUTO_CURSEFORGE"
               USE_AIKAR_FLAGS: "true"
               VIEW_DISTANCE: "7"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  command:
+                    - mc-health
+                  initialDelaySeconds: 120
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 20
+              readiness: *probes
             resources:
               requests:
                 memory: 8192Mi

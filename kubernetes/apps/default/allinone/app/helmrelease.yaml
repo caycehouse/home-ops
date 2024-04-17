@@ -59,7 +59,7 @@ spec:
               liveness: &probes
                 enabled: true
                 custom: true
-                spec:
+                exec:
                   command:
                     - mc-health
                   initialDelaySeconds: 120

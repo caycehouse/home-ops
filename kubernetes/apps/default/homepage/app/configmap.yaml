@@ -73,6 +73,12 @@ data:
                 description: NGINX Proxy Manager
                 href: http://192.168.7.35:81
                 siteMonitor: http://192.168.7.35:81
+    - Games:
+      - allinone:
+          icon: https://media.forgecdn.net/avatars/342/91/637485703554418199.png
+          description: Modded One Block
+          namespace: default
+          app: allinone
 
   settings.yaml: |
     ---

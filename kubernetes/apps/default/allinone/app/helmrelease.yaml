@@ -59,9 +59,10 @@ spec:
               liveness: &probes
                 enabled: true
                 custom: true
-                exec:
-                  command:
-                    - mc-health
+                spec:
+                  exec:
+                    command:
+                      - mc-health
                   initialDelaySeconds: 120
                   periodSeconds: 5
                   timeoutSeconds: 1

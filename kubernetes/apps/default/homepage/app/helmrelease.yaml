@@ -49,6 +49,9 @@ spec:
         ports:
           http:
             port: 3000
+        annotations:
+          tailscale.com/expose: "true"
+          tailscale.com/hostname: *app
     ingress:
       app:
         className: internal

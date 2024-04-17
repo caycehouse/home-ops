@@ -73,10 +73,10 @@ spec:
               requests:
                 memory: 8192Mi
                 cpu: 2000m
-        persistence:
-          dataDir:
-            type: nfs
-            server: 192.168.7.28
-            path: /mnt/storage0/nfs_k8s/allinone
-            globalMounts:
-              - path: /data
+    persistence:
+      dataDir:
+        type: nfs
+        server: 192.168.7.28
+        path: /mnt/storage0/nfs_k8s/allinone
+        globalMounts:
+          - path: /data

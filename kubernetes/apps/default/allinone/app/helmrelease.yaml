@@ -49,8 +49,6 @@ spec:
               MOTD: "All in One | 1.5.4b"
               OPS: "FryyourBacon"
               OVERRIDE_SERVER_PROPERTIES: "true"
-              PUID: "{{ user_id | int }}"
-              PGID: "{{ group_id | int }}"
               SPAWN_PROTECTION: "0"
               SNOOPER_ENABLED: "false"
               SYNC_CHUNK_WRITES: "false"

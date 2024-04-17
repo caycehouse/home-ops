@@ -9,162 +9,95 @@ metadata:
 data:
   bookmarks.yaml: |
     ---
+    - Developer:
+      - Github:
+          - icon: github
+            href: https://github.com/
+    - Social:
+        - Reddit:
+            - icon: reddit
+              href: https://reddit.com/
+    - Entertainment:
+        - YouTube:
+            - icon: youtube
+              href: https://youtube.com/
+    - Gaming:
+        - BeforeIPlay:
+            - icon: https://beforeiplay.com/images/beforeiplaylogo.png
+              href: https://beforeiplay.com/
+
   docker.yaml: |
     ---
+
   kubernetes.yaml: |
     ---
     mode: cluster
 
   services.yaml: |
     ---
-    - Media:
-        - Jellyfin:
-            icon: jellyfin.png
-            href: https://jellyfin.${SECRET_DOMAIN_0}
-            description: Media Server
-            widget:
-              type: jellyfin
-              url: http://jellyfin.default.svc.cluster.local:8096
-              key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
-              enableNowPlaying: true
-        - Ombi:
-            icon: ombi.png
-            href: https://ombi.${SECRET_DOMAIN_0}
-            description: Media Requests
-            widget:
-              type: ombi
-              url: http://ombi.default.svc.cluster.local:3579
-              key: {{HOMEPAGE_VAR_OMBI_KEY}}
-        - Immich:
-            icon: immich.png
-            href: https://photos.${SECRET_DOMAIN_0}
-            description: Photos and Videos Backup
-            widget:
-              type: immich
-              url: http://immich-server.default.svc.cluster.local:3001
-              key: {{HOMEPAGE_VAR_IMMICH_KEY}}
-        - qBittorrent:
-            icon: qbittorrent.png
-            href: https://qbit.${SECRET_DOMAIN_0}
-            description: Torrent Management
-            widget:
-              type: qbittorrent
-              url: http://qbittorrent.default.svc.cluster.local:8080
-              username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
-              password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
-        - Radarr:
-            icon: radarr.png
-            href: https://movie.${SECRET_DOMAIN_0}
-            description: Movies Management
-            widget:
-              type: radarr
-              url: http://radarr.default.svc.cluster.local:7878
-              key: {{HOMEPAGE_VAR_RADARR_KEY}}
-        - Sonarr:
-            icon: sonarr.png
-            href: https://tv.${SECRET_DOMAIN_0}
-            description: TV Shows Management
-            widget:
-              type: sonarr
-              url: http://sonarr.default.svc.cluster.local:8989
-              key: {{HOMEPAGE_VAR_SONARR_KEY}}
-        - Lidarr:
-            icon: lidarr.png
-            href: https://music.${SECRET_DOMAIN_0}
-            description: Musics Management
-            widget:
-              type: lidarr
-              url: http://lidarr.default.svc.cluster.local:8686
-              key: {{HOMEPAGE_VAR_LIDARR_KEY}}
-        - Bazarr:
-            icon: bazarr.png
-            href: https://bazarr.${SECRET_DOMAIN_0}
-            description: Subtitles Management
-            widget:
-              type: bazarr
-              url: http://bazarr.default.svc.cluster.local:6767
-              key: {{HOMEPAGE_VAR_BAZARR_KEY}}
-    - Network:
-        - AdGuardHome:
-            icon: adguard-home.png
-            href: https://adguard.${SECRET_DOMAIN_0}
-            description: Ad Blocking DNS
-            widget:
-              type: adguard
-              url: http://10.5.0.2:80
-              username: {{HOMEPAGE_VAR_AGH_USERNAME}}
-              password: {{HOMEPAGE_VAR_AGH_PASSWORD}}
-    - Favorites:
-        - My GitHub Repo:
-            icon: si-github
-            href: https://github.com/budimanjojo
-            description: My Code Repository
-        - Grafana Dashboard:
-            icon: si-grafana
-            href: https://dashboard.${SECRET_DOMAIN_0}
-            description: My Cluster Metrics Visualization
-        - k8s-at-home-search:
-            icon: si-kubernetes
-            href: https://nanne.dev/k8s-at-home-search/
-            description: Search KAH HelmReleases
-        - onedr0p home-ops:
-            icon: si-github
-            href: https://github.com/onedr0p/home-ops
-            description: onedr0p HomeOps Repository
-        - bjw-s Chart Values:
-            icon: si-github
-            href: https://github.com/bjw-s/helm-charts/tree/main/charts/library/common#values
-            description: app-template Helm Chart Values
-        - NixOS Search:
-            icon: si-nixos
-            href: https://search.nixos.org
-            description: Search NixOS Packages and Options
+    - Remote Access:
+          - R630 iDRAC:
+                icon: idrac
+                description: Dell Remote Access Controller
+                href: https://192.168.6.248
+                ping: 192.168.6.248
+          - R730XD iDRAC:
+                icon: idrac
+                description: Dell Remote Access Controller
+                href: https://192.168.5.198
+                ping: 192.168.5.198
+    - Storage:
+          - Nextcloud:
+                icon: nextcloud
+                description: Personal cloud
+                href: https://nc.caycehouse.com
+                siteMonitor: https://nc.caycehouse.com
+          - TrueNAS Scale:
+                icon: truenas-scale
+                description: Storage Server
+                href: https://truenas-scale
+                ping: 192.168.7.28
+    - Utilities:
+          - OctoPi:
+                icon: octoprint
+                description: 3D printer web interface
+                href: https://octopi
+                ping: localhost
+          - Proxmox:
+                icon: proxmox
+                description: Virtualization platform
+                href: https://cupcakes.dog-hen.ts.net:8006
+                ping: localhost
+          - NGINX Proxy Manager:
+                icon: nginx-proxy-manager
+                description: NGINX Proxy Manager
+                href: http://192.168.7.35:81
+                siteMonitor: http://192.168.7.35:81
 
   settings.yaml: |
     ---
-    title: My Personal Home Dashboard
-    theme: dark
-    color: slate
-    headerStyle: clean
-    target: _blank
+    color: indigo
+    iconStyle: theme
     layout:
-      Media:
-        style: row
-        columns: 4
-      Network:
-        style: row
-      Favorites:
-        style: row
+      Games:
         columns: 3
-    quicklaunch:
-      searchDescription: true
-      hideInternetSearch: true
-      hideVisitURL: true
+        style: row
+      News:
+        columns: 3
+        style: row
+      Utilities:
+        columns: 3
+        style: row
+    useEqualHeights: true
 
   widgets.yaml: |
     ---
+    - resources:
+        cpu: true
+        memory: true
+        disk: /
+        uptime: true
     - search:
-        provider:
-          - google
-          - duckduckgo
-    - openmeteo:
-        label: Home
-        latitude: {{HOMEPAGE_VAR_HOME_LATITUDE}}
-        longitude: {{HOMEPAGE_VAR_HOME_LONGITUDE}}
-        units: metric
-        cache: 5
-    - openmeteo:
-        label: Shop
-        latitude: {{HOMEPAGE_VAR_SHOP_LATITUDE}}
-        longitude: {{HOMEPAGE_VAR_SHOP_LONGITUDE}}
-        units: metric
-        cache: 5
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
-          label: home-cluster
-        nodes:
-          show: false
+        provider: google
+        focus: true
+        target: _blank

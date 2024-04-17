@@ -30,9 +30,7 @@ spec:
       tag: 2024.1.0-java8-multiarch
     serviceAnnotations:
       tailscale.com/expose: "true"
-      tailscale.com/hostname: *app
-    podLabels:
-      app.kubernetes.io/name: *app
+      tailscale.com/hostname: *app=
     livenessProbe:
       initialDelaySeconds: 120
     minecraftServer:

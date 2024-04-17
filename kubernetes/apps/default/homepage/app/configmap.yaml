@@ -78,7 +78,10 @@ data:
           icon: https://media.forgecdn.net/avatars/342/91/637485703554418199.png
           description: Modded One Block
           namespace: default
-          app: allinone
+          pod-selector: >-
+            app.kubernetes.io/instance in (
+              allinone-minecraft
+            )
 
   settings.yaml: |
     ---

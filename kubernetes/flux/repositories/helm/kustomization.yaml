@@ -6,7 +6,6 @@ resources:
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./csi-driver-nfs.yaml
-  - ./itzg.yaml
   - ./kubernetes-dashboard.yaml
   - ./piraeus.yaml
   - ./tailscale.yaml

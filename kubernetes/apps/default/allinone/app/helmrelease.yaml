@@ -26,9 +26,10 @@ spec:
   values:
     controllers:
       allinone:
-        annotations:
-          tailscale.com/expose: "true"
-          tailscale.com/hostname: *app
+        service:
+          annotations:
+            tailscale.com/expose: "true"
+            tailscale.com/hostname: *app
         containers:
           app:
             image:

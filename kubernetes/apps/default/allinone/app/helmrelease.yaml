@@ -8,75 +8,59 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: app-template
-      version: 3.1.0
+      chart: minecraft
+      version: 4.14.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: itzg
         namespace: flux-system
   install:
+    createNamespace: true
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
+  uninstall:
+    keepHistory: false
   values:
-    controllers:
-      allinone:
-        service:
-          annotations:
-            tailscale.com/expose: "true"
-            tailscale.com/hostname: *app
-        containers:
-          app:
-            image:
-              repository: itzg/minecraft-server
-              tag: 2024.1.0-java8-multiarch
-            env:
-              ALLOW_FLIGHT: "true"
-              CF_API_KEY: "${CF_API_KEY}"
-              CF_FILENAME_MATCHER: "1.5.4"
-              CF_SLUG: "all-in-one-modded-one-block"
-              DIFFICULTY: "hard"
-              ENABLE_ROLLING_LOGS: "true"
-              EULA: "true"
-              FORCE_GAMEMODE: "true"
-              MAX_PLAYERS: "10"
-              MAX_TICK_TIME: "180000"
-              MEMORY: "8G"
-              MOTD: "All in One | 1.5.4b"
-              OPS: "FryyourBacon"
-              OVERRIDE_SERVER_PROPERTIES: "true"
-              SPAWN_PROTECTION: "0"
-              SNOOPER_ENABLED: "false"
-              SYNC_CHUNK_WRITES: "false"
-              TYPE: "AUTO_CURSEFORGE"
-              USE_AIKAR_FLAGS: "true"
-              VIEW_DISTANCE: "7"
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  exec:
-                    command:
-                      - mc-health
-                  initialDelaySeconds: 120
-                  periodSeconds: 5
-                  timeoutSeconds: 1
-                  failureThreshold: 20
-              readiness: *probes
-            resources:
-              requests:
-                memory: 8192Mi
-                cpu: 2000m
+    image:
+      tag: 2024.1.0-java8-multiarch
+    serviceAnnotations:
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: *app
+    livenessProbe:
+      initialDelaySeconds: 120
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      maxPlayers: 10
+      maxTickTime: 180000
+      memory: "6G"
+      motd: "All in One | 1.5.4b"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      spawnProtection: 0
+      type: "AUTO_CURSEFORGE"
+      viewDistance: 7
+      autoCurseForge:
+        apiKey:
+          key: ${CF_API_KEY}
+        filenameMatcher: "1.5.4"
+        slug: "all-in-one-modded-one-block"
     persistence:
-      data:
-        type: nfs
-        server: 192.168.7.28
-        path: /mnt/storage0/nfs_k8s/allinone
-        globalMounts:
-          - path: /data
+      dataDir:
+        enabled: true
+    # extraEnv:
+    #   allow_flight: "true"
+    #   enable_rolling_logs: "true"
+    #   snooper_enabled: "false"
+    #   sync_chunk_writes: "false"
+    #   use_aikar_flags: "true"
+    resources:
+      requests:
+        memory: 8192Mi
+        cpu: 2000m

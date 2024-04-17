@@ -54,6 +54,7 @@ spec:
     persistence:
       dataDir:
         enabled: true
+        existingClaim: *app
     # extraEnv:
     #   allow_flight: "true"
     #   enable_rolling_logs: "true"

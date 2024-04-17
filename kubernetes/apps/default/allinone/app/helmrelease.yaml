@@ -72,7 +72,7 @@ spec:
                 memory: 8192Mi
                 cpu: 2000m
     persistence:
-      dataDir:
+      data:
         type: nfs
         server: 192.168.7.28
         path: /mnt/storage0/nfs_k8s/allinone

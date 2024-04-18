@@ -79,7 +79,7 @@ data:
 
   settings.yaml: |
     ---
-    color: indigo
+    color: red
     iconStyle: theme
     layout:
       Games:

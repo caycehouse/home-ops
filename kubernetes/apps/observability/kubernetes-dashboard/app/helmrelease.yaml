@@ -48,3 +48,5 @@ spec:
           - --disable-settings-authorizer
           # When enabled, Dashboard login view will also be shown when Dashboard is not served over HTTPS.
           - --enable-insecure-login
+    kong:
+      enabled: false

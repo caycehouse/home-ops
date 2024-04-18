@@ -3,9 +3,14 @@
   "extends": [
     "local>caycehouse/renovate-config"
   ],
+  "helm-values": {
+    "fileMatch": [
+      "(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"
+    ]
+  },
   "kubernetes": {
     "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"
     ]
   },
   // custom managers

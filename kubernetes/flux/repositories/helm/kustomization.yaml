@@ -12,5 +12,6 @@ resources:
   - ./jetstack.yaml
   - ./kubernetes-dashboard.yaml
   - ./piraeus.yaml
+  - ./stakater.yaml
   - ./tailscale.yaml
   - ./weave-gitops.yaml

@@ -27,6 +27,9 @@ spec:
       homepage:
         replicas: 2
         strategy: RollingUpdate
+        pod:
+          annotations:
+            configmap.reloader.stakater.com/reload: &config homepage-config
         containers:
           app:
             image:
@@ -75,7 +78,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: homepage-config
+        name: *config
         globalMounts:
           - subPath: bookmarks.yaml
             path: /app/config/bookmarks.yaml

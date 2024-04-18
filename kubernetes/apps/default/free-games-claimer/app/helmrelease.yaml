@@ -88,3 +88,5 @@ spec:
     persistence:
       config:
         existingClaim: free-games-claimer
+        globalMounts:
+            path: /fgc/data

@@ -106,18 +106,18 @@ spec:
     ingress:
       app:
         className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: &host "{{ .Release.Name }}-dev.${SECRET_DOMAIN}"
-          gethomepage.dev/description: Minimalist and opinionated feed reader
-          gethomepage.dev/group: Reading
-          gethomepage.dev/icon: miniflux
-          gethomepage.dev/name: Miniflux
         hosts:
-          - host: *host
+          - host: &host "miniflux-dev.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: *host
+          gethomepage.dev/description: Minimalist and opinionated feed reader
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: miniflux
+          gethomepage.dev/name: Miniflux

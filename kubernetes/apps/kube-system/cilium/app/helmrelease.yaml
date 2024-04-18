@@ -71,7 +71,10 @@ spec:
           enabled: true
           className: tailscale
           hosts:
-            - hubble
+            - &host "hubble"
+          tls:
+            - hosts:
+                - *host
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"

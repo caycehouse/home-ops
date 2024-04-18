@@ -85,3 +85,6 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: mdi-gamepad
           gethomepage.dev/name: free-games-claimer
+    persistence:
+      config:
+        existingClaim: free-games-claimer

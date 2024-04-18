@@ -107,7 +107,7 @@ spec:
       app:
         className: external
         hosts:
-          - host: &host "miniflux-dev.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}-dev.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -116,7 +116,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: https://*host
+          gethomepage.dev/href: "https://$(APP_NAME)-dev.${SECRET_DOMAIN}"
           gethomepage.dev/description: Minimalist and opinionated feed reader
           gethomepage.dev/group: Reading
           gethomepage.dev/icon: miniflux

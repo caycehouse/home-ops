@@ -66,6 +66,9 @@ spec:
         hosts:
           - host: *app
             paths: *paths
+        tls:
+          - hosts:
+              - *app
     serviceAccount:
       create: true
     persistence:

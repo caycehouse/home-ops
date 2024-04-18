@@ -70,7 +70,8 @@ spec:
         ingress:
           enabled: true
           className: tailscale
-          hosts: ["hubble"]
+          hosts:
+            - hubble
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"

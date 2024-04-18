@@ -1,0 +1,87 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: free-games-claimer
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      free-games-claimer:
+        type: cronjob
+        cronjob:
+          timeZone: America/New_York
+          schedule: "0 12 * * *"
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/vogler/free-games-claimer
+              tag: main@sha256:badfa00ff338939ad6a8ebe7d67dad98fea19746fedf88885e51215ec8e386f2
+            env:
+              PG_REDEEM: 1
+              PG_CLAIMDLC: 1
+              WIDTH: 1920
+              HEIGHT: 1080
+            envFrom:
+              - secretRef:
+                  name: miniflux-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: free-games-claimer
+        ports:
+          http:
+            port: 6080
+    ingress:
+      app:
+        className: external
+        hosts:
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://fgc.${SECRET_DOMAIN}"
+          gethomepage.dev/description: Free games claimer
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: mdi-gamepad
+          gethomepage.dev/name: free-games-claimer

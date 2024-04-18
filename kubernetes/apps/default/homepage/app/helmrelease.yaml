@@ -54,7 +54,7 @@ spec:
           tailscale.com/hostname: *app
     ingress:
       app:
-        className: external
+        className: tailscale
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:

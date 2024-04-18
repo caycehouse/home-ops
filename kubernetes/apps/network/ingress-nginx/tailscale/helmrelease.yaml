@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: ingress-nginx-external
+  name: ingress-nginx-tailscale
 spec:
   interval: 30m
   chart:
@@ -24,24 +24,22 @@ spec:
     - name: cloudflared
       namespace: network
   values:
-    fullnameOverride: ingress-nginx-external
+    fullnameOverride: ingress-nginx-tailscale
     controller:
       replicaCount: 1
       service:
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
-          io.cilium/lb-ipam-ips: "192.168.4.4"
+        loadBalancerClass: tailscale
         externalTrafficPolicy: Cluster
       ingressClassResource:
-        name: external
+        name: tailscale
         default: false
-        controllerValue: k8s.io/external
+        controllerValue: k8s.io/tailscale
       admissionWebhooks:
         objectSelector:
           matchExpressions:
             - key: ingress-class
               operator: In
-              values: ["external"]
+              values: ["tailscale"]
       config:
         client-body-buffer-size: 100M
         client-body-timeout: 120
@@ -77,7 +75,7 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: ingress-nginx
-              app.kubernetes.io/instance: ingress-nginx-external
+              app.kubernetes.io/instance: ingress-nginx-tailscale
               app.kubernetes.io/component: controller
       resources:
         requests:

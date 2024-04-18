@@ -9,14 +9,8 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16.2-13
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 1Mi
-    pvcTemplate:
-      accessModes:
-      - ReadWriteOnce
-      storageClassName: cloudnative-pg
-      resources:
-        requests:
-          storage: 1Mi
+    size: 20Gi
+    storageClass: nfs
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true

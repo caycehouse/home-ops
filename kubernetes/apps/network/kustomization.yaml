@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./cloudflared/ks.yaml
+  - ./external-dns.yaml
   - ./tailscale/ks.yaml

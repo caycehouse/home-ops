@@ -89,4 +89,4 @@ spec:
       config:
         existingClaim: free-games-claimer
         globalMounts:
-            path: /fgc/data
+            - path: /fgc/data

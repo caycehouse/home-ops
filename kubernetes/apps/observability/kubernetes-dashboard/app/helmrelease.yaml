@@ -36,7 +36,7 @@ spec:
         tls:
           - hosts:
               - *host
-        secretName: null
+            secretName: null
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: A Kubernetes Dashboard

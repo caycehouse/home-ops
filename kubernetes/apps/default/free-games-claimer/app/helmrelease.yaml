@@ -71,7 +71,7 @@ spec:
       app:
         className: external
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "fgc.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:

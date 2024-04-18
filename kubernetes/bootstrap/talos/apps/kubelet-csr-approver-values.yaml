@@ -1,3 +1,3 @@
 ---
-providerRegex: ^(donuts)$
+providerRegex: ^(donuts|kazbars|bouncers)$
 bypassDnsResolution: true

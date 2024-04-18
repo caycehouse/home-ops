@@ -62,6 +62,7 @@ spec:
                   identifier: app
                   port: http
       tailscale:
+        enabled: true
         className: tailscale
         hosts:
           - host: *app

@@ -24,10 +24,6 @@ spec:
     keepHistory: false
   values:
     app:
-      extraArgs:
-        - --enable-insecure-login
-        - --enable-skip-login
-        - --disable-settings-authorizer
       ingress:
         enabled: true
         className: tailscale
@@ -43,9 +39,12 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: kubernetes-dashboard
           gethomepage.dev/name: Kubernetes Dashboard
-      metricsScraper:
-        enabled: true
-      nginx:
-        enabled: false
-      cert-manager:
-        enabled: false
+    api:
+      containers:
+        args:
+          # When enabled, the skip button on the login page will be shown.
+          - --enable-insecure-login
+          # When enabled, Dashboard settings page will not require user to be logged in and authorized to access settings page.
+          - --disable-settings-authorizer
+          # When enabled, Dashboard login view will also be shown when Dashboard is not served over HTTPS.
+          - --enable-insecure-login

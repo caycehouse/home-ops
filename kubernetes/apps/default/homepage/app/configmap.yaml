@@ -13,6 +13,9 @@ data:
       - Github:
           - icon: github
             href: https://github.com/
+      - kubesearch
+          - icon: https://avatars1.githubusercontent.com/u/61287648
+            href: https://kubesearch.dev/
     - Social:
         - Reddit:
             - icon: reddit

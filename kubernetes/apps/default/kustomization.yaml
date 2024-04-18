@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
   - ./allinone/ks.yaml
   - ./homepage/ks.yaml
+  - ./miniflux/ks.yaml

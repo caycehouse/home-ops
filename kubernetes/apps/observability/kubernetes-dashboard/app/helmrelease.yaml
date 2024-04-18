@@ -23,17 +23,25 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    extraArgs:
-      - --enable-insecure-login
-      - --enable-skip-login
-      - --disable-settings-authorizer
-    ingress:
-      enabled: true
-      className: tailscale
-      hosts:
-        - &host "kubernetes-dashboard"
-      tls:
-        - hosts:
-            - *host
-    metricsScraper:
-      enabled: true
+    app:
+      extraArgs:
+        - --enable-insecure-login
+        - --enable-skip-login
+        - --disable-settings-authorizer
+      ingress:
+        enabled: true
+        className: tailscale
+        hosts:
+          - &host "kubernetes-dashboard"
+        tls:
+          - hosts:
+              - *host
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: A Kubernetes Dashboard
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: kubernetes-dashboard
+          gethomepage.dev/name: Kubernetes Dashboard
+      metricsScraper:
+        enabled: true
+

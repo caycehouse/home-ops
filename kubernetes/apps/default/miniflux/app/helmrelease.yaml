@@ -116,7 +116,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: *host
+          gethomepage.dev/href: https://*host
           gethomepage.dev/description: Minimalist and opinionated feed reader
           gethomepage.dev/group: Reading
           gethomepage.dev/icon: miniflux

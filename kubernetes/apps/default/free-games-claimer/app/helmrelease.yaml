@@ -45,7 +45,7 @@ spec:
               HEIGHT: 1080
             envFrom:
               - secretRef:
-                  name: miniflux-secret
+                  name: free-games-claimer-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

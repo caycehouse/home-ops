@@ -44,4 +44,3 @@ spec:
           gethomepage.dev/name: Kubernetes Dashboard
       metricsScraper:
         enabled: true
-

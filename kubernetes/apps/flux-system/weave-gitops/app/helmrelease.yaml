@@ -38,6 +38,13 @@ spec:
       tls:
         - hosts:
             - *host
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/href: "https://weave-gitops.${SECRET_TS_DOMAIN}"
+        gethomepage.dev/description: Flux Dashboard
+        gethomepage.dev/group: Utilities
+        gethomepage.dev/icon: flux-cd
+        gethomepage.dev/name: weave-gitops
     networkPolicy:
       create: false
     metrics:

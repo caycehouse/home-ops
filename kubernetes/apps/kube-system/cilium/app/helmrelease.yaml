@@ -27,7 +27,6 @@ spec:
     bgpControlPlane:
       enabled: true
     bpf:
-      lbExternalClusterIP: true
       masquerade: true
     bgp:
       enabled: false

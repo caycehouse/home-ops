@@ -6,6 +6,14 @@
 
 ## Instructions
 
+### To Recover cluster:
+
+1. `task talos:bootstrap`
+2. be patient...
+3. `task flux:bootstrap`
+4. ???
+5. success
+
 ### To Upgrade Talos:
 
 `task talos:upgrade-talos node=<node> image=<factory_image_url>`

@@ -23,6 +23,9 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
   uninstall:
     keepHistory: false
   values:
@@ -54,7 +57,6 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: *app
     # extraEnv:
     #   allow_flight: "true"
     #   enable_rolling_logs: "true"

@@ -79,6 +79,8 @@ spec:
           game:
             port: 25565
             protocol: TCP
+        type: LoadBalancer
+        loadBalancerClass: tailscale
     persistence:
      data:
       existingClaim: *app

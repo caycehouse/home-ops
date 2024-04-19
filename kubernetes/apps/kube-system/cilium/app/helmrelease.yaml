@@ -31,8 +31,8 @@ spec:
         enabled: false
       hostRoot: /sys/fs/cgroup
     cluster:
-      name: home-kubernetes
       id: 1
+      name: home-cluster
     containerRuntime:
       integration: containerd
     # NOTE: devices might need to be set if you have more than one active NIC on your hosts

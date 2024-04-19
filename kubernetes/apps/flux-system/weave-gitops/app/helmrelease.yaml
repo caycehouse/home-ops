@@ -44,7 +44,7 @@ spec:
         gethomepage.dev/description: Flux Dashboard
         gethomepage.dev/group: Utilities
         gethomepage.dev/icon: flux-cd
-        gethomepage.dev/name: weave-gitops
+        gethomepage.dev/name: Weave GitOps
     networkPolicy:
       create: false
     metrics:

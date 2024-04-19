@@ -75,6 +75,10 @@ spec:
         annotations:
           tailscale.com/expose: "true"
           tailscale.com/hostname: *app
+        ports:
+          game:
+            port: 25565
+            protocol: TCP
     persistence:
      data:
       existingClaim: *app

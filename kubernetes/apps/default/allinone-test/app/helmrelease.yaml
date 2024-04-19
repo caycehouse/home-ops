@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app allinone-test
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.16.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: itzg
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      tag: 2024.1.0-java8-multiarch
+    serviceAnnotations:
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: *app
+    livenessProbe:
+      initialDelaySeconds: 120
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      maxPlayers: 10
+      maxTickTime: 180000
+      memory: "6G"
+      motd: "All in One | 1.5.4b"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      spawnProtection: 0
+      type: "AUTO_CURSEFORGE"
+      viewDistance: 7
+      autoCurseForge:
+        apiKey:
+          key: ${CF_API_KEY}
+        filenameMatcher: "1.5.4"
+        slug: "all-in-one-modded-one-block"
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: *app
+    # extraEnv:
+    #   allow_flight: "true"
+    #   enable_rolling_logs: "true"
+    #   snooper_enabled: "false"
+    #   sync_chunk_writes: "false"
+    #   use_aikar_flags: "true"
+    resources:
+      requests:
+        memory: 8192Mi
+        cpu: 2000m

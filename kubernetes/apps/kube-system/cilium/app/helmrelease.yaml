@@ -28,8 +28,6 @@ spec:
       enabled: true
     bpf:
       masquerade: false
-    bgp:
-      enabled: false
     cluster:
       name: home-kubernetes
       id: 1

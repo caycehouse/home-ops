@@ -54,7 +54,6 @@ spec:
           key: ${CF_API_KEY}
         filenameMatcher: "1.5.4"
         slug: "all-in-one-modded-one-block"
-      serviceType: LoadBalancer
     persistence:
       dataDir:
         enabled: true

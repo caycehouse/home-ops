@@ -2,6 +2,6 @@
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
-  name: csi-nfs-snapclass
+  name: nfs
 driver: nfs.csi.k8s.io
 deletionPolicy: Delete

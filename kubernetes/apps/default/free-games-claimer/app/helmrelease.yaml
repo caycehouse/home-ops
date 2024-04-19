@@ -29,6 +29,7 @@ spec:
         cronjob:
           timeZone: America/New_York
           schedule: "0 12 * * *"
+          backoffLimit: 3
         replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"

@@ -128,3 +128,6 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+    # https://github.com/tailscale/tailscale/issues/7868#issuecomment-1729969717
+    socketLB:
+      hostNamespaceOnly: true

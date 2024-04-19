@@ -42,6 +42,9 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://192.168.7.28:9000
+      endpointCA:
+          name: cloudnative-pg-secret
+          key: ca-bundle
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
       serverName: &currentCluster postgres16-v2

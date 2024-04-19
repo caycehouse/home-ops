@@ -46,9 +46,6 @@ spec:
             envFrom:
               - secretRef:
                   name: free-games-claimer-secret
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -82,4 +79,4 @@ spec:
       config:
         existingClaim: free-games-claimer
         globalMounts:
-            - path: /fgc/data
+          - path: /fgc/data

@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: itzg/minecraft-server
-              tag: 2024.1.0-java8-multiarch
+              tag: 2024.4.0-java8-multiarch
             env:
               ALLOW_FLIGHT: "true"
               CF_API_KEY: "${CF_API_KEY}"

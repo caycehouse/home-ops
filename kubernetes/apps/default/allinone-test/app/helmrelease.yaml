@@ -26,10 +26,6 @@ spec:
   values:
     controllers:
       allinone:
-        service:
-          annotations:
-            tailscale.com/expose: "true"
-            tailscale.com/hostname: *app
         containers:
           app:
             image:
@@ -73,6 +69,10 @@ spec:
               requests:
                 memory: 8192Mi
                 cpu: 2000m
+    service:
+      annotations:
+        tailscale.com/expose: "true"
+        tailscale.com/hostname: *app
     persistence:
      data:
       existingClaim: *app

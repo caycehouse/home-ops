@@ -58,12 +58,20 @@ spec:
       dataDir:
         enabled: true
         existingClaim: *app
+    rcon:
+      enabled: true
+      existingSecret: &secret allinone-secret
+      secretKey: RCON_PASSWORD
     extraEnv:
       ALLOW_FLIGHT: "true"
+      ENABLE_RCON: "true"
       ENABLE_ROLLING_LOGS: "true"
       SNOOPER_ENABLED: "false"
       SYNC_CHUNK_WRITES: "false"
       USE_AIKAR_FLAGS: "true"
+    envFrom:
+      - secretRef:
+          name: *secret
     resources:
       requests:
         memory: 8192Mi

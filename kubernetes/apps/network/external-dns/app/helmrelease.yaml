@@ -31,7 +31,7 @@ spec:
         valueFrom:
           secretKeyRef:
             name: external-dns-secret
-            key: CF_API_TOKEN
+            key: *name
     extraArgs:
       - --ingress-class=external
       - --cloudflare-proxied

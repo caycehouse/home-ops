@@ -66,6 +66,7 @@ spec:
       secretKey: RCON_PASSWORD
     extraEnv:
       ALLOW_FLIGHT: "true"
+      ENABLE_RCON: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
       OVERRIDE_WHITELIST: "true"

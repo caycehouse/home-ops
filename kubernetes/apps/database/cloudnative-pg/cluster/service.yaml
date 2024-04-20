@@ -4,6 +4,7 @@ kind: Service
 metadata:
   name: postgres-lb
   annotations:
+    external-dns.alpha.kubernetes.io/hostname: "postgres.${SECRET_DOMAIN}"
     io.cilium/lb-ipam-ips: 192.168.4.5
 spec:
   type: LoadBalancer

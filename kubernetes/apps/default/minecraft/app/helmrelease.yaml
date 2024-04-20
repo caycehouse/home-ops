@@ -60,7 +60,6 @@ spec:
         existingClaim: *app
     rcon:
       enabled: true
-      withGeneratedPassword: true
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
@@ -79,3 +78,8 @@ spec:
       requests:
         memory: 6Gi
         cpu: 2000m
+  valuesFrom:
+    - kind: Secret
+      name: *secret
+      valuesKey: RCON_PASSWORD
+      targetPath: minecraftServer.rcon.password

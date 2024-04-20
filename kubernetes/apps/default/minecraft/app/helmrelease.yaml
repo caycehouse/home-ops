@@ -58,6 +58,9 @@ spec:
       dataDir:
         enabled: true
         existingClaim: *app
+    rcon:
+      enabled: true
+      withGeneratedPassword: true
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"

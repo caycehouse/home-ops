@@ -29,6 +29,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    deploymentAnnotations:
+      secret.reloader.stakater.com/reload: &secret minecraft-secret
     image:
       tag: 2024.4.0-java17@sha256:4ddb83d56f450e736284442c4c7d143f63595cf3d2039140476013ce89901af8
     serviceAnnotations:
@@ -60,7 +62,8 @@ spec:
         existingClaim: *app
     rcon:
       enabled: true
-      withGeneratedPassword: true
+      existingSecret: &secret minecraft-secret
+      secretKey: RCON_PASSWORD
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
@@ -75,6 +78,9 @@ spec:
       SNOOPER_ENABLED: "false"
       SYNC_CHUNK_WRITES: "false"
       USE_AIKAR_FLAGS: "true"
+    envFrom:
+      - secretRef:
+          name: *secret
     resources:
       requests:
         memory: 6Gi

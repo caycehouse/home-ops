@@ -23,3 +23,8 @@ The factory image url can be generated at [factory.talos.dev](factory.talos.dev)
 ### To Upgrade k8s:
 
 `task talos:upgrade-k8s node=<node> to=<k8s_version>`
+
+
+### To manually trigger an external-secrets refresh:
+
+[external-secrets.io](https://external-secrets.io/latest/introduction/faq/#can-i-manually-trigger-a-secret-refresh)

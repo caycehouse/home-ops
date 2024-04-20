@@ -23,5 +23,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      resources:
+        nfs:
+          limits:
+            memory: 512Mi
     externalSnapshotter:
       enabled: false

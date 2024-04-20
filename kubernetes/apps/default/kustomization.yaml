@@ -6,4 +6,5 @@ resources:
   - ./allinone/ks.yaml
   - ./free-games-claimer/ks.yaml
   - ./homepage/ks.yaml
+  - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml

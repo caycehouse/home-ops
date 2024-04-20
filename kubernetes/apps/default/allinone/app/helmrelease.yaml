@@ -30,7 +30,7 @@ spec:
     keepHistory: false
   values:
     image:
-      tag: 2024.1.0-java8-multiarch
+      tag: 2024.4.0-java8-multiarch@sha256:f7d9e943692c86b1cee433b7bace0150dd18a6d836550e55cfb8b6b7e59314d2
     serviceAnnotations:
       tailscale.com/expose: "true"
       tailscale.com/hostname: *app
@@ -58,12 +58,12 @@ spec:
       dataDir:
         enabled: true
         existingClaim: *app
-    # extraEnv:
-    #   allow_flight: "true"
-    #   enable_rolling_logs: "true"
-    #   snooper_enabled: "false"
-    #   sync_chunk_writes: "false"
-    #   use_aikar_flags: "true"
+    extraEnv:
+      ALLOW_FLIGHT: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      SNOOPER_ENABLED: "false"
+      SYNC_CHUNK_WRITES: "false"
+      USE_AIKAR_FLAGS: "true"
     resources:
       requests:
         memory: 8192Mi

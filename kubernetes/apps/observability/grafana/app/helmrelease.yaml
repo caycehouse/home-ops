@@ -237,9 +237,11 @@ spec:
     ingress:
       enabled: true
       ingressClassName: tailscale
+      hosts:
+        - &host grafana
       tls:
         - hosts:
-            - grafana
+            - *host
     persistence:
       enabled: false
     testFramework:

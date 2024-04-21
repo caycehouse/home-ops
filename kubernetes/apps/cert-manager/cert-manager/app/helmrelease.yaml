@@ -4,7 +4,6 @@ kind: HelmRelease
 metadata:
   name: cert-manager
 spec:
-  breakthisfhtins
   interval: 30m
   chart:
     spec:

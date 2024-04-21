@@ -43,6 +43,10 @@ spec:
       GF_SERVER_ROOT_URL: https://grafana.${SECRET_TS_DOMAIN}
     envFromSecrets:
       - name: *secret
+    admin:
+      existingSecret: *secret
+      userKey: GF_SECURITY_ADMIN_USER
+      passwordKey: GF_SECURITY_ADMIN_PASSWORD
     grafana.ini:
       analytics:
         check_for_updates: false

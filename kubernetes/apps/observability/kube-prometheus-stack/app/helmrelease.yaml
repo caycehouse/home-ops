@@ -107,7 +107,7 @@ spec:
           objectStorageConfig:
             existingSecret:
               name: *secret
-              key: config
+              key: objstore.yml
         retention: 2d
         retentionSize: 15GB
         externalLabels:

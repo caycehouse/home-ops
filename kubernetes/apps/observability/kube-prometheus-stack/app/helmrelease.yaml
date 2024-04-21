@@ -55,5 +55,11 @@ spec:
         - 192.168.7.52
         - 192.168.7.53
         - 192.168.7.55
+    kubeEtcd:
+      enabled: true
+      endpoints: *cp
+    kubeScheduler:
+      enabled: true
+      endpoints: *cp
     kubeProxy:
       enabled: false

@@ -32,3 +32,5 @@ spec:
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
+    kubeProxy:
+      enabled: false

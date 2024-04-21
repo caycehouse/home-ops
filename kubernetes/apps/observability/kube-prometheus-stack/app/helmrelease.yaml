@@ -49,5 +49,11 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+    kubeControllerManager:
+      enabled: true
+      endpoints: &cp
+        - 192.168.7.52
+        - 192.168.7.53
+        - 192.168.7.55
     kubeProxy:
       enabled: false

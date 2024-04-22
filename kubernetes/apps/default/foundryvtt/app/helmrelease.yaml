@@ -27,7 +27,7 @@ spec:
       namespace: volsync-system
   values:
     controllers:
-      archisteamfarm:
+      foundryvtt:
         replicas: 1
         annotations:
           secret.reloader.stakater.com/reload: &secret foundryvtt-secret

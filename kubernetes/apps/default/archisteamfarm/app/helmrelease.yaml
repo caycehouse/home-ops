@@ -50,8 +50,8 @@ spec:
         controller: *app
         ports:
           http:
-            port: 1242
-            targetPort: 80
+            port: 80
+            targetPort: 1242
     ingress:
       app:
         className: tailscale

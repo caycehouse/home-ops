@@ -29,6 +29,7 @@ spec:
         pod:
           annotations:
             configmap.reloader.stakater.com/reload: &config twitchdropsminer-config
+            secret.reloader.stakater.com/reload: &secret twitchdropsminer-secret
         containers:
           app:
             image:
@@ -47,3 +48,9 @@ spec:
         globalMounts:
           - subPath: settings.json
             path: /TwitchDropsMiner/settings.json
+      cookies:
+        type: secret
+        name: *secret
+        globalMounts:
+          - subPath: cookies.jar
+            path: /TwitchDropsMiner/cookies.jar

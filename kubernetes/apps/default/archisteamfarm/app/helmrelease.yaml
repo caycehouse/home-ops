@@ -65,7 +65,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: http
+                  port: 1242
         tls:
           - hosts:
               - *app

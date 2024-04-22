@@ -29,7 +29,6 @@ spec:
     controllers:
       archisteamfarm:
         replicas: 1
-        strategy: RollingUpdate
         containers:
           app:
             image:

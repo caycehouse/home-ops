@@ -41,9 +41,9 @@ spec:
                 memory: 200M
               limits:
                 memory: 2G
-            command: ["sh", "-c", "
+            args: ["sh", "-c", "
                 cp /TwitchDropsMiner/cookies.jar.import /TwitchDropsMiner/cookies.jar;
-                ./docker_entrypoint.sh
+                python main.py -vvv
               "]
     persistence:
       config:

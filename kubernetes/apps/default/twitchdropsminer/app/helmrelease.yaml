@@ -54,3 +54,4 @@ spec:
         globalMounts:
           - subPath: cookies.jar
             path: /TwitchDropsMiner/cookies.jar
+            readOnly: false

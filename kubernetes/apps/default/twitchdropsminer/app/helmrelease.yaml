@@ -26,6 +26,9 @@ spec:
     controllers:
       twitchdropsminer:
         replicas: 1
+        pod:
+          annotations:
+            configmap.reloader.stakater.com/reload: &config twitchdropsminer-config
         containers:
           app:
             image:

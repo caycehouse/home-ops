@@ -11,4 +11,5 @@ resources:
   - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
   - ./oceanblock/ks.yaml
+  - ./satisfactory/ks.yaml
   - ./valheim/ks.yaml

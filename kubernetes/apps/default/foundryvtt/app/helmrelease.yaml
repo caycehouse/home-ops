@@ -30,7 +30,7 @@ spec:
       archisteamfarm:
         replicas: 1
         annotations:
-          reloader.stakater.com/auto: "true"
+          secret.reloader.stakater.com/reload: &secret foundryvtt-secret
         containers:
           app:
             image:

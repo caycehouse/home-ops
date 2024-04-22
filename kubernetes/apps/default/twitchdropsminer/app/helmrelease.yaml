@@ -41,6 +41,10 @@ spec:
                 memory: 200M
               limits:
                 memory: 2G
+            lifecycle:
+              postStart:
+                exec:
+                  command: ["cp", "/TwitchDropsMiner/cookies.jar.import", "/TwitchDropsMiner/cookies.jar"]
     persistence:
       config:
         type: configMap
@@ -53,6 +57,4 @@ spec:
         name: *secret
         globalMounts:
           - subPath: cookies.jar
-            path: /TwitchDropsMiner/cookies.jar
-            readOnly: false
-        defaultMode: 0777
+            path: /TwitchDropsMiner/cookies.jar.import

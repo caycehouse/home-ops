@@ -54,7 +54,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: 1242
+            port: &port 1242
     ingress:
       tailscale:
         enabled: true
@@ -65,7 +65,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: http
+                  port: *port
         tls:
           - hosts:
               - *app

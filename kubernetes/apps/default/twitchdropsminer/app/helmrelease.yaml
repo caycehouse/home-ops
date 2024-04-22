@@ -41,7 +41,7 @@ spec:
                 memory: 200M
               limits:
                 memory: 2G
-            args: ["
+            args: ["sh", "-c", "
                 cp /TwitchDropsMiner/cookies.jar.import /TwitchDropsMiner/cookies.jar;
                 python main.py -vvv
               "]

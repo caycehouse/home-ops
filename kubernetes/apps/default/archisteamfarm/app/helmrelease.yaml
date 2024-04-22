@@ -69,10 +69,12 @@ spec:
         tls:
           - hosts:
               - *app
-    serviceAccount:
-      create: true
     persistence:
       config:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/config
+      secrets:
         type: secret
         name: *config
         globalMounts:

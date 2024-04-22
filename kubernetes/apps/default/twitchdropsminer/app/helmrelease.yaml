@@ -44,8 +44,7 @@ spec:
             command:
               ["cp",
               "/TwitchDropsMiner/cookies.jar.import",
-              "/TwitchDropsMiner/cookies.jar",
-              "&&",
+              "/TwitchDropsMiner/cookies.jar;",
               "python",
               "main.py",
               "-vvv"]

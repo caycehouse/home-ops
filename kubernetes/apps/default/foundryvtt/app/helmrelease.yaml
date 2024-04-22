@@ -66,7 +66,7 @@ spec:
       app:
         className: external
         hosts:
-          - host: *app
+          - host: "https://foundry.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:

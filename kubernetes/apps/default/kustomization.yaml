@@ -12,4 +12,5 @@ resources:
   - ./miniflux/ks.yaml
   - ./oceanblock/ks.yaml
   - ./satisfactory/ks.yaml
+  - ./twitchdropsminer/ks.yaml
   - ./valheim/ks.yaml

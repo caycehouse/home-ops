@@ -107,6 +107,14 @@ spec:
           - { name: Alertmanager, orgId: 1 }
           - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
+        datasources:
+          - name: Alertmanager
+            type: alertmanager
+            uid: alertmanager
+            access: proxy
+            url: http://alertmanager-operated.observability.svc.cluster.local:9093
+            jsonData:
+              implementation: prometheus
     dashboards:
       default:
         cloudflared:

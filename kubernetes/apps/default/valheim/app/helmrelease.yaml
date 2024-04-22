@@ -69,3 +69,9 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+      runtime:
+        accessMode: ReadWriteOnce
+        globalMounts:
+          - path: /opt/valheim
+        size: 30Gi
+        storageClass: nfs

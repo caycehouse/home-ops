@@ -56,23 +56,16 @@ spec:
           http:
             port: 3000
     ingress:
-      app:
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        hosts:
-          - host: "asf-dev.${SECRET_DOMAIN}"
-            paths: &paths
-              - path: /
-                service:
-                  identifier: app
-                  port: http
       tailscale:
         enabled: true
         className: tailscale
         hosts:
           - host: *app
-            paths: *paths
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
         tls:
           - hosts:
               - *app

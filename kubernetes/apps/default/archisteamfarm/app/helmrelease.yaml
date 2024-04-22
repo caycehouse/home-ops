@@ -61,6 +61,13 @@ spec:
                 service:
                   identifier: app
                   port: http
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://archisteamfarm.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: Steam cards farmer
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: archisteamfarm
+          gethomepage.dev/name: ArchiSteamFarm
         tls:
           - hosts:
               - *app

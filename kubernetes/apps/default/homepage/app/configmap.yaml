@@ -38,6 +38,16 @@ data:
 
   services.yaml: |
     ---
+    - Games:
+          - All in One:
+                icon: https://media.forgecdn.net/avatars/342/91/637485703554418199.png
+                description: Modded One Block
+          - Minecraft:
+                icon: minecraft
+                description: Vanilla Minecraft server
+          - OceanBlock:
+                icon: https://www.feed-the-beast.com/_next/image?url=https%3A%2F%2Fapps.modpacks.ch%2Fmodpacks%2Fart%2F87%2Flogo.png&w=256&q=100
+                description: Time to dive in!
     - Remote Access:
           - R630 iDRAC:
                 icon: idrac

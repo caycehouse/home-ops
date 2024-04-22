@@ -58,6 +58,7 @@ spec:
         annotations:
           tailscale.com/expose: "true"
           tailscale.com/hostname: *app
+          tailscale.com/tags: "tag:k8s,tag:valheim"
         ports:
           steam1:
             port: 2456

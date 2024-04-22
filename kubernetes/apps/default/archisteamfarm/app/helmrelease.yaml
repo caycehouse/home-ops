@@ -51,24 +51,13 @@ spec:
                 memory: 2G
     service:
       app:
+        annotations:
+          tailscale.com/expose: "true"
+          tailscale.com/hostname: *app
         controller: *app
         ports:
           http:
             port: 1242
-    ingress:
-      tailscale:
-        enabled: true
-        className: tailscale
-        hosts:
-          - host: *app
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *app
     persistence:
       config:
         existingClaim: *app

@@ -8,3 +8,4 @@ resources:
   - ./homepage/ks.yaml
   - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
+  - ./oceanblock/ks.yaml

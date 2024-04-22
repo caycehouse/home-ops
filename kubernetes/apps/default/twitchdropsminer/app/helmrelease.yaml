@@ -41,13 +41,10 @@ spec:
                 memory: 200M
               limits:
                 memory: 2G
-            command:
-              ["cp",
-              "/TwitchDropsMiner/cookies.jar.import",
-              "/TwitchDropsMiner/cookies.jar;",
-              "python",
-              "main.py",
-              "-vvv"]
+            command: ["sh", "-c", "
+                cp /TwitchDropsMiner/cookies.jar.import /TwitchDropsMiner/cookies.jar;
+                python main.py -vvv
+              "]
     persistence:
       config:
         type: configMap

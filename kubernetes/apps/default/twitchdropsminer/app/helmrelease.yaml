@@ -57,4 +57,4 @@ spec:
         name: *secret
         globalMounts:
           - subPath: cookies.jar
-            path: /TwitchDropsMiner/cookies.jar
+            path: /TwitchDropsMiner/cookies.jar.import

@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./allinone/ks.yaml
+  - ./archisteamfarm/ks.yaml
   - ./free-games-claimer/ks.yaml
   - ./homepage/ks.yaml
   - ./minecraft/ks.yaml

@@ -30,6 +30,12 @@ spec:
           annotations:
             configmap.reloader.stakater.com/reload: &config twitchdropsminer-config
             secret.reloader.stakater.com/reload: &secret twitchdropsminer-secret
+        initContainers:
+          init-db:
+            image:
+              repository: alpine
+              tag: 3.8
+            command: ["sh", "-c", "cp /cookies.jar /TwitchDropsMiner/cookies.jar"]
         containers:
           app:
             image:
@@ -41,10 +47,6 @@ spec:
                 memory: 200M
               limits:
                 memory: 2G
-            args: ["sh", "-c", "
-                cp /TwitchDropsMiner/cookies.jar.import /TwitchDropsMiner/cookies.jar;
-                python main.py -vvv
-              "]
     persistence:
       config:
         type: configMap
@@ -57,4 +59,4 @@ spec:
         name: *secret
         globalMounts:
           - subPath: cookies.jar
-            path: /TwitchDropsMiner/cookies.jar.import
+            path: /cookies.jar

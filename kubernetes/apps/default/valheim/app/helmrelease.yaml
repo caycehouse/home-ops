@@ -46,8 +46,11 @@ spec:
             probes:
               liveness:
                 enabled: true
+                spec: &spec
+                  initialDelaySeconds: 120
               readiness:
                 enabled: true
+                spec: *spec
             resources:
               requests:
                 cpu: 15m

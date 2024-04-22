@@ -47,7 +47,7 @@ spec:
               liveness:
                 enabled: true
                 spec: &spec
-                  initialDelaySeconds: 120
+                  initialDelaySeconds: 300
               readiness:
                 enabled: true
                 spec: *spec

@@ -24,6 +24,7 @@ spec:
     keepHistory: false
   values:
     controller:
+      replicas: 3
       resources:
         nfs:
           limits:

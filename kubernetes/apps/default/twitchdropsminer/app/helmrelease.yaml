@@ -41,12 +41,7 @@ spec:
                 memory: 200M
               limits:
                 memory: 2G
-            # TODO: This works but only posts logs every ~15 minutes.
-            # Look into wayts to log instantly.
-            args: ["sh", "-c", "
-                cp /TwitchDropsMiner/cookies.jar.import /TwitchDropsMiner/cookies.jar;
-                PYTHONUNBUFFERED=1 && python main.py -vvv
-              "]
+            args: ["./startup.sh"]
     persistence:
       config:
         type: configMap
@@ -54,6 +49,8 @@ spec:
         globalMounts:
           - subPath: settings.json
             path: /TwitchDropsMiner/settings.json
+          - subPath: startup.sh
+            path: /TwitchDropsMiner/startup.sh
       cookies:
         type: secret
         name: *secret

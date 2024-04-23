@@ -1,0 +1,112 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app calibre
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  values:
+    controllers:
+      calibre:
+        containers:
+          app:
+            image:
+              repository: lscr.io/linuxserver/calibre
+              tag: 7.8.0@sha256:fa53a6b85d34abb46593b3959223b5b4eb9d97c067ce4ad0bdb9c552e1906d17
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1000Mi
+              limits:
+                memory: 5000Mi
+          web:
+            image:
+              repository: lscr.io/linuxserver/calibre-web
+              tag: 0.6.21@sha256:91de784bd006562b2929df9dff56d8d42a4beafc4eef6d5a7cdc6e84c268c4be
+            env:
+              DOCKER_MODS: linuxserver/mods:universal-calibre
+    service:
+      app:
+        controller: calibre
+        ports:
+          http:
+            port: 8080
+      web:
+        controller: calibre
+        ports:
+          http:
+            port: 8083
+    ingress:
+      app:
+        className: external
+        hosts:
+          - host: "calibre.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://calibre.${SECRET_DOMAIN}"
+          gethomepage.dev/description: An eBook Manager
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: calibre
+          gethomepage.dev/name: Calibre
+      web:
+        className: external
+        hosts:
+          - host: "calibre-web.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: web
+                  port: http
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://calibre-web.${SECRET_DOMAIN}"
+          gethomepage.dev/description: An eBook Library
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: calibre-web
+          gethomepage.dev/name: Calibre-Web
+    persistence:
+      data:
+        existingClaim: *app
+        advancedMounts:
+          hoarder:
+            app:
+              - path: /config
+                subPath: app-config
+              - path: /uploads
+                subPath: app-uploads
+              - path: /plugins
+                subPath: app-plugins
+              - path: /Calibre_Library
+                subPath: books
+            web:
+              - path: /config
+                subPath: web-config
+              - path: /books
+                subPath: books

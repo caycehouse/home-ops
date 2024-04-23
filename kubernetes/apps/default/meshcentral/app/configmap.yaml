@@ -9,23 +9,23 @@ metadata:
 data:
   config.json: |
       {
-      "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
-      "settings": {
-            "plugins": {
-                  "enabled": false
+            "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
+            "settings": {
+                  "plugins": {
+                        "enabled": false
+                  },
+                  "cert": "meshcentral.${SECRET_DOMAIN}",
+                  "port": 4430,
+                  "AliasPort": 443,
+                  "redirPort": 800,
+                  "AgentPong": 300,
+                  "TLSOffload": true
             },
-            "cert": "meshcentral.${SECRET_DOMAIN}",
-            "port": 4430,
-            "AliasPort": 443,
-            "redirPort": 800,
-            "AgentPong": 300,
-            "TLSOffload": true
-      },
-      "domains": {
-            "": {
-                  "minify": true,
-                  "localSessionRecording": false,
-                  "certUrl": "https://meshcentral.${SECRET_DOMAIN}"
+            "domains": {
+                  "": {
+                        "minify": true,
+                        "localSessionRecording": false,
+                        "certUrl": "https://meshcentral.${SECRET_DOMAIN}"
+                  }
             }
-      }
       }

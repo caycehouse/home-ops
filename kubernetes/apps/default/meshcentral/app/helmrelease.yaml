@@ -66,7 +66,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "meshcentral.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://meshcentral.${SECRET_DOMAIN}"
           gethomepage.dev/description: Agent-based remote desktop
           gethomepage.dev/group: Remote Access
           gethomepage.dev/icon: meshcentral

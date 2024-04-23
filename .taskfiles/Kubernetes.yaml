@@ -3,6 +3,17 @@ version: "3"
 
 tasks:
 
+  delete-failed-pods:
+    desc: Deletes pods with a fucked status
+    summary: |
+      Args:
+        cluster: Cluster to run command against (required)
+    cmds:
+      - for: ["Evicted", "Failed", "Succeeded"]
+        cmd: kubectl --context {{.cluster}} delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
+    requires:
+      vars: ["cluster"]
+
   k9s:
     desc: Run k9s on given cluster
     cmd: k9s --kubeconfig {{.KUBECONFIG_FILE}}

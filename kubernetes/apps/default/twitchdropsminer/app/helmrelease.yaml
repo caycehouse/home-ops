@@ -51,6 +51,7 @@ spec:
             path: /TwitchDropsMiner/settings.json
           - subPath: startup.sh
             path: /TwitchDropsMiner/startup.sh
+            defaultMode: 0777
       cookies:
         type: secret
         name: *secret

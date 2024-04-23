@@ -70,7 +70,7 @@ spec:
           nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
           nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
         hosts:
-          - host: "{{ .Release.Name }}-dev.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths: &paths
               - path: /
                 service:

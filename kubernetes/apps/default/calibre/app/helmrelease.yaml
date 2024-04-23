@@ -95,7 +95,7 @@ spec:
       data:
         existingClaim: *app
         advancedMounts:
-          hoarder:
+          calibre:
             app:
               - path: /config
                 subPath: app-config

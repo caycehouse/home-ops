@@ -45,7 +45,7 @@ spec:
             # Look into wayts to log instantly.
             args: ["sh", "-c", "
                 cp /TwitchDropsMiner/cookies.jar.import /TwitchDropsMiner/cookies.jar;
-                python main.py -vvv
+                python main.py -vvv 2>&1
               "]
     persistence:
       config:

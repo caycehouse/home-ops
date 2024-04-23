@@ -8,3 +8,6 @@ spec:
     - dnsName: "external.${SECRET_DOMAIN}"
       recordType: CNAME
       targets: ["${CLUSTER_CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"]
+    - dnsName: "ipv4.${SECRET_DOMAIN}"
+      recordType: A
+      targets: ["${CLUSTER_PUBLIC_IP}"]

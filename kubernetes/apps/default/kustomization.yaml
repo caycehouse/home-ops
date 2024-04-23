@@ -8,6 +8,7 @@ resources:
   - ./changedetection/ks.yaml
   - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml
+  - ./hoarder/ks.yaml
   - ./homepage/ks.yaml
   - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml

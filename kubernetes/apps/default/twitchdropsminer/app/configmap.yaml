@@ -52,4 +52,4 @@ data:
   startup.sh: |
     #!/bin/sh
     cp /TwitchDropsMiner/cookies.jar.import /TwitchDropsMiner/cookies.jar
-    python main.py -vvv
+    python main.py -vvv > /proc/1/fd/1 2>&1

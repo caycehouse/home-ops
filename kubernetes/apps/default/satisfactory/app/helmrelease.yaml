@@ -38,7 +38,7 @@ spec:
               AUTOPAUSE: "false"
             resources:
               requests:
-                cpu: 200m
+                cpu: 1000m
                 memory: 11Gi
               limits:
                 memory: 20Gi

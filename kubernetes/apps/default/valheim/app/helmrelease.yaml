@@ -45,10 +45,10 @@ spec:
                   name: *secret
             resources:
               requests:
-                cpu: 15m
-                memory: 200M
-              limits:
+                cpu: 300m
                 memory: 2G
+              limits:
+                memory: 4G
     defaultPodOptions:
       terminationGracePeriodSeconds: 120
     service:

@@ -81,4 +81,11 @@ spec:
       data:
         existingClaim: *app
         globalMounts:
-          - path: /opt/meshcentral
+          - path: /opt/meshcentral/meshcentral-data
+            subPath: data
+          - path: /opt/meshcentral/meshcentral-files
+            subPath: files
+          - path: /opt/meshcentral/meshcentral-backups
+            subPath: backups
+          - path: /opt/meshcentral/meshcentral-web
+            subPath: web

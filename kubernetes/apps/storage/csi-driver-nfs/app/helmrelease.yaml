@@ -30,6 +30,4 @@ spec:
           limits:
             memory: 1Gi
     externalSnapshotter:
-      enabled: true
-      customResourceDefinitions:
-        enabled: false
+      enabled: false

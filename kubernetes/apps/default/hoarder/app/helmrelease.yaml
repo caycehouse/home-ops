@@ -129,14 +129,14 @@ spec:
           gethomepage.dev/href: "https://hoarder.${SECRET_DOMAIN}"
           gethomepage.dev/description: A Bookmark Manager
           gethomepage.dev/group: Reading
-          gethomepage.dev/icon: https://hoarder.caycehouse.com/favicon.ico
+          gethomepage.dev/icon: "https://hoarder.${SECRET_DOMAIN}/favicon.ico"
           gethomepage.dev/name: Hoarder
     persistence:
       data:
         existingClaim: *app
         advancedMounts:
           hoarder:
-            hoarder:
+            app:
               - path: /data
             worker:
               - path: /data

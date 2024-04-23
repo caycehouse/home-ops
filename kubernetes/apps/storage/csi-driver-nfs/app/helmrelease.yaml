@@ -30,4 +30,4 @@ spec:
           limits:
             memory: 1Gi
     externalSnapshotter:
-      enabled: false
+      enabled: true

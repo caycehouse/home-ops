@@ -47,6 +47,7 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: alertmanager
           gethomepage.dev/name: Alertmanager
+          gethomepage.dev/app: alertmanager
       alertmanagerSpec:
         replicas: 3
         useExistingSecret: true
@@ -91,6 +92,7 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: prometheus
           gethomepage.dev/name: Prometheus
+          gethomepage.dev/app: prometheus
       thanosService:
         enabled: true
       thanosServiceMonitor:

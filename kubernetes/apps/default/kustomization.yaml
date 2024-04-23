@@ -12,6 +12,7 @@ resources:
   - ./homepage/ks.yaml
   - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
+  - ./meshcentral/ks.yaml
   - ./oceanblock/ks.yaml
   - ./paperless/ks.yaml
   - ./satisfactory/ks.yaml

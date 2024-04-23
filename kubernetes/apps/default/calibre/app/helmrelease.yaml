@@ -33,12 +33,19 @@ spec:
             image:
               repository: lscr.io/linuxserver/calibre
               tag: 7.8.0@sha256:fa53a6b85d34abb46593b3959223b5b4eb9d97c067ce4ad0bdb9c552e1906d17
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
             resources:
               requests:
-                cpu: 100m
-                memory: 1000Mi
+                cpu: 15m
+                memory: 324M
               limits:
-                memory: 5000Mi
+                memory: 604M
           web:
             image:
               repository: lscr.io/linuxserver/calibre-web

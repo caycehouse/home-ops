@@ -42,6 +42,7 @@ spec:
               DATA_DIR: /data
               DISABLE_SIGNUPS: "true"
               PORT: &port 3000
+              BROWSER_WEB_URL: http://localhost:9222
             envFrom:
               - secretRef:
                   name: *secret

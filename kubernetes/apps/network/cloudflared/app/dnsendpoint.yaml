@@ -11,3 +11,6 @@ spec:
     - dnsName: "ipv4.${SECRET_DOMAIN}"
       recordType: A
       targets: ["${CLUSTER_PUBLIC_IP}"]
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: "false"

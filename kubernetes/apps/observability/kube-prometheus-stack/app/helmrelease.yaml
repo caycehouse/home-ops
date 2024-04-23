@@ -72,7 +72,7 @@ spec:
     prometheus:
       ingress:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: tailscale
         pathType: Prefix
         tls:
           - hosts:

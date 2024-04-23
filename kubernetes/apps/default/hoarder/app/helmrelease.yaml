@@ -36,7 +36,8 @@ spec:
               repository: ghcr.io/mohamedbassem/hoarder-web
               tag: 0.12.2@sha256:9da85ec5e1aa180e72272564b94814912db5b88b5831cf13dcc7f72eb6ccc9c5
             env: &hoarder-env
-              REDIS_HOST: dragonfly.database.svc.cluster.local:6379/2
+              REDIS_HOST: dragonfly.database.svc.cluster.local
+              REDIS_DB_IDX: 2
               MEILI_ADDR: http://localhost:7700
               DATA_DIR: /data
               DISABLE_SIGNUPS: "true"

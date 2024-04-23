@@ -43,7 +43,7 @@ spec:
       alertmanagerSpec:
         replicas: 3
         useExistingSecret: true
-        configSecret: alertmanager-secret
+        configSecret: kube-prometheus-stack-secret
         storage:
           volumeClaimTemplate:
             spec:

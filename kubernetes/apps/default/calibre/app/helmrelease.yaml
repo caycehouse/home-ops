@@ -98,6 +98,7 @@ spec:
           gethomepage.dev/group: Reading
           gethomepage.dev/icon: calibre
           gethomepage.dev/name: Calibre
+          gethomepage.dev/app: calibre-app
       web:
         className: external
         hosts:
@@ -115,6 +116,7 @@ spec:
           gethomepage.dev/group: Reading
           gethomepage.dev/icon: calibre-web
           gethomepage.dev/name: Calibre-Web
+          gethomepage.dev/app: calibre-web
     persistence:
       data:
         existingClaim: *app

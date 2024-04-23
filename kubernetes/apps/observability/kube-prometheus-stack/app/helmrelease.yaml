@@ -51,6 +51,13 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://alertmanager.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: Notification orchestration for Prometheus
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: alertmanager
+          gethomepage.dev/name: Alertmanager
     kubelet:
       enabled: true
     kubeApiServer:
@@ -77,6 +84,13 @@ spec:
         tls:
           - hosts:
               - prometheus
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://prometheus.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: Insightful Data Visualization
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: prometheus
+          gethomepage.dev/name: Prometheus
       thanosService:
         enabled: true
       thanosServiceMonitor:

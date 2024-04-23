@@ -1,0 +1,142 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app hoarder
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  values:
+    controllers:
+      hoarder:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret hoarder-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mohamedbassem/hoarder-web
+              tag: 0.12.2@sha256:9da85ec5e1aa180e72272564b94814912db5b88b5831cf13dcc7f72eb6ccc9c5
+            env: &hoarder-env
+              REDIS_HOST: redis://dragonfly.database.svc.cluster.local:6379/2
+              MEILI_ADDR: http://localhost:7700
+              DATA_DIR: /data
+              DISABLE_SIGNUPS: "true"
+              PORT: &port 3000
+            envFrom:
+              - secretRef:
+                  name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 30
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  timeoutSeconds: 1
+                  failureThreshold: 10
+                  periodSeconds: 12
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1000Mi
+              limits:
+                memory: 5000Mi
+          worker:
+            image:
+              repository: ghcr.io/mohamedbassem/hoarder-workers
+              tag: 0.12.2@sha256:40fa97db59d93e6b669c2661ff33b869c14793b6805d21020067bd91b2a71c00
+            env: *hoarder-env
+            envFrom:
+              - secretRef:
+                  name: *secret
+          meilisearch:
+            image:
+              repository: getmeili/meilisearch
+              tag: v1.7.5@sha256:29f360f776713fdcb0415f2aac4a4598e2aa75075285fe2b69b7293ecad07b03
+            envFrom:
+              - secretRef:
+                  name: *secret
+          chrome:
+            image:
+              repository: gcr.io/zenika-hub/alpine-chrome
+              tag: 123@sha256:e38563d4475a3d791e986500a2e4125c9afd13798067138881cf770b1f6f3980
+            args:
+              - --no-sandbox
+              - --disable-gpu
+              - --remote-debugging-address=0.0.0.0
+              - --remote-debugging-port=9222
+    service:
+      app:
+        controller: hoarder
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      app:
+        serviceName: hoarder
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    ingress:
+      app:
+        className: external
+        hosts:
+          - host: "hoarder.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://hoarder.${SECRET_DOMAIN}"
+          gethomepage.dev/description: A Bookmark Manager
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: https://hoarder.caycehouse.com/favicon.ico
+          gethomepage.dev/name: Hoarder
+    persistence:
+      data:
+        existingClaim: *app
+        advancedMounts:
+          hoarder:
+            hoarder:
+              - path: /data
+            worker:
+              - path: /data

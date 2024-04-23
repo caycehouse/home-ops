@@ -42,7 +42,7 @@ spec:
           web:
             image:
               repository: lscr.io/linuxserver/calibre-web
-              tag: 0.6.21@sha256:91de784bd006562b2929df9dff56d8d42a4beafc4eef6d5a7cdc6e84c268c4be
+              tag: 2021.12.16@sha256:ef318f14a6581e0d35b40d1e4784c66a7ec9d628b1580c0a318be6f7d4db05f3
             env:
               DOCKER_MODS: linuxserver/mods:universal-calibre
     service:

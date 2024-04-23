@@ -42,8 +42,6 @@ spec:
               limits:
                 memory: 2G
             args: ["./startup.sh"]
-    defaultPodOptions:
-      terminationGracePeriodSeconds: 0 # container doesn't respond to SIGTERM
     persistence:
       config:
         type: configMap

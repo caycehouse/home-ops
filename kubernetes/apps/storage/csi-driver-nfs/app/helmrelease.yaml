@@ -28,6 +28,6 @@ spec:
       resources:
         nfs:
           limits:
-            memory: 1Gi
+            memory: 2Gi
     externalSnapshotter:
       enabled: false

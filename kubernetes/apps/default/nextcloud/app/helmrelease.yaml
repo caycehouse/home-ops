@@ -66,12 +66,6 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
-      extraVolumes:
-        - name: nfs
-          nfs:
-            server: "${NAS_IP}"
-            path: "/mnt/storage0/nextcloud"
-            readOnly: false
     ingress:
       enabled: true
       className: external
@@ -91,6 +85,9 @@ spec:
     persistence:
       enabled: true
       existingClaim: *app
+      nextcloudData:
+        enabled: true
+        existingClaim: "nextcloud-data"
     resources:
       limits:
         memory: 512M

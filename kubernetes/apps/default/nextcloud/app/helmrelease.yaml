@@ -89,6 +89,12 @@ spec:
     persistence:
       enabled: true
       existingClaim: *app
+    resources:
+      limits:
+        memory: 512M
+      requests:
+        cpu: 10m
+        memory: 334M
     # metrics:
     #   enabled: true
     #   https: true

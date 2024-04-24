@@ -77,6 +77,9 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
+    nginx:
+      ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
+      enabled: true
     ingress:
       enabled: true
       className: external

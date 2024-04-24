@@ -23,37 +23,22 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    configs:
-      redis.config.php: |-
-        <?php
-          $CONFIG = array (
-            'memcache.distributed' => '\OC\Memcache\Redis',
-            'memcache.locking' => '\OC\Memcache\Redis',
-            'redis' => array(
-              'host' => getenv('REDIS_HOST'),
-              'port' => getenv('REDIS_HOST_PORT') ?: 6379,
-              'dbindex' => 3,
-            )
-          );
-    cronjob:
-      enabled: true
-    defaultConfigs:
-      redis.config.php: false
+    image:
+      repository: nextcloud
+      tag: 28.0.4
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
-    existingSecret:
+    cronjob:
       enabled: true
-      secretName: *secret
-      usernameKey: ADMIN_USER
-      passwordKey: ADMIN_PASS
-      tokenKey: METRICS_TOKEN
-      smtpHostKey: SMTP_HOST
-      smtpUsernameKey: SMTP_USERNAME
-      smtpPasswordKey: SMTP_PASSWORD
+      resources:
+        limits:
+          memory: 1024M
+        requests:
+          cpu: 10m
+          memory: 500M
     externalDatabase:
       enabled: true
       type: postgresql
-      database: nextcloud
       existingSecret:
         enabled: true
         secretName: *secret
@@ -61,45 +46,18 @@ spec:
         databaseKey: POSTGRES_DB
         usernameKey: POSTGRES_USER
         passwordKey: POSTGRES_PASSWORD
-    image:
-      repository: nextcloud
-      tag: 28.0.4-fpm-alpine
-    ingress:
-      enabled: true
-      className: external
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/href: "https://nc.${SECRET_DOMAIN}"
-        gethomepage.dev/description: File Storage
-        gethomepage.dev/group: Reading
-        gethomepage.dev/icon: nextcloud
-        gethomepage.dev/name: Nextcloud
-      tls:
-        - hosts:
-            - *app
-    internalDatabase:
-      enabled: false
-    metrics:
-      enabled: true
-      https: true
-      serviceMonitor:
-        enabled: true
     nextcloud:
-      host: "nc.${SECRET_DOMAIN}"
+      host: "nc-dev.${SECRET_DOMAIN}"
+      existingSecret:
+        enabled: true
+        secretName: *secret
+        usernameKey: ADMIN_USER
+        passwordKey: ADMIN_PASS
+        # tokenKey: METRICS_TOKEN
+      configs:
       extraEnv:
         - name: REDIS_HOST
           value: dragonfly.database.svc.cluster.local
-        - name: S3_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: S3_ACCESS_KEY
-        - name: S3_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: S3_SECRET_KEY
       extraInitContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16
@@ -112,6 +70,27 @@ spec:
             server: "${NAS_IP}"
             path: "/mnt/storage0/nextcloud"
             readOnly: false
+    ingress:
+      enabled: true
+      className: external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/href: "https://nc-dev.${SECRET_DOMAIN}"
+        gethomepage.dev/description: File Storage
+        gethomepage.dev/group: Reading
+        gethomepage.dev/icon: nextcloud
+        gethomepage.dev/name: Nextcloud
+      tls:
+        - hosts:
+            - *app
+    internalDatabase:
+      enabled: false
     persistence:
       enabled: true
       existingClaim: *app
+    # metrics:
+    #   enabled: true
+    #   https: true
+    #   serviceMonitor:
+    #     enabled: true

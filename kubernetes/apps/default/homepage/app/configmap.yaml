@@ -69,11 +69,6 @@ data:
                 href: https://192.168.5.198
                 ping: 192.168.5.198
     - Storage:
-          - Nextcloud:
-                icon: nextcloud
-                description: Personal cloud
-                href: https://nc.caycehouse.com
-                siteMonitor: https://nc.caycehouse.com
           - TrueNAS Scale:
                 icon: truenas-scale
                 description: Storage Server

@@ -74,8 +74,8 @@ spec:
         external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
         gethomepage.dev/enabled: "true"
         gethomepage.dev/href: "https://nc.${SECRET_DOMAIN}"
-        gethomepage.dev/description: Storage
-        gethomepage.dev/group: Reading
+        gethomepage.dev/description: Self-hosted file sharing
+        gethomepage.dev/group: Storage
         gethomepage.dev/icon: nextcloud
         gethomepage.dev/name: Nextcloud
       tls:

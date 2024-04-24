@@ -37,5 +37,16 @@
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
     }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "lscr.io/linuxserver/calibre-web"
+      ],
+      "allowedVersions": "<1"
+    },
   ]
 }

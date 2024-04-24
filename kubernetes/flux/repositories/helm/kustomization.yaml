@@ -15,6 +15,7 @@ resources:
   - ./itzg.yaml
   - ./jetstack.yaml
   - ./metrics-server.yaml
+  - ./nextcloud.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
   - ./postfinance.yaml

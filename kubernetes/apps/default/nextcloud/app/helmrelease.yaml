@@ -17,11 +17,13 @@ spec:
   install:
     remediation:
       retries: 3
+    timeout: 60m
   upgrade:
     cleanupOnFail: true
     remediation:
       strategy: rollback
       retries: 3
+    timeout: 60m
   values:
     image:
       repository: nextcloud
@@ -77,7 +79,7 @@ spec:
         external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
         gethomepage.dev/enabled: "true"
         gethomepage.dev/href: "https://nc-dev.${SECRET_DOMAIN}"
-        gethomepage.dev/description: File Storage
+        gethomepage.dev/description: Storage
         gethomepage.dev/group: Reading
         gethomepage.dev/icon: nextcloud
         gethomepage.dev/name: Nextcloud
@@ -95,26 +97,26 @@ spec:
       requests:
         cpu: 10m
         memory: 334M
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 360
+      successThreshold: 1
     livenessProbe:
-      enabled: false
-      initialDelaySeconds: 10
-      periodSeconds: 30
-      timeoutSeconds: 10
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
     readinessProbe:
-      enabled: false
-      initialDelaySeconds: 60
-      periodSeconds: 60
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
       timeoutSeconds: 5
-      failureThreshold: 10
-      successThreshold: 1
-    startupProbe:
-      enabled: false
-      initialDelaySeconds: 60
-      periodSeconds: 30
-      timeoutSeconds: 5
-      failureThreshold: 10
+      failureThreshold: 3
       successThreshold: 1
     # metrics:
     #   enabled: true

@@ -1,0 +1,96 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app nextcloud
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 4.6.6
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    image:
+      repository: nextcloud
+      tag: 28.0.4
+    deploymentAnnotations:
+      secret.reloader.stakater.com/reload: &secret nextcloud-secret
+    cronjob:
+      enabled: true
+      resources:
+        limits:
+          memory: 1024M
+        requests:
+          cpu: 10m
+          memory: 500M
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      existingSecret:
+        enabled: true
+        secretName: *secret
+        hostKey: POSTGRES_HOST
+        databaseKey: POSTGRES_DB
+        usernameKey: POSTGRES_USER
+        passwordKey: POSTGRES_PASSWORD
+    nextcloud:
+      host: "nc-dev.${SECRET_DOMAIN}"
+      existingSecret:
+        enabled: true
+        secretName: *secret
+        usernameKey: ADMIN_USER
+        passwordKey: ADMIN_PASS
+        # tokenKey: METRICS_TOKEN
+      configs:
+      extraEnv:
+        - name: REDIS_HOST
+          value: dragonfly.database.svc.cluster.local
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16
+          envFrom:
+            - secretRef:
+                name: *secret
+      extraVolumes:
+        - name: nfs
+          nfs:
+            server: "${NAS_IP}"
+            path: "/mnt/storage0/nextcloud"
+            readOnly: false
+    ingress:
+      enabled: true
+      className: external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/href: "https://nc-dev.${SECRET_DOMAIN}"
+        gethomepage.dev/description: File Storage
+        gethomepage.dev/group: Reading
+        gethomepage.dev/icon: nextcloud
+        gethomepage.dev/name: Nextcloud
+      tls:
+        - hosts:
+            - *app
+    internalDatabase:
+      enabled: false
+    persistence:
+      enabled: true
+      existingClaim: *app
+    # metrics:
+    #   enabled: true
+    #   https: true
+    #   serviceMonitor:
+    #     enabled: true

@@ -1,0 +1,10 @@
+---
+# https://github.com/siderolabs/extensions/tree/main/network/tailscale
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: tailscale
+environment:
+  - TS_ACCEPT_DNS=true
+  - TS_AUTH_ONCE=true
+  - TS_AUTHKEY=${TAILSCALE_AUTHKEY}
+  - TS_ROUTES=10.96.0.0/12

@@ -10,6 +10,7 @@
 
 1. `task talos:bootstrap`
 2. be patient...
+1. `talosctl patch mc -n <node> -p @kubernetes/bootstrap/talos/patches/tailscale-config.yaml`
 3. `task flux:bootstrap`
 4. ???
 5. success

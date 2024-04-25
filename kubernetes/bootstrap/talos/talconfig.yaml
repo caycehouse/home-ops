@@ -126,9 +126,6 @@ patches:
             source: /var/openebs/local
             options: ["bind", "rshared", "rw"]
 
-  # User specified global patches
-  - "@./patches/global.yaml"
-
 controlPlane:
   patches:
     # Cluster configuration

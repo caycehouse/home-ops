@@ -31,28 +31,24 @@ nodes:
         dhcp: true
         vip:
           ip: "192.168.4.2"
-  - hostname: kazbars
-    ipAddress: "192.168.7.53"
+  - hostname: babybundts
+    ipAddress: "192.168.4.80"
     installDisk: /dev/sda
     talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
-    controlPlane: true
+    controlPlane: false
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
         dhcp: true
-        vip:
-          ip: "192.168.4.2"
-  - hostname: bouncers
-    ipAddress: "192.168.7.55"
+  - hostname: danish
+    ipAddress: "192.168.4.81"
     installDisk: /dev/sda
     talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
-    controlPlane: true
+    controlPlane: false
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
         dhcp: true
-        vip:
-          ip: "192.168.4.2"
 
 patches:
   # Configure containerd

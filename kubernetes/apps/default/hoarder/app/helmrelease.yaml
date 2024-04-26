@@ -79,7 +79,7 @@ spec:
           worker:
             image:
               repository: ghcr.io/mohamedbassem/hoarder-workers
-              tag: 0.12.2@sha256:40fa97db59d93e6b669c2661ff33b869c14793b6805d21020067bd91b2a71c00
+              tag: 0.13.1@sha256:84e87cb65ca7a49da48e9bb2fa65e8497fe8524cb568502fc71bbf3d8602f61f
             env: *hoarder-env
             envFrom:
               - secretRef:

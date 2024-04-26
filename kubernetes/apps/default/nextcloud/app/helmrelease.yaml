@@ -27,7 +27,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 28.0.4
+      tag: 28.0.4-fpm-alpine
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     cronjob:
@@ -56,18 +56,18 @@ spec:
         usernameKey: ADMIN_USER
         passwordKey: ADMIN_PASS
         # tokenKey: METRICS_TOKEN
-      configs:
-        proxy.config.php: |-
-          <?php
-          $CONFIG = array (
-            'trusted_proxies' => array(
-              0 => '127.0.0.1',
-              1 => '10.0.0.0/8',
-              2 => '172.16.0.0/12',
-              3 => '192.168.0.0/16',
-            ),
-            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-          );
+      # configs:
+      #   proxy.config.php: |-
+      #     <?php
+      #     $CONFIG = array (
+      #       'trusted_proxies' => array(
+      #         0 => '127.0.0.1',
+      #         1 => '10.0.0.0/8',
+      #         2 => '172.16.0.0/12',
+      #         3 => '192.168.0.0/16',
+      #       ),
+      #       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+      #     );
       extraEnv:
         - name: REDIS_HOST
           value: dragonfly.database.svc.cluster.local
@@ -79,7 +79,7 @@ spec:
                 name: *secret
     nginx:
       ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
-      enabled: false
+      enabled: true
     ingress:
       enabled: true
       className: external

@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/mohamedbassem/hoarder-web
-              tag: 0.12.2@sha256:9da85ec5e1aa180e72272564b94814912db5b88b5831cf13dcc7f72eb6ccc9c5
+              tag: 0.13.1@sha256:8ce7ade4f9071a2899a35c11caeb19a67a090df317e551878f2c67b81c0b9899
             env: &hoarder-env
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_DB_IDX: 2

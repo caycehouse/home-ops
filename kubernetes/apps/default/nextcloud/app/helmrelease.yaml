@@ -69,6 +69,8 @@ spec:
       extraEnv:
         - name: REDIS_HOST
           value: dragonfly.database.svc.cluster.local
+        - name: OVERWRITEPROTOCOL
+          value: https
       extraInitContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16

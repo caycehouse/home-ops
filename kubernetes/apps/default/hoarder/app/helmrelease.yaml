@@ -88,6 +88,8 @@ spec:
             image:
               repository: getmeili/meilisearch
               tag: v1.7.6@sha256:010341a778fe82592cff7a4f85d05eb89d2618141defea005616a476064fa56a
+            env:
+              MEILI_NO_ANALYTICS: "true"
             envFrom:
               - secretRef:
                   name: *secret
@@ -96,6 +98,7 @@ spec:
               repository: gcr.io/zenika-hub/alpine-chrome
               tag: 124@sha256:d0e4a1822b3f4fdb8194dbb1ed25349e2ed105da3b3f16461852ce08c0a01e8b
             args:
+              - --hide-scrollbars
               - --no-sandbox
               - --disable-gpu
               - --remote-debugging-address=0.0.0.0

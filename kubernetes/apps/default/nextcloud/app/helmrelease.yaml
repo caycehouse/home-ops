@@ -27,7 +27,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 28.0.5-fpm-alpine
+      tag: 29.0.0-fpm-alpine
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     cronjob:

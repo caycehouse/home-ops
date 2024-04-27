@@ -48,5 +48,15 @@
       ],
       "allowedVersions": "<1"
     },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "ghcr.io/mohamedbassem/hoarder-web",
+        "ghcr.io/mohamedbassem/hoarder-workers"
+      ],
+      "groupName": "hoarder"
+    }
   ]
 }

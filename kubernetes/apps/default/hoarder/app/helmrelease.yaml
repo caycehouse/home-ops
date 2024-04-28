@@ -38,12 +38,12 @@ spec:
             env: &hoarder-env
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_DB_IDX: 2
-              MEILI_ADDR: http://127.0.0.1:7700
+              MEILI_ADDR: http://localhost:7700
               NEXTAUTH_URL: "https://hoarder.${SECRET_DOMAIN}"
               DATA_DIR: /data
               DISABLE_SIGNUPS: "true"
               PORT: &port 3000
-              BROWSER_WEB_URL: http://127.0.0.1:9222
+              BROWSER_WEB_URL: http://localhost:9222
             envFrom:
               - secretRef:
                   name: *secret
@@ -99,11 +99,11 @@ spec:
               repository: gcr.io/zenika-hub/alpine-chrome
               tag: 124@sha256:d0e4a1822b3f4fdb8194dbb1ed25349e2ed105da3b3f16461852ce08c0a01e8b
             args:
-              - --hide-scrollbars
               - --no-sandbox
               - --disable-gpu
               - --remote-debugging-address=0.0.0.0
               - --remote-debugging-port=9222
+              - --hide-scrollbars
     service:
       app:
         controller: hoarder

@@ -39,6 +39,7 @@ spec:
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_DB_IDX: 2
               MEILI_ADDR: http://127.0.0.1:7700
+              NEXTAUTH_URL: "https://hoarder.${SECRET_DOMAIN}"
               DATA_DIR: /data
               DISABLE_SIGNUPS: "true"
               PORT: &port 3000

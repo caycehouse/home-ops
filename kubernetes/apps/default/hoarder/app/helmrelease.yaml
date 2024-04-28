@@ -38,11 +38,11 @@ spec:
             env: &hoarder-env
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_DB_IDX: 2
-              MEILI_ADDR: http://localhost:7700
+              MEILI_ADDR: http://127.0.0.1:7700
               DATA_DIR: /data
               DISABLE_SIGNUPS: "true"
               PORT: &port 3000
-              BROWSER_WEB_URL: http://localhost:9222
+              BROWSER_WEB_URL: http://127.0.0.1:9222
             envFrom:
               - secretRef:
                   name: *secret

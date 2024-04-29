@@ -41,7 +41,7 @@ spec:
               repository: ghcr.io/onedr0p/sonarr
               tag: 4.0.4.1491@sha256:9c78b3a37af6e814062e4a631c25ad181c800ae11d21acdfd26c843da9e4a42e
             env:
-              SONARR__AUTHENTICATION_METHOD: Forms
+              SONARR__AUTHENTICATION_METHOD: External
               SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               SONARR__INSTANCE_NAME: Sonarr
               SONARR__PORT: &port 80

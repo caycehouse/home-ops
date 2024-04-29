@@ -94,15 +94,19 @@ spec:
                 service:
                   identifier: app
                   port: http
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://plex.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: Media streaming platform
+          gethomepage.dev/group: Starr
+          gethomepage.dev/icon: plex
+          gethomepage.dev/name: Plex
         tls:
           - hosts:
               - *app
     persistence:
       config:
         existingClaim: *app
-        # TODO: If setting up Plex for the first time, you'll want to add the globalMounts section
-        # globalMounts:
-        #   - path: /config/Library/Application Support/Plex Media Server
       # Separate PVC for cache to avoid backing up cache files
       cache:
         existingClaim: plex-cache

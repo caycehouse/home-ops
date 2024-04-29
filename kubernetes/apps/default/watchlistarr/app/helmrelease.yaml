@@ -32,6 +32,9 @@ spec:
             image:
               repository: nylonee/watchlistarr
               tag: 1712960118@sha256:836c30c47b9bff6f25d82257b116d9a851809ba9a4768bc85ae9bc23ca4d3d3d
+            envFrom:
+              - secretRef:
+                  name: watchlistarr-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

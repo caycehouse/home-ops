@@ -112,7 +112,8 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/logs
-      tmp:SABNZBD__HOST_WHITELIST_ENTRIES
+      tmp:
+        type: emptyDir
       media:
         type: nfs
         server: ${NAS_IP}

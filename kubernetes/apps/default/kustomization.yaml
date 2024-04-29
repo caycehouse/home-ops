@@ -17,6 +17,7 @@ resources:
   - ./nextcloud/ks.yaml
   - ./oceanblock/ks.yaml
   - ./paperless/ks.yaml
+  - ./plex/ks.yaml
   - ./satisfactory/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./valheim/ks.yaml

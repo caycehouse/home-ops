@@ -19,6 +19,7 @@ resources:
   - ./oceanblock/ks.yaml
   - ./paperless/ks.yaml
   - ./plex/ks.yaml
+  - ./radarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./satisfactory/ks.yaml
   - ./sonarr/ks.yaml

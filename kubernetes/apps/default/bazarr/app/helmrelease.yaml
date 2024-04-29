@@ -1,0 +1,122 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app bazarr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  values:
+    controllers:
+      bazarr:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: bazarr-secret
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/bazarr
+              tag: 1.4.2@sha256:62558b2f9210b288f01e96753c99699dc2fab7c27f9e678f994bd0068bc6d41e
+            env:
+              TZ: America/New_York
+            envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 23m
+                memory: 204Mi
+              limits:
+                memory: 1Gi
+          subcleaner:
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.2.1@sha256:004c213800fac0b71fa2f51979513f5fb383df713c4eaf514ddab65c9efa78b8
+              pullPolicy: IfNotPresent
+            args:
+              - --repo=https://github.com/KBlixt/subcleaner
+              - --branch=master
+              - --wait=86400 # 1 day
+              - --root=/add-ons
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [44, 10000]
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        ports:
+          http:
+            port: 6767
+    ingress:
+      app:
+        className: tailscale
+        hosts:
+          - host: *app
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://bazarr.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: Subtitle companion
+          gethomepage.dev/group: Starr
+          gethomepage.dev/icon: bazarr
+          gethomepage.dev/name: Bazarr
+        tls:
+          - hosts:
+              - *app
+    persistence:
+      config:
+        existingClaim: *app
+      add-ons:
+        enabled: true
+        type: emptyDir
+        mountPath: /add-ons
+      media:
+        type: nfs
+        server: ${NAS_IP}
+        path: /mnt/storage0/nfs_docker/starr/data/media
+        globalMounts:
+          - path: /data/media
+            readOnly: true
+      scripts:
+        enabled: true
+        type: configMap
+        name: bazarr-scripts # overriden by kustomizeconfig
+        defaultMode: 0775
+        readOnly: true

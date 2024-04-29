@@ -1,12 +1,12 @@
 ---
 sonarr:
   baseUrl: http://sonarr.default.svc.cluster.local
-  apikey: !env_var SONARR_API_KEY
+  apikey: SONARR_API_KEY
   qualityProfile: WEB-1080p
   seasonMonitoring: firstSeason
 radarr:
   baseUrl: http://radarr.default.svc.cluster.local
-  apikey: !env_var RADARR_API_KEY
+  apikey: RADARR_API_KEY
   qualityProfile: HD Bluray + WEB
 plex:
   token: PLEX_TOKEN

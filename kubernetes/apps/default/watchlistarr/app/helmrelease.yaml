@@ -32,7 +32,8 @@ spec:
             image:
               repository: nylonee/watchlistarr
               tag: 1712960118@sha256:836c30c47b9bff6f25d82257b116d9a851809ba9a4768bc85ae9bc23ca4d3d3d
-            # env:
+            env:
+              LOG_LEVEL: DEBUG
             #   RADARR_BASE_URL: "http://radarr.default.svc.cluster.local"
             #   SONARR_BASE_URL: "http://sonarr.default.svc.cluster.local"
             envFrom:

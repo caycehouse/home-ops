@@ -121,4 +121,3 @@ spec:
         type: configMap
         name: bazarr-scripts # overriden by kustomizeconfig
         defaultMode: 0775
-        readOnly: true

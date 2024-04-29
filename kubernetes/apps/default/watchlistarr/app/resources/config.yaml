@@ -41,7 +41,7 @@ radarr:
 #################################################################
 
 plex:
-  token: "{{ starr.plex_token }}" # Multiple tokens can be provided
+  token: !env_var PLEX_TOKEN # Multiple tokens can be provided
   skipfriendsync: true # Don't sync friends watchlists, only your own. DEFAULT: false (e.g. sync everybody's watchlists)
 
 #################################################################

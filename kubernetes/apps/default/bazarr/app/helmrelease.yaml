@@ -115,7 +115,6 @@ spec:
         path: /mnt/storage0/nfs_docker/starr/data/media
         globalMounts:
           - path: /data/media
-            readOnly: true
       scripts:
         enabled: true
         type: configMap

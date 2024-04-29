@@ -27,3 +27,4 @@ resources:
   - ./sonarr/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./valheim/ks.yaml
+  - ./watchlistarr/ks.yaml

@@ -1,0 +1,55 @@
+## Watchlistarr Configuration
+## Uncomment the lines you would like to configure, then save this file and restart Watchlistarr
+
+#################################################################
+## How often do you want Watchlistarr to pull the latest from Plex? In general, 10 seconds is okay.
+## If you're running this on a slower system (e.g. Raspberry Pi), you may want to increase this to 60 seconds.
+#################################################################
+
+#interval:
+#  seconds: 10 # DEFAULT: 60
+
+#################################################################
+## Sonarr Configuration
+#################################################################
+
+sonarr:
+  baseUrl: "http://sonarr.default.svc.cluster.local" # Base URL for Sonarr, including the 'http' and port and any configured urlbase. DEFAULT: "localhost:8989"
+  apikey: !env_var SONARR_API_KEY # API key for Sonarr, found in your Sonarr UI -> General settings
+  qualityProfile: "WEB-1080p" # If not set, will grab the first one it finds on Sonarr
+  #  rootFolder: "/root/folder/location" # Root folder for Sonarr. If not set, will grab the first one it finds on Sonarr
+  #  bypassIgnored: false # Boolean flag to bypass tv shows that are on the Sonarr Exclusion List. DEFAULT: false
+  seasonMonitoring: firstSeason # Possible values under 'MonitorTypes' in sonarr.tv/docs/api. DEFAULT: all
+#  tags:
+#    - watchlistarr
+
+#################################################################
+## Radarr Configuration
+#################################################################
+
+radarr:
+  baseUrl: "http://radarr.default.svc.cluster.local" # Base URL for Radarr, including the 'http' and port and any configured urlbase. DEFAULT: "localhost:7878"
+  apikey: !env_var RADARR_API_KEY
+  qualityProfile: "HD Bluray + WEB" # If not set, will grab the first one it finds on Radarr
+#  rootFolder: "/root/folder/location" # If not set, will grab the first one it finds on Radarr. DEFAULT: false
+#  bypassIgnored: false # Boolean flag to bypass movies that are on the Radarr Exclusion List
+#  tags:
+#    - watchlistarr
+
+#################################################################
+## Plex Configuration
+#################################################################
+
+plex:
+  token: "{{ starr.plex_token }}" # Multiple tokens can be provided
+  skipfriendsync: true # Don't sync friends watchlists, only your own. DEFAULT: false (e.g. sync everybody's watchlists)
+
+#################################################################
+## Delete Sync Configuration
+#################################################################
+
+delete:
+  movie: true # If enabled, movies that are not watchlisted will be deleted from Radarr. DEFAULT: false
+  endedShow: true # If enabled, shows that have no more planned seasons and are not watchlisted will be deleted from Sonarr. DEFAULT: false
+  continuingShow: true # If enabled, shows that still have planned seasons and are not watchlisted will be deleted from Sonarr. DEFAULT: false
+#  interval.days: 7 # Number of days to wait before deleting content from the arrs (Deleting must be enabled). DEFAULT: 7

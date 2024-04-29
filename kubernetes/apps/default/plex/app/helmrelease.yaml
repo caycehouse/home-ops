@@ -37,7 +37,7 @@ spec:
               tag: 1.40.2.8395-c67dce28e@sha256:a2a3149c1326e7777bfe9def135c687d884652f78d34e92264b0dab765908215
             env:
               TZ: America/New_York
-              PLEX_ADVERTISE_URL: https://plex.${SECRET_DOMAIN}:443,http://192.168.4.6:32400
+              PLEX_ADVERTISE_URL: https://plex.${SECRET_TS_DOMAIN}:443,http://192.168.4.6:32400
               PLEX_NO_AUTH_NETWORKS: 192.168.4.0/22
             probes:
               liveness: &probes
@@ -86,23 +86,23 @@ spec:
             port: 32400
     ingress:
       app:
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        className: tailscale
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: *app
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - *app
     persistence:
       config:
         existingClaim: *app
         # TODO: If setting up Plex for the first time, you'll want to add the globalMounts section
-        globalMounts:
-          - path: /config/Library/Application Support/Plex Media Server
+        # globalMounts:
+        #   - path: /config/Library/Application Support/Plex Media Server
       # Separate PVC for cache to avoid backing up cache files
       cache:
         existingClaim: plex-cache

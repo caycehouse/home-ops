@@ -106,7 +106,8 @@ spec:
       add-ons:
         enabled: true
         type: emptyDir
-        mountPath: /add-ons
+        globalMounts:
+          - path: /add-ons
       media:
         type: nfs
         server: ${NAS_IP}

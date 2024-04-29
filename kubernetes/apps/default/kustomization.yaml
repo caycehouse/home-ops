@@ -21,5 +21,6 @@ resources:
   - ./plex/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./satisfactory/ks.yaml
+  - ./sonarr/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./valheim/ks.yaml

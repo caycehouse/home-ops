@@ -6,3 +6,11 @@ resources:
   - ./helmrelease.yaml
   - ./pvc.yaml
   - ../../../../templates/volsync
+configMapGenerator:
+  - name: bazarr-scripts
+    files:
+      - post-process.sh=./scripts/post-process.sh
+configurations:
+  - ./patches/kustomizeconfig.yaml
+generatorOptions:
+  disableNameSuffixHash: true

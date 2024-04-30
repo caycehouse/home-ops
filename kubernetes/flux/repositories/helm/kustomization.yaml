@@ -16,6 +16,7 @@ resources:
   - ./jetstack.yaml
   - ./metrics-server.yaml
   - ./nextcloud.yaml
+  - ./nvidia-device-plugin.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
   - ./postfinance.yaml

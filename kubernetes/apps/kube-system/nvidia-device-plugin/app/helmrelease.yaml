@@ -29,7 +29,12 @@ spec:
     runtimeClassName: nvidia
     nodeSelector:
       nvidia.feature.node.kubernetes.io/gpu: "true"
-    gfd:
-     enabled: true
-    nfd:
-     enabled: false
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/pci-0300_10de.present
+                  operator: In
+                  values:
+                    - "true"

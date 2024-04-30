@@ -21,7 +21,7 @@ spec:
     remediation:
       retries: 3
   values:
-    providerRegex: ^(donuts|babybundts|danish)$
+    providerRegex: ^(donuts|babybundts|danish|honeybun)$
     bypassDnsResolution: true
     metrics:
       enable: true

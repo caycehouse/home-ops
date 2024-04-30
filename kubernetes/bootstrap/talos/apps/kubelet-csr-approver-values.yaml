@@ -1,3 +1,3 @@
 ---
-providerRegex: ^(donuts|babybundts|danish)$
+providerRegex: ^(donuts|babybundts|danish|honeybun)$
 bypassDnsResolution: true

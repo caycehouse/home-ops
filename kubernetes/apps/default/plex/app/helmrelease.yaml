@@ -64,9 +64,13 @@ spec:
             resources:
               requests:
                 cpu: 100m
+                memory: 2Gi
+                nvidia.com/gpu: 1
               limits:
                 memory: 16Gi
+                nvidia.com/gpu: 1
     defaultPodOptions:
+      runtimeClassName: nvidia
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -75,6 +79,8 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [44, 10000]
         seccompProfile: { type: RuntimeDefault }
+      nodeSelector:
+        nvidia.feature.node.kubernetes.io/gpu: "true"
     service:
       app:
         controller: plex

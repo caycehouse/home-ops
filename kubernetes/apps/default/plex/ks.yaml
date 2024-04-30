@@ -22,3 +22,5 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 30Gi
+      VOLSYNC_STORAGECLASS: nfs
+      VOLSYNC_SNAPSHOTCLASS: nfs

@@ -23,6 +23,7 @@ nodes:
   - hostname: donuts
     ipAddress: "192.168.7.52"
     installDisk: /dev/sda
+    # https://factory.talos.dev
     talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
     controlPlane: true
     networkInterfaces:
@@ -31,24 +32,67 @@ nodes:
         dhcp: true
         vip:
           ip: "192.168.4.2"
+    extensionServices:
+      - name: tailscale
+        environment: &tailscale-env
+          - TS_ACCEPT_DNS=true
+          - TS_AUTH_ONCE=true
+          - TS_AUTHKEY=${TAILSCALE_AUTHKEY}
+          - TS_ROUTES=10.96.0.0/12
   - hostname: babybundts
     ipAddress: "192.168.4.80"
     installDisk: /dev/sda
+    # https://factory.talos.dev
     talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
         dhcp: true
+    extensionServices:
+      - name: tailscale
+        environment: *tailscale-env
   - hostname: danish
     ipAddress: "192.168.4.81"
     installDisk: /dev/sda
+    # https://factory.talos.dev
     talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
         dhcp: true
+    extensionServices:
+      - name: tailscale
+        environment: *tailscale-env
+  - hostname: honeybun
+    ipAddress: "192.168.4.82"
+    installDisk: /dev/sda
+    # https://factory.talos.dev
+    talosImageURL: factory.talos.dev/installer/3004534d25c1c6fc8994de543ce02927bd912600036d25e60ef448d1a3351970
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:*"
+        dhcp: true
+    extensionServices:
+      - name: tailscale
+        environment: *tailscale-env
+    patches:
+      - |-
+        - op: add
+          path: /machine/kernel
+          value:
+            modules:
+              - name: nvidia
+              - name: nvidia_uvm
+              - name: nvidia_drm
+              - name: nvidia_modeset
+      - |-
+        - op: add
+          path: /machine/sysctls
+          value:
+            net.core.bpf_jit_harden: 1
 
 patches:
   # Configure containerd
@@ -131,7 +175,7 @@ controlPlane:
     # Cluster configuration
     - |-
       cluster:
-        allowSchedulingOnControlPlanes: true
+        allowSchedulingOnControlPlanes: false
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0

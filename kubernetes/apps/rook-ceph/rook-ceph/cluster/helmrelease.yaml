@@ -38,11 +38,6 @@ spec:
         host:
           name: &app rook
           path: /
-          backend:
-            service:
-              name: rook-ceph-mgr-dashboard
-              port:
-                number: http-dashboard
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://rook.${SECRET_TS_DOMAIN}"
@@ -145,7 +140,7 @@ spec:
       isDefault: false
       deletionPolicy: Delete
     cephFileSystems:
-      - name: &cephFileSystemName ceph-filesystem
+      - name: ceph-filesystem
         spec:
           metadataPool:
             replicated:

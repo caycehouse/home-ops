@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: nvidia-device-plugin
-      version: 0.14.5
+      version: 0.15.0
       sourceRef:
         kind: HelmRepository
         name: nvidia-device-plugin
@@ -29,3 +29,12 @@ spec:
     runtimeClassName: nvidia
     nodeSelector:
       nvidia.feature.node.kubernetes.io/gpu: "true"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/pci-0300_10de.present
+                  operator: In
+                  values:
+                    - "true"

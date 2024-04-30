@@ -36,7 +36,7 @@ spec:
       dashboard:
         ingressClassName: tailscale
         host:
-          name: &app rook
+          name: &app "rook.${SECRET_TS_DOMAIN}"
           path: /
         annotations:
           gethomepage.dev/enabled: "true"

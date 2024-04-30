@@ -38,6 +38,11 @@ spec:
         host:
           name: &app rook
           path: /
+          backend:
+            service:
+              name: rook-ceph-mgr-dashboard
+              port:
+                number: 7000
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://rook.${SECRET_TS_DOMAIN}"

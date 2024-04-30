@@ -42,7 +42,7 @@ spec:
             service:
               name: rook-ceph-mgr-dashboard
               port:
-                number: 7000
+                number: http-dashboard
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://rook.${SECRET_TS_DOMAIN}"

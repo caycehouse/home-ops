@@ -24,5 +24,3 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 15Gi
-      VOLSYNC_STORAGECLASS: nfs
-      VOLSYNC_SNAPSHOTCLASS: nfs

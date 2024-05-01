@@ -74,4 +74,4 @@ spec:
         globalMounts:
           - path: /opt/valheim
         size: 30Gi
-        storageClass: nfs
+        storageClass: ceph-block

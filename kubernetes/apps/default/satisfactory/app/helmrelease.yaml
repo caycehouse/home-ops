@@ -69,4 +69,4 @@ spec:
         globalMounts:
           - path: /config/gamefiles
         size: 50Gi
-        storageClass: nfs
+        storageClass: ceph-block

@@ -47,8 +47,6 @@ spec:
               tag: latest@sha256:703c990a790dfd4d25fb56df3afec27b13cb0926a3818bf265edac9c71311647
             env:
               PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
-              SOCIALACCOUNT_EMAIL_AUTHENTICATION: true
-              ACCOUNT_EMAIL_REQUIRED: true
               PAPERLESS_PORT: &port 8000
               PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/0
               PAPERLESS_TIME_ZONE: America/New_York

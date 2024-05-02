@@ -23,5 +23,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_MAINTENANCE:
+          start: 16:15
+          duration: 23h
       GATUS_SUBDOMAIN: fgc
       VOLSYNC_CAPACITY: 5Gi

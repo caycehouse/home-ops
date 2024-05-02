@@ -20,3 +20,4 @@ data:
           query-type: A
         conditions:
           - "len([BODY]) == 0"
+        maintenance: ${GATUS_MAINTENANCE:-{}}

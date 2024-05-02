@@ -32,7 +32,7 @@ spec:
       meshcentral:
         pod:
           annotations:
-            configmap.reloader.stakater.com/reload: &config meshcentral-config
+            reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -77,7 +77,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: *config
+        name: meshcentral-config
         globalMounts:
           - subPath: config.json
             path: /opt/meshcentral/meshcentral-data/config.json

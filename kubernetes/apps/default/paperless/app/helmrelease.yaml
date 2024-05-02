@@ -50,6 +50,8 @@ spec:
               PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/0
               PAPERLESS_TIME_ZONE: America/New_York
               PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
+              PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
+              PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
               PAPERLESS_MEDIA_ROOT: /data/local/media
               PAPERLESS_DATA_DIR: /data/local/data
             envFrom: *envFrom

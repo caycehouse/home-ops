@@ -18,7 +18,7 @@ data:
             href: https://kubesearch.dev/
       - IT-Tools:
           - icon: it-tools
-            hjref: https://it-tools.tech/
+            href: https://it-tools.tech/
     - Social:
         - Reddit:
             - icon: reddit

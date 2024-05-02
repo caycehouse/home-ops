@@ -23,4 +23,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_URL: tcp://allinone-minecraft.default.svc.cluster.local:25565
       VOLSYNC_CAPACITY: 15Gi

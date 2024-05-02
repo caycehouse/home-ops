@@ -30,7 +30,7 @@ data:
                               "oidc": {
                                     "issuer": "https://auth.${SECRET_DOMAIN}",
                                     "clientid": "meshcentral",
-                                    "clientsecret": "${MESHCENTRAL_OAUTH_CLIENT_SECRET}",
+                                    "clientsecret": "$${MESHCENTRAL_OAUTH_CLIENT_SECRET}",
                                     "newAccounts": true
                               }
                         }

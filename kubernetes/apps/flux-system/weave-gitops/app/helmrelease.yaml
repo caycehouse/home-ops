@@ -23,6 +23,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    adminUser:
+      create: true
+      createSecret: false
+      username: admin
     ingress:
       enabled: true
       className: tailscale
@@ -49,4 +53,4 @@ spec:
       create: true
       impersonationResourceNames: ["admin"]
     podAnnotations:
-      secret.reloader.stakater.com/reload: oidc-auth
+      secret.reloader.stakater.com/reload: cluster-user-auth oidc-auth

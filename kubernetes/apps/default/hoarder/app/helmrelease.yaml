@@ -99,7 +99,7 @@ spec:
           chrome:
             image:
               repository: gcr.io/zenika-hub/alpine-chrome
-              tag: 124@sha256:d0e4a1822b3f4fdb8194dbb1ed25349e2ed105da3b3f16461852ce08c0a01e8b
+              tag: 124@sha256:dc9067402c2a5f5f7fd2d5e48cd8220b7898e5c9a2a7279abb80b8acd7286af1
             args:
               - --no-sandbox
               - --disable-gpu

@@ -23,10 +23,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    adminUser:
-      create: false
-      createSecret: false
-      username: admin
     ingress:
       enabled: true
       className: tailscale

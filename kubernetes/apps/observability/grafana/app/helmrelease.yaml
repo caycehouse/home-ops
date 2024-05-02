@@ -23,7 +23,11 @@ spec:
       strategy: rollback
       retries: 3
   dependsOn:
+    - name: authelia
+      namespace: default
     - name: kube-prometheus-stack
+      namespace: observability
+    - name: loki
       namespace: observability
   values:
     extraInitContainers:
@@ -34,6 +38,10 @@ spec:
               name: &secret grafana-secret
     replicas: 3
     env:
+      GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.${SECRET_DOMAIN}/api/oidc/userinfo
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${SECRET_DOMAIN}/api/oidc/authorization
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.${SECRET_DOMAIN}/api/oidc/token
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
@@ -43,10 +51,6 @@ spec:
       GF_SERVER_ROOT_URL: https://grafana.${SECRET_TS_DOMAIN}
     envFromSecrets:
       - name: *secret
-    admin:
-      existingSecret: *secret
-      userKey: GF_SECURITY_ADMIN_USER
-      passwordKey: GF_SECURITY_ADMIN_PASSWORD
     grafana.ini:
       analytics:
         check_for_updates: false

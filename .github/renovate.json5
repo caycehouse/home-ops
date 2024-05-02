@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>caycehouse/renovate-config"
+    "github>caycehouse/renovate-config",
+    ":skipStatusChecks"
   ],
   "flux": {
     "fileMatch": [
@@ -18,26 +19,6 @@
       "(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"
     ]
   },
-  // custom managers
-  "customManagers": [
-    {
-      "customType": "regex",
-      "description": "Process various other dependencies",
-      "fileMatch": [
-        "(^|/).taskfiles/.+\\.ya?ml$",
-        "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
-      ],
-      "matchStrings": [
-        // Example:
-        //   k3s_release_version: "v1.27.3+k3s1"
-        "depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)( repository=(?<registryUrl>\\S+))?( extractVersion=(?<extractVersion>\\S+))?\n.*?: \"?(?<currentValue>.*)\"?\n",
-        // Example:
-        //   - https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n",
-      ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
-    }
-  ],
   "packageRules": [
     {
       "matchDatasources": [

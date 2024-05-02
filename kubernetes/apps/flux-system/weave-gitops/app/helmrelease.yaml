@@ -24,7 +24,7 @@ spec:
     keepHistory: false
   values:
     adminUser:
-      create: true
+      create: false
       createSecret: false
       username: admin
     ingress:

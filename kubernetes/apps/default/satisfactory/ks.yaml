@@ -21,4 +21,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_URL: udp://satisfactory.default.svc.cluster.local:7777
       VOLSYNC_CAPACITY: 15Gi

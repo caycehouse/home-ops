@@ -220,13 +220,6 @@ spec:
           host:
             name: &app rgw
             path: /
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: "https://rgw.${SECRET_TS_DOMAIN}"
-            gethomepage.dev/description: Object storage gateway
-            gethomepage.dev/group: Storage
-            gethomepage.dev/icon: mdi-bucket
-            gethomepage.dev/name: RGW
           tls:
             - hosts:
                 - *app

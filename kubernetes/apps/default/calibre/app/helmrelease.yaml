@@ -131,10 +131,17 @@ spec:
                 subPath: app-uploads
               - path: /plugins
                 subPath: app-plugins
-              - path: /Calibre_Library
-                subPath: books
             web:
               - path: /config
                 subPath: web-config
+      books:
+        enabled: true
+        type: nfs
+        server: ${NAS_IP}
+        path: /mnt/storage0/media/books
+        advancedMounts:
+          calibre:
+            app:
+              - path: /Calibre_Library
+            web:
               - path: /books
-                subPath: books

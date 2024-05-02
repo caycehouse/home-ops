@@ -255,6 +255,13 @@ spec:
       ingressClassName: tailscale
       hosts:
         - &host grafana
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/href: "https://grafana.${SECRET_TS_DOMAIN}"
+        gethomepage.dev/description: Analytics & Monitoring
+        gethomepage.dev/group: Observability
+        gethomepage.dev/icon: grafana
+        gethomepage.dev/name: Grafana
       tls:
         - hosts:
             - *host

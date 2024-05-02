@@ -38,8 +38,6 @@ spec:
             image:
               repository: ghcr.io/ylianst/meshcentral
               tag: 1.1.22@sha256:b543a2a1d459e3604df6f7cc4043458c1c62dc06ede7c1a84238bbfaeefab7aa
-            envFrom:
-              - secret: meshcentral-secret
             probes:
               liveness:
                 enabled: true
@@ -78,8 +76,8 @@ spec:
           gethomepage.dev/name: MeshCentral
     persistence:
       config:
-        type: configMap
-        name: meshcentral-config
+        type: secret
+        name: meshcentral-secret
         globalMounts:
           - subPath: config.json
             path: /opt/meshcentral/meshcentral-data/config.json

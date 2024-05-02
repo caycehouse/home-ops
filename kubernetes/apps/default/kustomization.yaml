@@ -5,11 +5,13 @@ resources:
   - ./namespace.yaml
   - ./allinone/ks.yaml
   - ./archisteamfarm/ks.yaml
+  - ./authelia/ks.yaml
   - ./bazarr/ks.yaml
   - ./calibre/ks.yaml
   - ./changedetection/ks.yaml
   - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml
+  - ./glauth/ks.yaml
   - ./hoarder/ks.yaml
   - ./homepage/ks.yaml
   - ./minecraft/ks.yaml

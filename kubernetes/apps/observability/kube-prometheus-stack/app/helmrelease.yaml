@@ -44,7 +44,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://alertmanager.${SECRET_TS_DOMAIN}"
           gethomepage.dev/description: Notification orchestration for Prometheus
-          gethomepage.dev/group: Utilities
+          gethomepage.dev/group: Observability
           gethomepage.dev/icon: alertmanager
           gethomepage.dev/name: Alertmanager
           gethomepage.dev/app: alertmanager
@@ -87,7 +87,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://prometheus.${SECRET_TS_DOMAIN}"
           gethomepage.dev/description: Insightful Data Visualization
-          gethomepage.dev/group: Utilities
+          gethomepage.dev/group: Observability
           gethomepage.dev/icon: prometheus
           gethomepage.dev/name: Prometheus
           gethomepage.dev/app: prometheus

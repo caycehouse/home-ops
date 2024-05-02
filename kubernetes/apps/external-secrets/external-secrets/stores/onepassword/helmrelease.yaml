@@ -26,6 +26,9 @@ spec:
     controllers:
       onepassword-connect:
         strategy: RollingUpdate
+        rollingUpdate:
+          unavailable: 1
+          surge: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

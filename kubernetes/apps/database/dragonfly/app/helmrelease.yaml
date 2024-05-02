@@ -26,6 +26,9 @@ spec:
     controllers:
       dragonfly-operator:
         strategy: RollingUpdate
+        rollingUpdate:
+          unavailable: 1
+          surge: 1
         containers:
           app:
             image:

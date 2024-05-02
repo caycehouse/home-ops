@@ -16,6 +16,6 @@ data:
           dns-resolver: tcp://1.1.1.1:53
         conditions:
           - "[STATUS] == ${GATUS_STATUS:-200}"
-        maintenance:
-          start: 16:15
-          duration: 23h
+    maintenance:
+      start: 16:15
+      duration: 23h

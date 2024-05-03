@@ -12,7 +12,6 @@ resources:
   - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml
   - ./glauth/ks.yaml
-  - ./hoarder/ks.yaml
   - ./homepage/ks.yaml
   - ./linkding/ks.yaml
   - ./minecraft/ks.yaml

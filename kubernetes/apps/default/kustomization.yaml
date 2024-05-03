@@ -14,6 +14,7 @@ resources:
   - ./glauth/ks.yaml
   - ./hoarder/ks.yaml
   - ./homepage/ks.yaml
+  - ./linkding/ks.yaml
   - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
   - ./meshcentral/ks.yaml

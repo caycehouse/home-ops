@@ -27,9 +27,6 @@ spec:
       homepage:
         replicas: 3
         strategy: RollingUpdate
-        rollingUpdate:
-          unavailable: 1
-          surge: 1
         pod:
           annotations:
             configmap.reloader.stakater.com/reload: &config homepage-config
@@ -57,6 +54,10 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: *app
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
     service:
       app:
         controller: *app

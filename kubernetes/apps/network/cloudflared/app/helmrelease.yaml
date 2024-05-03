@@ -30,9 +30,6 @@ spec:
       cloudflared:
         replicas: 3
         strategy: RollingUpdate
-        rollingUpdate:
-          unavailable: 1
-          surge: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -88,6 +85,10 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: *app
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
     service:
       app:
         controller: cloudflared

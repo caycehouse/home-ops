@@ -21,6 +21,14 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: linkding-secret
         containers:
           app:
             image:
@@ -30,9 +38,7 @@ spec:
               LD_SUPERUSER_NAME: caycehouse
               LD_ENABLE_AUTH_PROXY: "True"
               LD_AUTH_PROXY_USERNAME_HEADER: "HTTP_REMOTE_USER"
-            envFrom:
-              - secretRef:
-                  name: linkding-secret
+            envFrom: *envFrom
             probes:
               liveness:
                 enabled: true

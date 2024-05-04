@@ -31,13 +31,13 @@
     },
     {
       "matchDatasources": [
-        "docker"
+        "helm"
       ],
-      "matchPackageNames": [
-        "ghcr.io/mohamedbassem/hoarder-web",
-        "ghcr.io/mohamedbassem/hoarder-workers"
+      "matchPackagePatterns": [
+        "rook.ceph"
       ],
-      "groupName": "hoarder"
+      "groupName": "Rook Ceph",
+      "separateMinorPatch": true
     }
   ]
 }

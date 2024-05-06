@@ -49,6 +49,8 @@ nodes:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
         dhcp: true
+    nodeLabels:
+      node-role.kubernetes.io/worker: worker
     extensionServices:
       - name: tailscale
         environment: *tailscale-env
@@ -62,6 +64,8 @@ nodes:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
         dhcp: true
+    nodeLabels:
+      node-role.kubernetes.io/worker: worker
     extensionServices:
       - name: tailscale
         environment: *tailscale-env
@@ -75,6 +79,8 @@ nodes:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
         dhcp: true
+    nodeLabels:
+      node-role.kubernetes.io/worker: worker
     extensionServices:
       - name: tailscale
         environment: *tailscale-env

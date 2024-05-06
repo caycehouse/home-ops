@@ -70,6 +70,13 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: *app
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
     service:
       app:
         controller: *app

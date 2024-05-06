@@ -76,10 +76,10 @@ spec:
               app.kubernetes.io/name: ingress-nginx
               app.kubernetes.io/instance: ingress-nginx-external
               app.kubernetes.io/component: controller
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/control-plane
-          operator: Exists
+      # tolerations:
+      #   - effect: NoSchedule
+      #     key: node-role.kubernetes.io/control-plane
+      #     operator: Exists
       resources:
         requests:
           cpu: 100m

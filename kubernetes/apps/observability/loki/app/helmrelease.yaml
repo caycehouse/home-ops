@@ -132,10 +132,6 @@ spec:
         tls:
           - hosts:
               - *app
-      # tolerations:
-      #   - effect: NoSchedule
-      #     key: node-role.kubernetes.io/control-plane
-      #     operator: Exists
     read:
       replicas: 3
     write:

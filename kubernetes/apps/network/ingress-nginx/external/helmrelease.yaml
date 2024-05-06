@@ -76,6 +76,13 @@ spec:
               app.kubernetes.io/name: ingress-nginx
               app.kubernetes.io/instance: ingress-nginx-external
               app.kubernetes.io/component: controller
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
       resources:
         requests:
           cpu: 100m

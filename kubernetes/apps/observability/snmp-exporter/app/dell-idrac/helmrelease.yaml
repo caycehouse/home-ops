@@ -38,11 +38,11 @@ spec:
     serviceMonitor:
       enabled: true
       params:
-        - name: dell-idrac-0
+        - name: dell-r630
           module: ["dell"]
           target: 192.168.6.248
           auth: ["public_v2"]
-        - name: dell-idrac-1
+        - name: dell-r730xd
           module: ["dell"]
           target: 192.168.5.198
           auth: ["public_v2"]

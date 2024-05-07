@@ -72,7 +72,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
           nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://bookmarks.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://bookmarks.${SECRET_DOMAIN}"
           gethomepage.dev/description: Bookmark Manager
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: linkding

@@ -4,9 +4,9 @@ kind: Ingress
 metadata:
   name: emqx-dashboard
 spec:
-  ingressClassName: internal
+  ingressClassName: tailscale
   rules:
-    - host: emqx.devbu.io
+    - host: "emqx.${SECRET_TS_DOMAIN}"
       http:
         paths:
           - path: /

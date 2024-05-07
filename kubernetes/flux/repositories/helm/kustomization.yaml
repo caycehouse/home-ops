@@ -8,6 +8,7 @@ resources:
   - ./cloudnative-pg.yaml
   # - ./csi-driver-nfs.yaml
   - ./descheduler.yaml
+  - ./emqx.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./grafana.yaml

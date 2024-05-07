@@ -54,6 +54,7 @@ spec:
               limits:
                 memory: 1Gi
     defaultPodOptions:
+      hostNetwork: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 568

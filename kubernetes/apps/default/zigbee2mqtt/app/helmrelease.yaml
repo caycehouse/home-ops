@@ -107,7 +107,7 @@ spec:
       app:
         className: tailscale
         hosts:
-          - host: zigbee
+          - host: &host zigbee
             paths:
               - path: /
                 service:

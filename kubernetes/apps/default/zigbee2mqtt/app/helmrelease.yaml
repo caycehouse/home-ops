@@ -97,6 +97,8 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
+      nodeSelector:
+        sonoff.feature.node.kubernetes.io/zigbee: "true"
     service:
       app:
         controller: *app

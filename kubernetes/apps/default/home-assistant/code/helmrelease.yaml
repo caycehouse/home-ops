@@ -68,9 +68,8 @@ spec:
           http:
             port: 80
     ingress:
-      main:
-        enabled: true
-        className: internal
+      app:
+        className: tailscale
         hosts:
           - host: &host "hass-code.${SECRET_TS_DOMAIN}"
             paths:

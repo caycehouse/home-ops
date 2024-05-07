@@ -1,9 +1,9 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app home-assistant
+  name: &app home-assistant-code
 spec:
   interval: 30m
   chart:
@@ -23,34 +23,34 @@ spec:
       strategy: rollback
       retries: 3
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
+    - name: home-assistant
+      namespace: default
   values:
     controllers:
-      home-assistant:
+      home-assistant-code:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.5.2@sha256:76e416dd4ab2f14ca9be120617fe69f51ad335c284352c189a0315954bed4b4e
+              repository: ghcr.io/coder/code-server
+              tag: 4.23.1@sha256:897b358eed18114061b371f2b2f1416bc7acbed9442877428ecc0855523031ad
             env:
               TZ: America/New_York
-              HASS_HTTP_TRUSTED_PROXY_1: 192.168.4.0/22
-              HASS_HTTP_TRUSTED_PROXY_2: 10.69.0.0/16
-            envFrom:
-              - secretRef:
-                  name: home-assistant-secret
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            args:
+              - --auth
+              - "none"
+              - --user-data-dir
+              - "/config/.vscode"
+              - --extensions-dir
+              - "/config/.vscode"
+              - "--port"
+              - "80"
+              - /config
             resources:
               requests:
                 cpu: 10m
+                memory: 128Mi
               limits:
                 memory: 1Gi
     defaultPodOptions:
@@ -66,29 +66,22 @@ spec:
         controller: *app
         ports:
           http:
-            port: 8123
+            port: 80
     ingress:
-      app:
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+      main:
+        enabled: true
+        className: internal
         hosts:
-          - host: "hass.${SECRET_DOMAIN}"
+          - host: &host "hass-code.${SECRET_TS_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       config:
-        existingClaim: *app
-      logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
-      tts:
-        type: emptyDir
-        globalMounts:
-          - path: /config/tts
-      tmp:
-        type: emptyDir
+        enabled: true
+        existingClaim: home-assistant

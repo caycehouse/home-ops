@@ -145,9 +145,8 @@ spec:
               - path: /config
                 subPath: web-config
       books:
-        enabled: true
         type: nfs
-        server: ${NAS_IP}
+        server: "${NAS_IP}"
         path: /mnt/storage0/media/books
         advancedMounts:
           calibre:

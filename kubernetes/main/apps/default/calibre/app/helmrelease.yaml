@@ -1,0 +1,156 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app calibre
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+  values:
+    controllers:
+      calibre:
+        containers:
+          app:
+            image:
+              repository: lscr.io/linuxserver/calibre
+              tag: 7.10.0@sha256:b46b123babe665b68dcc4f679c14b48cb141a5655371d8fff004e41a80a47871
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 15m
+                memory: 324M
+              limits:
+                memory: 604M
+          web:
+            image:
+              repository: lscr.io/linuxserver/calibre-web
+              tag: 0.6.21@sha256:96a7940ff83386017ab42942220312e2c1ddc88245f320d3696f2683e58ebb0e
+            env:
+              DOCKER_MODS: linuxserver/mods:universal-calibre
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  initialDelaySeconds: 60
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 5m
+                memory: 470M
+              limits:
+                memory: 470M
+    service:
+      app:
+        controller: calibre
+        ports:
+          http:
+            port: 8080
+      web:
+        controller: calibre
+        ports:
+          http:
+            port: 8083
+    ingress:
+      app:
+        className: external
+        hosts:
+          - host: "calibre.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: https://auth.${SECRET_DOMAIN}/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}/?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://calibre.${SECRET_DOMAIN}"
+          gethomepage.dev/description: An eBook Manager
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: calibre
+          gethomepage.dev/name: Calibre
+          gethomepage.dev/app: calibre
+      web:
+        className: external
+        hosts:
+          - host: "calibre-web.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: web
+                  port: http
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: https://auth.${SECRET_DOMAIN}/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}/?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://calibre-web.${SECRET_DOMAIN}"
+          gethomepage.dev/description: An eBook Library
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: calibre-web
+          gethomepage.dev/name: Calibre-Web
+          gethomepage.dev/app: calibre
+    persistence:
+      data:
+        existingClaim: *app
+        advancedMounts:
+          calibre:
+            app:
+              - path: /config
+                subPath: app-config
+              - path: /uploads
+                subPath: app-uploads
+              - path: /plugins
+                subPath: app-plugins
+            web:
+              - path: /config
+                subPath: web-config
+      books:
+        type: nfs
+        server: "${NAS_IP:=temp}"
+        path: /mnt/storage0/media/books
+        advancedMounts:
+          calibre:
+            app:
+              - path: /Calibre_Library
+            web:
+              - path: /books

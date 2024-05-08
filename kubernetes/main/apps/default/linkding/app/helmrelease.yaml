@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app linkding
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      linkding:
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: linkding-secret
+        containers:
+          app:
+            image:
+              repository: sissbruecker/linkding
+              tag: 1.30.0
+            env:
+              LD_SUPERUSER_NAME: caycehouse
+              LD_ENABLE_AUTH_PROXY: "True"
+              LD_AUTH_PROXY_USERNAME_HEADER: "HTTP_REMOTE_USER"
+            envFrom: *envFrom
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 12m
+                memory: 64M
+              limits:
+                memory: 256M
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 9090
+    ingress:
+      app:
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: https://auth.${SECRET_DOMAIN}/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}/?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://bookmarks.${SECRET_DOMAIN}"
+          gethomepage.dev/description: Bookmark Manager
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: linkding
+          gethomepage.dev/name: linkding
+        hosts:
+          - host: &hostName bookmarks.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *hostName

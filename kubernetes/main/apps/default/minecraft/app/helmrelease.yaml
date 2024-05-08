@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app minecraft
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.17.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: itzg
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+  uninstall:
+    keepHistory: false
+  values:
+    deploymentAnnotations:
+      secret.reloader.stakater.com/reload: &secret minecraft-secret
+    image:
+      tag: 2024.4.0-java17@sha256:4ddb83d56f450e736284442c4c7d143f63595cf3d2039140476013ce89901af8
+    serviceAnnotations:
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: *app
+    livenessProbe:
+      initialDelaySeconds: 120
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      maxPlayers: 10
+      maxTickTime: 180000
+      memory: "4G"
+      motd: "The Fryer's Minecraft Server"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      spawnProtection: 0
+      type: "FABRIC"
+      vanillaTweaksShareCodes:
+        - EaW0rS
+        - KR1Q4G
+      version: "1.20.4"
+      viewDistance: 7
+      whitelist: "FryyourBacon"
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: *app
+    rcon:
+      enabled: true
+      existingSecret: &secret minecraft-secret
+      secretKey: RCON_PASSWORD
+    extraEnv:
+      ALLOW_FLIGHT: "true"
+      ENABLE_RCON: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
+      OVERRIDE_WHITELIST: "true"
+      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/master/pack.toml"
+      RCON_CMDS_STARTUP: |-
+        gamerule doFireTick false
+        gamerule playersSleepingPercentage 0
+        scoreboard objectives setdisplay list ts_Deaths
+      SIMULATION_DISTANCE: "4"
+      SNOOPER_ENABLED: "false"
+      SYNC_CHUNK_WRITES: "false"
+      USE_AIKAR_FLAGS: "true"
+    envFrom:
+      - secretRef:
+          name: *secret
+    resources:
+      requests:
+        memory: 6Gi
+        cpu: 2000m

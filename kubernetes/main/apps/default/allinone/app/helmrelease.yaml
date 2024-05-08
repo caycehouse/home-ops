@@ -1,0 +1,80 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app allinone
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.17.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: itzg
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      tag: 2024.4.0-java8-multiarch@sha256:f7d9e943692c86b1cee433b7bace0150dd18a6d836550e55cfb8b6b7e59314d2
+    serviceAnnotations:
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: *app
+    livenessProbe:
+      initialDelaySeconds: 120
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      maxPlayers: 10
+      maxTickTime: 180000
+      memory: "6G"
+      motd: "All in One | 1.5.4b"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      spawnProtection: 0
+      type: "AUTO_CURSEFORGE"
+      viewDistance: 7
+      autoCurseForge:
+        apiKey:
+          key: ${CF_API_KEY}
+        filenameMatcher: "1.5.4"
+        slug: "all-in-one-modded-one-block"
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: *app
+    rcon:
+      enabled: true
+      existingSecret: &secret allinone-secret
+      secretKey: RCON_PASSWORD
+    extraEnv:
+      ALLOW_FLIGHT: "true"
+      ENABLE_RCON: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      SNOOPER_ENABLED: "false"
+      SYNC_CHUNK_WRITES: "false"
+      USE_AIKAR_FLAGS: "true"
+    envFrom:
+      - secretRef:
+          name: *secret
+    resources:
+      requests:
+        memory: 8192Mi
+        cpu: 2000m

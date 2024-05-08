@@ -1,0 +1,122 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app sonarr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    controllers:
+      sonarr:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: sonarr-secret
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/sonarr
+              tag: 4.0.4.1491@sha256:9c78b3a37af6e814062e4a631c25ad181c800ae11d21acdfd26c843da9e4a42e
+            env:
+              SONARR__AUTHENTICATION_METHOD: Forms
+              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              SONARR__INSTANCE_NAME: Sonarr
+              SONARR__PORT: &port 80
+              SONARR__LOG_LEVEL: info
+              SONARR__THEME: dark
+              TZ: America/New_York
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [10000]
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: tailscale
+        hosts:
+          - host: *app
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://sonarr.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: TV PVR
+          gethomepage.dev/group: Starr
+          gethomepage.dev/icon: sonarr
+          gethomepage.dev/name: Sonarr
+        tls:
+          - hosts:
+              - *app
+    persistence:
+      config:
+        existingClaim: *app
+      tmp:
+        type: emptyDir
+      media:
+        type: nfs
+        server: "${NAS_IP:=temp}"
+        path: /mnt/storage0/nfs_docker/starr/data
+        globalMounts:
+          - path: /data

@@ -16,6 +16,6 @@ tasks:
 
   k9s:
     desc: Run k9s on given cluster
-    cmd: k9s --kubeconfig {{.KUBECONFIG_FILE}}
-    preconditions:
-      - { msg: "Missing kubeconfig config file", sh: "test -f {{.KUBECONFIG_FILE}}" }
+    cmd: k9s --context {{.cluster}}
+    requires:
+      vars: ["cluster"]

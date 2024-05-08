@@ -3,24 +3,22 @@
 version: "3"
 
 vars:
-  # Directories
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
-  # Files
-  AGE_FILE: "{{.ROOT_DIR}}/age.key"
-  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
 
 env:
-  KUBECONFIG: "{{.KUBECONFIG_FILE}}"
-  SOPS_AGE_KEY_FILE: "{{.AGE_FILE}}"
-
-tasks:
-
-  default: task -l
+  KUBECONFIG: "{{.KUBERNETES_DIR}}/kubernetes/main/kubeconfig"
+  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
   flux: .taskfiles/Flux.yaml
   kubernetes:
     aliases: ["k8s"]
     taskfile: .taskfiles/Kubernetes.yaml
-  sops: .taskfiles/Sops.yaml
-  talos: .taskfiles/Talos.yaml
+  talos: .taskfiles/Talos
+
+tasks:
+
+  default:
+    silent: true
+    cmd: task -l

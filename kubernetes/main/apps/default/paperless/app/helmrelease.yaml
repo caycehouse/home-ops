@@ -1,0 +1,117 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app paperless
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+  values:
+    controllers:
+      paperless:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret paperless-secret
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: *secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: latest@sha256:fe0bb42ecbe4513e021ed612170c4728e963a7b3c47903d285793c9938219980
+            env:
+              PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+              PAPERLESS_PORT: &port 8000
+              PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/0
+              PAPERLESS_TIME_ZONE: America/New_York
+              PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
+              PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
+              PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
+              PAPERLESS_MEDIA_ROOT: /data/local/media
+              PAPERLESS_DATA_DIR: /data/local/data
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 30
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  timeoutSeconds: 1
+                  failureThreshold: 10
+                  periodSeconds: 12
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1000Mi
+              limits:
+                memory: 5000Mi
+    service:
+      app:
+        controller: paperless
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: external
+        hosts:
+          - host: "paperless.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://paperless.${SECRET_DOMAIN}"
+          gethomepage.dev/description: Document management system
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: paperless-ngx
+          gethomepage.dev/name: Paperless-ngx
+    persistence:
+      library:
+        existingClaim: *app
+        globalMounts:
+          - path: /data/local

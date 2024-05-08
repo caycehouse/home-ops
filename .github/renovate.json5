@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>caycehouse/renovate-config",
+    "github>caycehouse/home-ops-k8s//.github/renovate/grafanaDashboards.json5",
     ":skipStatusChecks"
   ],
   "flux": {

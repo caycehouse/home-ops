@@ -1,8 +1,16 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.0-standalone-strict/ingress.json
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: emqx-dashboard
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://emqx.${SECRET_TS_DOMAIN}"
+    gethomepage.dev/description: Scalable MQTT broker solution
+    gethomepage.dev/group: Utilities
+    gethomepage.dev/icon: emqx
+    gethomepage.dev/name: EMQX
 spec:
   ingressClassName: tailscale
   rules:

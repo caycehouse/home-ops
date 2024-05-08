@@ -97,6 +97,7 @@ spec:
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: thanos
           gethomepage.dev/name: Thanos
+          gethomepage.dev/app: thanos
         tls:
           - hosts:
               - *host

@@ -77,6 +77,13 @@ spec:
                 service:
                   identifier: app
                   port: http
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://hass-code.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: Home Assistant code editor
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: coder
+          gethomepage.dev/name: HASS Coder
         tls:
           - hosts:
               - *host

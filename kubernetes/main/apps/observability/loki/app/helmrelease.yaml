@@ -117,6 +117,13 @@ spec:
       persistence:
         size: 20Gi
         storageClass: openebs-hostpath
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
     gateway:
       replicas: 3
       image:
@@ -132,13 +139,34 @@ spec:
         tls:
           - hosts:
               - *app
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
     read:
       replicas: 3
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
     write:
       replicas: 3
       persistence:
         size: 20Gi
         storageClass: openebs-hostpath
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar

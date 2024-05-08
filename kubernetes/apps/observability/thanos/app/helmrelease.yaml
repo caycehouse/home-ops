@@ -89,7 +89,10 @@ spec:
         enabled: true
         ingressClassName: tailscale
         hosts:
-          - thanos.${SECRET_TS_DOMAIN}
+          - &host thanos
+        tls:
+          - hosts:
+              - *host
       podAnnotations: &podAnnotations
         configmap.reloader.stakater.com/reload: *configMap
     rule:

@@ -90,6 +90,13 @@ spec:
         ingressClassName: tailscale
         hosts:
           - &host thanos
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://thanos.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: Scalable monitoring and alerting
+          gethomepage.dev/group: Observability
+          gethomepage.dev/icon: thanos
+          gethomepage.dev/name: Thanos
         tls:
           - hosts:
               - *host

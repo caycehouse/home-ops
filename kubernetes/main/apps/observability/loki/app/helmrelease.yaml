@@ -139,6 +139,10 @@ spec:
         tls:
           - hosts:
               - *app
+      deploymentStrategy:
+        rollingUpdate:
+          maxUnavailable: 1
+          maxSurge: 1
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

@@ -113,7 +113,7 @@ spec:
           - path: /add-ons
       media:
         type: nfs
-        server: ${NAS_IP}
+        server: "${NAS_IP:=temp}"
         path: /mnt/storage0/nfs_docker/starr/data/media
         globalMounts:
           - path: /data/media

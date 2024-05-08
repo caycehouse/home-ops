@@ -11,6 +11,7 @@ metadata:
     gethomepage.dev/group: Utilities
     gethomepage.dev/icon: emqx
     gethomepage.dev/name: EMQX
+    gethomepage.dev/app: emqx-operator
 spec:
   ingressClassName: tailscale
   rules:

@@ -41,6 +41,8 @@ spec:
               TZ: America/New_York
               HASS_HTTP_TRUSTED_PROXY_1: 192.168.4.0/22
               HASS_HTTP_TRUSTED_PROXY_2: 10.69.0.0/16
+              HASS_INTERNAL_URL: http://homeassistant.local:8123
+              HASS_EXTERNAL_URL: https://hass.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: home-assistant-secret

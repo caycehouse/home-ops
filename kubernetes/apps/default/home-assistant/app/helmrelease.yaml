@@ -35,10 +35,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.5.2@sha256:76e416dd4ab2f14ca9be120617fe69f51ad335c284352c189a0315954bed4b4e
-              # repository: ghcr.io/caycehouse/home-assistant
-              # tag: 2024.5.2@sha256:f27b44985b7eb14a21e7ddfeaff0d10a66cb74ca37b73e642def6e4703a4b3c9
+              repository: ghcr.io/caycehouse/home-assistant
+              tag: 2024.5.2@sha256:f27b44985b7eb14a21e7ddfeaff0d10a66cb74ca37b73e642def6e4703a4b3c9
             env:
               TZ: America/New_York
               HASS_HTTP_TRUSTED_PROXY_1: 192.168.4.0/22

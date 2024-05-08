@@ -45,6 +45,7 @@ spec:
           gethomepage.dev/group: Storage
           gethomepage.dev/icon: rook
           gethomepage.dev/name: Rook
+          gethomepage.dev/app: rook-ceph-mgr
         tls:
           - hosts:
               - *app

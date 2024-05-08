@@ -72,6 +72,13 @@ spec:
           className: tailscale
           hosts:
             - &host "hubble"
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/href: "https://hubble.${SECRET_TS_DOMAIN}"
+            gethomepage.dev/description: Network visibility and security
+            gethomepage.dev/group: Observability
+            gethomepage.dev/icon: cilium
+            gethomepage.dev/name: Hubble
           tls:
             - hosts:
                 - *host

@@ -30,6 +30,8 @@ spec:
   values:
     controllers:
       zigbee2mqtt:
+        # Because the USB dongle can only be mapped once.
+        strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

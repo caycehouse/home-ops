@@ -50,10 +50,8 @@ spec:
                 memory: 604M
           web:
             image:
-              repository: lscr.io/linuxserver/calibre-web
-              tag: 0.6.21@sha256:96a7940ff83386017ab42942220312e2c1ddc88245f320d3696f2683e58ebb0e
-            env:
-              DOCKER_MODS: linuxserver/mods:universal-calibre
+              repository: ghcr.io/caycehouse/calibre-web
+              tag: 0.6.21@sha256:b8bee025144b76c8ce8598667092579632f1cc57fdcbf2260346175b09192c58
             probes:
               liveness:
                 enabled: true

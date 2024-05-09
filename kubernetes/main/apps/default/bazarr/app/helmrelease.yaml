@@ -111,12 +111,12 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /add-ons
-      media:
+      data:
         type: nfs
         server: "${NAS_IP:=temp}"
-        path: /mnt/storage0/nfs_docker/starr/data/media
+        path: "${NFS_DATA_PATH:=temp}"
         globalMounts:
-          - path: /data/media
+          - path: /data
       scripts:
         enabled: true
         type: configMap

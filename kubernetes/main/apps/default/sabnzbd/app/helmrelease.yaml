@@ -116,9 +116,10 @@ spec:
           - path: /config/logs
       tmp:
         type: emptyDir
-      media:
+      downloads:
         type: nfs
         server: "${NAS_IP:=temp}"
-        path: /mnt/storage0/nfs_docker/starr/data/usenet
+        path: "${NFS_DATA_PATH:=temp}"
         globalMounts:
-          - path: /data/usenet
+          - path: /downloads
+            subPath: usenet

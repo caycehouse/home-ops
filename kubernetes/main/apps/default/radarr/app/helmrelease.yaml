@@ -114,9 +114,9 @@ spec:
         existingClaim: *app
       tmp:
         type: emptyDir
-      media:
+      data:
         type: nfs
         server: "${NAS_IP:=temp}"
-        path: /mnt/storage0/nfs_docker/starr/data
+        path: "${NFS_DATA_PATH:=temp}"
         globalMounts:
           - path: /data

@@ -60,7 +60,6 @@ spec:
               startup:
                 enabled: true
                 spec:
-                  initialDelaySeconds: 60
                   failureThreshold: 30
                   periodSeconds: 5
             resources:

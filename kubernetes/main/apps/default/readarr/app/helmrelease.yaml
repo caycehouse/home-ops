@@ -41,8 +41,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.26.2526
+              repository: ghcr.io/onedr0p/readarr-nightly
+              tag: rolling
             env:
               READARR__AUTHENTICATION_METHOD: Forms
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses

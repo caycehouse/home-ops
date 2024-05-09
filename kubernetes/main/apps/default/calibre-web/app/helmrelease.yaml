@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app calibre
+  name: &app calibre-web
 spec:
   interval: 30m
   chart:
@@ -29,9 +29,9 @@ spec:
       namespace: volsync-system
   values:
     controllers:
-      calibre:
+      calibre-web:
         containers:
-          web:
+          app:
             image:
               repository: ghcr.io/caycehouse/calibre-web
               tag: 0.6.21@sha256:b8bee025144b76c8ce8598667092579632f1cc57fdcbf2260346175b09192c58
@@ -45,6 +45,10 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
@@ -60,20 +64,20 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     service:
-      web:
-        controller: calibre
+      app:
+        controller: *app
         ports:
           http:
             port: 8083
     ingress:
-      web:
+      app:
         className: external
         hosts:
           - host: "calibre-web.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: web
+                  identifier: app
                   port: http
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
@@ -92,16 +96,12 @@ spec:
     persistence:
       data:
         existingClaim: *app
-        advancedMounts:
-          calibre:
-            web:
-              - path: /config
-                subPath: web-config
+        globalMounts:
+          - path: /config
+            subPath: web-config
       books:
         type: nfs
         server: "${NAS_IP:=temp}"
         path: /mnt/storage0/media/books
-        advancedMounts:
-          calibre:
-            web:
-              - path: /books
+        globalMounts:
+          - path: /books

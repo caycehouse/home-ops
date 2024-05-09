@@ -121,5 +121,5 @@ spec:
         server: "${NAS_IP:=temp}"
         path: "${NFS_DATA_PATH:=temp}"
         globalMounts:
-          - path: /downloads
+          - path: /data/usenet
             subPath: usenet

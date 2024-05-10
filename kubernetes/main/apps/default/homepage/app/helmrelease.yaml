@@ -29,7 +29,7 @@ spec:
         strategy: RollingUpdate
         pod:
           annotations:
-            configmap.reloader.stakater.com/reload: &config homepage-config
+            secret.reloader.stakater.com/reload: &secret homepage-secret
         containers:
           app:
             image:
@@ -96,8 +96,8 @@ spec:
       create: true
     persistence:
       config:
-        type: configMap
-        name: *config
+        type: secret
+        name: *secret
         globalMounts:
           - subPath: bookmarks.yaml
             path: /app/config/bookmarks.yaml

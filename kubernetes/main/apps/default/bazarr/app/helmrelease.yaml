@@ -107,7 +107,7 @@ spec:
           gethomepage.dev/icon: bazarr
           gethomepage.dev/name: Bazarr
           gethomepage.dev/widget.type: bazarr
-          gethomepage.dev/widget.url: bazarr.default.svc.cluster.local
+          gethomepage.dev/widget.url: http://bazarr.default.svc.cluster.local
           gethomepage.dev/widget.key: ${BAZARR__API_KEY}
         tls:
           - hosts:

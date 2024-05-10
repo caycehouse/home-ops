@@ -30,6 +30,8 @@ spec:
             image:
               repository: ghcr.io/caycehouse/calibre
               tag: 7.10.0@sha256:fddb98aa23f0e69f7f5eae77448ed66722c01fc08774fb61535e8a217d2a5002
+            env:
+              CALIBRE_PORT: 80
             probes:
               liveness:
                 enabled: true
@@ -58,6 +60,12 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
     persistence:
       books:
         type: nfs

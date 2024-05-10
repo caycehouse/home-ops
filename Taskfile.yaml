@@ -11,6 +11,7 @@ env:
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
+  external-secrets: .taskfiles/ExternalSecrets
   flux: .taskfiles/Flux.yaml
   kubernetes:
     aliases: ["k8s"]

@@ -43,8 +43,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/bazarr
-              tag: 1.4.2@sha256:62558b2f9210b288f01e96753c99699dc2fab7c27f9e678f994bd0068bc6d41e
+              repository: ghcr.io/caycehouse/bazarr
+              tag: 1.4.2@sha256:f77f263b760d5ee4106185b3b4b918168ffa213e0c582fe7fd6f74dec595cf50
             env:
               TZ: America/New_York
             envFrom: *envFrom

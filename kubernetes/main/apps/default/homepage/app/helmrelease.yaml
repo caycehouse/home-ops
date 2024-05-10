@@ -29,12 +29,17 @@ spec:
         strategy: RollingUpdate
         pod:
           annotations:
-            secret.reloader.stakater.com/reload: &secret homepage-secret
+            reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.8.13
+            env:
+              TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: homepage-secret
             probes:
               liveness:
                 enabled: true
@@ -96,8 +101,8 @@ spec:
       create: true
     persistence:
       config:
-        type: secret
-        name: *secret
+        type: configMap
+        name: homepage-config
         globalMounts:
           - subPath: bookmarks.yaml
             path: /app/config/bookmarks.yaml

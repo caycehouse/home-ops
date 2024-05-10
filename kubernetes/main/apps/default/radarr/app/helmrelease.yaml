@@ -41,8 +41,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/radarr
-              tag: 5.4.6.8723@sha256:3198f09197697a4d57f995650ebf34b57b2fdbb991dac1611ad8356d9e8bda8e
+              repository: ghcr.io/caycehouse/radarr
+              tag: 5.4.6.8723@sha256:bd5e228225475c5c1d96f73f5ddc5f5ae7d65fd0739539ddd96c1d7a0118a87e
             env:
               RADARR__AUTHENTICATION_METHOD: Forms
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses

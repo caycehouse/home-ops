@@ -38,8 +38,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.16.2.4435@sha256:3d3d5702d40824da9ece02f465dbf221dfa726846e9212bc3fe89af5562e6e9e
+              repository: ghcr.io/caycehouse/prowlarr
+              tag: 1.16.2.4435@sha256:d1b33b3d8220e72b8c70b41e73b790bb57e62c97d99f4390f43843fd251aa556
             env:
               PROWLARR__INSTANCE_NAME: Prowlarr
               PROWLARR__PORT: &port 80

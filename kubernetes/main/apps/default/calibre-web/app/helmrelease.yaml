@@ -92,7 +92,6 @@ spec:
           gethomepage.dev/group: Reading
           gethomepage.dev/icon: calibre-web
           gethomepage.dev/name: Calibre-Web
-          gethomepage.dev/app: calibre
     persistence:
       data:
         existingClaim: *app

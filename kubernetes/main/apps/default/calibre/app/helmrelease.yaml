@@ -76,3 +76,5 @@ spec:
         globalMounts:
           - path: /data
             subPath: books
+      tmp:
+        type: emptyDir

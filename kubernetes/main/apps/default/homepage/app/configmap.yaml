@@ -89,7 +89,7 @@ data:
                 href: https://octopi
                 icon: octoprint
                 widget:
-                  key: {{ HOMEPAGE_VAR_OCTOPI_API_KEY }}
+                  key: {{HOMEPAGE_VAR_OCTOPI_API_KEY}}
                   type: octoprint
                   url: http://octopi.network.svc.cluster.local
           - Proxmox:

@@ -106,6 +106,8 @@ spec:
           gethomepage.dev/href: "https://bazarr.${SECRET_TS_DOMAIN}"
           gethomepage.dev/icon: bazarr
           gethomepage.dev/name: Bazarr
+          gethomepage.dev/widget.type: bazarr
+          gethomepage.dev/widget.url: http://bazarr.default.svc.cluster.local
         tls:
           - hosts:
               - *app

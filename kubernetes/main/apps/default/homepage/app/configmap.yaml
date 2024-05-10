@@ -66,6 +66,10 @@ data:
           - Valheim:
                 icon: https://cdn2.steamgriddb.com/icon/a0b83c02d720415dada82e08bc09e9f3/32/256x256.png
                 description: Skål!
+                widget:
+                  type: gamedig
+                  serverType: valheim
+                  url: udp://valheim.default.svc.cluster.local:2457
     - Remote Access:
           - R630 iDRAC:
                 icon: idrac

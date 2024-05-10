@@ -100,12 +100,15 @@ spec:
                   identifier: app
                   port: http
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://radarr.${SECRET_TS_DOMAIN}"
           gethomepage.dev/description: Movie PVR
+          gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
+          gethomepage.dev/href: "https://radarr.${SECRET_TS_DOMAIN}"
           gethomepage.dev/icon: radarr
           gethomepage.dev/name: Radarr
+          gethomepage.dev/widget.type: radarr
+          gethomepage.dev/widget.url: http://radarr.default.svc.cluster.local
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
         tls:
           - hosts:
               - *app

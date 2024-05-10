@@ -104,12 +104,15 @@ spec:
                   port: http
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://paperless.${SECRET_DOMAIN}"
           gethomepage.dev/description: Document management system
+          gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Utilities
+          gethomepage.dev/href: "https://paperless.${SECRET_DOMAIN}"
           gethomepage.dev/icon: paperless-ngx
           gethomepage.dev/name: Paperless-ngx
+          gethomepage.dev/widget.type: paperlessngx
+          gethomepage.dev/widget.url: http://paperless.default.svc.cluster.local
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}"
     persistence:
       library:
         existingClaim: *app

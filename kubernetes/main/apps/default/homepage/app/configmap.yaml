@@ -83,6 +83,7 @@ data:
                 description: 3D printer web interface
                 href: https://octopi
                 ping: localhost
+                key: 0541B917F21A4A5FB06AB339F4B083AE
           - Proxmox:
                 icon: proxmox
                 description: Virtualization platform

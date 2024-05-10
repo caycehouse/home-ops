@@ -34,7 +34,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: tailscale
   path: ./kubernetes/main/apps/network/tailscale/services
   prune: false
   sourceRef:

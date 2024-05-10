@@ -45,12 +45,21 @@ data:
           - All in One:
                 icon: https://media.forgecdn.net/avatars/342/91/637485703554418199.png
                 description: Modded One Block
+                widget:
+                  type: minecraft
+                  url: udp://allinone-minecraft.default.svc.cluster.local:25565
           - Minecraft:
                 icon: minecraft
                 description: Vanilla Minecraft server
+                widget:
+                  type: minecraft
+                  url: udp://minecraft-minecraft.default.svc.cluster.local:25565
           - OceanBlock:
                 icon: https://www.feed-the-beast.com/_next/image?url=https%3A%2F%2Fapps.modpacks.ch%2Fmodpacks%2Fart%2F87%2Flogo.png&w=256&q=100
                 description: Time to dive in!
+                widget:
+                  type: minecraft
+                  url: udp://oceanblock-minecraft.default.svc.cluster.local:25565
           - Satisfactory:
                 icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
                 description: The factory must prevail!

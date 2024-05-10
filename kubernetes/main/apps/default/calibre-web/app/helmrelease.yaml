@@ -93,7 +93,7 @@ spec:
           gethomepage.dev/icon: calibre-web
           gethomepage.dev/name: Calibre-Web
           gethomepage.dev/widget.type: calibreweb
-          gethomepage.dev/url: "https://calibre-web.${SECRET_DOMAIN}"
+          gethomepage.dev/widget.url: "https://calibre-web.${SECRET_DOMAIN}"
           gethomepage.dev/username: "{{HOMEPAGE_VAR_CALIBRE_WEB_USER}}"
           gethomepage.dev/password: "{{HOMEPAGE_VAR_CALIBRE_WEB_PASS}}"
     persistence:

@@ -32,8 +32,8 @@ spec:
               tag: 7.10.0@sha256:fddb98aa23f0e69f7f5eae77448ed66722c01fc08774fb61535e8a217d2a5002
             env:
               CALIBRE_PORT: &port 80
-              CALIBRE_CONFIG_DIRECTORY: /data/.config
-              CALIBRE_LIBRARY: /data
+              CALIBRE_CONFIG_DIRECTORY: /data/books/.config
+              CALIBRE_LIBRARY: /data/books
             probes:
               liveness:
                 enabled: true
@@ -74,7 +74,7 @@ spec:
         server: "${NAS_IP:=temp}"
         path: "${NFS_DATA_PATH:=temp}"
         globalMounts:
-          - path: /data
+          - path: /data/books
             subPath: books
       tmp:
         type: emptyDir

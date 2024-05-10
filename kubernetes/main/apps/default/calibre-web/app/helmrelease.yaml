@@ -92,10 +92,10 @@ spec:
           gethomepage.dev/href: "https://calibre-web.${SECRET_DOMAIN}"
           gethomepage.dev/icon: calibre-web
           gethomepage.dev/name: Calibre-Web
+          gethomepage.dev/widget.password: "{{HOMEPAGE_VAR_CALIBRE_WEB_PASS}}"
           gethomepage.dev/widget.type: calibreweb
           gethomepage.dev/widget.url: "https://calibre-web.${SECRET_DOMAIN}"
-          gethomepage.dev/username: "{{HOMEPAGE_VAR_CALIBRE_WEB_USER}}"
-          gethomepage.dev/password: "{{HOMEPAGE_VAR_CALIBRE_WEB_PASS}}"
+          gethomepage.dev/widget.username: "{{HOMEPAGE_VAR_CALIBRE_WEB_USER}}"
     persistence:
       data:
         existingClaim: *app

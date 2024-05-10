@@ -46,6 +46,12 @@ spec:
               repository: ghcr.io/caycehouse/bazarr
               tag: 1.4.2@sha256:f77f263b760d5ee4106185b3b4b918168ffa213e0c582fe7fd6f74dec595cf50
             env:
+              BAZARR__AUTHENTICATION_METHOD: Forms
+              BAZARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              BAZARR__INSTANCE_NAME: Bazarr
+              BAZARR__PORT: &port 80
+              BAZARR__LOG_LEVEL: info
+              BAZARR__THEME: dark
               TZ: America/New_York
             envFrom: *envFrom
             securityContext:
@@ -82,7 +88,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: 6767
+            port: *port
     ingress:
       app:
         className: tailscale
@@ -94,12 +100,15 @@ spec:
                   identifier: app
                   port: http
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://bazarr.${SECRET_TS_DOMAIN}"
           gethomepage.dev/description: Subtitle companion
+          gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
+          gethomepage.dev/href: "https://bazarr.${SECRET_TS_DOMAIN}"
           gethomepage.dev/icon: bazarr
           gethomepage.dev/name: Bazarr
+          gethomepage.dev/widget.type: bazarr
+          gethomepage.dev/widget.url: bazarr.default.svc.cluster.local
+          gethomepage.dev/widget.key: ${BAZARR__API_KEY}
         tls:
           - hosts:
               - *app

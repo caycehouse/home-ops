@@ -91,7 +91,7 @@ spec:
           value: https
       extraInitContainers:
         - name: init-db
-          image: ghcr.io/onedr0p/postgres-init:16
+          image: ghcr.io/caycehouse/postgres-init:16
           envFrom:
             - secretRef:
                 name: *secret

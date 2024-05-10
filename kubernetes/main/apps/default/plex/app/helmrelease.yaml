@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/plex
-              tag: 1.40.2.8395-c67dce28e@sha256:601120ad8f24f710d9bca2381ce230a577d5126c44337665abde429600d70165
+              tag: 1.40.2.8395-c67dce28e@sha256:344a42ba84ab1e4c2e357bdbc73888812055dd8c208868e9421861118b495b95
             env:
               TZ: America/New_York
               PLEX_ADVERTISE_URL: https://plex.${SECRET_TS_DOMAIN}:443,http://192.168.4.6:32400

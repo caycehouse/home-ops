@@ -86,7 +86,6 @@ spec:
           name: *secret
     resources:
       requests:
-        cpu: 151m
-        memory: &memory 5485Mi
+        cpu: 500m
       limits:
-        memory: *memory
+        memory: 6Gi

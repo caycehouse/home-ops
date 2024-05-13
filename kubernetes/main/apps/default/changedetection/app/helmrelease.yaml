@@ -45,9 +45,8 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: &memory 102Mi
               limits:
-                memory: *memory
+                memory: 128Mi
           browser:
             image:
               repository: browserless/chrome
@@ -67,10 +66,9 @@ spec:
               DEFAULT_IGNORE_HTTPS_ERRORS: "true"
             resources:
               requests:
-                cpu: 16m
-                memory: &memory 1670Mi
+                cpu: 20m
               limits:
-                memory: *memory
+                memory: 2Gi
     service:
       app:
         controller: *app

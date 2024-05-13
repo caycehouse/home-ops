@@ -47,10 +47,9 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 10m
-                memory: &memory 175Mi
+                cpu: 15m
               limits:
-                memory: *memory
+                memory: 256Mi
     defaultPodOptions:
       topologySpreadConstraints:
         - maxSkew: 1

@@ -53,10 +53,9 @@ spec:
                   name: free-games-claimer-secret
             resources:
               requests:
-                cpu: 10m
-                memory: &memory 4096Mi
+                cpu: 1000m
               limits:
-                memory: *memory
+                memory: 512Mi
     service:
       app:
         controller: free-games-claimer

@@ -43,10 +43,9 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 10m
-                memory: &memory 377Mi
+                cpu: 15m
               limits:
-                memory: *memory
+                memory: 512Mi
     service:
       app:
         controller: *app

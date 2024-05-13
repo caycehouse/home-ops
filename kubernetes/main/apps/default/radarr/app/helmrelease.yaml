@@ -46,6 +46,7 @@ spec:
             env:
               RADARR__AUTHENTICATION_METHOD: Forms
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              RADARR__LOG__DBENABLED: "False"
               RADARR__INSTANCE_NAME: Radarr
               RADARR__PORT: &port 80
               RADARR__LOG_LEVEL: info

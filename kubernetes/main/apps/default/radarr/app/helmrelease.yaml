@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/radarr
-              tag: 5.4.6.8723@sha256:bd5e228225475c5c1d96f73f5ddc5f5ae7d65fd0739539ddd96c1d7a0118a87e
+              tag: 5.5.3.8819@sha256:13a04ba58bc77d6a9ee8b1a8848aa6fbfb30da70c4acce0fb81a9fc5259f91cf
             env:
               RADARR__AUTHENTICATION_METHOD: Forms
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses

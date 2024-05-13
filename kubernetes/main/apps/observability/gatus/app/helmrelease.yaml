@@ -51,9 +51,8 @@ spec:
             resources: &resources
               requests:
                 cpu: 10m
-                memory: &memory 256Mi
               limits:
-                memory: *memory
+                memory: 256Mi
         containers:
           app:
             image:

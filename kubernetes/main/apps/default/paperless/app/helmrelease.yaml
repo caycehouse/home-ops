@@ -82,10 +82,10 @@ spec:
                   periodSeconds: 12
             resources:
               requests:
-                cpu: 100m
-                memory: 1000Mi
+                cpu: 15m
+                memory: &memory 912Mi
               limits:
-                memory: 5000Mi
+                memory: *memory
     service:
       app:
         controller: paperless

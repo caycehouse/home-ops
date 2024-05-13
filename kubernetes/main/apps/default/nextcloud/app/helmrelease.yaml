@@ -38,11 +38,11 @@ spec:
     cronjob:
       enabled: true
       resources:
-        limits:
-          memory: 1024M
         requests:
           cpu: 10m
-          memory: 500M
+          memory: &memory 100Mi
+        limits:
+          memory: *memory
     externalDatabase:
       enabled: true
       type: postgresql
@@ -95,9 +95,21 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
+      resources:
+        requests:
+          cpu: 14m
+          memory: &memory 226Mi
+        limits:
+          memory: *memory
     nginx:
       ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
       enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: &memory 100Mi
+        limits:
+          memory: *memory
     ingress:
       enabled: true
       className: external
@@ -147,12 +159,6 @@ spec:
       nextcloudData:
         enabled: true
         existingClaim: "nextcloud-data"
-    resources:
-      limits:
-        memory: 4G
-      requests:
-        cpu: 10m
-        memory: 2G
     startupProbe:
       enabled: true
       initialDelaySeconds: 5

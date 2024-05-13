@@ -40,10 +40,10 @@ spec:
               AUTOPAUSE: "false"
             resources:
               requests:
-                cpu: 1000m
-                memory: 11Gi
+                cpu: 1126m
+                memory: &memory 3094Mi
               limits:
-                memory: 20Gi
+                memory: *memory
     service:
       app:
         controller: *app

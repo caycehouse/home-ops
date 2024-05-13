@@ -47,10 +47,10 @@ spec:
                   name: *secret
             resources:
               requests:
-                cpu: 350m
-                memory: 4G
+                cpu: 342m
+                memory: &memory 1813Mi
               limits:
-                memory: 6G
+                memory: *memory
     defaultPodOptions:
       terminationGracePeriodSeconds: 120
     service:

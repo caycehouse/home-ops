@@ -44,10 +44,10 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 15m
-                memory: 200M
+                cpu: 10m
+                memory: &memory 102Mi
               limits:
-                memory: 2G
+                memory: *memory
           browser:
             image:
               repository: browserless/chrome
@@ -65,6 +65,12 @@ spec:
 
               # Ignore HTTPS errors, like for self-signed certs
               DEFAULT_IGNORE_HTTPS_ERRORS: "true"
+            resources:
+              requests:
+                cpu: 16m
+                memory: &memory 1670Mi
+              limits:
+                memory: *memory
     service:
       app:
         controller: *app

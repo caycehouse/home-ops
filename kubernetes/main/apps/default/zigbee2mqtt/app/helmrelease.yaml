@@ -92,8 +92,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
+                memory: &memory 126Mi
               limits:
-                memory: 512Mi
+                memory: *memory
     defaultPodOptions:
       nodeSelector:
         sonoff.feature.node.kubernetes.io/zigbee: "true"

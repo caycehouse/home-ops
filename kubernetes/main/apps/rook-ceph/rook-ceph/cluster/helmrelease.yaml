@@ -91,27 +91,27 @@ spec:
         mgr:
           requests:
             cpu: 100m
-            memory: 512Mi
+            memory: &memory 512Mi
           limits:
-            memory: 2Gi
+            memory: *memory
         mon:
           requests:
             cpu: 50m
-            memory: 512Mi
+            memory: &memory 512Mi
           limits:
-            memory: 1Gi
+            memory: *memory
         osd:
           requests:
             cpu: 500m
-            memory: 2Gi
+            memory: &memory 2Gi
           limits:
-            memory: 6Gi
+            memory: *memory
         mgr-sidecar:
           requests:
             cpu: 50m
-            memory: 128Mi
+            memory: &memory 128Mi
           limits:
-            memory: 256Mi
+            memory: *memory
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -158,9 +158,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 1Gi
+                memory: &memory 1Gi
               limits:
-                memory: 4Gi
+                memory: *memory
         storageClass:
           enabled: true
           isDefault: false
@@ -200,9 +200,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 1Gi
+                memory: &memory 1Gi
               limits:
-                memory: 2Gi
+                memory: *memory
             instances: 2
             priorityClassName: system-cluster-critical
           healthCheck:

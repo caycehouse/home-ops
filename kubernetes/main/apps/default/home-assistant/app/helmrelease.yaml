@@ -52,9 +52,10 @@ spec:
               capabilities: { drop: ["ALL"], add: ["NET_RAW"] }
             resources:
               requests:
-                cpu: 10m
+                cpu: 13m
+                memory: &memory 406Mi
               limits:
-                memory: 1Gi
+                memory: *memory
     defaultPodOptions:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet

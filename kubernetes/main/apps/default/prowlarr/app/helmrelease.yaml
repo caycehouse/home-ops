@@ -41,12 +41,13 @@ spec:
               repository: ghcr.io/caycehouse/prowlarr
               tag: 1.17.2.4511@sha256:f79ddf6f1a1612db741d065bcb9fa4961e0509ce75f5f76aecce6fd622f2f508
             env:
-              PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 80
-              PROWLARR__LOG_LEVEL: info
-              PROWLARR__AUTHENTICATION_METHOD: Forms
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: Forms
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
               PROWLARR__LOG__DBENABLED: "False"
-              PROWLARR__THEME: dark
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__SERVER__PORT: &port 80
               TZ: America/New_York
             envFrom: *envFrom
             probes:

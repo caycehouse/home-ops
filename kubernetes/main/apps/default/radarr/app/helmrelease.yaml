@@ -44,13 +44,13 @@ spec:
               repository: ghcr.io/caycehouse/radarr
               tag: 5.5.3.8819@sha256:13a04ba58bc77d6a9ee8b1a8848aa6fbfb30da70c4acce0fb81a9fc5259f91cf
             env:
-              RADARR__AUTHENTICATION_METHOD: Forms
-              RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              RADARR__APP__INSTANCENAME: Radarr
+              RADARR__APP__THEME: dark
+              RADARR__AUTH__METHOD: Forms
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
               RADARR__LOG__DBENABLED: "False"
-              RADARR__INSTANCE_NAME: Radarr
-              RADARR__PORT: &port 80
-              RADARR__LOG_LEVEL: info
-              RADARR__THEME: dark
+              RADARR__LOG__LEVEL: info
+              RADARR__SERVER__PORT: &port 80
               TZ: America/New_York
             envFrom: *envFrom
             probes:

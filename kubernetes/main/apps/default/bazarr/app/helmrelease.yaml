@@ -46,12 +46,7 @@ spec:
               repository: ghcr.io/caycehouse/bazarr
               tag: 1.4.2@sha256:f77f263b760d5ee4106185b3b4b918168ffa213e0c582fe7fd6f74dec595cf50
             env:
-              BAZARR__AUTHENTICATION_METHOD: Forms
-              BAZARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              BAZARR__INSTANCE_NAME: Bazarr
               BAZARR__PORT: &port 80
-              BAZARR__LOG_LEVEL: info
-              BAZARR__THEME: dark
               TZ: America/New_York
             envFrom: *envFrom
             securityContext:
@@ -60,10 +55,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 23m
-                memory: 204Mi
+                cpu: 25m
+                memory: 251Mi
               limits:
-                memory: 1Gi
+                memory: 251Mi
           subcleaner:
             image:
               repository: registry.k8s.io/git-sync/git-sync
@@ -74,6 +69,12 @@ spec:
               - --ref=master
               - --period=24h
               - --root=/add-ons
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

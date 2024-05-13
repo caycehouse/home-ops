@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/prowlarr
-              tag: 1.16.2.4435@sha256:d1b33b3d8220e72b8c70b41e73b790bb57e62c97d99f4390f43843fd251aa556
+              tag: 1.17.2.4511@sha256:f79ddf6f1a1612db741d065bcb9fa4961e0509ce75f5f76aecce6fd622f2f508
             env:
               PROWLARR__INSTANCE_NAME: Prowlarr
               PROWLARR__PORT: &port 80

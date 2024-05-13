@@ -72,9 +72,8 @@ spec:
             resources: &resources
               requests:
                 cpu: 10m
-                memory: &memory 256M
               limits:
-                memory: *memory
+                memory: 256Mi
           sync:
             image:
               repository: docker.io/1password/connect-sync

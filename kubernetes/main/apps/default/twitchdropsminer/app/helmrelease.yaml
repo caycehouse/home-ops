@@ -37,10 +37,9 @@ spec:
               tag: master@sha256:4a145246e9ac8eca863e7902990947958afa6fa2f461da617f47a0d034e90ad0
             resources:
               requests:
-                cpu: 14m
-                memory: &memory 228Mi
+                cpu: 25m
               limits:
-                memory: *memory
+                memory: 256Mi
             args: ["./startup.sh"]
     persistence:
       config:

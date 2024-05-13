@@ -45,6 +45,7 @@ spec:
               PROWLARR__PORT: &port 80
               PROWLARR__LOG_LEVEL: info
               PROWLARR__AUTHENTICATION_METHOD: Forms
+              PROWLARR__LOG__DBENABLED: "False"
               PROWLARR__THEME: dark
               TZ: America/New_York
             envFrom: *envFrom

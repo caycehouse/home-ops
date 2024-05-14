@@ -39,7 +39,7 @@ spec:
               requests:
                 cpu: 25m
               limits:
-                memory: 256Mi
+                memory: 512Mi
             args: ["./startup.sh"]
     persistence:
       config:

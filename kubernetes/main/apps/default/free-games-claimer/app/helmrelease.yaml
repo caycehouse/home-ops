@@ -55,7 +55,7 @@ spec:
               requests:
                 cpu: 1000m
               limits:
-                memory: 512Mi
+                memory: 2Gi
     service:
       app:
         controller: free-games-claimer

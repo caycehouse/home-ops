@@ -161,10 +161,9 @@ patches:
   # Force nameserver
   - |-
     machine:
-      network:
-        nameservers:
-          - 1.1.1.1
-          - 9.9.9.9
+      features:
+        hostDNS:
+          enabled: true
 
   # Configure NTP
   - |-

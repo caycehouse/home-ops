@@ -94,23 +94,6 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
-      # extraVolumes:
-      #   - name: nextcloud-apache-config
-      #     configMap:
-      #       defaultMode: 420
-      #       name: nextcloud-apache-config
-      # extraVolumeMounts:
-      #   - mountPath: /etc/apache2/conf-enabled/remoteip.conf
-      #     name: nextcloud-apache-config
-      #     subPath: remoteip.conf
-    nginx:
-      ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
-      enabled: false
-      resources:
-        requests:
-          cpu: 10m
-        limits:
-          memory: 128Mi
     ingress:
       enabled: true
       className: external

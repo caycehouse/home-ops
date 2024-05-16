@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 28.0.5-apache
+      tag: 28.0.5-fpm-alpine
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     cronjob:
@@ -88,18 +88,16 @@ spec:
       extraEnv:
         - name: OVERWRITEPROTOCOL
           value: https
+        - name: PHP_MEMORY_LIMIT
+          value: "1024M"
+        - name: PHP_UPLOAD_LIMIT
+          value: "10G"
       extraInitContainers:
         - name: init-db
           image: ghcr.io/caycehouse/postgres-init:16
           envFrom:
             - secretRef:
                 name: *secret
-      phpConfigs:
-        uploadLimit.ini: |
-          upload_max_filesize = 16G
-          post_max_size = 16G
-          max_input_time = 3600
-          max_execution_time = 3600
     ingress:
       enabled: true
       className: external
@@ -112,13 +110,20 @@ spec:
         gethomepage.dev/group: Storage
         gethomepage.dev/icon: nextcloud
         gethomepage.dev/name: Nextcloud
-        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, X-Real-IP, X-Frame-Options, X-Content-Type-Options, X-Forwarded-Proto"
-        nginx.ingress.kubernetes.io/proxy-body-size: "16G"
-        nginx.ingress.kubernetes.io/proxy-buffering: "off"
-        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+        nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+        nginx.ingress.kubernetes.io/proxy-body-size: '10G'
+        nginx.ingress.kubernetes.io/proxy-max-temp-file-size: 10485760m
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
+        nginx.ingress.kubernetes.io/proxy-connect-timeout: "120s"
+        nginx.ingress.kubernetes.io/client-body-buffer-size: '10G'
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "GET HEAD POST OPTIONS PUT PATCH DELETE PROPFIND MKCOL REPORT"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,X-Forwarded-For"
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;
+          proxy_intercept_errors off;
           rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
           rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
           rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
@@ -145,12 +150,22 @@ spec:
             - *app
     internalDatabase:
       enabled: false
+    nginx:
+      enabled: true
+      resources:
+        requests:
+          cpu: 10m
+        limits:
+          memory: 128Mi
     persistence:
       enabled: true
       existingClaim: *app
       nextcloudData:
         enabled: true
         existingClaim: "nextcloud-data"
+    phpClientHttpsFix:
+      enabled: true
+      protocol: https
     resources:
       requests:
         cpu: 200m

@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 28.0.5-apache
+      tag: 28.0.5-fpm-alpine
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     cronjob:
@@ -117,7 +117,7 @@ spec:
         nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
         nginx.ingress.kubernetes.io/proxy-connect-timeout: "120s"
         nginx.ingress.kubernetes.io/client-body-buffer-size: '10G'
-        nginx.ingress.kubernetes.io/enable-cors: "false"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "GET HEAD POST OPTIONS PUT PATCH DELETE PROPFIND MKCOL REPORT"
         nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,X-Forwarded-For"
         nginx.ingress.kubernetes.io/server-snippet: |-
@@ -150,6 +150,13 @@ spec:
             - *app
     internalDatabase:
       enabled: false
+    nginx:
+      enabled: true
+      resources:
+        requests:
+          cpu: 10m
+        limits:
+          memory: 128Mi
     persistence:
       enabled: true
       existingClaim: *app

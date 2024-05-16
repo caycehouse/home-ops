@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 28.0.5-fpm-alpine
+      tag: 28.0.5-apache
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     cronjob:
@@ -150,22 +150,12 @@ spec:
             - *app
     internalDatabase:
       enabled: false
-    nginx:
-      enabled: true
-      resources:
-        requests:
-          cpu: 10m
-        limits:
-          memory: 128Mi
     persistence:
       enabled: true
       existingClaim: *app
       nextcloudData:
         enabled: true
         existingClaim: "nextcloud-data"
-    phpClientHttpsFix:
-      enabled: true
-      protocol: https
     resources:
       requests:
         cpu: 200m

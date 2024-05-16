@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 28.0.5-fpm-alpine
+      tag: 28.0.5-apache
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     cronjob:
@@ -94,6 +94,15 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
+      extraVolumes:
+        - name: nextcloud-apache-config
+          configMap:
+            defaultMode: 420
+            name: nextcloud-apache-config
+      extraVolumeMounts:
+        - mountPath: /etc/apache2/conf-enabled/remoteip.conf
+          name: nextcloud-apache-config
+          subPath: remoteip.conf
     nginx:
       ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
       enabled: true

@@ -110,20 +110,13 @@ spec:
         gethomepage.dev/group: Storage
         gethomepage.dev/icon: nextcloud
         gethomepage.dev/name: Nextcloud
-        nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
-        nginx.ingress.kubernetes.io/proxy-body-size: "10G"
-        nginx.ingress.kubernetes.io/proxy-max-temp-file-size: 10485760m
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
-        nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
-        nginx.ingress.kubernetes.io/proxy-connect-timeout: "120s"
-        nginx.ingress.kubernetes.io/client-body-buffer-size: "10G"
-        nginx.ingress.kubernetes.io/enable-cors: "false"
-        nginx.ingress.kubernetes.io/cors-allow-methods: "GET HEAD POST OPTIONS PUT PATCH DELETE PROPFIND MKCOL REPORT"
-        nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,X-Forwarded-For"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, X-Real-IP, X-Frame-Options, X-Content-Type-Options, X-Forwarded-Proto"
+        nginx.ingress.kubernetes.io/proxy-body-size: "16G"
+        nginx.ingress.kubernetes.io/proxy-buffering: "off"
+        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;
-          proxy_intercept_errors off;
           rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
           rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
           rewrite ^/.well-known/host-meta /public.php?service=host-meta last;

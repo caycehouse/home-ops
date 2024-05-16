@@ -155,7 +155,7 @@ spec:
       requests:
         cpu: 200m
       limits:
-        memory: 1Gi
+        memory: 5Gi
     startupProbe:
       enabled: true
       initialDelaySeconds: 5

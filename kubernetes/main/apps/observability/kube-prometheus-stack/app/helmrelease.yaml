@@ -51,7 +51,7 @@ spec:
           gethomepage.dev/name: Alertmanager
           gethomepage.dev/app: alertmanager
       alertmanagerSpec:
-        replicas: 3
+        replicas: 2
         useExistingSecret: true
         configSecret: kube-prometheus-stack-secret
         storage:
@@ -120,7 +120,7 @@ spec:
         podMetadata:
           annotations:
             secret.reloader.stakater.com/reload: &secret kube-prometheus-stack-secret
-        replicas: 3
+        replicas: 2
         replicaExternalLabelName: __replica__
         scrapeInterval: 1m # Must match interval in Grafana Helm chart
         ruleSelectorNilUsesHelmValues: false

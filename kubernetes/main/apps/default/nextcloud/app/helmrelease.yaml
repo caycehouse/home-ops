@@ -86,6 +86,10 @@ spec:
             ),
           );
       extraEnv:
+        - name: OVERWRITECLIURL
+          value: "https://${SECRET_DOMAIN}"
+        - name: OVERWRITEHOST
+          value: "${SECRET_DOMAIN}:443"
         - name: OVERWRITEPROTOCOL
           value: https
         - name: PHP_MEMORY_LIMIT

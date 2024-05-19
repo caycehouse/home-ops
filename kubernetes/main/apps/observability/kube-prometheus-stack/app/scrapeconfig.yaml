@@ -22,7 +22,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - "blocky.${SECRET_SERVICE_DOMAIN}"
+        - "blocky.${SECRET_SERVICE_DOMAIN}:443"
   metricsPath: /metrics
   relabelings:
     - action: replace

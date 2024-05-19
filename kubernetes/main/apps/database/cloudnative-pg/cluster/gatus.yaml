@@ -17,3 +17,5 @@ data:
           hide-hostname: true
         conditions:
           - "[CONNECTED] == true"
+        alerts:
+          - type: pushover

@@ -53,7 +53,7 @@ spec:
       alertmanagerSpec:
         replicas: 2
         useExistingSecret: true
-        configSecret: kube-prometheus-stack-secret
+        configSecret: alertmanager-secret
         storage:
           volumeClaimTemplate:
             spec:
@@ -119,7 +119,7 @@ spec:
       prometheusSpec:
         podMetadata:
           annotations:
-            secret.reloader.stakater.com/reload: &secret kube-prometheus-stack-secret
+            secret.reloader.stakater.com/reload: &secret thanos-objstore-config
         replicas: 2
         replicaExternalLabelName: __replica__
         scrapeInterval: 1m # Must match interval in Grafana Helm chart
@@ -140,7 +140,7 @@ spec:
           objectStorageConfig:
             existingSecret:
               name: *secret
-              key: objstore.yml
+              key: config
         retention: 2d
         retentionSize: 15GB
         externalLabels:

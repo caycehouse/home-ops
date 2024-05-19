@@ -179,6 +179,13 @@ spec:
               implementation: prometheus
     dashboards:
       default:
+        blocky:
+          # renovate: depName="blocky"
+          gnetId: 13768
+          revision: 3
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_BLOCKY_URL, value: 'https:\/\/blocky.${SECRET_SERVICE_DOMAIN}' }
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457

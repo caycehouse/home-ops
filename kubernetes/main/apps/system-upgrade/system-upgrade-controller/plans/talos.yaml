@@ -5,7 +5,7 @@ kind: Plan
 metadata:
   name: talos
 spec:
-  version: ${TALOS_VERSION}-a
+  version: ${TALOS_VERSION}
   serviceAccountName: system-upgrade
   secrets:
     - name: talos
@@ -28,7 +28,7 @@ spec:
       operator: Exists
       effect: NoSchedule
   prepare: &prepare
-    image: ghcr.io/caycehouse/talosctl:${TALOS_VERSION}@sha256:ac79c477161c34561224adaf0b315a7443501f0fa85682108aff9afd053b398a
+    image: ghcr.io/caycehouse/talosctl:${TALOS_VERSION}
     envs:
       - name: NODE_IP
         valueFrom:

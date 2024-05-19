@@ -5,7 +5,7 @@ kind: Plan
 metadata:
   name: talos
 spec:
-  version: ${TALOS_VERSION}-ahh
+  version: ${TALOS_VERSION}
   serviceAccountName: system-upgrade
   secrets:
     - name: talos

@@ -164,6 +164,7 @@ patches:
       features:
         hostDNS:
           enabled: true
+          resolveMemberNames: true
 
   # Configure NTP
   - |-

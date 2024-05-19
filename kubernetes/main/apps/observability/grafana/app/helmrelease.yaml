@@ -78,6 +78,8 @@ spec:
         enabled: false
       news:
         news_feed_enabled: false
+      panels:
+        disable_sanitize_html: true
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1

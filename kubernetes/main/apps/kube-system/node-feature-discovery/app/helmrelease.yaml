@@ -29,7 +29,6 @@ spec:
       config:
         core:
           sources: ["pci", "system", "usb"]
-    master:
       tolerations:
         - key: node-role.kubernetes.io/control-plane
           operator: Exists

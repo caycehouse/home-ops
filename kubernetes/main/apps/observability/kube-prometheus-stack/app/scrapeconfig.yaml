@@ -20,9 +20,10 @@ kind: ScrapeConfig
 metadata:
   name: &name blocky
 spec:
+  scheme: https
   staticConfigs:
     - targets:
-        - "blocky.${SECRET_SERVICE_DOMAIN}:443"
+        - "blocky.${SECRET_SERVICE_DOMAIN}"
   metricsPath: /metrics
   relabelings:
     - action: replace

@@ -60,6 +60,7 @@ spec:
         usernameKey: ADMIN_USER
         passwordKey: ADMIN_PASS
         # tokenKey: METRICS_TOKEN
+        smtpHostKey: SMTP_HOST
       defaultConfigs:
         redis.config.php: false
       configs:
@@ -108,7 +109,6 @@ spec:
         domain: ${SECRET_DOMAIN}
         smtp:
           authtype: NONE
-          host: "smtp-relay.${SECRET_SERVICE_DOMAIN}"
           port: 25
     ingress:
       enabled: true

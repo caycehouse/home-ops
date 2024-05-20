@@ -112,6 +112,7 @@ spec:
         smtp:
           authtype: NONE
           port: 25
+          secure: ""
     ingress:
       enabled: true
       className: external

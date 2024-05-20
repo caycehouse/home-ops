@@ -61,6 +61,8 @@ spec:
         passwordKey: ADMIN_PASS
         # tokenKey: METRICS_TOKEN
         smtpHostKey: SMTP_HOST
+        smtpUsernameKey: SMTP_USER
+        smtpPasswordKey: SMTP_PASS
       defaultConfigs:
         redis.config.php: false
       configs:

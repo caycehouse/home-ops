@@ -102,6 +102,14 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
+      mail:
+        enabled: true
+        fromAddress: "nextcloud@${SECRET_DOMAIN}"
+        domain: ${SECRET_DOMAIN}
+        smtp:
+          authtype: NONE
+          host: "smtp-relay.${SECRET_SERVICE_DOMAIN}"
+          port: 25
     ingress:
       enabled: true
       className: external

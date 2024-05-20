@@ -217,6 +217,8 @@ spec:
           # renovate: depName="Nextcloud"
           gnetId: 20716
           revision: 1
+          datasource:
+            - { name: DS_LOCAL, value: Prometheus }
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860

@@ -54,7 +54,6 @@ spec:
         passwordKey: POSTGRES_PASSWORD
     metrics:
       enabled: true
-      https: true
       serviceMonitor:
         enabled: true
     nextcloud:

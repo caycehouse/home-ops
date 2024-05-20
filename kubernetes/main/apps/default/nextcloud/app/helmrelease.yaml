@@ -52,6 +52,11 @@ spec:
         databaseKey: POSTGRES_DB
         usernameKey: POSTGRES_USER
         passwordKey: POSTGRES_PASSWORD
+    metrics:
+      enabled: true
+      https: true
+      serviceMonitor:
+        enabled: true
     nextcloud:
       host: "nc.${SECRET_DOMAIN}"
       existingSecret:
@@ -59,7 +64,6 @@ spec:
         secretName: *secret
         usernameKey: ADMIN_USER
         passwordKey: ADMIN_PASS
-        # tokenKey: METRICS_TOKEN
         smtpHostKey: SMTP_HOST
         smtpUsernameKey: SMTP_USER
         smtpPasswordKey: SMTP_PASS
@@ -190,8 +194,3 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
-    # metrics:
-    #   enabled: true
-    #   https: true
-    #   serviceMonitor:
-    #     enabled: true

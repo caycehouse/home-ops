@@ -107,7 +107,7 @@ spec:
                 name: *secret
       mail:
         enabled: true
-        fromAddress: "nextcloud@${SECRET_DOMAIN}"
+        fromAddress: nextcloud
         domain: ${SECRET_DOMAIN}
         smtp:
           authtype: NONE

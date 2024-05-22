@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: minecraft
-      version: 4.17.0
+      version: 4.18.0
       interval: 30m
       sourceRef:
         kind: HelmRepository

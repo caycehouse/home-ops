@@ -20,6 +20,7 @@ resources:
   - ./meshcentral/ks.yaml
   - ./nextcloud/ks.yaml
   - ./oceanblock/ks.yaml
+  - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml

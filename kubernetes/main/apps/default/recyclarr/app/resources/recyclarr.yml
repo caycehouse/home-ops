@@ -45,9 +45,3 @@ radarr:
       - template: radarr-quality-definition-movie
       - template: radarr-quality-profile-hd-bluray-web
       - template: radarr-custom-formats-hd-bluray-web
-
-    custom_formats:
-      - trash_ids:
-          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
-        quality_profiles:
-          - name: HD Bluray + WEB

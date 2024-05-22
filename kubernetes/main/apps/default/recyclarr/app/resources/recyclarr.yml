@@ -25,6 +25,11 @@ sonarr:
               - WEBDL-720p
               - WEBRip-720p
           - name: HDTV-1080p
+          - name: WEB 480p
+            qualities:
+              - WEBDL-480p
+              - WEBRip-480p
+
 
 ###################################################################################################
 # Recyclarr Configuration Template: HD Bluray + WEB                                               #

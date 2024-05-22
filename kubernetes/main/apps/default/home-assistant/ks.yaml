@@ -27,8 +27,8 @@ spec:
       GATUS_SUBDOMAIN: hass
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_CAPACITY: 5Gi
-      VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
-      VOLSYNC_STORAGECLASS: rook-ceph-filesystem
+      VOLSYNC_SNAPSHOTCLASS: ceph-filesystem
+      VOLSYNC_STORAGECLASS: csi-ceph-filesystem
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1

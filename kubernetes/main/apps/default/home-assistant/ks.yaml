@@ -25,6 +25,7 @@ spec:
     substitute:
       APP: *app
       GATUS_SUBDOMAIN: hass
+      VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_CAPACITY: 5Gi
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json

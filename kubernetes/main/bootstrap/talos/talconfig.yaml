@@ -158,20 +158,13 @@ patches:
         nodeIP:
           validSubnets: ["192.168.4.0/22"]
 
-  # Force nameserver
+  # Enable hostDNS
   - |-
     machine:
       features:
         hostDNS:
           enabled: true
           resolveMemberNames: true
-
-  # Configure NTP
-  - |-
-    machine:
-      time:
-        disabled: false
-        servers: ["time.cloudflare.com"]
 
   # Custom sysctl settings
   - |-
@@ -202,6 +195,8 @@ controlPlane:
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
+        coreDNS:
+          disabled: true
         proxy:
           disabled: true
         scheduler:

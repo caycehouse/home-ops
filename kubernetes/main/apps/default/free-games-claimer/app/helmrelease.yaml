@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: ghcr.io/vogler/free-games-claimer
-              tag: main@sha256:1d4ea56c62e43d1f72b296cb8da76c14bd14d05332368b7f6fc610d7e7b2a3f8
+              tag: main@sha256:824f74c55d315209089fa8900c1cc5d06d3cef1f2e8e098700967a7b08ced42e
             env:
               PG_REDEEM: 1
               PG_CLAIMDLC: 1

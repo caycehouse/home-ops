@@ -5,4 +5,5 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
+  CLUSTER_CLOUDFLARE_TUNNEL_ID: 8ff256a0-7c0f-4755-80e6-5fdc9f3edc6b
   TIMEZONE: "America/New_York"

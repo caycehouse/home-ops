@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: felddy/foundryvtt
-              tag: 11.315.1@sha256:6a79a9fe9110d7447e7b36f534402884a2c88783dc59b7d25943a3c47145ab03
+              tag: 12.324.0@sha256:469098ad090c1a8457d52ee388caaf70c3418cf91a39e6cb75670b16706192fb
             env:
               FOUNDRY_COMPRESS_WEBSOCKET: "true"
               FOUNDRY_MINIFY_STATIC_FILES: "true"

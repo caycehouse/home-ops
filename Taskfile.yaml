@@ -11,10 +11,10 @@ env:
 
 includes:
   external-secrets: .taskfiles/ExternalSecrets
-  flux: .taskfiles/Flux.yaml
+  flux: .taskfiles/Flux
   kubernetes:
     aliases: ["k8s"]
-    taskfile: .taskfiles/Kubernetes.yaml
+    taskfile: .taskfiles/Kubernetes
   talos: .taskfiles/Talos
 
 tasks:

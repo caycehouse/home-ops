@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/valentin-metz/twitchdropsminer
-              tag: master@sha256:a2fb519ab04fe9a09d17814e7264ab76f2dddd43f1914b5cfc0baae36ed2bc19
+              tag: master@sha256:89a04cef0fd4b5fcf037e9dcd583f103485ceb05764fdb4a6647d6821e58da27
             resources:
               requests:
                 cpu: 25m

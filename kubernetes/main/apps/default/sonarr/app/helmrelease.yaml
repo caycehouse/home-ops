@@ -109,7 +109,7 @@ spec:
           gethomepage.dev/name: Sonarr
           gethomepage.dev/widget.type: sonarr
           gethomepage.dev/widget.url: http://sonarr.default.svc.cluster.local
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SONARR_API_KEY}}` }}"
         tls:
           - hosts:
               - *app

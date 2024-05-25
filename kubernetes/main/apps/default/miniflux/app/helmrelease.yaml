@@ -136,4 +136,4 @@ spec:
           gethomepage.dev/name: Miniflux
           gethomepage.dev/widget.type: miniflux
           gethomepage.dev/widget.url: http://miniflux.default.svc.cluster.local
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_MINIFLUX_API_KEY}}"
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_MINIFLUX_API_KEY}}` }}"

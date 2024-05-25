@@ -109,7 +109,7 @@ spec:
           gethomepage.dev/name: Radarr
           gethomepage.dev/widget.type: radarr
           gethomepage.dev/widget.url: http://radarr.default.svc.cluster.local
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_RADARR_API_KEY}}` }}"
         tls:
           - hosts:
               - *app

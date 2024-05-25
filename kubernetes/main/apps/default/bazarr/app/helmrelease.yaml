@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/bazarr
-              tag: 1.4.2@sha256:f77f263b760d5ee4106185b3b4b918168ffa213e0c582fe7fd6f74dec595cf50
+              tag: 1.4.2@sha256:65e2835f8315c829810523bf214a593d749b09cbdf05667db0456986d33b2bc1
             env:
               BAZARR__PORT: &port 80
               TZ: America/New_York

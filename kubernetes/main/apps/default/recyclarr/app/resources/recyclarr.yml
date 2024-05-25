@@ -15,6 +15,10 @@ sonarr:
 
     quality_profiles:
       - name: WEB-1080p
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - "!Language: Not Original or English"
         qualities:
           - name: WEB 1080p
             qualities:

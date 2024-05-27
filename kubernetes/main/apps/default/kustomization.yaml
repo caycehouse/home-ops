@@ -20,7 +20,7 @@ resources:
   - ./meshcentral/ks.yaml
   - ./nextcloud/ks.yaml
   - ./oceanblock/ks.yaml
-  - ./overseerr/ks.yaml
+  # - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
@@ -31,5 +31,5 @@ resources:
   - ./sonarr/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./valheim/ks.yaml
-  # - ./watchlistarr/ks.yaml
+  - ./watchlistarr/ks.yaml
   - ./zigbee2mqtt/ks.yaml

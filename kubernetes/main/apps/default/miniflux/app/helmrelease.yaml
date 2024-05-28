@@ -118,14 +118,6 @@ spec:
             scrapeTimeout: 10s
     ingress:
       app:
-        className: external
-        hosts:
-          - host: "rss.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           gethomepage.dev/description: Minimalist and opinionated feed reader
@@ -137,3 +129,11 @@ spec:
           gethomepage.dev/widget.type: miniflux
           gethomepage.dev/widget.url: http://miniflux.default.svc.cluster.local
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_MINIFLUX_API_KEY}}` }}"
+        className: external
+        hosts:
+          - host: "rss.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http

@@ -49,13 +49,6 @@ spec:
           serviceMonitor:
             enabled: true
       ui:
-        enabled: true
-        rollOutPods: true
-        ingress:
-          enabled: true
-          className: tailscale
-        hosts:
-          - &host "hubble"
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://hubble.${SECRET_TS_DOMAIN}"
@@ -63,6 +56,13 @@ spec:
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: cilium
           gethomepage.dev/name: Hubble
+        enabled: true
+        hosts:
+          - &host "hubble"
+        ingress:
+          enabled: true
+          className: tailscale
+        rollOutPods: true
         tls:
           - hosts:
               - *host

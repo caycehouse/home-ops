@@ -77,7 +77,13 @@ spec:
             port: 5000
     ingress:
       tailscale:
-        enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://changedetection.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/description: Website change detection
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: changedetection-io
+          gethomepage.dev/name: changedetection.io
         className: tailscale
         hosts:
           - host: *app
@@ -89,13 +95,6 @@ spec:
         tls:
           - hosts:
               - *app
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://changedetection.${SECRET_TS_DOMAIN}"
-          gethomepage.dev/description: Website change detection
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: changedetection-io
-          gethomepage.dev/name: changedetection.io
     persistence:
       config:
         existingClaim: *app

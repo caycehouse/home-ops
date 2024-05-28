@@ -94,14 +94,6 @@ spec:
             port: 32400
     ingress:
       app:
-        className: tailscale
-        hosts:
-          - host: *app
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
         annotations:
           gethomepage.dev/description: Media streaming platform
           gethomepage.dev/enabled: "true"
@@ -112,6 +104,14 @@ spec:
           gethomepage.dev/widget.type: plex
           gethomepage.dev/widget.url: http://plex.default.svc.cluster.local:32400
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PLEX_TOKEN}}` }}"
+        className: tailscale
+        hosts:
+          - host: *app
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
         tls:
           - hosts:
               - *app

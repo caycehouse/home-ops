@@ -92,14 +92,6 @@ spec:
             port: *port
     ingress:
       app:
-        className: tailscale
-        hosts:
-          - host: *app
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
         annotations:
           gethomepage.dev/description: Movie PVR
           gethomepage.dev/enabled: "true"
@@ -110,6 +102,14 @@ spec:
           gethomepage.dev/widget.type: radarr
           gethomepage.dev/widget.url: http://radarr.default.svc.cluster.local
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_RADARR_API_KEY}}` }}"
+        className: tailscale
+        hosts:
+          - host: *app
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
         tls:
           - hosts:
               - *app

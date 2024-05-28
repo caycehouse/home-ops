@@ -56,14 +56,6 @@ spec:
             port: 4430
     ingress:
       app:
-        className: external
-        hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
         annotations:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
@@ -73,6 +65,14 @@ spec:
           gethomepage.dev/group: Remote Access
           gethomepage.dev/icon: meshcentral
           gethomepage.dev/name: MeshCentral
+        className: external
+        hosts:
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
     persistence:
       config:
         type: secret

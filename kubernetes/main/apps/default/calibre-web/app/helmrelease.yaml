@@ -70,14 +70,6 @@ spec:
             port: 8083
     ingress:
       app:
-        className: external
-        hosts:
-          - host: "calibre-web.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           nginx.ingress.kubernetes.io/auth-method: GET
@@ -91,6 +83,14 @@ spec:
           gethomepage.dev/href: "https://calibre-web.${SECRET_DOMAIN}"
           gethomepage.dev/icon: calibre-web
           gethomepage.dev/name: Calibre-Web
+        className: external
+        hosts:
+          - host: "calibre-web.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
     persistence:
       data:
         existingClaim: *app

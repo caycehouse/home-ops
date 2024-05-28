@@ -64,6 +64,19 @@ spec:
             port: 6080
     ingress:
       app:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://fgc.${SECRET_DOMAIN}"
+          gethomepage.dev/description: Free games claimer
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: mdi-gamepad
+          gethomepage.dev/name: free-games-claimer
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: https://auth.${SECRET_DOMAIN}/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}/?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
         className: external
         hosts:
           - host: "fgc.${SECRET_DOMAIN}"
@@ -72,19 +85,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          nginx.ingress.kubernetes.io/auth-method: GET
-          nginx.ingress.kubernetes.io/auth-url: https://auth.${SECRET_DOMAIN}/api/verify
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}/?rm=$request_method
-          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://fgc.${SECRET_DOMAIN}"
-          gethomepage.dev/description: Free games claimer
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: mdi-gamepad
-          gethomepage.dev/name: free-games-claimer
     persistence:
       config:
         existingClaim: free-games-claimer

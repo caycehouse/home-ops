@@ -29,8 +29,15 @@ spec:
       createSecret: false
       username: admin
     ingress:
-      enabled: true
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/href: "https://weave-gitops.${SECRET_TS_DOMAIN}"
+        gethomepage.dev/description: Flux Dashboard
+        gethomepage.dev/group: Utilities
+        gethomepage.dev/icon: flux-cd
+        gethomepage.dev/name: Weave GitOps
       className: tailscale
+      enabled: true
       hosts:
         - host: &host "weave-gitops"
           paths:
@@ -39,13 +46,6 @@ spec:
       tls:
         - hosts:
             - *host
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/href: "https://weave-gitops.${SECRET_TS_DOMAIN}"
-        gethomepage.dev/description: Flux Dashboard
-        gethomepage.dev/group: Utilities
-        gethomepage.dev/icon: flux-cd
-        gethomepage.dev/name: Weave GitOps
     networkPolicy:
       create: false
     metrics:

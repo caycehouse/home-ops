@@ -79,7 +79,6 @@ spec:
             port: *port
     ingress:
       app:
-        className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           gethomepage.dev/enabled: "true"
@@ -88,6 +87,7 @@ spec:
           gethomepage.dev/group: Starr
           gethomepage.dev/icon: overseerr
           gethomepage.dev/name: Overseerr
+        className: external
         hosts:
           - host: requests.${SECRET_DOMAIN}
             paths:

@@ -92,14 +92,6 @@ spec:
             port: *port
     ingress:
       app:
-        className: tailscale
-        hosts:
-          - host: *app
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
         annotations:
           gethomepage.dev/description: TV PVR
           gethomepage.dev/enabled: "true"
@@ -110,6 +102,14 @@ spec:
           gethomepage.dev/widget.type: sonarr
           gethomepage.dev/widget.url: http://sonarr.default.svc.cluster.local
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SONARR_API_KEY}}` }}"
+        className: tailscale
+        hosts:
+          - host: *app
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
         tls:
           - hosts:
               - *app

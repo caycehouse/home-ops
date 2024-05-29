@@ -3,7 +3,7 @@
 version: "3"
 
 vars:
-  # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+  # renovate: depName=ghcr.io/caycehouse/talosctl datasource=docker
   TALOS_VERSION: v1.7.3
   TALOS_SCHEMATIC_ID: 3004534d25c1c6fc8994de543ce02927bd912600036d25e60ef448d1a3351970
   # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker

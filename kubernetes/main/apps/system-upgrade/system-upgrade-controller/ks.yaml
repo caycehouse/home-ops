@@ -46,7 +46,7 @@ spec:
   timeout: 5m
   postBuild:
     substitute:
-      # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+      # renovate: depName=ghcr.io/caycehouse/talosctl datasource=docker
       TALOS_VERSION: v1.7.3
       # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
       KUBERNETES_VERSION: v1.30.1

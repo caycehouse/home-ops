@@ -46,6 +46,7 @@ spec:
   timeout: 5m
   postBuild:
     substitute:
+      TALOS_SCHEMATIC_ID: 7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
       # renovate: depName=ghcr.io/caycehouse/talosctl datasource=docker
       TALOS_VERSION: v1.7.3
       # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker

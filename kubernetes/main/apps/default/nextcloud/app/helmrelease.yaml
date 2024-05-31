@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 28.0.5-apache
+      tag: 28.0.6-apache
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     cronjob:

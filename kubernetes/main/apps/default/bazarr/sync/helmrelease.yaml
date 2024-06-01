@@ -25,11 +25,7 @@ spec:
   values:
     controllers:
       bazarr-sync:
-        type: cronjob
-        cronjob:
-          timeZone: America/New_York
-          schedule: "0 12 * * *"
-          backoffLimit: 3
+        type: job
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -41,6 +37,7 @@ spec:
               - bazarr-sync
               - sync
               - movies
+              - --golden-section
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

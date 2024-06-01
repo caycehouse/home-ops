@@ -36,7 +36,7 @@ spec:
             args:
               - bazarr-sync
               - sync
-              - movies
+              - shows
               - --golden-section
             securityContext:
               allowPrivilegeEscalation: false

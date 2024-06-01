@@ -37,7 +37,7 @@ spec:
             image:
               repository: ghcr.io/ajmandourah/bazarr-sync
               tag: latest@sha256:495a3f510d4c12fa9cb7367014a8b772e0afc0f89ffb706a3d2b380480eeab97
-            command: bazarr-sync sync movies
+            command: /usr/src/app/cmd/bazarr-sync sync movies
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -55,7 +55,7 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [44, 10000]
-        seccompProfile: { type: RuntimeDefault }
+        seccompProfile: { type: RuntimeDefault }bazarr sync github
     persistence:
       config:
         type: secret

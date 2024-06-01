@@ -38,6 +38,7 @@ spec:
               repository: ghcr.io/ajmandourah/bazarr-sync
               tag: latest@sha256:495a3f510d4c12fa9cb7367014a8b772e0afc0f89ffb706a3d2b380480eeab97
             args:
+              - bazarr-sync
               - sync
               - movies
             securityContext:

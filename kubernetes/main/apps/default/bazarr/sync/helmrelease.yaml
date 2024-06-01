@@ -25,6 +25,11 @@ spec:
   values:
     controllers:
       bazarr-sync:
+        type: cronjob
+        cronjob:
+          timeZone: America/New_York
+          schedule: "0 12 * * *"
+          backoffLimit: 3
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

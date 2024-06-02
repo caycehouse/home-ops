@@ -12,6 +12,20 @@ x-env-vars: &env-vars
 
 tasks:
 
+  apply:
+    desc: Apply the Talos configs to the nodes
+    cmds:
+      - talhelper gencommand apply
+        --env-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talenv.sops.yaml
+        --config-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
+        --out-dir {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig | bash
+    requires:
+      vars: ["cluster"]
+    preconditions:
+      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talenv.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
+      - test -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig
+
   bootstrap:
     desc: Bootstrap Talos
     prompt: Bootstrap Talos on the '{{.cluster}}' cluster ... continue?

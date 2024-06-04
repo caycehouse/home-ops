@@ -57,6 +57,7 @@ spec:
         excludeMods:
           - custom-fov
         filenameMatcher: "1.8.0"
+        forceSynchronize: true
         slug: "tnp-limitless-7"
     persistence:
       dataDir:

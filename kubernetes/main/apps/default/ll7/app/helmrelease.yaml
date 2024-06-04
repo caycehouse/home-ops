@@ -84,6 +84,7 @@ spec:
       ENABLE_ROLLING_LOGS: "true"
       SIMULATION_DISTANCE: "8"
       SNOOPER_ENABLED: "false"
+      STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
       USE_AIKAR_FLAGS: "true"
     envFrom:

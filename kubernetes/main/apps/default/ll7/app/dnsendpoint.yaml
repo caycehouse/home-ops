@@ -8,4 +8,4 @@ spec:
   endpoints:
     - dnsName: "ll7.${SECRET_GAMING_DOMAIN}"
       recordType: CNAME
-      targets: ["ipv4.${SECRET_GAMING_DOMAIN}"]
+      targets: ["mc.${SECRET_GAMING_DOMAIN}"]

@@ -14,7 +14,7 @@ spec:
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"
-    - dnsName: "ipv4.${SECRET_GAMING_DOMAIN}"
+    - dnsName: "mc.${SECRET_GAMING_DOMAIN}"
       recordType: A
       targets: ["${CLUSTER_PUBLIC_IP}"]
       providerSpecific:

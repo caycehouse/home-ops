@@ -15,9 +15,10 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./linkding/ks.yaml
+  - ./ll7/ks.yaml
+  - ./meshcentral/ks.yaml
   - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
-  - ./meshcentral/ks.yaml
   - ./nextcloud/ks.yaml
   - ./oceanblock/ks.yaml
   # - ./overseerr/ks.yaml

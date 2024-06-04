@@ -54,6 +54,8 @@ spec:
       autoCurseForge:
         apiKey:
           key: ${CF_API_KEY}
+        excludeMods:
+          - customfov
         filenameMatcher: "1.8.0"
         slug: "tnp-limitless-7"
     persistence:

@@ -54,7 +54,7 @@ spec:
       autoCurseForge:
         apiKey:
           key: ${CF_API_KEY}
-        filenameMatcher: "v1.8.0"
+        filenameMatcher: "1.8.0"
         slug: "tnp-limitless-7"
     persistence:
       dataDir:

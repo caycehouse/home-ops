@@ -55,7 +55,7 @@ spec:
         apiKey:
           key: ${CF_API_KEY}
         excludeMods:
-          - customfov
+          - custom-fov
         filenameMatcher: "1.8.0"
         slug: "tnp-limitless-7"
     persistence:

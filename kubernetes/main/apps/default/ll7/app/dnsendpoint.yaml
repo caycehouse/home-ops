@@ -6,6 +6,6 @@ metadata:
   name: ll7
 spec:
   endpoints:
-    - dnsName: "ipv4.${SECRET_GAMING_DOMAIN}"
+    - dnsName: "ll7.${SECRET_GAMING_DOMAIN}"
       recordType: CNAME
-      targets: ["ll7.${SECRET_GAMING_DOMAIN}"]
+      targets: ["ipv4.${SECRET_GAMING_DOMAIN}"]

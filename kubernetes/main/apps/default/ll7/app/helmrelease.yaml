@@ -36,6 +36,7 @@ spec:
     image:
       tag: 2024.4.0-java17@sha256:4ddb83d56f450e736284442c4c7d143f63595cf3d2039140476013ce89901af8
     serviceAnnotations:
+      mc-router.itzg.me/externalServerName: ll7.${SECRET_GAMING_DOMAIN}
       tailscale.com/expose: "true"
       tailscale.com/hostname: *app
     livenessProbe: &probes
@@ -52,14 +53,12 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      loadBalancerIP: 192.168.4.9
       maxPlayers: 10
       maxTickTime: 300000
       memory: "10G"
       motd: "§fT§9N§fP §9L§fimit§9l§fess 7 Server | v1.8.0"
       ops: "FryyourBacon"
       overrideServerProperties: true
-      serviceType: LoadBalancer
       spawnProtection: 0
       type: "AUTO_CURSEFORGE"
       viewDistance: 8

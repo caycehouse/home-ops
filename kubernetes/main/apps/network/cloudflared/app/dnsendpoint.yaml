@@ -8,13 +8,13 @@ spec:
     - dnsName: "external.${SECRET_DOMAIN}"
       recordType: CNAME
       targets: ["${CLUSTER_CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"]
-    - dnsName: "ipv4.${SECRET_GAMING_DOMAIN}"
+    - dnsName: "ipv4.${SECRET_DOMAIN}"
       recordType: A
       targets: ["${CLUSTER_PUBLIC_IP}"]
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"
-    - dnsName: "ipv4.${SECRET_DOMAIN}"
+    - dnsName: "ipv4.${SECRET_GAMING_DOMAIN}"
       recordType: A
       targets: ["${CLUSTER_PUBLIC_IP}"]
       providerSpecific:

@@ -47,7 +47,7 @@ spec:
               - secretRef:
                   name: *secret
             probes:
-              liveness: &probe
+              liveness:
                 enabled: true
                 custom: true
                 spec:
@@ -56,8 +56,26 @@ spec:
                       - /bin/bash
                       - -c
                       - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
-              readiness: *probe
-              startup: *probe
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/bash
+                      - -c
+                      - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/bash
+                      - -c
+                      - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
+                  failureThreshold: 60
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 320m

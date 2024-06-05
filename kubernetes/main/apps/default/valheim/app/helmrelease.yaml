@@ -41,6 +41,7 @@ spec:
             env:
               BACKUPS: "false"
               SERVER_NAME: "The Fryer's Valheim Server"
+              STATUS_HTTP: true
               TZ: America/New_York
             envFrom:
               - secretRef:

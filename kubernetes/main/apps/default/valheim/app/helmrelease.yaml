@@ -46,6 +46,16 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
+              readiness: *probe
+              startup: *probe
             resources:
               requests:
                 cpu: 320m

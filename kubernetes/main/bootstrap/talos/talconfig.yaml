@@ -161,7 +161,7 @@ patches:
           validSubnets:
             - "192.168.4.0/22"
 
-  # Enable hostDNS
+  # Enable host dns
   - |-
     machine:
       features:

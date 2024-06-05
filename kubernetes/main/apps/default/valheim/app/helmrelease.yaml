@@ -53,6 +53,8 @@ spec:
                 spec:
                   exec:
                     command:
+                      - /bin/bash
+                      - -c
                       - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
               readiness: *probe
               startup: *probe

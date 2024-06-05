@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ingress-nginx-external
+  name: nginx-external
 spec:
   interval: 30m
   chart:
@@ -20,6 +20,7 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   valuesFrom:
     - targetPath: controller.maxmindLicenseKey
@@ -27,14 +28,13 @@ spec:
       name: nginx-external-maxmind-secret
       valuesKey: MAXMIND_LICENSE_KEY
   values:
-    fullnameOverride: ingress-nginx-external
+    fullnameOverride: nginx-external
     controller:
       replicaCount: 2
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN},ipv4.${SECRET_DOMAIN}"
-          io.cilium/lb-ipam-ips: "192.168.4.4"
-        externalTrafficPolicy: Cluster
+          external-dns.alpha.kubernetes.io/hostname: external.${SECRET_DOMAIN},ipv4.${SECRET_DOMAIN}
+          io.cilium/lb-ipam-ips: 192.168.4.4
       ingressClassResource:
         name: external
         default: false
@@ -45,6 +45,7 @@ spec:
             - key: ingress-class
               operator: In
               values: ["external"]
+      allowSnippetAnnotations: true
       config:
         block-user-agents: "GPTBot,~*GPTBot*,ChatGPT-User,~*ChatGPT-User*,Google-Extended,~*Google-Extended*,CCBot,~*CCBot*,Omgilibot,~*Omgilibot*,FacebookBot,~*FacebookBot*" # taken from https://github.com/superseriousbusiness/gotosocial/blob/main/internal/web/robots.go
         client-body-buffer-size: 100M
@@ -79,6 +80,7 @@ spec:
       extraArgs:
         # default-ssl-certificate: "network/${SECRET_DOMAIN/./-}-staging-tls"
         default-ssl-certificate: "network/${SECRET_DOMAIN/./-}-production-tls"
+      terminationGracePeriodSeconds: 120
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
@@ -86,15 +88,8 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: ingress-nginx
-              app.kubernetes.io/instance: ingress-nginx-external
+              app.kubernetes.io/instance: nginx-external
               app.kubernetes.io/component: controller
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/worker
-                    operator: Exists
       resources:
         requests:
           cpu: 100m

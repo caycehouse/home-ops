@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/sonarr
-              tag: 4.0.5.1710@sha256:5b807dd7c5e822c1a4e443759c838514728eff7aa92ba2a1553787add6e2bdcd
+              tag: 4.0.5.1710@sha256:171cec7dfc4780fb4dc93b44cb467cdad7734fa76d316cd72d2cf75384f64aca
             env:
               SONARR__AUTHENTICATION_METHOD: Forms
               SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses

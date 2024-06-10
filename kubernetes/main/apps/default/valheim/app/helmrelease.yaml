@@ -17,11 +17,13 @@ spec:
   install:
     remediation:
       retries: 3
+    timeout: 20m
   upgrade:
     cleanupOnFail: true
     remediation:
       strategy: rollback
       retries: 3
+    timeout: 20m
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -74,7 +76,7 @@ spec:
                       - /bin/bash
                       - -c
                       - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
-                  failureThreshold: 60
+                  failureThreshold: 120
                   periodSeconds: 10
             resources:
               requests:

@@ -56,7 +56,7 @@ spec:
       maxPlayers: 10
       maxTickTime: 300000
       memory: "10G"
-      motd: "§fT§9N§fP §9L§fimit§9l§fess 7 Server | v1.8.0"
+      motd: "§fT§9N§fP §9L§fimit§9l§fess 7 Server | v1.9.0"
       ops: "FryyourBacon"
       overrideServerProperties: true
       spawnProtection: 0
@@ -67,7 +67,7 @@ spec:
           key: ${CF_API_KEY}
         excludeMods:
           - custom-fov
-        filenameMatcher: "1.8.0"
+        filenameMatcher: "1.9.0"
         forceSynchronize: true
         slug: "tnp-limitless-7"
     persistence:

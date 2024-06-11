@@ -61,7 +61,7 @@ spec:
     extraArgs:
       - --ignore-ingress-tls-spec
     policy: sync
-    sources: ["ingress", "service"]
+    sources: ["crd", "ingress", "service"]
     txtOwnerId: main
     txtPrefix: k8s.main.
     domainFilters: ["${SECRET_DOMAIN}", "${SECRET_GAMING_DOMAIN}"]

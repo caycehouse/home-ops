@@ -54,8 +54,12 @@ spec:
             cpu: "1"
             memory: "1Gi"
         volumeMounts:
-          - name: atm9-downloads
-            mountPath: "/downloads"
+          - name: downloads
+            mountPath: /downloads
+        volumes:
+          - name: downloads
+            persistentVolumeClaim:
+              claimName: atm9-downloads
         imagePullPolicy: IfNotPresent
         securityContext:
           capabilities:

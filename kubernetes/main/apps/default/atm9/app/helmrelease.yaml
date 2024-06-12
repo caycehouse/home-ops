@@ -55,7 +55,7 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      jvmXXOpts: "-XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75"
+      jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxTickTime: 180000
       memory: null
@@ -81,7 +81,6 @@ spec:
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
-      # MEMORY: ""
       SIMULATION_DISTANCE: "10"
       SNOOPER_ENABLED: "false"
       STOP_SERVER_ANNOUNCE_DELAY: 60

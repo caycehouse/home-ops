@@ -33,10 +33,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    downloadUrls:
-      - "https://mediafilez.forgecdn.net/files/4802/113/totw_modded-1.0.2-1.20.1.jar"
-      - "https://mediafilez.forgecdn.net/files/4937/872/Structory_1.20.2_v1.3.4.jar"
-      - "https://mediafilez.forgecdn.net/files/5074/926/allthewizardgear-1.20.1-1.0.11.jar"
     initContainers:
       - name: download
         image: curlimages/curl:8.1.2
@@ -44,9 +40,9 @@ spec:
           - "-C"
           - "-"
           - "-LOf"
-          - >
-            {{- $urls := .Values.downloadUrls | join "," -}}
-            {{ tpl $urls . }}
+          - "https://mediafilez.forgecdn.net/files/4802/113/totw_modded-1.0.2-1.20.1.jar"
+          - "https://mediafilez.forgecdn.net/files/4937/872/Structory_1.20.2_v1.3.4.jar"
+          - "https://mediafilez.forgecdn.net/files/5074/926/allthewizardgear-1.20.1-1.0.11.jar"
         workingDir: "/downloads"
         resources:
           limits:

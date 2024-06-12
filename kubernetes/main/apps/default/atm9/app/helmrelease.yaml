@@ -54,7 +54,7 @@ spec:
             cpu: "1"
             memory: "1Gi"
         volumeMounts:
-          - name: "downloads"
+          - name: "atm9-downloads"
             mountPath: "/downloads"
         imagePullPolicy: IfNotPresent
         securityContext:
@@ -125,7 +125,6 @@ spec:
       limits:
         memory: *mem
     extraVolumes:
-      downloads:
-        - volumeMounts:
-            - name: downloads
-              mountPath: /downloads
+      - volumeMounts:
+          - name: atm9-downloads
+            mountPath: /downloads

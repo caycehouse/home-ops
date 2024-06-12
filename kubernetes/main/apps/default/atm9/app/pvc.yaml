@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: downloads
+  name: atm9-downloads
 spec:
   accessModes: ["ReadWriteOnce"]
   resources:

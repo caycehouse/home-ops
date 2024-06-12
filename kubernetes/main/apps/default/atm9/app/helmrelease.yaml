@@ -124,3 +124,8 @@ spec:
         memory: &mem 12Gi
       limits:
         memory: *mem
+    extraVolumes:
+      downloads:
+        - volumeMounts:
+            - name: downloads
+              mountPath: /downloads

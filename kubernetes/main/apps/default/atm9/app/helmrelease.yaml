@@ -55,7 +55,7 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      jvmXXOpts: "-XX:MaxRAMPercentage=75"
+      jvmXXOpts: "-XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxTickTime: 180000
       memory: ""
@@ -64,7 +64,7 @@ spec:
       overrideServerProperties: true
       spawnProtection: 0
       type: "AUTO_CURSEFORGE"
-      viewDistance: 8
+      viewDistance: 10
       autoCurseForge:
         apiKey:
           key: ${CF_API_KEY}
@@ -81,7 +81,7 @@ spec:
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
-      SIMULATION_DISTANCE: "8"
+      SIMULATION_DISTANCE: "10"
       SNOOPER_ENABLED: "false"
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"

@@ -35,7 +35,7 @@ spec:
   values:
     initContainers:
       - name: download
-        image: curlimages/curl:8.1.2
+        image: curlimages/curl:8.8.0
         args:
           - "-C"
           - "-"

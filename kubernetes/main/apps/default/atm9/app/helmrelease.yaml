@@ -44,10 +44,9 @@ spec:
           - "-C"
           - "-"
           - "-LOf"
-          - >-
-            {{- range $url := .Values.downloadUrls }}
-              {{$url}},
-            {{- end }}
+          - >
+            {{- $urls := .Values.downloadUrls | join "," -}}
+            {{ tpl $urls . }}
         workingDir: "/downloads"
         resources:
           limits:

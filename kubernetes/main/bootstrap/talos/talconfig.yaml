@@ -157,6 +157,8 @@ patches:
       kubelet:
         extraArgs:
           rotate-server-certificates: true
+        extraConfig:
+          maxPods: 150
         nodeIP:
           validSubnets:
             - "192.168.4.0/22"

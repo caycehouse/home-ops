@@ -5,6 +5,7 @@ resources:
   - ./namespace.yaml
   - ./allinone/ks.yaml
   - ./archisteamfarm/ks.yaml
+  - ./atm9/ks.yaml
   - ./atuin/ks.yaml
   - ./authelia/ks.yaml
   - ./bazarr/ks.yaml

@@ -1,0 +1,97 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app atm9
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.19.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: itzg
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+    timeout: 10m
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+    timeout: 10m
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      tag: 2024.4.0-java17@sha256:4ddb83d56f450e736284442c4c7d143f63595cf3d2039140476013ce89901af8
+    serviceAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: "atm9.${SECRET_GAMING_DOMAIN}"
+      external-dns.alpha.kubernetes.io/target: "mc.${SECRET_GAMING_DOMAIN}"
+      mc-router.itzg.me/externalServerName: atm9.${SECRET_GAMING_DOMAIN}
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: *app
+    livenessProbe: &probes
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      failureThreshold: 3
+      timeoutSeconds: 2
+    readinessProbe: *probes
+    startupProbe:
+      enabled: true
+      failureThreshold: 60
+      periodSeconds: 10
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      jvmXXOpts: "-XX:MaxRAMPercentage=75"
+      maxPlayers: 10
+      maxTickTime: 180000
+      memory: ""
+      motd: "All the Mods 9 | 0.2.60"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      spawnProtection: 0
+      type: "AUTO_CURSEFORGE"
+      viewDistance: 8
+      autoCurseForge:
+        apiKey:
+          key: ${CF_API_KEY}
+        filenameMatcher: "0.2.60"
+        slug: "all-the-mods-9"
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: *app
+    rcon:
+      enabled: true
+      existingSecret: &secret allinone-secret
+      secretKey: RCON_PASSWORD
+    extraEnv:
+      ALLOW_FLIGHT: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      SIMULATION_DISTANCE: "8"
+      SNOOPER_ENABLED: "false"
+      STOP_SERVER_ANNOUNCE_DELAY: 60
+      SYNC_CHUNK_WRITES: "false"
+      USE_AIKAR_FLAGS: "true"
+    envFrom:
+      - secretRef:
+          name: *secret
+    resources:
+      requests:
+        cpu: 500m
+        memory: &mem 12Gi
+      limits:
+        memory: *mem

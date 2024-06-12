@@ -126,5 +126,9 @@ spec:
         memory: *mem
     extraVolumes:
       - volumeMounts:
-          - name: atm9-downloads
+          - name: downloads
             mountPath: /downloads
+        volumes:
+          - name: downloads
+            persistentVolumeClaim:
+              claimName: atm9-downloads

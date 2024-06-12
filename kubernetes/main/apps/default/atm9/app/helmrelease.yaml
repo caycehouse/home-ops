@@ -81,17 +81,18 @@ spec:
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
+      MEMORY: ""
       SIMULATION_DISTANCE: "10"
       SNOOPER_ENABLED: "false"
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
-      USE_AIKAR_FLAGS: "false"
+      USE_AIKAR_FLAGS: "true"
     envFrom:
       - secretRef:
           name: *secret
     resources:
       requests:
         cpu: 500m
-        memory: &mem 16Gi
+        memory: &mem 12Gi
       limits:
         memory: *mem

@@ -39,7 +39,7 @@ spec:
       - "https://mediafilez.forgecdn.net/files/5074/926/allthewizardgear-1.20.1-1.0.11.jar"
     initContainers:
       - name: download
-        image: curlimages/curl:8.1.2
+        image: curlimages/curl:8.8.0
         args:
           - "-C"
           - "-"

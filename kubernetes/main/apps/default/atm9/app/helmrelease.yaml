@@ -129,7 +129,7 @@ spec:
       - secretRef:
           name: *secret
     extraPodSpec:
-      terminationGracePeriodSeconds: 120
+      terminationGracePeriodSeconds: "120"
     resources:
       requests:
         cpu: 500m

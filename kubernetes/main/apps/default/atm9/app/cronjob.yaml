@@ -20,7 +20,7 @@ spec:
                 - atm9-minecraft-rcon.default.svc.cluster.local
                 - --password
                 - $(RCON_PASSWORD)
-                - help
+                - stop
               env:
                 - name: RCON_PASSWORD
                   valueFrom:

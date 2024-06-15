@@ -95,7 +95,7 @@ spec:
       forcegameMode: true
       maxPlayers: 10
       maxTickTime: 180000
-      memory: 16G
+      memory: "16G"
       motd: "All the Mods 9 | 0.2.60"
       ops: "FryyourBacon"
       overrideServerProperties: true

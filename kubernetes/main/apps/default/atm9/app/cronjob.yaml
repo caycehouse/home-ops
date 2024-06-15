@@ -15,6 +15,5 @@ spec:
           containers:
             - name: rcon-cli
               image: itzg/rcon-cli
-              command:
-                - rcon-cli
+              args:
                 - help

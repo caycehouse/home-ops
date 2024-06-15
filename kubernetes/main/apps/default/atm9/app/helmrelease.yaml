@@ -133,7 +133,7 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: &mem 18Gi
+        memory: &mem 20Gi
       limits:
         memory: *mem
     extraVolumes:

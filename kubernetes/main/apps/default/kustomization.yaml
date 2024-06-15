@@ -17,7 +17,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./linkding/ks.yaml
-  - ./ll7/ks.yaml
   - ./meshcentral/ks.yaml
   - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml

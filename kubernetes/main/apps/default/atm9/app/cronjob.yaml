@@ -48,5 +48,5 @@ spec:
                 - bash
                 - -c
                 - >-
-                  kubectl rollout restart deployment/atm9 &&
-                  kubectl rollout status deployment/atm9
+                  kubectl rollout restart deployment/atm9-minecraft &&
+                  kubectl rollout status deployment/atm9-minecraft

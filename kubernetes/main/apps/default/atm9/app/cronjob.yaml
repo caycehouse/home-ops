@@ -11,6 +11,7 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: Never
           containers:
             - name: rcon-cli
               image: itzg/rcon-cli

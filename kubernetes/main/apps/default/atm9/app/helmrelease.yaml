@@ -49,6 +49,10 @@ spec:
           - "-"
           - "-LOf"
           - "https://mediafilez.forgecdn.net/files/5352/30/allthewizardgear-1.20.1-1.1.3.jar"
+          - "-C"
+          - "-"
+          - "-LOf"
+          - "https://mediafilez.forgecdn.net/files/5340/919/leaky-1.20.1-2.1.jar"
         workingDir: "/downloads"
         resources:
           limits:
@@ -89,15 +93,15 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxTickTime: 180000
+      memory: 16G
       motd: "All the Mods 9 | 0.2.60"
       ops: "FryyourBacon"
       overrideServerProperties: true
-      spawnProtection: 0
+      spawnProtection: 1
       type: "AUTO_CURSEFORGE"
-      viewDistance: 10
+      viewDistance: 6
       autoCurseForge:
         apiKey:
           key: ${CF_API_KEY}
@@ -113,9 +117,10 @@ spec:
       secretKey: RCON_PASSWORD
     extraEnv:
       ALLOW_FLIGHT: "true"
+      ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
-      MEMORY: ""
-      SIMULATION_DISTANCE: "10"
+      OP_PERMISSION_LEVEL: "3"
+      SIMULATION_DISTANCE: "4"
       SNOOPER_ENABLED: "false"
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
@@ -126,7 +131,7 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: &mem 12Gi
+        memory: &mem 18Gi
       limits:
         memory: *mem
     extraVolumes:

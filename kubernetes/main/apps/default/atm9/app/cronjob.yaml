@@ -18,4 +18,12 @@ spec:
               args:
                 - --host
                 - atm9-minecraft-rcon.default.svc.cluster.local
+                - --password
+                - $(RCON_PASSWORD)
                 - help
+              env:
+                - name: RCON_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: atm9-secret
+                      key: RCON_PASSWORD

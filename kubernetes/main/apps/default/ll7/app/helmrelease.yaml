@@ -72,17 +72,16 @@ spec:
         filenameMatcher: "1.9.0"
         forceSynchronize: true
         slug: "tnp-limitless-7"
+      rcon:
+        enabled: true
+        existingSecret: &secret ll7-secret
+        secretKey: RCON_PASSWORD
     persistence:
       dataDir:
         enabled: true
         existingClaim: *app
-    rcon:
-      enabled: true
-      existingSecret: &secret allinone-secret
-      secretKey: RCON_PASSWORD
     extraEnv:
       ALLOW_FLIGHT: "true"
-      ENABLE_RCON: "true"
       ENABLE_ROLLING_LOGS: "true"
       SIMULATION_DISTANCE: "8"
       SNOOPER_ENABLED: "false"

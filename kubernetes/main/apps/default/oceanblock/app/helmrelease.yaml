@@ -50,16 +50,15 @@ spec:
       overrideServerProperties: true
       type: "FTBA"
       viewDistance: 7
+      rcon:
+        enabled: true
+        existingSecret: &secret oceanblock-secret
+        secretKey: RCON_PASSWORD
     persistence:
       dataDir:
         enabled: true
         existingClaim: *app
-    rcon:
-      enabled: true
-      existingSecret: &secret oceanblock-secret
-      secretKey: RCON_PASSWORD
     extraEnv:
-      ENABLE_RCON: "true"
       ENABLE_ROLLING_LOGS: "true"
       SNOOPER_ENABLED: "false"
       SYNC_CHUNK_WRITES: "false"

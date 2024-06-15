@@ -1,30 +1,4 @@
 ---
-kind: ServiceAccount
-apiVersion: v1
-metadata:
-  name: restart-atm9
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-    name: restart-atm9
-rules:
-    - apiGroups: ["apps", "extensions"]
-      resources: ["deployments"]
-      verbs: ["get", "patch", "list", "watch"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: restart-atm9
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: restart-atm9
-subjects:
-  - kind: ServiceAccount
-    name: restart-atm9
----
 # yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.2-standalone-strict/cronjob-batch-v1.json
 apiVersion: batch/v1
 kind: CronJob
@@ -35,18 +9,21 @@ spec:
   schedule: "0 */6 * * *"
   jobTemplate:
     spec:
-      backoffLimit: 1
-      activeDeadlineSeconds: 600
       template:
         spec:
-          serviceAccountName: restart-atm9
           restartPolicy: Never
           containers:
-            - name: kubectl
-              image: bitnami/kubectl
-              command:
-                - bash
-                - -c
-                - >-
-                  kubectl rollout restart deployment/atm9 &&
-                  kubectl rollout status deployment/atm9
+            - name: rcon-cli
+              image: itzg/rcon-cli
+              args:
+                - --host
+                - atm9-minecraft-rcon.default.svc.cluster.local
+                - --password
+                - $(RCON_PASSWORD)
+                - stop
+              env:
+                - name: RCON_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: atm9-secret
+                      key: RCON_PASSWORD

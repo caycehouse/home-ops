@@ -17,5 +17,5 @@ spec:
               image: itzg/rcon-cli
               args:
                 - --host
-                - atm9-minecraft.default.svc.cluster.local
+                - atm9-minecraft-rcon.default.svc.cluster.local
                 - help

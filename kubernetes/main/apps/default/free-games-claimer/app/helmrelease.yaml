@@ -73,7 +73,7 @@ spec:
           gethomepage.dev/name: free-games-claimer
         className: tailscale
         hosts:
-          - host: fgc
+          - host: &app fgc
             paths:
               - path: /
                 service:

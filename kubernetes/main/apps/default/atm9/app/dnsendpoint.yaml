@@ -23,4 +23,4 @@ spec:
     - dnsName: _minecraft._tcp.atm9.${SECRET_GAMING_DOMAIN}
       recordType: SRV
       targets:
-      - "0 5 25565 atm9.${SECRET_GAMING_DOMAIN}"
+        - "0 5 25565 atm9.${SECRET_GAMING_DOMAIN}"

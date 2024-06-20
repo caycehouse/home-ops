@@ -25,7 +25,8 @@ PUSHOVER_SOUND="${PUSHOVER_SOUND:-}"
 #
 # Print defined variables
 #
-for pushover_vars in ${!PUSHOVER_*}; do
+for pushover_vars in ${!PUSHOVER_*}
+do
     declare -n var="${pushover_vars}"
     [[ -n "${var}" && "${PUSHOVER_DEBUG}" = "true" ]] && printf "%s - %s=%s\n" "$(date)" "${!var}" "${var}"
 done
@@ -76,32 +77,30 @@ if [[ "${sonarr_eventtype:-}" == "ManualInteractionRequired" ]]; then
     printf -v PUSHOVER_URL_TITLE "View queue in %s" "${sonarr_instancename:-Sonarr}"
 fi
 
-notification=$(
-    jq -n \
-        --arg token "${PUSHOVER_TOKEN}" \
-        --arg user "${PUSHOVER_USER_KEY}" \
-        --arg title "${PUSHOVER_TITLE}" \
-        --arg message "${PUSHOVER_MESSAGE}" \
-        --arg url "${PUSHOVER_URL}" \
-        --arg url_title "${PUSHOVER_URL_TITLE}" \
-        --arg priority "${PUSHOVER_PRIORITY}" \
-        --arg sound "${PUSHOVER_SOUND}" \
-        --arg device "${PUSHOVER_DEVICE}" \
-        --arg html "1" \
-        '{token: $token, user: $user, title: $title, message: $message, url: $url, url_title: $url_title, priority: $priority, sound: $sound, device: $device, html: $html}'
+notification=$(jq -n \
+    --arg token "${PUSHOVER_TOKEN}" \
+    --arg user "${PUSHOVER_USER_KEY}" \
+    --arg title "${PUSHOVER_TITLE}" \
+    --arg message "${PUSHOVER_MESSAGE}" \
+    --arg url "${PUSHOVER_URL}" \
+    --arg url_title "${PUSHOVER_URL_TITLE}" \
+    --arg priority "${PUSHOVER_PRIORITY}" \
+    --arg sound "${PUSHOVER_SOUND}" \
+    --arg device "${PUSHOVER_DEVICE}" \
+    --arg html "1" \
+    '{token: $token, user: $user, title: $title, message: $message, url: $url, url_title: $url_title, priority: $priority, sound: $sound, device: $device, html: $html}' \
 )
 
-status_code=$(
-    curl \
-        --write-out "%{http_code}" \
-        --silent \
-        --output /dev/null \
-        --header "Content-Type: application/json" \
-        --data-binary "${notification}" \
-        --request POST "https://api.pushover.net/1/messages.json"
+status_code=$(curl \
+    --write-out "%{http_code}" \
+    --silent \
+    --output /dev/null \
+    --header "Content-Type: application/json" \
+    --data-binary "${notification}" \
+    --request POST "https://api.pushover.net/1/messages.json" \
 )
 
-if [[ "${status_code}" -ne 200 ]]; then
+if [[ "${status_code}" -ne 200 ]] ; then
     printf "%s - Unable to send notification with status code %s and payload: %s\n" "$(date)" "${status_code}" "$(echo "${notification}" | jq -c)" >&2
     exit 1
 else

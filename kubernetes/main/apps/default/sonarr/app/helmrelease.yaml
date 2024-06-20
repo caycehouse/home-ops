@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -28,6 +28,8 @@ spec:
   values:
     controllers:
       sonarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         initContainers:
           init-db:
             image:
@@ -36,21 +38,19 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: sonarr-secret
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: ghcr.io/caycehouse/sonarr
               tag: 4.0.5.1710@sha256:171cec7dfc4780fb4dc93b44cb467cdad7734fa76d316cd72d2cf75384f64aca
             env:
-              SONARR__AUTHENTICATION_METHOD: Forms
-              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
               SONARR__LOG__DBENABLED: "False"
-              SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 80
-              SONARR__LOG_LEVEL: info
-              SONARR__THEME: dark
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 80
               TZ: America/New_York
             envFrom: *envFrom
             probes:
@@ -93,26 +93,24 @@ spec:
     ingress:
       app:
         annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/description: TV PVR
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
-          gethomepage.dev/href: "https://sonarr.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://sonarr.${SECRET_DOMAIN}"
           gethomepage.dev/icon: sonarr
           gethomepage.dev/name: Sonarr
           gethomepage.dev/widget.type: sonarr
           gethomepage.dev/widget.url: http://sonarr.default.svc.cluster.local
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SONARR_API_KEY}}` }}"
-        className: tailscale
+        className: internal
         hosts:
-          - host: *app
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *app
     persistence:
       config:
         existingClaim: *app

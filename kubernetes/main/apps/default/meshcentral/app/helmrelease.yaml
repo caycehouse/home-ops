@@ -75,8 +75,8 @@ spec:
                   port: http
     persistence:
       config:
-        type: secret
-        name: meshcentral-secret
+        type: configMap
+        name: meshcentral-config
         globalMounts:
           - subPath: config.json
             path: /opt/meshcentral/meshcentral-data/config.json

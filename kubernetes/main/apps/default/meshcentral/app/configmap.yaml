@@ -1,19 +1,11 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/external-secrets.io/externalsecret_v1beta1.json
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/configmap-v1.json
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: meshcentral
-spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: onepassword-connect
-  target:
-    name: meshcentral-secret
-    template:
-      engineVersion: v2
-      data:
-        config.json: |
+  name: meshcentral-config
+data:
+      config.json: |
             {
                   "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
                   "settings": {
@@ -35,6 +27,3 @@ spec:
                         }
                   }
             }
-  dataFrom:
-    - extract:
-        key: meshcentral

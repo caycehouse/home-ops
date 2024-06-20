@@ -75,7 +75,6 @@ spec:
       tag: 2024.4.0-java17@sha256:4ddb83d56f450e736284442c4c7d143f63595cf3d2039140476013ce89901af8
     serviceAnnotations:
       external-dns.alpha.kubernetes.io/hostname: atm9.${SECRET_GAMING_DOMAIN}
-      io.cilium/lb-ipam-ips: 192.168.4.13
       tailscale.com/expose: "true"
       tailscale.com/hostname: *app
     livenessProbe: &probes
@@ -92,7 +91,7 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      loadBalancerIP: 192.168.4.14
+      loadBalancerIP: 192.168.4.13
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxTickTime: 180000

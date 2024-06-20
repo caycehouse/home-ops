@@ -20,8 +20,8 @@ metadata:
   name: atm9-srv
 spec:
   endpoints:
-  - dnsName: _minecraft._tcp
+  - dnsName: _minecraft._tcp.atm9.${SECRET_GAMING_DOMAIN}
     recordTTL: 300
     recordType: SRV
     targets:
-    - "0 5 25566 atm9.${SECRET_GAMING_DOMAIN}"
+    - "0 5 25565 atm9.${SECRET_GAMING_DOMAIN}"

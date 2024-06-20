@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app loki
+  name: loki
 spec:
   interval: 30m
   timeout: 15m
@@ -97,10 +97,6 @@ spec:
           shard_streams:
             enabled: true
           split_queries_by_interval: 1h
-        compactor:
-          working_directory: /var/loki/compactor/retention
-          delete_request_store: s3
-          retention_enabled: true
         query_scheduler:
           max_outstanding_requests_per_tenant: 4096
         frontend:
@@ -121,60 +117,28 @@ spec:
       persistence:
         size: 20Gi
         storageClass: openebs-hostpath
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/worker
-                    operator: Exists
     gateway:
       replicas: 2
       image:
         registry: ghcr.io
       ingress:
         enabled: true
-        ingressClassName: tailscale
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+        ingressClassName: internal
         hosts:
-          - host: loki
+          - host: loki.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
-        tls:
-          - hosts:
-              - *app
-      deploymentStrategy:
-        rollingUpdate:
-          maxUnavailable: 1
-          maxSurge: 1
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/worker
-                    operator: Exists
+        tls: []
     read:
       replicas: 2
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/worker
-                    operator: Exists
     write:
       replicas: 2
       persistence:
         size: 20Gi
         storageClass: openebs-hostpath
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/worker
-                    operator: Exists
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar

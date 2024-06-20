@@ -46,7 +46,6 @@ spec:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: latest@sha256:a132c2ac7c572fd34d8af32048a2ef2b99f25c32fce6bbfbf5bef5b770b19a46
             env:
-              PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
               PAPERLESS_PORT: &port 8000
               PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/0
               PAPERLESS_TIME_ZONE: America/New_York

@@ -30,8 +30,6 @@ spec:
       namespace: observability
     - name: openebs
       namespace: openebs-system
-    - name: thanos
-      namespace: observability
   values:
     crds:
       enabled: false
@@ -53,7 +51,6 @@ spec:
           gethomepage.dev/name: Alertmanager
           gethomepage.dev/app: alertmanager
       alertmanagerSpec:
-        replicas: 2
         useExistingSecret: true
         configSecret: alertmanager-secret
         storage:
@@ -114,16 +111,7 @@ spec:
           gethomepage.dev/icon: prometheus
           gethomepage.dev/name: Prometheus
           gethomepage.dev/app: prometheus
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
       prometheusSpec:
-        podMetadata:
-          annotations:
-            secret.reloader.stakater.com/reload: &secret thanos-objstore-config
-        replicas: 2
-        replicaExternalLabelName: __replica__
         scrapeInterval: 1m # Must match interval in Grafana Helm chart
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -136,15 +124,8 @@ spec:
           - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        thanos:
-          image: quay.io/thanos/thanos:${THANOS_VERSION}
-          version: "${THANOS_VERSION#v}"
-          objectStorageConfig:
-            existingSecret:
-              name: *secret
-              key: config
-        retention: 2d
-        retentionSize: 15GB
+        retention: 14d
+        retentionSize: 70GB
         externalLabels:
           cluster: main
         resources:
@@ -158,7 +139,7 @@ spec:
               storageClassName: openebs-hostpath
               resources:
                 requests:
-                  storage: 20Gi
+                  storage: 75Gi
     nodeExporter:
       enabled: true
     prometheus-node-exporter:

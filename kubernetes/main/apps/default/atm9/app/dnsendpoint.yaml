@@ -12,15 +12,3 @@ spec:
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"
----
-# yaml-language-server: $schema=https://lds-schemas.pages.dev/externaldns.k8s.io/dnsendpoint_v1alpha1.json
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: atm9-srv
-spec:
-  endpoints:
-    - dnsName: _minecraft._tcp.atm9.${SECRET_GAMING_DOMAIN}
-      recordType: SRV
-      targets:
-        - "0 5 25565 atm9.${SECRET_GAMING_DOMAIN}"

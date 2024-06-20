@@ -34,10 +34,6 @@ spec:
             image:
               repository: sissbruecker/linkding
               tag: 1.31.0
-            env:
-              LD_SUPERUSER_NAME: caycehouse
-              LD_ENABLE_AUTH_PROXY: "True"
-              LD_AUTH_PROXY_USERNAME_HEADER: "HTTP_REMOTE_USER"
             envFrom: *envFrom
             probes:
               liveness:

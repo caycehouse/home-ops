@@ -63,12 +63,12 @@ data:
           - Satisfactory:
                 icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
                 description: The factory must prevail!
-          - TNP Limitless 7:
-                icon: https://media.forgecdn.net/avatars/thumbnails/834/847/256/256/638226051472217331.png
-                description: It's Limitless...again
+          - All the Mods 9:
+                icon: https://media.forgecdn.net/avatars/thumbnails/902/338/256/256/638350403793040080.png
+                description: All the Mods 9
                 widget:
                   type: minecraft
-                  url: udp://ll7-minecraft.default.svc.cluster.local:25565
+                  url: udp://atm9-minecraft.default.svc.cluster.local:25565
           - Valheim:
                 icon: https://cdn2.steamgriddb.com/icon/a0b83c02d720415dada82e08bc09e9f3/32/256x256.png
                 description: Skål!

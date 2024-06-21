@@ -6,15 +6,14 @@ talosVersion: v1.7.4
 kubernetesVersion: v1.30.2
 
 clusterName: "main"
-endpoint: https://192.168.4.2:6443
+endpoint: https://192.168.42.120:6443
 clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
   - "10.96.0.0/16"
 additionalApiServerCertSans: &sans
-  - "192.168.4.2"
-  - 127.0.0.1 # KubePrism
-  - "donuts"
+  - 127.0.0.1
+  - 192.168.42.120
 additionalMachineCertSans: *sans
 
 # Disable built-in Flannel to use Cilium
@@ -23,7 +22,7 @@ cniConfig:
 
 nodes:
   - hostname: donuts
-    ipAddress: "192.168.7.52"
+    ipAddress: "192.168.42.13"
     installDisk: /dev/sda
     # https://factory.talos.dev
     talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
@@ -33,7 +32,7 @@ nodes:
           hardwareAddr: "bc:24:11:*"
         dhcp: true
         vip:
-          ip: "192.168.4.2"
+          ip: "192.168.42.120"
     extensionServices:
       - name: tailscale
         environment: &tailscale-env
@@ -42,7 +41,7 @@ nodes:
           - TS_AUTHKEY=${TAILSCALE_AUTHKEY}
           - TS_ROUTES=10.96.0.0/12
   - hostname: babybundts
-    ipAddress: "192.168.4.80"
+    ipAddress: "192.168.42.10"
     installDisk: /dev/sda
     # https://factory.talos.dev
     talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
@@ -57,7 +56,7 @@ nodes:
       - name: tailscale
         environment: *tailscale-env
   - hostname: danish
-    ipAddress: "192.168.4.81"
+    ipAddress: "192.168.42.11"
     installDisk: /dev/sda
     # https://factory.talos.dev
     talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
@@ -72,7 +71,7 @@ nodes:
       - name: tailscale
         environment: *tailscale-env
   - hostname: honeybun
-    ipAddress: "192.168.4.82"
+    ipAddress: "192.168.42.12"
     installDisk: /dev/sda
     # https://factory.talos.dev
     talosImageURL: factory.talos.dev/installer/3004534d25c1c6fc8994de543ce02927bd912600036d25e60ef448d1a3351970
@@ -161,7 +160,7 @@ patches:
           maxPods: 150
         nodeIP:
           validSubnets:
-            - "192.168.4.0/22"
+            - "192.168.42.0/24"
 
   # Enable host dns
   - |-
@@ -219,7 +218,7 @@ controlPlane:
           extraArgs:
             listen-metrics-urls: http://0.0.0.0:2381
           advertisedSubnets:
-            - 192.168.4.0/22
+            - 192.168.42.0/24
 
     # Disable default API server admission plugins.
     - |-

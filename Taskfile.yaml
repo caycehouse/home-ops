@@ -15,6 +15,7 @@ includes:
   kubernetes:
     aliases: ["k8s"]
     taskfile: .taskfiles/Kubernetes
+  rook: .taskfiles/Rook
   talos: .taskfiles/Talos
 
 tasks:

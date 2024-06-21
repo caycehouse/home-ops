@@ -90,7 +90,7 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "192.168.4.7"
+          io.cilium/lb-ipam-ips: "192.168.42.124"
         ports:
           gameplay:
             port: 2456

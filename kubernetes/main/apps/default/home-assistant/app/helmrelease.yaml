@@ -70,7 +70,7 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: 192.168.4.12
+          io.cilium/lb-ipam-ips: 192.168.42.131
         ports:
           http:
             port: 8123

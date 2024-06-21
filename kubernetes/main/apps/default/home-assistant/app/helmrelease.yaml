@@ -39,7 +39,7 @@ spec:
               tag: 2024.6.3@sha256:2b320aaca93746d442ec1caeb569519d994ab21e9dabfed4ac398fee10536a92
             env:
               TZ: America/New_York
-              HASS_HTTP_TRUSTED_PROXY_1: 192.168.4.0/22
+              HASS_HTTP_TRUSTED_PROXY_1: 192.168.42.0/24
               HASS_HTTP_TRUSTED_PROXY_2: 10.69.0.0/16
               HASS_INTERNAL_URL: http://homeassistant.local:8123
               HASS_EXTERNAL_URL: https://hass.${SECRET_DOMAIN}

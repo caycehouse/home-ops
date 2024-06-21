@@ -41,7 +41,7 @@ spec:
               TZ: ${TIMEZONE}
               NVIDIA_DRIVER_CAPABILITIES: all
               NVIDIA_VISIBLE_DEVICES: all
-              PLEX_ADVERTISE_URL: https://plex.${SECRET_DOMAIN}:443,http://192.168.4.6:32400
+              PLEX_ADVERTISE_URL: https://plex.${SECRET_DOMAIN}:443,http://192.168.42.128:32400
               PLEX_NO_AUTH_NETWORKS: 192.168.4.0/22
             probes:
               liveness: &probes
@@ -88,7 +88,7 @@ spec:
         controller: plex
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: 192.168.4.6
+          io.cilium/lb-ipam-ips: 192.168.42.128
         ports:
           http:
             port: 32400

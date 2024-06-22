@@ -5,17 +5,18 @@ kind: Ingress
 metadata:
   name: emqx-dashboard
   annotations:
+    external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://emqx.${SECRET_TS_DOMAIN}"
+    gethomepage.dev/href: "https://emqx.${SECRET_DOMAIN}"
     gethomepage.dev/description: Scalable MQTT broker solution
     gethomepage.dev/group: Utilities
     gethomepage.dev/icon: emqx
     gethomepage.dev/name: EMQX
     gethomepage.dev/app: emqx-operator
 spec:
-  ingressClassName: tailscale
+  ingressClassName: internal
   rules:
-    - host: &host emqx
+    - host: emqx.${SECRET_DOMAIN}
       http:
         paths:
           - path: /
@@ -25,6 +26,3 @@ spec:
                 name: emqx-dashboard
                 port:
                   number: 18083
-  tls:
-    - hosts:
-        - *host

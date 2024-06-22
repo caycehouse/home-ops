@@ -55,23 +55,21 @@ spec:
     ingress:
       app:
         annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://archisteamfarm.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://archisteamfarm.${SECRET_DOMAIN}"
           gethomepage.dev/description: Steam cards farmer
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: archisteamfarm
           gethomepage.dev/name: ArchiSteamFarm
-        className: tailscale
+        className: internal
         hosts:
-          - host: *app
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *app
     persistence:
       config:
         existingClaim: *app

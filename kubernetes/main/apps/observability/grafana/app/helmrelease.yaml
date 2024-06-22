@@ -331,19 +331,16 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      ingressClassName: tailscale
-      hosts:
-        - &host grafana
+      ingressClassName: internal
+      hosts: ["grafana.${SECRET_DOMAIN}"]
       annotations:
+        external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/href: "https://grafana.${SECRET_TS_DOMAIN}"
+        gethomepage.dev/href: "https://grafana.${SECRET_DOMAIN}"
         gethomepage.dev/description: Analytics & Monitoring
         gethomepage.dev/group: Observability
         gethomepage.dev/icon: grafana
         gethomepage.dev/name: Grafana
-      tls:
-        - hosts:
-            - *host
     persistence:
       enabled: false
     testFramework:

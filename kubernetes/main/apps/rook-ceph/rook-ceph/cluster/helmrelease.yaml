@@ -34,21 +34,19 @@ spec:
       createPrometheusRules: true
     ingress:
       dashboard:
-        ingressClassName: tailscale
-        host:
-          name: &app rook
-          path: /
         annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://rook.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://rook.${SECRET_DOMAIN}"
           gethomepage.dev/description: Distributed storage system
           gethomepage.dev/group: Storage
           gethomepage.dev/icon: rook
           gethomepage.dev/name: Rook
           gethomepage.dev/app: ceph-mgr
-        tls:
-          - hosts:
-              - *app
+        ingressClassName: internal
+        host:
+          name: rook.${SECRET_DOMAIN}
+          path: /
     toolbox:
       enabled: true
     configOverride: |
@@ -211,10 +209,11 @@ spec:
             region: us-east-1
         ingress:
           enabled: true
-          ingressClassName: tailscale
+          annotations:
+            external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+          ingressClassName: internal
           host:
-            name: &app rgw
+            name: rgw.${SECRET_DOMAIN}
             path: /
-          tls:
-            - hosts:
-                - *app

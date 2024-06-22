@@ -90,26 +90,24 @@ spec:
     ingress:
       app:
         annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/description: Usenet downloader
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
-          gethomepage.dev/href: "https://sabnzbd.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://sabnzbd.${SECRET_DOMAIN}"
           gethomepage.dev/icon: sabnzbd
           gethomepage.dev/name: SABnzbd
           gethomepage.dev/widget.type: sabnzbd
           gethomepage.dev/widget.url: http://sabnzbd.default.svc.cluster.local
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SABNZBD_API_KEY}}` }}"
-        className: tailscale
+        className: internal
         hosts:
-          - host: *app
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *app
     persistence:
       config:
         existingClaim: *app

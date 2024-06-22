@@ -30,22 +30,20 @@ spec:
       username: admin
     ingress:
       annotations:
+        external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/href: "https://weave-gitops.${SECRET_TS_DOMAIN}"
+        gethomepage.dev/href: "https://weave-gitops.${SECRET_DOMAIN}"
         gethomepage.dev/description: Flux Dashboard
         gethomepage.dev/group: Utilities
         gethomepage.dev/icon: flux-cd
         gethomepage.dev/name: Weave GitOps
-      className: tailscale
+      className: internal
       enabled: true
       hosts:
-        - host: &host "weave-gitops"
+        - host: "weave-gitops.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
-      tls:
-        - hosts:
-            - *host
     networkPolicy:
       create: false
     metrics:

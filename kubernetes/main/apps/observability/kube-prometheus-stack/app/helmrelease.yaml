@@ -37,19 +37,18 @@ spec:
     alertmanager:
       ingress:
         enabled: true
-        pathType: Prefix
-        ingressClassName: tailscale
-        tls:
-          - hosts:
-              - alertmanager
         annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://alertmanager.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://alertmanager.${SECRET_DOMAIN}"
           gethomepage.dev/description: Notification orchestration for Prometheus
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: alertmanager
           gethomepage.dev/name: Alertmanager
           gethomepage.dev/app: alertmanager
+        ingressClassName: internal
+        hosts: ["alertmanager.${SECRET_DOMAIN}"]
+        pathType: Prefix
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager-secret
@@ -98,19 +97,18 @@ spec:
     prometheus:
       ingress:
         enabled: true
-        ingressClassName: tailscale
-        pathType: Prefix
-        tls:
-          - hosts:
-              - prometheus
         annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://prometheus.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://prometheus.${SECRET_DOMAIN}"
           gethomepage.dev/description: Insightful Data Visualization
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: prometheus
           gethomepage.dev/name: Prometheus
           gethomepage.dev/app: prometheus
+        ingressClassName: internal
+        hosts: ["prometheus.${SECRET_DOMAIN}"]
+        pathType: Prefix
       prometheusSpec:
         scrapeInterval: 1m # Must match interval in Grafana Helm chart
         ruleSelectorNilUsesHelmValues: false

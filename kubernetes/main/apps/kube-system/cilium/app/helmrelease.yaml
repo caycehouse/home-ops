@@ -52,19 +52,16 @@ spec:
         enabled: true
         ingress:
           annotations:
+            external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
             gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: "https://hubble.${SECRET_TS_DOMAIN}"
+            gethomepage.dev/href: "https://hubble.${SECRET_DOMAIN}"
             gethomepage.dev/description: Network visibility and security
             gethomepage.dev/group: Observability
             gethomepage.dev/icon: cilium
             gethomepage.dev/name: Hubble
-          className: tailscale
+          className: internal
           enabled: true
-          hosts:
-            - &host "hubble"
-          tls:
-            - hosts:
-                - *host
+          hosts: ["hubble.${SECRET_DOMAIN}"]
         rollOutPods: true
     operator:
       prometheus:

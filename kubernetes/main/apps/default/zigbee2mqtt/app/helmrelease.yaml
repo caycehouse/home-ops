@@ -106,24 +106,21 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://zigbee.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://zigbee.${SECRET_DOMAIN}"
           gethomepage.dev/description: Zigbee device integration hub
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: zigbee2mqtt
           gethomepage.dev/name: Zigbee2MQTT
-        className: tailscale
+        className: internal
         hosts:
-          - host: &host zigbee
+          - host: zigbee.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
     persistence:
       config:
         existingClaim: *app

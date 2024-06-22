@@ -76,25 +76,23 @@ spec:
           http:
             port: 5000
     ingress:
-      tailscale:
+      app:
         annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://changedetection.${SECRET_TS_DOMAIN}"
+          gethomepage.dev/href: "https://changedetection.${SECRET_DOMAIN}"
           gethomepage.dev/description: Website change detection
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: changedetection-io
           gethomepage.dev/name: changedetection.io
-        className: tailscale
+        className: internal
         hosts:
-          - host: *app
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *app
     persistence:
       config:
         existingClaim: *app

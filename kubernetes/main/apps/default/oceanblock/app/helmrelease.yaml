@@ -33,7 +33,7 @@ spec:
   values:
     image:
       repository: itzg/minecraft-server
-      tag: 2024.6.1-java8
+      tag: 2024.6.1-java8@sha256:7c7104f0c6b47141216abc3830e12883c07ef1197eac618679fa63f2ac5a3cff
     serviceAnnotations:
       tailscale.com/expose: "true"
       tailscale.com/hostname: *app

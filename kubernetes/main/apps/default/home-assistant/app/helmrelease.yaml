@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app home-assistant
+  name: home-assistant
 spec:
   interval: 30m
   chart:
@@ -47,14 +47,30 @@ spec:
               - secretRef:
                   name: home-assistant-secret
             securityContext:
-              allowPrivilegeEscalation: true
+              allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"], add: ["NET_RAW"] }
             resources:
               requests:
-                cpu: 15m
+                cpu: 10m
               limits:
                 memory: 1Gi
+          code-server:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.90.3@sha256:f54483e9794f1bbd42bf55346ebeadb057a4f0dc9da1a50670e3a335ee295a35
+            args: [
+              "--auth", "none",
+              "--user-data-dir", "/config/.vscode",
+              "--extensions-dir", "/config/.vscode",
+              "--port", "12321",
+              "/config"
+            ]
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
     defaultPodOptions:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
@@ -67,17 +83,26 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: *app
+        controller: home-assistant
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: 192.168.42.131
         ports:
           http:
             port: 8123
+      code-server:
+        type: ClusterIP
+        controller: home-assistant
+        ports:
+          http:
+            enabled: true
+            port: 12321
+            protocol: TCP
+            targetPort: 12321
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://hass.${SECRET_DOMAIN}"
           gethomepage.dev/description: Home Automation
@@ -86,15 +111,28 @@ spec:
           gethomepage.dev/name: HASS
         className: external
         hosts:
-          - host: "hass.${SECRET_DOMAIN}"
+          - host: hass.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
+      code-server:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+        className: internal
+        hosts:
+          - host: hass-code.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: code-server
+                  port: http
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: home-assistant
+        globalMounts:
+          - path: /config
       logs:
         type: emptyDir
         globalMounts:
@@ -105,3 +143,5 @@ spec:
           - path: /config/tts
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: /tmp

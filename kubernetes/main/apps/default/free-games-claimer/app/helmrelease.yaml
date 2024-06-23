@@ -56,7 +56,6 @@ spec:
                 cpu: 1000m
               limits:
                 memory: 2Gi
-            restartPolicy: Never
     service:
       app:
         controller: free-games-claimer

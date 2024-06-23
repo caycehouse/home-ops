@@ -32,6 +32,7 @@ spec:
     keepHistory: false
   values:
     image:
+      repository: itzg/minecraft-server
       tag: 2024.4.0-java8-multiarch@sha256:f7d9e943692c86b1cee433b7bace0150dd18a6d836550e55cfb8b6b7e59314d2
     serviceAnnotations:
       tailscale.com/expose: "true"

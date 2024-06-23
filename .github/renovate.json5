@@ -3,7 +3,7 @@
   "extends": [
     ":skipStatusChecks",
     "github>caycehouse/renovate-config",
-    "github>caycehouse/renovate-config:autoMerge",
+    "github>caycehouse/renovate-config:autoMerge.json5",
     "github>caycehouse/home-ops//.github/renovate/allowedVersions.json5",
     "github>caycehouse/home-ops//.github/renovate/customManagers.json5",
     "github>caycehouse/home-ops//.github/renovate/grafanaDashboards.json5",

@@ -73,7 +73,7 @@ spec:
           allowPrivilegeEscalation: false
     image:
       repository: itzg/minecraft-server
-      tag: 2024.4.0-java17@sha256:4ddb83d56f450e736284442c4c7d143f63595cf3d2039140476013ce89901af8
+      tag: 2024.6.1-java17@sha256:ec011ae3a90bbd189c8096777d1fb0150563192deca664c89276d29dc9e5c639
     serviceAnnotations:
       external-dns.alpha.kubernetes.io/hostname: atm9.${SECRET_GAMING_DOMAIN}
       tailscale.com/expose: "true"

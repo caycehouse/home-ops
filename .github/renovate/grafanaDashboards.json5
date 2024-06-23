@@ -31,6 +31,8 @@
             "addLabels": [
                 "renovate/grafana-dashboard"
             ],
+            "automerge": true,
+            "automergeType": "branch",
             "matchDatasources": [
                 "custom.grafana-dashboards"
             ],

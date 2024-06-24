@@ -35,13 +35,13 @@ spec:
           target: 192.168.6.248
           auth: ["public_v2"]
           retries: 5
-          timeout: 60s
+          scrapeTimeout: 60s
         - name: dell-r730xd
           module: ["dell"]
           target: 192.168.5.198
           auth: ["public_v2"]
           retries: 5
-          timeout: 60s
+          scrapeTimeout: 60s
         - name: mikrotik
           module: ["mikrotik"]
           target: 192.168.4.3

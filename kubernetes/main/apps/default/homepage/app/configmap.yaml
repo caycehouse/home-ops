@@ -102,7 +102,7 @@ data:
                 widget:
                   key: {{HOMEPAGE_VAR_OCTOPI_API_KEY}}
                   type: octoprint
-                  url: http://octopi.network.svc.cluster.local
+                  url: http://octopi.internal
           - Proxmox:
                 icon: proxmox
                 description: Virtualization platform

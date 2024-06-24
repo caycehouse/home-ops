@@ -124,8 +124,6 @@ spec:
           - new-service-discovery-manager
         retention: 14d
         retentionSize: 70GB
-        externalLabels:
-          cluster: main
         resources:
           requests:
             cpu: 100m
@@ -171,7 +169,3 @@ spec:
     grafana:
       enabled: false
       forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          annotations:
-            grafana_folder: Kubernetes

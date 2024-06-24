@@ -49,21 +49,13 @@ spec:
                 memory: 512Mi
           browser:
             image:
-              repository: browserless/chrome
-              tag: 1.61-chrome-stable@sha256:efac47cfff3830d9a50b27d29f8bbb61949058ae336c823fbe9bd3c0d1debcc8
+              repository: dgtlmoon/sockpuppetbrowser
+              tag: latest@sha256:b7f880ecb167abc73351bbfd27df99971f9267827765a6a9252cdd29d8c03835
             env:
               SCREEN_WIDTH: "1920"
               SCREEN_HEIGHT: "1024"
               SCREEN_DEPTH: "16"
-              ENABLE_DEBUGGER: "false"
-              PREBOOT_CHROME: "true"
-              CONNECTION_TIMEOUT: "300000"
-              MAX_CONCURRENT_SESSIONS: "10"
-              CHROME_REFRESH_TIME: "600000"
-              DEFAULT_STEALTH: "true"
-
-              # Ignore HTTPS errors, like for self-signed certs
-              DEFAULT_IGNORE_HTTPS_ERRORS: "true"
+              MAX_CONCURRENT_CHROME_PROCESSES: "10"
             resources:
               requests:
                 cpu: 20m

@@ -115,6 +115,11 @@ spec:
           revision: 6
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+        dell-idrac:
+          # renovate: depName="Dell iDRAC"
+          gnetId: 14395
+          revision: 1
+          datasource: Prometheus
         dragonfly:
           url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
           datasource: Prometheus

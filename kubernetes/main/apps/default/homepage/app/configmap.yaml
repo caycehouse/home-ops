@@ -66,6 +66,7 @@ data:
           - All the Mods 9:
                 icon: https://media.forgecdn.net/avatars/thumbnails/902/338/256/256/638350403793040080.png
                 description: All the Mods 9
+                href: https://mcsrvstat.us/server/atm9.thefryer.games
                 widget:
                   type: minecraft
                   url: udp://atm9-minecraft.default.svc.cluster.local:25565

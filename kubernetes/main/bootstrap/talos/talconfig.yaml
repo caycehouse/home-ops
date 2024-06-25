@@ -37,18 +37,9 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: false
-        dhcpOptions:
-          routeMetric: 4096
+        dhcp: true
         vip:
           ip: "192.168.42.120"
-        vlans:
-          - &vlan42
-            vlanId: 42
-            mtu: 1500
-            dhcp: true
-            dhcpOptions:
-              routeMetric: 0
     extensionServices:
       - name: tailscale
         environment: &tailscale-env
@@ -64,11 +55,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: false
-        dhcpOptions:
-          routeMetric: 4096
-        vlans:
-          - *vlan42
+        dhcp: true
     nodeLabels:
       node-role.kubernetes.io/worker: worker
     extensionServices:
@@ -82,11 +69,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: false
-        dhcpOptions:
-          routeMetric: 4096
-        vlans:
-          - *vlan42
+        dhcp: true
     nodeLabels:
       node-role.kubernetes.io/worker: worker
     extensionServices:
@@ -95,8 +78,10 @@ nodes:
   - hostname: honeybun
     ipAddress: "192.168.42.12"
     schematic:
-      <<: *schematic
       customization:
+        extraKernelArgs:
+          - mitigations=off
+          - net.ifnames=0
         systemExtensions:
           officialExtensions:
             - siderolabs/qemu-guest-agent
@@ -108,11 +93,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: false
-        dhcpOptions:
-          routeMetric: 4096
-        vlans:
-          - *vlan42
+        dhcp: true
     nodeLabels:
       node-role.kubernetes.io/worker: worker
     extensionServices:

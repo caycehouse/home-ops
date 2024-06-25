@@ -23,16 +23,32 @@ cniConfig:
 nodes:
   - hostname: donuts
     ipAddress: "192.168.42.13"
+    schematic: &schematic
+      customization:
+        extraKernelArgs:
+          - mitigations=off
+          - net.ifnames=0
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/qemu-guest-agent
+            - siderolabs/tailscale
     installDisk: /dev/sda
-    # https://factory.talos.dev
-    talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-        dhcp: true
+          busPath: "0*"
+        dhcp: false
+        dhcpOptions:
+          routeMetric: 4096
         vip:
           ip: "192.168.42.120"
+        vlans:
+          - &vlan42
+            vlanId: 42
+            mtu: 1500
+            dhcp: true
+            dhcpOptions:
+              routeMetric: 0
     extensionServices:
       - name: tailscale
         environment: &tailscale-env
@@ -42,14 +58,17 @@ nodes:
           - TS_ROUTES=10.96.0.0/12
   - hostname: babybundts
     ipAddress: "192.168.42.10"
+    schematic: *schematic
     installDisk: /dev/sda
-    # https://factory.talos.dev
-    talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-        dhcp: true
+          busPath: "0*"
+        dhcp: false
+        dhcpOptions:
+          routeMetric: 4096
+        vlans:
+          - *vlan42
     nodeLabels:
       node-role.kubernetes.io/worker: worker
     extensionServices:
@@ -57,14 +76,17 @@ nodes:
         environment: *tailscale-env
   - hostname: danish
     ipAddress: "192.168.42.11"
+    schematic: *schematic
     installDisk: /dev/sda
-    # https://factory.talos.dev
-    talosImageURL: factory.talos.dev/installer/7d4c31cbd96db9f90c874990697c523482b2bae27fb4631d5583dcd9c281b1ff
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-        dhcp: true
+          busPath: "0*"
+        dhcp: false
+        dhcpOptions:
+          routeMetric: 4096
+        vlans:
+          - *vlan42
     nodeLabels:
       node-role.kubernetes.io/worker: worker
     extensionServices:
@@ -72,14 +94,25 @@ nodes:
         environment: *tailscale-env
   - hostname: honeybun
     ipAddress: "192.168.42.12"
+    schematic:
+      <<: *schematic
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/qemu-guest-agent
+            - siderolabs/tailscale
+            - siderolabs/nvidia-container-toolkit
+            - siderolabs/nonfree-kmod-nvidia
     installDisk: /dev/sda
-    # https://factory.talos.dev
-    talosImageURL: factory.talos.dev/installer/3004534d25c1c6fc8994de543ce02927bd912600036d25e60ef448d1a3351970
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-        dhcp: true
+          busPath: "0*"
+        dhcp: false
+        dhcpOptions:
+          routeMetric: 4096
+        vlans:
+          - *vlan42
     nodeLabels:
       node-role.kubernetes.io/worker: worker
     extensionServices:

@@ -72,7 +72,7 @@ spec:
       defaults:
         interval: 1m
       targets:
+        - { name: &name bakery.internal, module: icmp, url: *name }
         - { name: &name octopi.internal, module: icmp, url: *name }
         - { name: &name r630-idrac.internal, module: icmp, url: *name }
         - { name: &name r730xd-idrac.internal, module: icmp, url: *name }
-        - { name: &name truenas.internal, module: icmp, url: *name }

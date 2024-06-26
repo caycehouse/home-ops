@@ -90,9 +90,9 @@ spec:
     persistence:
       config:
         existingClaim: filebrowser
-      truenas:
+      bakery:
         type: nfs
-        server: "${NAS_IP:=temp}"
+        server: bakery.internal
         path: /mnt/storage0
         globalMounts:
           - path: /data

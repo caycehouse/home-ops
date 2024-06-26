@@ -11,7 +11,7 @@ spec:
     - ReadWriteMany
   nfs:
     path: /mnt/storage0/nextcloud
-    server: "${NAS_IP:=temp}"
+    server: bakery.internal
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

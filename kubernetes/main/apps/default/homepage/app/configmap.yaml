@@ -92,8 +92,8 @@ data:
           - TrueNAS Scale:
                 icon: truenas-scale
                 description: Storage Server
-                href: https://truenas-scale
-                ping: 192.168.7.28
+                href: https://bakery.internal
+                ping: bakery.internal
     - Utilities:
           - OctoPi:
                 description: 3D printer web interface

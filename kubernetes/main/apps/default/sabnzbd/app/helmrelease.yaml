@@ -119,7 +119,7 @@ spec:
         type: emptyDir
       downloads:
         type: nfs
-        server: "${NAS_IP:=temp}"
+        server: bakery.internal
         path: "${NFS_DATA_PATH:=temp}"
         globalMounts:
           - path: /data/usenet

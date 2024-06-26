@@ -18,6 +18,7 @@ resources:
   - ./meshcentral/ks.yaml
   - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
+  - ./minio/ks.yaml
   - ./nextcloud/ks.yaml
   - ./oceanblock/ks.yaml
   # - ./overseerr/ks.yaml

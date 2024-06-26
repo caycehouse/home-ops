@@ -9,6 +9,7 @@ resources:
   - ./atuin/ks.yaml
   - ./calibre-web/ks.yaml
   - ./changedetection/ks.yaml
+  - ./filebrowser/ks.yaml
   - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml
   - ./home-assistant/ks.yaml

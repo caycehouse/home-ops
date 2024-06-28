@@ -1,5 +1,10 @@
-.venv
-.task
-age.key
+.private/
+.task/
+*.secret.env
+*.secret.yaml
+*.key
+.DS_Store
+Thumbs.db
+.decrypted~*
 kubeconfig
-.decrypted~*.yaml
+talosconfig

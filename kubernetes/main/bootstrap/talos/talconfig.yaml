@@ -56,8 +56,6 @@ nodes:
       - deviceSelector:
           busPath: "0*"
         dhcp: true
-    nodeLabels:
-      node-role.kubernetes.io/worker: worker
     extensionServices:
       - name: tailscale
         environment: *tailscale-env
@@ -70,8 +68,6 @@ nodes:
       - deviceSelector:
           busPath: "0*"
         dhcp: true
-    nodeLabels:
-      node-role.kubernetes.io/worker: worker
     extensionServices:
       - name: tailscale
         environment: *tailscale-env
@@ -94,8 +90,6 @@ nodes:
       - deviceSelector:
           busPath: "0*"
         dhcp: true
-    nodeLabels:
-      node-role.kubernetes.io/worker: worker
     extensionServices:
       - name: tailscale
         environment: *tailscale-env
@@ -249,3 +243,7 @@ controlPlane:
               - "os:admin"
             allowedKubernetesNamespaces:
               - "system-upgrade"
+
+worker:
+  nodeLabels:
+    node-role.kubernetes.io/worker: worker

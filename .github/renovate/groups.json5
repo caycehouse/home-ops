@@ -3,6 +3,22 @@
     "packageRules": [
         {
             "description": [
+                "1Password Connect Group"
+            ],
+            "groupName": "1Password Connnect",
+            "matchPackagePatterns": [
+                "1password/connect"
+            ],
+            "matchDatasources": [
+                "docker"
+            ],
+            "group": {
+                "commitMessageTopic": "{{{groupName}}} group"
+            },
+            "separateMinorPatch": true
+        },
+        {
+            "description": [
                 "Dragonfly Operator Group"
             ],
             "groupName": "Dragonfly Operator",

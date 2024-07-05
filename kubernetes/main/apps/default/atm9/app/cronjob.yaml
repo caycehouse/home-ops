@@ -36,7 +36,8 @@ metadata:
   name: restart-atm9
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 */6 * * *"
+  schedule: "0 4,16 * * *"
+  timeZone: "America/New_York"
   jobTemplate:
     spec:
       backoffLimit: 1

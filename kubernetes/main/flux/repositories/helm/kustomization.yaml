@@ -29,5 +29,4 @@ resources:
   - ./spegel.yaml
   - ./stakater.yaml
   - ./stevehipwell.yaml
-  - ./tailscale.yaml
   - ./weave-gitops.yaml

@@ -33,7 +33,6 @@ tasks:
     desc: Generate clusterconfig for Talos
     cmds:
       - talhelper genconfig
-        --env-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talenv.sops.yaml
         --secret-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talsecret.sops.yaml
         --config-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
         --out-dir {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig
@@ -41,7 +40,6 @@ tasks:
       vars: ["cluster"]
     preconditions:
       - which talhelper
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talenv.sops.yaml
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talsecret.sops.yaml
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
 
@@ -50,13 +48,11 @@ tasks:
     cmds:
       - talhelper gencommand apply
         --extra-flags=--insecure
-        --env-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talenv.sops.yaml
         --config-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
         --out-dir {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig | bash
     requires:
       vars: ["cluster"]
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talenv.sops.yaml
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
       - test -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig
 
@@ -100,7 +96,6 @@ tasks:
     cmds:
       - talhelper gencommand apply
         --extra-flags=--mode={{.mode}}
-        --env-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talenv.sops.yaml
         --config-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
         --out-dir {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig
         --node {{.hostname}} | bash

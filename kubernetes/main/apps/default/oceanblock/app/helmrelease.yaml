@@ -34,9 +34,6 @@ spec:
     image:
       repository: itzg/minecraft-server
       tag: 2024.7.0-java8@sha256:1605524c5b0f6d548cde60c1c97666b6663dc91924963886df1c6d1599d5f0c6
-    serviceAnnotations:
-      tailscale.com/expose: "true"
-      tailscale.com/hostname: *app
     livenessProbe:
       initialDelaySeconds: 120
     minecraftServer:

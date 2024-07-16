@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/sonarr
-              tag: 4.0.7.1863@sha256:92280b007b47c07f2012d87255e6422325868cdd38a3cc450e47e4044e87341a
+              tag: 4.0.8.1874@sha256:ec3be02809452541e99171155a88a0494d5c3545906753a3e4633802339cb7b6
             env:
               SONARR__APP__INSTANCENAME: Sonarr
               SONARR__APP__THEME: dark

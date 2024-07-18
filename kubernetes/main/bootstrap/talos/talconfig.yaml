@@ -3,7 +3,7 @@
 # renovate: depName=ghcr.io/caycehouse/talosctl datasource=docker
 talosVersion: v1.7.5
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.30.2
+kubernetesVersion: v1.30.3
 
 clusterName: "main"
 endpoint: https://192.168.42.120:6443

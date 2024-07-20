@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/home-assistant
-              tag: 2024.7.2@sha256:a39a7a789fe66e6feed786d2f0538adf988c83b49bedccedb1b9bc7819c9205e
+              tag: 2024.7.3@sha256:71e69f7b4abd66e4f278a31ebd3d42a6e2a859877f90114cdf03b8bdb528ac97
             env:
               TZ: America/New_York
               HASS_HTTP_TRUSTED_PROXY_1: 192.168.42.0/24

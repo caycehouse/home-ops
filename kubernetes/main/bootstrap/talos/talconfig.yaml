@@ -124,12 +124,6 @@ patches:
             wsize=131072
             nconnect=8
 
-  # Disable search domain everywhere
-  - |-
-    machine:
-      network:
-        disableSearchDomain: true
-
   # Enable cluster discovery
   - |-
     cluster:

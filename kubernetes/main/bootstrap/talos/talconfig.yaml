@@ -159,7 +159,7 @@ patches:
         hostDNS:
           enabled: true
           resolveMemberNames: true
-          forwardKubeDNSToHost: true
+          forwardKubeDNSToHost: false
 
   # Custom sysctl settings
   - |-

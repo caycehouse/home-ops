@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ylianst/meshcentral
-              tag: 1.1.25@sha256:2acb2690b5e785a55a5fb87509c249fe6ab0098d4cfe32103c359a9ac01e4560
+              tag: 1.1.27@sha256:1117fddf13b725ea8cc1e029ee955f760e71149b8749fe9b0220e3f1d1b40bca
             probes:
               liveness:
                 enabled: true

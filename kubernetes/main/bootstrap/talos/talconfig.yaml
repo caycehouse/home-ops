@@ -222,4 +222,4 @@ controlPlane:
 
 worker:
   nodeLabels:
-    node-role.kubernetes.io/worker: worker
+    node-role.kubernetes.io/worker: "true"

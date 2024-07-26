@@ -219,7 +219,3 @@ controlPlane:
               - "os:admin"
             allowedKubernetesNamespaces:
               - "system-upgrade"
-
-worker:
-  nodeLabels:
-    node-role.kubernetes.io/worker: "true"

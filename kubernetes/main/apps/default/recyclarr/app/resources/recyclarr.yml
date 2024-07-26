@@ -22,6 +22,8 @@ sonarr:
       - name: ANY
         reset_unmatched_scores:
           enabled: true
+          except:
+            - "!Language: Not Original or English"
         upgrade:
           allowed: true
           until_quality: WEB 1080p

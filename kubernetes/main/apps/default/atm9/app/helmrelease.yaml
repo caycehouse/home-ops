@@ -73,7 +73,7 @@ spec:
           allowPrivilegeEscalation: false
     image:
       repository: itzg/minecraft-server
-      tag: 2024.7.0-java17@sha256:0e6e763a586680fe406e16389b7346adce383c485eae04db174cc8ddba571b08
+      tag: 2024.7.2-java17@sha256:16111d15671f74e688b97ee949c8add952488a2d3b11bc3ca5496d901490741f
     livenessProbe: &probes
       initialDelaySeconds: 0
       periodSeconds: 10

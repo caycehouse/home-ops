@@ -98,6 +98,15 @@ spec:
       app:
         annotations:
           external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+          gethomepage.dev/description: Subtitle companion
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Starr
+          gethomepage.dev/href: "https://bazarr.${SECRET_DOMAIN}"
+          gethomepage.dev/icon: bazarr
+          gethomepage.dev/name: Bazarr
+          gethomepage.dev/widget.type: bazarr
+          gethomepage.dev/widget.url: http://bazarr.default.svc.cluster.local
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_BAZARR_API_KEY}}` }}"
         className: internal
         hosts:
           - host: bazarr.${SECRET_DOMAIN}

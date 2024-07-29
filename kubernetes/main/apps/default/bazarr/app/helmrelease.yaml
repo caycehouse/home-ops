@@ -30,6 +30,14 @@ spec:
   values:
     controllers:
       bazarr:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/caycehouse/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: bazarr-secret
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -39,9 +47,7 @@ spec:
               tag: 1.4.3@sha256:494f166cc08f7a931c4aff4e8f5eb7d11fe59b277fbee038ab1079ae99f063ee
             env:
               TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: bazarr-secret
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true

@@ -237,7 +237,7 @@ spec:
           revision: 9
           datasource: Prometheus
         volsync:
-          # removate: depNmae="VolSync Dashboard"
+          # renovate: depNmae="VolSync Dashboard"
           gnetId: 21356
           revision: 1
           datasource:

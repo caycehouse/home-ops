@@ -33,7 +33,7 @@ spec:
           tag: v0.2.1@sha256:5690d19149103e1f9fa7bed6783e5e9c7935fd347487d0e3cafe02589b2173f2
         env:
           - name: UNIFI_HOST
-            value: https://192.168.4.1
+            value: https://192.168.42.1
           - name: UNIFI_USER
             valueFrom:
               secretKeyRef:

@@ -1,0 +1,98 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app seaopolis
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.20.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: itzg
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+    timeout: 10m
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+    timeout: 10m
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: itzg/minecraft-server
+      tag: 2024.7.2-java17@sha256:16111d15671f74e688b97ee949c8add952488a2d3b11bc3ca5496d901490741f
+    livenessProbe: &probes
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      failureThreshold: 3
+      timeoutSeconds: 2
+    readinessProbe: *probes
+    startupProbe:
+      enabled: true
+      failureThreshold: 60
+      periodSeconds: 10
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      loadBalancerIP: 192.168.42.127
+      jvmXXOpts: "-XX:MaxRAMPercentage=75"
+      maxPlayers: 10
+      maxTickTime: 180000
+      motd: "Seaopolis: Submerged | 3.0"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      serviceType: LoadBalancer
+      spawnProtection: 1
+      type: "AUTO_CURSEFORGE"
+      viewDistance: 6
+      autoCurseForge:
+        apiKey:
+          key: ${CF_API_KEY}
+        filenameMatcher: "3.0"
+        slug: "seaopolis-submerged"
+      rcon:
+        enabled: true
+        existingSecret: &secret seaopolis-secret
+        secretKey: RCON_PASSWORD
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: *app
+    extraEnv:
+      ALLOW_FLIGHT: "true"
+      ENABLE_COMMAND_BLOCK: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      MEMORY: ""
+      OP_PERMISSION_LEVEL: "3"
+      SIMULATION_DISTANCE: "4"
+      SNOOPER_ENABLED: "false"
+      STOP_SERVER_ANNOUNCE_DELAY: 60
+      SYNC_CHUNK_WRITES: "false"
+      USE_AIKAR_FLAGS: "true"
+    envFrom:
+      - secretRef:
+          name: *secret
+    extraPodSpec:
+      terminationGracePeriodSeconds: "120"
+    resources:
+      requests:
+        cpu: 500m
+        memory: &mem 8Gi
+      limits:
+        memory: *mem

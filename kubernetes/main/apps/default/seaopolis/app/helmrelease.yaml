@@ -49,6 +49,8 @@ spec:
     minecraftServer:
       difficulty: "hard"
       eula: "true"
+      excludeMods:
+        - clear-water
       forcegameMode: true
       loadBalancerIP: 192.168.42.127
       jvmXXOpts: "-XX:MaxRAMPercentage=75"

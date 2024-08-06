@@ -40,11 +40,11 @@ spec:
       params:
         - name: dell-r630
           module: ["dell"]
-          target: 192.168.6.248
+          target: 172.24.1.124
           auth: ["public_v2"]
         - name: dell-r730xd
           module: ["dell"]
-          target: 192.168.5.198
+          target: 172.24.1.132
           auth: ["public_v2"]
       path: /snmp
       scrapeTimeout: 10s

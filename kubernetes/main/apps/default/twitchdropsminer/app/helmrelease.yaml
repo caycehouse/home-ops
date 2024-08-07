@@ -41,6 +41,22 @@ spec:
               limits:
                 memory: 768Mi
             args: ["./startup.sh"]
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                    - /bin/sh
+                    - -c
+                    - /TwitchDropsMiner/healthcheck.sh
+                  initialDelaySeconds: 60
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  successThreshold: 1
+                  failureThreshold: 3
+              readiness: *probes
     persistence:
       config:
         type: configMap

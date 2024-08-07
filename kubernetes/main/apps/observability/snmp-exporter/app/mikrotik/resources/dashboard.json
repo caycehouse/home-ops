@@ -4086,8 +4086,8 @@
             {
                 "current": {
                     "selected": false,
-                    "text": "172.24.1.123",
-                    "value": "172.24.1.123"
+                    "text": "192.168.1.123",
+                    "value": "192.168.1.123"
                 },
                 "datasource": {
                     "type": "prometheus",

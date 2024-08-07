@@ -52,6 +52,7 @@ spec:
       excludeMods:
         - clearwater
       forcegameMode: true
+      forceSynchronize: true
       loadBalancerIP: 192.168.42.127
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10

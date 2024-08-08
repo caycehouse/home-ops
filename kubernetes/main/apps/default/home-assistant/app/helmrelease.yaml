@@ -102,6 +102,7 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: home-assistant
           gethomepage.dev/name: HASS
+          gethomepage.dev/app: home-assistant
         className: external
         hosts:
           - host: hass.${SECRET_DOMAIN}

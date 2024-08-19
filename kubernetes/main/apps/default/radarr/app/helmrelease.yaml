@@ -114,7 +114,7 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      pushover-notify:
+      scripts:
         type: configMap
         name: radarr-configmap
         defaultMode: 0775

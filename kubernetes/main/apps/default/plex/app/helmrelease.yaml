@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/plex
-              tag: 1.40.5.8921-836b34c27@sha256:28c9a52408d7daa7e3873a678d631da718029321c5841ce3ed4247098fe9b2c2
+              tag: 1.40.5.8921-836b34c27@sha256:7861a479bdc66303f2bdc8f6b568b145c2c5524f3bbd37d3fbcd17cfdce1197a
             env:
               TZ: ${TIMEZONE}
               NVIDIA_DRIVER_CAPABILITIES: all

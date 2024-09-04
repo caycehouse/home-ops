@@ -3,6 +3,32 @@ version: "3"
 
 tasks:
 
+  privileged:
+    desc: Run a privileged pod
+    interactive: true
+    cmds:
+      - |
+        kubectl debug --context {{.cluster}} --namespace kube-system -it --image alpine node/{{.node}}
+    vars:
+      node: '{{ or .node (fail "Argument (node) is required") }}'
+      cluster: '{{ or .cluster (fail "Argument (cluster) is required") }}'
+
+  browse-pvc:
+    desc: Browse a PersistentVolumeClaim
+    summary: |
+      cluster: Cluster to run command against (default: main)
+      ns: Namespace to browse PersistentVolumeClaims in (default: default)
+      claim: PersistentVolumeClaim to browse (required)
+    interactive: true
+    cmd: kubectl browse-pvc --context {{.cluster}} --namespace {{.ns}} {{.claim}}
+    vars:
+      cluster: '{{.cluster | default "main"}}'
+      ns: '{{.ns | default "default"}}'
+    requires:
+      vars: ["claim"]
+    preconditions:
+      - kubectl --context {{.cluster}} --namespace {{.ns}} get persistentvolumeclaims {{.claim}}
+
   delete-failed-pods:
     desc: Deletes pods with a fucked status
     summary: |

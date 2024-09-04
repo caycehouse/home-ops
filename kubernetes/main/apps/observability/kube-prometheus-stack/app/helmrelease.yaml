@@ -38,7 +38,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://alertmanager.${SECRET_DOMAIN}"
           gethomepage.dev/description: Notification orchestration for Prometheus
@@ -79,7 +79,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://prometheus.${SECRET_DOMAIN}"
           gethomepage.dev/description: Insightful Data Visualization

@@ -46,7 +46,6 @@ spec:
               repository: ghcr.io/caycehouse/bazarr
               tag: 1.4.3@sha256:b1f6b7022437b8a7acd915daa73f0329dc18897be8cbaa9b49b964ebf67228eb
             env:
-              BAZARR__PORT: &port 80
               TZ: America/New_York
             envFrom: *envFrom
             probes:
@@ -56,7 +55,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: *port
+                    port: &port 6767
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1

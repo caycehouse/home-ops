@@ -1,9 +1,9 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app prowlarr
+  name: prowlarr
 spec:
   interval: 30m
   chart:
@@ -25,6 +25,8 @@ spec:
   values:
     controllers:
       prowlarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         initContainers:
           init-db:
             image:
@@ -33,8 +35,6 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: prowlarr-secret
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -43,7 +43,7 @@ spec:
             env:
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__APP__THEME: dark
-              PROWLARR__AUTH__METHOD: Forms
+              PROWLARR__AUTH__METHOD: External
               PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
               PROWLARR__LOG__DBENABLED: "False"
               PROWLARR__LOG__LEVEL: info
@@ -82,7 +82,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: *app
+        controller: prowlarr
         ports:
           http:
             port: *port

@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cert-manager.io/clusterissuer_v1.json
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -5,7 +7,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: "${SECRET_ACME_EMAIL}"
+    email: ${SECRET_ACME_EMAIL}
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
@@ -15,9 +17,9 @@ spec:
               name: cloudflare-secret
               key: CF_API_TOKEN
         selector:
-          dnsZones:
-            - "${SECRET_DOMAIN}"
+          dnsZones: ["${SECRET_DOMAIN}"]
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cert-manager.io/clusterissuer_v1.json
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -25,7 +27,7 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "${SECRET_ACME_EMAIL}"
+    email: ${SECRET_ACME_EMAIL}
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
@@ -35,5 +37,4 @@ spec:
               name: cloudflare-secret
               key: CF_API_TOKEN
         selector:
-          dnsZones:
-            - "${SECRET_DOMAIN}"
+          dnsZones: ["${SECRET_DOMAIN}"]

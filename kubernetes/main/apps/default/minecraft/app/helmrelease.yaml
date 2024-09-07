@@ -35,7 +35,7 @@ spec:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
     image:
       repository: itzg/minecraft-server
-      tag: 2024.7.2-java17@sha256:16111d15671f74e688b97ee949c8add952488a2d3b11bc3ca5496d901490741f
+      tag: 2024.9.0-java17@sha256:5b8e4eaf16b3604463f808e687c1ab7516a398de8e97bd97ec24a54f331b3b13
     livenessProbe:
       initialDelaySeconds: 120
     minecraftServer:

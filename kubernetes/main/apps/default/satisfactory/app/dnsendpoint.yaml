@@ -3,10 +3,10 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: atm9
+  name: satisfactory
 spec:
   endpoints:
-    - dnsName: "atm9.${SECRET_GAMING_DOMAIN}"
+    - dnsName: "satisfactory.${SECRET_GAMING_DOMAIN}"
       recordType: CNAME
       targets: ["ipv4.${SECRET_GAMING_DOMAIN}"]
       providerSpecific:

@@ -8,7 +8,7 @@ spec:
   endpoints:
     - dnsName: "seaopolis.${SECRET_GAMING_DOMAIN}"
       recordType: CNAME
-      targets: ["mc.${SECRET_GAMING_DOMAIN}"]
+      targets: ["ipv4.${SECRET_GAMING_DOMAIN}"]
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"

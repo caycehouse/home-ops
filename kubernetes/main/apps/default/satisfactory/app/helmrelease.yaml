@@ -47,6 +47,7 @@ spec:
                 memory: 16Gi
             securityContext:
               allowPrivilegeEscalation: false
+              # needs to be set to false so that steamcmd can write to /home/steam
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             probes:

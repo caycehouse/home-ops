@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: wolveix/satisfactory-server
-              tag: v1.6.2@sha256:5443b92765d330834ab767bb2dc63f303ee1775711753781a86c96b0add4a327
+              tag: v1.7.4@sha256:2570735308d6a17876a638dda047a4effc8b02a2bdb01e83c85d4affd60f9b14
             env:
               AUTOPAUSE: "false"
             resources:

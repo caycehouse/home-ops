@@ -49,6 +49,7 @@ spec:
       motd: "The Fryer's Minecraft Server"
       ops: "FryyourBacon"
       overrideServerProperties: true
+      serviceType: LoadBalancer
       spawnProtection: 0
       type: "FABRIC"
       vanillaTweaksShareCodes:

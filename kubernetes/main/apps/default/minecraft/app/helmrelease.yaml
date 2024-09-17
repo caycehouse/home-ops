@@ -47,7 +47,7 @@ spec:
       maxTickTime: 180000
       memory: "4G"
       motd: "The Fryer's Minecraft Server"
-      ops: "FryyourBacon"
+      ops: "FryyourBacon,3lGanso"
       overrideServerProperties: true
       serviceType: LoadBalancer
       spawnProtection: 0

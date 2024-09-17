@@ -89,3 +89,5 @@ spec:
         memory: &mem 6Gi
       limits:
         memory: *mem
+    serviceAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: mc.${SECRET_GAMING_DOMAIN}

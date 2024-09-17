@@ -53,9 +53,9 @@ spec:
       spawnProtection: 0
       type: "FABRIC"
       vanillaTweaksShareCodes:
-        - EaW0rS
-        - KR1Q4G
-      version: "1.20.4"
+        - f8rjVA
+        - FF8soj
+      version: "1.21.1"
       viewDistance: 7
       whitelist: "FryyourBacon"
       rcon:

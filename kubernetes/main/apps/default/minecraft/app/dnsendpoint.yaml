@@ -6,9 +6,9 @@ metadata:
   name: mc
 spec:
   endpoints:
-    - dnsName: "mc.${SECRET_GAMING_DOMAIN}"
-      recordType: CNAME
-      targets: ["ipv4.${SECRET_GAMING_DOMAIN}"]
+    - dnsName: "_minecraft._tcp.mc.${SECRET_GAMING_DOMAIN}"
+      recordType: SRV
+      targets: ["0 5 25567 ipv4.${SECRET_GAMING_DOMAIN}"]
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"

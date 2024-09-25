@@ -13,7 +13,7 @@ webrtc:
         - stun:stun.cloudflare.com:3478
 streams:
   side_yard:
-    - rtsp://192.168.1.122:8554/test
+    - rtspx://192.168.1.1:7441/pIqHnV33SjB5RC2P
 homekit:
   side_yard:
     pairings:

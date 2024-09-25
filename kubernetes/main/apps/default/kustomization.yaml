@@ -17,6 +17,7 @@ resources:
   - ./filebrowser/ks.yaml
   - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml
+  - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./linkding/ks.yaml

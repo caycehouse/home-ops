@@ -36,9 +36,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: true
-        vip:
-          ip: "192.168.42.120"
+        dhcp: false
+        vlans:
+          - vlanId: 42
+            dhcp: true
+            vip:
+              ip: "192.168.42.120"
   - hostname: babybundts
     ipAddress: "192.168.42.10"
     schematic: *schematic
@@ -47,7 +50,10 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: true
+        dhcp: false
+        vlans:
+          - vlanId: 42
+            dhcp: true
   - hostname: danish
     ipAddress: "192.168.42.11"
     schematic: *schematic
@@ -56,7 +62,10 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: true
+        dhcp: false
+        vlans:
+          - vlanId: 42
+            dhcp: true
   - hostname: honeybun
     ipAddress: "192.168.42.12"
     schematic:
@@ -74,7 +83,10 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: true
+        dhcp: false
+        vlans:
+          - vlanId: 42
+            dhcp: true
     patches:
       - |-
         - op: add

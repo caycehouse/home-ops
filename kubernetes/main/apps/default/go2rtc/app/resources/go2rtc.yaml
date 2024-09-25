@@ -16,6 +16,6 @@ streams:
     - rtspx://192.168.1.1:7441/wSkyYa5viIgJw7He
 homekit:
   side_yard:
-  pairings:
-    - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
-    - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+    pairings:
+      - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+      - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1

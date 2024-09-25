@@ -42,6 +42,8 @@ nodes:
             dhcp: true
             vip:
               ip: "192.168.42.120"
+          - vlanId: 70
+            dhcp: false
   - hostname: babybundts
     ipAddress: "192.168.42.10"
     schematic: *schematic
@@ -54,6 +56,8 @@ nodes:
         vlans:
           - vlanId: 42
             dhcp: true
+          - vlanId: 70
+            dhcp: false
   - hostname: danish
     ipAddress: "192.168.42.11"
     schematic: *schematic
@@ -66,6 +70,8 @@ nodes:
         vlans:
           - vlanId: 42
             dhcp: true
+          - vlanId: 70
+            dhcp: false
   - hostname: honeybun
     ipAddress: "192.168.42.12"
     schematic:
@@ -87,6 +93,8 @@ nodes:
         vlans:
           - vlanId: 42
             dhcp: true
+          - vlanId: 70
+            dhcp: false
     patches:
       - |-
         - op: add

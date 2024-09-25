@@ -10,9 +10,12 @@ webrtc:
     - stun:8555
   ice_servers:
     - urls:
-       - stun:stun.cloudflare.com:3478
+        - stun:stun.cloudflare.com:3478
 streams:
   side_yard:
     - rtspx://192.168.1.1:7441/wSkyYa5viIgJw7He
 homekit:
   side_yard:
+  pairings:
+    - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+    - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1

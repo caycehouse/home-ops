@@ -33,7 +33,7 @@ spec:
   values:
     image:
       repository: itzg/minecraft-server
-      tag: 2024.9.0-java8@sha256:86337430ebc0b2c35770989505d54c82ab03ceea34d691be53b21d76998f214a
+      tag: 2024.10.0-java8@sha256:16bb4ec2a424cf94830688adee3546b56636ca1e88dc056b27abbca55c690939
     livenessProbe:
       initialDelaySeconds: 120
     minecraftServer:

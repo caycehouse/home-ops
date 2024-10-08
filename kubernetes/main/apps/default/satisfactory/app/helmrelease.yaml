@@ -56,8 +56,8 @@ spec:
                 spec:
                   exec:
                     command:
-                    - /bin/bash
-                    - /healthcheck.sh
+                      - /bin/bash
+                      - /healthcheck.sh
                   initialDelaySeconds: 120
                   periodSeconds: 30
                   timeoutSeconds: 10
@@ -78,7 +78,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: satisfactory.${SECRET_GAMING_DOMAIN}
-          io.cilium/lb-ipam-ips: "192.168.42.130"
+          lbipam.cilium.io/ips: "192.168.42.130"
         ports:
           game-tcp:
             port: 7777

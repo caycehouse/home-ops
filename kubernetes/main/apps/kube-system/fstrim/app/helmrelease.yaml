@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/kubanetics
-              tag: 2024.9.2@sha256:4235f4ac14d7f4d26216d552c0b2fdc0c51a85ecdb976600fd22760f97ba07a7
+              tag: 2024.10.5@sha256:222d40545ec5297b333b74de4a8b1d8528bd18d9d6834c8cda40d5d503222e24
             env:
               SCRIPT_NAME: fstrim.sh
               TZ: *timeZone

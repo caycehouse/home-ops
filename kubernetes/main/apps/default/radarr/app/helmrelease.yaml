@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/radarr
-              tag: 5.11.0.9244@sha256:dcaa82efc3f0dd568d598c1da3d441234c48ee15f8d5f4b0e750ae2dc6abffe8
+              tag: 5.11.0.9244@sha256:a4c81b7fd91d286ba03a99ec1b643490b2a3e8a2e4e830e30607bfec195a328b
             env:
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__APP__THEME: dark

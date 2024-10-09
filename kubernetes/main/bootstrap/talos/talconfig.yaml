@@ -82,8 +82,8 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/qemu-guest-agent
-            - siderolabs/nvidia-container-toolkit
-            - siderolabs/nonfree-kmod-nvidia
+            - siderolabs/nvidia-container-toolkit-production
+            - siderolabs/nonfree-kmod-nvidia-production
     installDisk: /dev/sda
     controlPlane: false
     networkInterfaces:

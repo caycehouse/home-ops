@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+vars:
+  BREWFILE: '{{.ROOT_DIR}}/.taskfiles/workstation/resources/Brewfile'
+
+tasks:
+
+  brew:
+    desc: Set up Homebrew tools
+    cmd: brew bundle --file {{.BREWFILE}}
+    sources:
+      - '{{.BREWFILE}}'
+    generates:
+      - '{{.BREWFILE}}.lock.json'
+    preconditions:
+      - command -v brew
+      - test -f {{.BREWFILE}}
+
+  golang:
+    desc: Set up Go tools
+    deps: [brew]
+    cmd: go install github.com/drone/envsubst/cmd/envsubst@latest
+    preconditions:
+      - command -v go
+

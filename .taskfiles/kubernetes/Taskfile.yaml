@@ -1,47 +1,93 @@
 ---
-version: "3"
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
 
 tasks:
+
+  apply-ks:
+    desc: Apply a Flux Kustomization resource for a cluster
+    summary: |
+      CLUSTER: Cluster to run command against (required)
+      PATH: Path to the Flux Kustomization resource from the apps base dir (required, e.g. default/plex)
+      NS: Namespace the Flux Kustomization exists in (default: flux-system)
+    cmd: |
+      flux build ks {{base .PATH}} \
+          --namespace {{.NS}} \
+          --kustomization-file {{.KUBERNETES_DIR}}/{{.CLUSTER}}/apps/{{.PATH}}/ks.yaml \
+          --path {{.KUBERNETES_DIR}}/{{.CLUSTER}}/apps/{{.PATH}} \
+          {{- if contains "not found" .KS }}--dry-run \{{ end }}
+      | \
+      kubectl apply --server-side --field-manager=kustomize-controller -f -
+    requires:
+      vars: ['CLUSTER', 'PATH']
+    vars:
+      NS: '{{.NS | default "flux-system"}}'
+      KS:
+        sh: flux --namespace {{.NS}} get kustomizations {{base .PATH}} 2>&1
+    preconditions:
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/apps/{{.PATH}}/ks.yaml
+
+  browse-pvc:
+    desc: Browse a PersistentVolumeClaim
+    summary: |
+      CLUSTER: Cluster to run command against (default: main)
+      NS: Namespace to browse PersistentVolumeClaims in (default: default)
+      CLAIM: PersistentVolumeClaim to browse (required)
+    interactive: true
+    cmd: kubectl browse-pvc --namespace {{.NS}} {{.CLAIM}}
+    vars:
+      CLUSTER: '{{.CLUSTER}}'
+      NS: '{{.NS | default "default"}}'
+    requires:
+      vars: ['CLAIM']
+    preconditions:
+      - kubectl --namespace {{.NS}} get persistentvolumeclaims {{.CLAIM}}
+
+  delete-failed-pods:
+    desc: Delete all pods with an Evicted/Failed/Succeeded status
+    summary: |
+      CLUSTER: Cluster to run command against (default: main)
+    cmds:
+      - for: ['Evicted', 'Failed', 'Succeeded']
+        cmd: kubectl delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
+    vars:
+      CLUSTER: '{{.CLUSTER}}'
+
+  k9s:
+    desc: Run k9s on given cluster
+    interactive: true
+    cmd: k9s --context {{.CLUSTER}}
+    vars:
+      CLUSTER: '{{.CLUSTER}}'
+
 
   privileged:
     desc: Run a privileged pod
     interactive: true
     cmds:
       - |
-        kubectl debug --context {{.cluster}} --namespace kube-system -it --image alpine node/{{.node}}
+        kubectl debug --context {{.CLUSTER}} --namespace kube-system -it --image alpine node/{{.HOSTNAME}}
     vars:
-      node: '{{ or .node (fail "Argument (node) is required") }}'
-      cluster: '{{ or .cluster (fail "Argument (cluster) is required") }}'
-
-  browse-pvc:
-    desc: Browse a PersistentVolumeClaim
-    summary: |
-      cluster: Cluster to run command against (default: main)
-      ns: Namespace to browse PersistentVolumeClaims in (default: default)
-      claim: PersistentVolumeClaim to browse (required)
-    interactive: true
-    cmd: kubectl browse-pvc --context {{.cluster}} --namespace {{.ns}} {{.claim}}
-    vars:
-      cluster: '{{.cluster | default "main"}}'
-      ns: '{{.ns | default "default"}}'
+      CLUSTER: '{{.CLUSTER}}'
     requires:
-      vars: ["claim"]
+      vars: ['HOSTNAME']
+
+  sync-secrets:
+    desc: Sync ExternalSecret resources from provider
+    summary: |
+      CLUSTER: Cluster to run command against (default: main)
+      NS: Namespace to sync secret in (default: default)
+      SECRET: Secret to sync (default: all secrets)
+    cmd: |
+      {{if eq .SECRET ""}}
+        kubectl get externalsecret --all-namespaces --no-headers -A | awk '{print $1, $2}' \
+          | xargs --max-procs=2 -l bash -c 'kubectl -n $0 annotate externalsecret $1 force-sync=$(date +%s) --overwrite'
+      {{else}}
+        kubectl --namespace {{.NS}} annotate externalsecret {{.SECRET}} force-sync=$(date +%s) --overwrite
+      {{end}}
+    vars:
+      SECRET: '{{ .SECRET | default ""}}'
+      NS: '{{.NS | default "default"}}'
+      CLUSTER: '{{.CLUSTER}}'
     preconditions:
-      - kubectl --context {{.cluster}} --namespace {{.ns}} get persistentvolumeclaims {{.claim}}
-
-  delete-failed-pods:
-    desc: Deletes pods with a fucked status
-    summary: |
-      Args:
-        cluster: Cluster to run command against (required)
-    cmds:
-      - for: ["Evicted", "Failed", "Succeeded"]
-        cmd: kubectl --context {{.cluster}} delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
-    requires:
-      vars: ["cluster"]
-
-  k9s:
-    desc: Run k9s on given cluster
-    cmd: k9s --context {{.cluster}}
-    requires:
-      vars: ["cluster"]
+      - kubectl --namespace {{.NS}} get externalsecret {{.SECRET}}

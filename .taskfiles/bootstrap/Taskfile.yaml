@@ -1,0 +1,138 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+includes:
+  talos: ../talos
+
+vars:
+  BOOTSTRAP_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/bootstrap/resources'
+  TALOS_CONTROLLER:
+    sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+
+tasks:
+
+  kubernetes:
+    desc: Bootstrap a Talos Kubernetes cluster backed by flux, sops, and rook
+    prompt: Bootstrap a Talos Kubernetes cluster ... continue?
+    summary: |
+      CLUSTER: Cluster to run command against (default: main)
+      NODES: Nodes in the cluster to reset Rook on (required, comma delimited, e.g. k8s-0,k8s-1)
+      DISK: Disk to reset Rook on (required, e.g. /dev/nvme0n1)
+    vars: &vars
+      CLUSTER: '{{.CLUSTER}}'
+      NODES: '{{.NODES}}'
+      DISK: '{{.DISK}}'
+    cmds:
+      - { task: talos:bootstrap-genconfig, vars: *vars }
+      - { task: talos:bootstrap-apply, vars: *vars }
+      - { task: etcd, vars: *vars }
+      - { task: conf, vars: *vars }
+      - { task: apps, vars: *vars }
+      - { task: rook, vars: *vars }
+      - { task: flux, vars: *vars }
+    requires:
+      vars: ['CLUSTER', 'NODES', 'DISK']
+    preconditions:
+      - talosctl config info &>/dev/null
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
+
+  etcd:
+    internal: true
+    cmd: until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 10; done
+    preconditions:
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
+      - talosctl config info &>/dev/null
+
+  apps:
+    internal: true
+    cmds:
+      - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
+      - helmfile --quiet --file {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
+    preconditions:
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/helmfile.yaml
+      - talosctl config info &>/dev/null
+
+  conf:
+    internal: true
+    cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.KUBERNETES_DIR}}/{{.CLUSTER}}
+    preconditions:
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
+      - talosctl config info &>/dev/null
+
+  flux:
+    internal: true
+    cmds:
+      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/flux
+      - sops --decrypt {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/flux/age-key.secret.sops.yaml | kubectl apply --server-side --filename -
+      - sops --decrypt {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/flux/github-deploy-key.secret.sops.yaml | kubectl apply --server-side --filename -
+      - sops --decrypt {{.KUBERNETES_DIR}}/{{.CLUSTER}}/flux/vars/cluster-secrets.secret.sops.yaml | kubectl apply --server-side --filename -
+      - kubectl apply --server-side --filename {{.KUBERNETES_DIR}}/{{.CLUSTER}}/flux/vars/cluster-settings.yaml
+      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.CLUSTER}}/flux/config
+    preconditions:
+      - test -f {{.ROOT_DIR}}/age.key
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/flux/age-key.secret.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/flux/github-deploy-key.secret.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/flux/vars/cluster-secrets.secret.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/flux/vars/cluster-settings.yaml
+      - sops filestatus {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/flux/age-key.secret.sops.yaml | jq --exit-status '.encrypted'
+      - sops filestatus {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/flux/github-deploy-key.secret.sops.yaml | jq --exit-status '.encrypted'
+      - sops filestatus {{.KUBERNETES_DIR}}/{{.CLUSTER}}/flux/vars/cluster-secrets.secret.sops.yaml | jq --exit-status '.encrypted'
+
+  rook:
+    internal: true
+    vars: &vars
+      CLUSTER: '{{.CLUSTER}}'
+      NODE: '{{.ITEM}}'
+      DISK: '{{.DISK}}'
+    cmds:
+      - for: { var: NODES }
+        task: rook-data
+        vars: *vars
+      - for: { var: NODES }
+        task: rook-disk
+        vars: *vars
+
+  rook-disk:
+    internal: true
+    cmds:
+      - $GOPATH/bin/envsubst < <(cat {{.BOOTSTRAP_RESOURCES_DIR}}/rook-disk-job.tmpl.yaml) | kubectl apply -f -
+      - bash {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh {{.JOB}} {{.NS}}
+      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for condition=complete --timeout=1m
+      - kubectl --namespace {{.NS}} logs job/{{.JOB}}
+      - kubectl --namespace {{.NS}} delete job {{.JOB}}
+    vars:
+      JOB: wipe-disk-{{.NODE}}
+      NS: '{{.NS | default "default"}}'
+    env:
+      DISK: '{{.DISK}}'
+      JOB: '{{.JOB}}'
+      NODE: '{{.NODE}}'
+      NS: '{{.NS}}'
+    preconditions:
+      - test -f $GOPATH/bin/envsubst
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/rook-disk-job.tmpl.yaml
+
+  rook-data:
+    internal: true
+    cmds:
+      - $GOPATH/bin/envsubst < <(cat {{.BOOTSTRAP_RESOURCES_DIR}}/rook-data-job.tmpl.yaml) | kubectl apply -f -
+      - bash {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh {{.JOB}} {{.NS}}
+      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for condition=complete --timeout=1m
+      - kubectl --namespace {{.NS}} logs job/{{.JOB}}
+      - kubectl --namespace {{.NS}} delete job {{.JOB}}
+    vars:
+      JOB: wipe-data-{{.NODE}}
+      NS: '{{.NS | default "default"}}'
+    env:
+      DISK: '{{.DISK}}'
+      JOB: '{{.JOB}}'
+      NODE: '{{.NODE}}'
+      NS: '{{.NS}}'
+    preconditions:
+      - test -f $GOPATH/bin/envsubst
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/rook-data-job.tmpl.yaml

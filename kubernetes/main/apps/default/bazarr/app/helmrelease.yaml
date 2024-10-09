@@ -111,7 +111,7 @@ spec:
           gethomepage.dev/icon: bazarr
           gethomepage.dev/name: Bazarr
           gethomepage.dev/widget.type: bazarr
-          gethomepage.dev/widget.url: http://bazarr.default.svc.cluster.local
+          gethomepage.dev/widget.url: http://bazarr.default.svc.cluster.local:6767
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_BAZARR_API_KEY}}` }}"
         className: internal
         hosts:

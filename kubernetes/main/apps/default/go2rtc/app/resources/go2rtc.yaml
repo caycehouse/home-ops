@@ -14,8 +14,6 @@ webrtc:
 streams:
   side_yard:
     - rtspx://192.168.1.1:7441/pIqHnV33SjB5RC2P
-  test:
-    - rtspx://192.168.1.1:7441/kgrSl0NP3tzBZFo8
 homekit:
   side_yard:
     pairings:

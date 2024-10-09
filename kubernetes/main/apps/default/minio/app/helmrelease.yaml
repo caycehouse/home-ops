@@ -101,7 +101,7 @@ spec:
           gethomepage.dev/description: S3 compatible object store
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Storage
-          gethomepage.dev/href: "https://s3.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://minio.${SECRET_DOMAIN}"
           gethomepage.dev/icon: minio
           gethomepage.dev/name: MinIO
         className: internal

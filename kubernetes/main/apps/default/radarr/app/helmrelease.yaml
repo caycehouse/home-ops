@@ -127,6 +127,6 @@ spec:
       data:
         type: nfs
         server: bakery.internal
-        path: "${NFS_DATA_PATH:=temp}"
+        path: /mnt/storage0/media
         globalMounts:
           - path: /data

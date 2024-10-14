@@ -51,7 +51,7 @@ spec:
       viewDistance: 7
       autoCurseForge:
         apiKey:
-        existingSecret: &secret allinone-secret
+          existingSecret: &secret allinone-secret
           secretKey: CF_API_KEY
         filenameMatcher: "1.5.4"
         slug: "all-in-one-modded-one-block"

@@ -1,7 +1,9 @@
-.go/
-.private/
-.task/
-scripts/
+/.bin/
+/.go/
+/.private/
+/.task/
+/.venv/
+/scripts/
 *.secret.env
 *.secret.yaml
 *.key

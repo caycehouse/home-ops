@@ -101,12 +101,13 @@ spec:
       viewDistance: 6
       autoCurseForge:
         apiKey:
-          key: ${CF_API_KEY}
+          existingSecret: &secret atm9-secret
+          secretKey: CF_API_KEY
         filenameMatcher: "0.2.61"
         slug: "all-the-mods-9"
       rcon:
         enabled: true
-        existingSecret: &secret atm9-secret
+        existingSecret: *secret
         secretKey: RCON_PASSWORD
     persistence:
       dataDir:

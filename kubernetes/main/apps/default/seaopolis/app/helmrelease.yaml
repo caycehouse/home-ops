@@ -64,14 +64,15 @@ spec:
       viewDistance: 6
       autoCurseForge:
         apiKey:
-          key: ${CF_API_KEY}
+          existingSecret: &secret seaopolis-secret
+          secretKey: CF_API_KEY
         excludeMods:
           - clear-water
         filenameMatcher: "3.0"
         slug: "seaopolis-submerged"
       rcon:
         enabled: true
-        existingSecret: &secret seaopolis-secret
+        existingSecret: *secret
         secretKey: RCON_PASSWORD
     persistence:
       dataDir:

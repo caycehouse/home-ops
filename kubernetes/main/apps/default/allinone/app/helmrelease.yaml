@@ -51,12 +51,13 @@ spec:
       viewDistance: 7
       autoCurseForge:
         apiKey:
-          key: ${CF_API_KEY}
+        existingSecret: &secret allinone-secret
+          secretKey: CF_API_KEY
         filenameMatcher: "1.5.4"
         slug: "all-in-one-modded-one-block"
       rcon:
         enabled: true
-        existingSecret: &secret allinone-secret
+        existingSecret: *secret
         secretKey: RCON_PASSWORD
     persistence:
       dataDir:

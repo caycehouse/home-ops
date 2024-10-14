@@ -45,5 +45,4 @@ spec:
       - upgrade
       # TALOS_IMAGE_NAME is determined by caycehouse/talosctl image
       - --image=$(TALOS_IMAGE_NAME):$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
-      - --preserve=true
       - --wait=false

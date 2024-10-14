@@ -4,50 +4,49 @@ version: '3'
 
 x-vars: &vars
   KUBERNETES_VERSION:
-    sh: yq 'select(document_index == 1).spec.postBuild.substitute.KUBERNETES_VERSION' {{.KUBERNETES_DIR}}/{{.CLUSTER}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
+    sh: yq 'select(document_index == 1).spec.postBuild.substitute.KUBERNETES_VERSION' {{.CLUSTER_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
   TALOS_CONTROLLER:
     sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
   TALOS_SCHEMATIC_ID:
-    sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_SCHEMATIC_ID' {{.KUBERNETES_DIR}}/{{.CLUSTER}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
+    sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_SCHEMATIC_ID' {{.CLUSTER_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
   TALOS_VERSION:
-    sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_VERSION' {{.KUBERNETES_DIR}}/{{.CLUSTER}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
+    sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_VERSION' {{.CLUSTER_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
 
 tasks:
-
   bootstrap-genconfig:
     desc: Generate clusterconfig for Talos
     cmds:
       - talhelper genconfig
-        --secret-file {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/talsecret.sops.yaml
-        --config-file {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/talconfig.yaml
-        --out-dir {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig
+        --secret-file {{.CLUSTER_DIR}}/bootstrap/talos/talsecret.sops.yaml
+        --config-file {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
+        --out-dir {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig
     requires:
-      vars: ["CLUSTER"]
+      vars: ['CLUSTER']
     preconditions:
       - which talhelper
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/talsecret.sops.yaml
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/talconfig.yaml
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/talsecret.sops.yaml
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
 
   bootstrap-apply:
     desc: Apply the Talos configs to the nodes
     cmds:
       - talhelper gencommand apply
         --extra-flags=--insecure
-        --config-file {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/talconfig.yaml
-        --out-dir {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig | bash
+        --config-file {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
+        --out-dir {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig | bash
     requires:
       vars: ['CLUSTER']
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/talconfig.yaml
-      - test -d {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
+      - test -d {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig
 
   apply-config:
     desc: Apply Talos configuration to a node
     cmds:
       - talhelper gencommand apply
         --extra-flags=--mode={{.MODE}}
-        --config-file {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/talconfig.yaml
-        --out-dir {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig
+        --config-file {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
+        --out-dir {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig
         --node {{.HOSTNAME}} | bash
     vars:
       MODE: '{{.MODE | default "no-reboot"}}'
@@ -55,8 +54,8 @@ tasks:
     requires:
       vars: ['CLUSTER', 'HOSTNAME']
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/{{.CLUSTER}}-{{.HOSTNAME}}.yaml
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/{{.CLUSTER}}-{{.HOSTNAME}}.yaml
       - talosctl --nodes {{.HOSTNAME}} get machineconfig &>/dev/null
 
   upgrade:
@@ -70,7 +69,7 @@ tasks:
     requires:
       vars: ['CLUSTER', 'HOSTNAME']
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.HOSTNAME}} get machineconfig &>/dev/null
 
@@ -83,7 +82,7 @@ tasks:
     requires:
       vars: ['CLUSTER']
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig &>/dev/null
 
@@ -94,7 +93,7 @@ tasks:
     requires:
       vars: ['CLUSTER', 'HOSTNAME']
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.HOSTNAME}} get machineconfig &>/dev/null
 
@@ -108,6 +107,6 @@ tasks:
     requires:
       vars: ['CLUSTER']
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.CLUSTER}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.NODES}} get machineconfig &>/dev/null

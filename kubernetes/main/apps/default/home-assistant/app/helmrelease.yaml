@@ -59,26 +59,19 @@ spec:
             image:
               repository: ghcr.io/coder/code-server
               tag: 4.93.1@sha256:c69e398d1b64589b3b77a7becfd03f4ec524982def20e6bffbb51b1b839e72ba
-            args:
-              [
-                "--auth",
-                "none",
-                "--user-data-dir",
-                "/config/.vscode",
-                "--extensions-dir",
-                "/config/.vscode",
-                "--port",
-                "12321",
-                "/config",
-              ]
+            args: [
+              "--auth", "none",
+              "--user-data-dir", "/config/.vscode",
+              "--extensions-dir", "/config/.vscode",
+              "--port", "12321",
+              "/config"
+            ]
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 512Mi
     defaultPodOptions:
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -86,12 +79,17 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name": "multus-iot",
+            "namespace": "network",
+            "ips": ["192.168.70.120/24"],
+            "mac": "47:5b:d8:3d:f4:6e"
+          }]
     service:
       app:
         controller: home-assistant
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 192.168.42.131
         ports:
           http:
             port: 8123

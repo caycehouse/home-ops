@@ -38,6 +38,8 @@ nodes:
           busPath: "0*"
         dhcp: false
         vlans:
+          - vlanId: 10
+            dhcp: false
           - vlanId: 42
             dhcp: true
             vip:
@@ -54,6 +56,8 @@ nodes:
           busPath: "0*"
         dhcp: false
         vlans:
+          - vlanId: 10
+            dhcp: false
           - vlanId: 42
             dhcp: true
           - vlanId: 70
@@ -68,6 +72,8 @@ nodes:
           busPath: "0*"
         dhcp: false
         vlans:
+          - vlanId: 10
+            dhcp: false
           - vlanId: 42
             dhcp: true
           - vlanId: 70
@@ -91,6 +97,8 @@ nodes:
           busPath: "0*"
         dhcp: false
         vlans:
+          - vlanId: 10
+            dhcp: false
           - vlanId: 42
             dhcp: true
           - vlanId: 70

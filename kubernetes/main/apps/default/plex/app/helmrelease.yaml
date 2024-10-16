@@ -87,6 +87,13 @@ spec:
         seccompProfile: { type: RuntimeDefault }
       nodeSelector:
         nvidia.feature.node.kubernetes.io/gpu: "true"
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name": "multus-iot",
+            "namespace": "network",
+            "ips": ["192.168.70.120/24"]
+          }]
     service:
       app:
         controller: plex
@@ -97,12 +104,6 @@ spec:
           http:
             port: 32400
             primary: true
-          dnla-tcp:
-            port: 32469
-            protocol: TCP
-          dnla-udp:
-            port: 1900
-            protocol: UDP
     ingress:
       app:
         annotations:

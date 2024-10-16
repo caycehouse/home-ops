@@ -36,14 +36,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: false
+        dhcp: true
+        vip:
+          ip: "192.168.42.120"
         vlans:
           - vlanId: 10
             dhcp: false
-          - vlanId: 42
-            dhcp: true
-            vip:
-              ip: "192.168.42.120"
           - vlanId: 70
             dhcp: false
   - hostname: babybundts
@@ -54,12 +52,10 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 10
             dhcp: false
-          - vlanId: 42
-            dhcp: true
           - vlanId: 70
             dhcp: false
   - hostname: danish
@@ -70,12 +66,10 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 10
             dhcp: false
-          - vlanId: 42
-            dhcp: true
           - vlanId: 70
             dhcp: false
   - hostname: honeybun
@@ -95,12 +89,10 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           busPath: "0*"
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 10
             dhcp: false
-          - vlanId: 42
-            dhcp: true
           - vlanId: 70
             dhcp: false
     patches:

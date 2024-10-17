@@ -113,7 +113,7 @@ data:
     - Utilities:
           - OctoPi:
                 description: 3D printer web interface
-                href: https://octopi
+                href: https://octopi.internal
                 icon: octoprint
                 widget:
                   key: {{HOMEPAGE_VAR_OCTOPI_API_KEY}}
@@ -122,7 +122,7 @@ data:
           - Proxmox:
                 icon: proxmox
                 description: Virtualization platform
-                href: https://cupcakes.dog-hen.ts.net:8006
+                href: https://cupcakes.internal:8006
                 ping: localhost
 
   settings.yaml: |

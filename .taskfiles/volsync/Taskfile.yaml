@@ -72,8 +72,7 @@ tasks:
       NS: Namespace the application is in (default: default)
       APP: Application to unlock (required)
     cmds:
-      - kubectl --namespace {{.NS}} patch replicationsources {{.APP}} --type merge --patch '{"spec":{"restic":{"unlock":"{{.TS}}"}}}'
-      - kubectl --namespace {{.NS}} patch replicationsources {{.APP}}-r2 --type merge --patch '{"spec":{"restic":{"unlock":"{{.TS}}"}}}'
+      - kubectl --namespace {{.NS}} patch --field-manager=flux-client-side-apply replicationsources {{.APP}} --type merge --patch '{"spec":{"restic":{"unlock":"{{.TS}}"}}}'
     vars:
       NS: '{{.NS | default "default"}}'
       TS: '{{now | unixEpoch}}'
@@ -81,7 +80,6 @@ tasks:
       vars: [CLUSTER, APP]
     preconditions:
       - kubectl --namespace {{.NS}} get replicationsources {{.APP}} &>/dev/null
-      - kubectl --namespace {{.NS}} get replicationsources {{.APP}}-r2 &>/dev/null
 
   unlock-legacy:
     desc: Unlock a Restic repository for an application
@@ -96,7 +94,6 @@ tasks:
       - bash {{.VOLSYNC_RESOURCES_DIR}}/scripts/wait-for-job.sh volsync-unlock-{{.APP}} {{.NS}}
       - kubectl --namespace {{.NS}} wait job/volsync-unlock-{{.APP}} --for condition=complete --timeout=1m
       - kubectl --namespace {{.NS}} logs job/volsync-unlock-{{.APP}} --container minio
-      - kubectl --namespace {{.NS}} logs job/volsync-unlock-{{.APP}} --container r2
       - kubectl --namespace {{.NS}} delete job volsync-unlock-{{.APP}}
     vars:
       NS: '{{.NS | default "default"}}'

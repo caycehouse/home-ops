@@ -97,13 +97,13 @@ data:
           - R630 iDRAC:
                 icon: idrac
                 description: Dell Remote Access Controller
-                href: https://192.168.42.3
-                ping: 192.168.42.3
+                href: https://192.168.1.124
+                ping: 192.168.1.124
           - R730XD iDRAC:
                 icon: idrac
                 description: Dell Remote Access Controller
-                href: https://192.168.42.4
-                ping: 192.168.42.4
+                href: https://192.168.1.132
+                ping: 192.168.1.132
     - Storage:
           - TrueNAS Scale:
                 icon: truenas-scale

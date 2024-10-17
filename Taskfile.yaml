@@ -2,20 +2,23 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: '3'
 
+set: [pipefail]
+shopt: [globstar]
+
 vars:
   CLUSTER: '{{.CLUSTER | default "main"}}'
   CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
 
 env:
-  KUBECONFIG: '{{.CLUSTER_DIR}}/kubeconfig'
-  TALOSCONFIG: '{{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig'
-  SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
   GOPATH: '{{.ROOT_DIR}}/.go'
+  KUBECONFIG: '{{.CLUSTER_DIR}}/kubeconfig'
+  SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
+  TALOSCONFIG: '{{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig'
 
 includes:
   bootstrap: .taskfiles/bootstrap
   kubernetes:
-    aliases: ['k8s']
+    aliases: [k8s]
     taskfile: .taskfiles/kubernetes
   talos: .taskfiles/talos
   volsync: .taskfiles/volsync

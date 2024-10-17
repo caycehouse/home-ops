@@ -6,18 +6,19 @@ tasks:
 
   apply-ks:
     desc: Apply a Flux Kustomization resource for a cluster
-    summary: |
+    summary: |-
       CLUSTER: Cluster to run command against (required)
       PATH: Path to the Flux Kustomization resource from the apps base dir (required, e.g. default/plex)
       NS: Namespace the Flux Kustomization exists in (default: flux-system)
-    cmd: |
-      flux build --namespace {{.NS}} ks {{base .PATH}} \
-          --kustomization-file {{.CLUSTER_DIR}}/apps/{{.PATH}}/ks.yaml \
-          --path {{.CLUSTER_DIR}}/apps/{{.PATH}} \
-          {{- if contains "not found" .KS }}--dry-run \{{ end }} | \
-      yq 'with(select(.apiVersion == "kustomize.toolkit.fluxcd.io/v1" and .kind == "Kustomization"); .metadata.namespace = "{{.NS}}")' - | \
+    cmd: >
+      flux build --namespace {{.NS}} ks {{base .PATH}}
+      --kustomization-file {{.CLUSTER_DIR}}/apps/{{.PATH}}/ks.yaml
+      --path {{.CLUSTER_DIR}}/apps/{{.PATH}}
+      {{- if contains "not found" .KS }}--dry-run \{{ end }}
+      | yq 'with(select(.apiVersion == "kustomize.toolkit.fluxcd.io/v1" and .kind == "Kustomization"); .metadata.namespace = "{{.NS}}")' -
+      | kubectl apply --server-side --field-manager=kustomize-controller -f -
     requires:
-      vars: ['CLUSTER', 'PATH']
+      vars: [CLUSTER, PATH]
     vars:
       NS: '{{.NS | default "flux-system"}}'
       KS:
@@ -27,17 +28,16 @@ tasks:
 
   browse-pvc:
     desc: Exec into a container to browse a PersistentVolumeClaim
-    summary: |
+    summary: |-
       CLUSTER: Cluster to run command against (default: main)
       NS: Namespace to browse PersistentVolumeClaims in (default: default)
       CLAIM: PersistentVolumeClaim to browse (required)
     interactive: true
     cmd: kubectl browse-pvc --namespace {{.NS}} --image docker.io/library/alpine:latest {{.CLAIM}}
     vars:
-      CLUSTER: '{{.CLUSTER}}'
       NS: '{{.NS | default "default"}}'
     requires:
-      vars: ['CLAIM']
+      vars: [CLUSTER, CLAIM]
     preconditions:
       - kubectl --namespace {{.NS}} get persistentvolumeclaims {{.CLAIM}}
 
@@ -45,8 +45,8 @@ tasks:
     desc: Run k9s on given cluster
     interactive: true
     cmd: k9s --context {{.CLUSTER}}
-    vars:
-      CLUSTER: '{{.CLUSTER}}'
+    requires:
+      vars: [CLUSTER]
 
   privileged:
     desc: Run a privileged pod
@@ -54,27 +54,26 @@ tasks:
     cmds:
       - |
         kubectl debug --context {{.CLUSTER}} --namespace kube-system -it --image alpine node/{{.HOSTNAME}}
-    vars:
-      CLUSTER: '{{.CLUSTER}}'
     requires:
-      vars: ['HOSTNAME']
+      vars: [CLUSTER, HOSTNAME]
 
   sync-secrets:
     desc: Sync ExternalSecret resources from provider
-    summary: |
+    summary: |-
       CLUSTER: Cluster to run command against (default: main)
       NS: Namespace to sync secret in (default: default)
       SECRET: Secret to sync (default: all secrets)
-    cmd: |
+    cmd: >
       {{if eq .SECRET ""}}
-        kubectl get externalsecret --all-namespaces --no-headers -A | awk '{print $1, $2}' \
-          | xargs --max-procs=2 -l bash -c 'kubectl -n $0 annotate externalsecret $1 force-sync=$(date +%s) --overwrite'
+      kubectl get externalsecret --all-namespaces --no-headers -A | awk '{print $1, $2}'
+      | xargs --max-procs=2 -l bash -c 'kubectl -n $0 annotate externalsecret $1 force-sync=$(date +%s) --overwrite'
       {{else}}
-        kubectl --namespace {{.NS}} annotate externalsecret {{.SECRET}} force-sync=$(date +%s) --overwrite
+      kubectl --namespace {{.NS}} annotate externalsecret {{.SECRET}} force-sync=$(date +%s) --overwrite
       {{end}}
     vars:
-      SECRET: '{{ .SECRET | default ""}}'
       NS: '{{.NS | default "default"}}'
-      CLUSTER: '{{.CLUSTER}}'
+      SECRET: '{{ .SECRET | default ""}}'
+    requires:
+      vars: [CLUSTER]
     preconditions:
       - '{{if ne .SECRET ""}}kubectl --namespace {{.NS}} get externalsecret {{.SECRET}}{{end}}'

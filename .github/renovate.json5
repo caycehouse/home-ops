@@ -11,6 +11,9 @@
     "github>caycehouse/home-ops//.github/renovate/groups.json5",
     "github>caycehouse/home-ops//.github/renovate/packageRules.json5"
   ],
+  "onboarding": false,
+  "requireConfig": "ignored",
+  "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
   "flux": {
     "fileMatch": [
       "(^|/)kubernetes/.+\\.ya?ml$"

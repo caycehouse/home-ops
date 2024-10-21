@@ -53,7 +53,13 @@ The factory image url can be generated at [factory.talos.dev](factory.talos.dev)
 
 `task talos:upgrade-k8s node=<node> to=<k8s_version>`
 
+---
 
-### To manually trigger an external-secrets refresh:
+## 🔧 Hardware
 
-[external-secrets.io](https://external-secrets.io/latest/introduction/faq/#can-i-manually-trigger-a-secret-refresh)
+| Device           | CPU          | OS Disk Size         | Data Disk Size                         | Ram   | Operating System    | Purpose             |
+|------------------|--------------|----------------------|----------------------------------------|-------|---------------------|---------------------|
+| PowerEdge r630   | 2xE5-2695 v4 | 2x1TB SSD (mirrored) | 3x960GB NVMe (rook-ceph)               | 384GB | Proxmox 8           | VM Server           |
+| PowerEdge r730xd | 2xE5-2620 v3 | 2x1TB SSD (mirrored) | 10x3TB and 2x10TB ZFS (mirrored vdevs) | 64GB  | TrueNAS Scale 24.04 | NFS + Backup Server |
+| UniFi UDMP       | -            | -                    | 1x2TB HDD                              | -     | -                   | Router & NVR        |
+| UniFi USW-48-PoE | -            | -                    | -                                      | -     | -                   | SFP+ PoE Switch     |

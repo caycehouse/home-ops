@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/prowlarr
-              tag: 1.24.3.4754@sha256:1fc4ad8cc8192f38f0f61e126f0cde7361cfda1c49c11ec39df81d477c5cde13
+              tag: 1.25.4.4818@sha256:2eba6659c1a426a99d87baf2b3c7e5aaa6e89efa4b859c9c63a45c90f78e3db9
             env:
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__APP__THEME: dark

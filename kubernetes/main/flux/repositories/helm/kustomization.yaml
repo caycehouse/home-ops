@@ -17,6 +17,7 @@ resources:
   - ./ingress-nginx.yaml
   - ./itzg.yaml
   - ./jetstack.yaml
+  - ./kyverno.yaml
   - ./metrics-server.yaml
   - ./nextcloud.yaml
   - ./node-feature-discovery.yaml

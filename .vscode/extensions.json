@@ -7,7 +7,6 @@
         "mitchdenny.ecdc",
         "pkief.material-icon-theme",
         "redhat.vscode-yaml",
-        "signageos.signageos-vscode-sops",
         "will-stone.in-any-case",
     ]
 }

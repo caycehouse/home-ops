@@ -55,11 +55,11 @@ tasks:
     internal: true
     cmds:
       - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 5; done
-      - helmfile --quiet --file {{.CLUSTER_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - helmfile --quiet --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 5; done
     preconditions:
       - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
-      - test -f {{.CLUSTER_DIR}}/bootstrap/helmfile.yaml
+      - test -f {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml
       - talosctl config info &>/dev/null
 
   rook:
@@ -121,10 +121,10 @@ tasks:
   flux:
     internal: true
     cmds:
-      - kubectl apply --server-side --kustomize {{.CLUSTER_DIR}}/bootstrap/flux
+      - kubectl apply --server-side --kustomize {{.CLUSTER_DIR}}/bootstrap/apps
       - for: { var: TEMPLATES }
         cmd: >
-          op run --env-file {{.CLUSTER_DIR}}/bootstrap/config.env --no-masking --
+          op run --env-file {{.CLUSTER_DIR}}/bootstrap/bootstrap.env --no-masking --
           minijinja-cli --env --trim-blocks --lstrip-blocks --autoescape=none {{.ITEM}}
           | kubectl apply --server-side --filename -
       - sops --decrypt {{.CLUSTER_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml | kubectl apply --server-side --filename -
@@ -132,7 +132,7 @@ tasks:
       - kubectl apply --server-side --kustomize {{.CLUSTER_DIR}}/flux/config
     vars:
       TEMPLATES:
-        sh: ls {{.CLUSTER_DIR}}/bootstrap/flux/*.j2
+        sh: ls {{.CLUSTER_DIR}}/bootstrap/apps/*.j2
     env:
       VAULT: '{{if eq .CLUSTER "main"}}kubernetes{{else}}{{.CLUSTER}}{{end}}' # ¯\_(ツ)_/¯
     preconditions:

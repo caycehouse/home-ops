@@ -85,15 +85,15 @@ spec:
           - name: "honeybun"
             devices:
               - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_172618204AAD"
-      placement:
-        mgr: &placement
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                    - key: node-role.kubernetes.io/worker
-                      operator: Exists
-        mon: *placement
+      # placement:
+      #   mgr: &placement
+      #     nodeAffinity:
+      #       requiredDuringSchedulingIgnoredDuringExecution:
+      #         nodeSelectorTerms:
+      #           - matchExpressions:
+      #               - key: node-role.kubernetes.io/control-plane
+      #                 operator: Exists
+      #   mon: *placement
       resources:
         mgr:
           requests:

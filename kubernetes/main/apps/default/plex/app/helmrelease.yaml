@@ -95,7 +95,6 @@ spec:
         ports:
           http:
             port: 32400
-            primary: true
     ingress:
       app:
         annotations:

@@ -85,8 +85,6 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: *app
-      nodeSelector:
-        node-role.kubernetes.io/worker: "true"
     service:
       app:
         controller: cloudflared

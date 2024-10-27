@@ -81,8 +81,6 @@ spec:
         runAsUser: 65534
         runAsGroup: 65534
         seccompProfile: { type: RuntimeDefault }
-      nodeSelector:
-        node-role.kubernetes.io/worker: "true"
     service:
       app:
         controller: miniflux

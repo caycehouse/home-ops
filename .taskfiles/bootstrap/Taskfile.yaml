@@ -2,9 +2,6 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: '3'
 
-includes:
-  talos: ../talos
-
 vars:
   BOOTSTRAP_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/bootstrap/resources'
 
@@ -18,8 +15,8 @@ tasks:
       NODES: '{{.NODES | default "k8s-0,k8s-1,k8s-2,k8s-3,k8s-4,k8s-5"}}'
       ROOK_DISK: '{{.ROOK_DISK | default "/dev/nvme0n1"}}'
     cmds:
-      - { task: talos:bootstrap-genconfig, vars: *vars }
-      - { task: talos:bootstrap-apply, vars: *vars }
+      - { task: ":talos:bootstrap-genconfig", vars: *vars }
+      - { task: ":talos:bootstrap-apply", vars: *vars }
       - { task: etcd, vars: *vars }
       - { task: conf, vars: *vars }
       - { task: apps, vars: *vars }

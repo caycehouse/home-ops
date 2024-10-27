@@ -82,6 +82,7 @@ tasks:
     requires:
       vars: [CLUSTER, HOSTNAME]
     preconditions:
+      - test -f {{.CLUSTER_DIR}}/cluster.env
       - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.HOSTNAME}} get machineconfig &>/dev/null

@@ -41,13 +41,13 @@ tasks:
       vars: [CLUSTER]
 
   privileged:
-    desc: Run a privileged pod [CLUSTER=main] [HOSTNAME=required]
+    desc: Run a privileged pod [CLUSTER=main] [HOSTNAME=required] [IMAGE=alpine]
     interactive: true
     cmds:
       - |
-        kubectl debug --context {{.CLUSTER}} --namespace kube-system -it --image alpine node/{{.HOSTNAME}}
+        kubectl debug --context {{.CLUSTER}} --namespace kube-system -it --image {{.IMAGE}} node/{{.HOSTNAME}}
     requires:
-      vars: [CLUSTER, HOSTNAME]
+      vars: [CLUSTER, HOSTNAME, IMAGE]
 
   sync-secrets:
     desc: Sync all ExternalSecrets [CLUSTER=main]

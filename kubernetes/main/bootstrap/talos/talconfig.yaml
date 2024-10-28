@@ -26,6 +26,8 @@ nodes:
     schematic: &schematic
       customization:
         extraKernelArgs:
+          - cpufreq.default_governor=performance
+          - intel_pstate=disable
           - mitigations=off
           - net.ifnames=0
         systemExtensions:
@@ -77,6 +79,8 @@ nodes:
     schematic:
       customization:
         extraKernelArgs:
+          - cpufreq.default_governor=performance
+          - intel_pstate=disable
           - mitigations=off
           - net.ifnames=0
         systemExtensions:
@@ -112,7 +116,7 @@ nodes:
             net.core.bpf_jit_harden: 1
 
 patches:
-  # Configure containerd
+    # Configure nfs mount options & containerd
   - |-
     machine:
       files:
@@ -126,11 +130,6 @@ patches:
               discard_unpacked_layers = false
             [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
               discard_unpacked_layers = false
-
-  # Configure nfs mount options
-  - |-
-    machine:
-      files:
         - op: overwrite
           path: /etc/nfsmount.conf
           permissions: 0o644
@@ -139,7 +138,6 @@ patches:
             nfsvers=4.2
             hard=True
             noatime=True
-            nodiratime=True
             rsize=131072
             wsize=131072
             nconnect=8
@@ -181,17 +179,27 @@ patches:
         hostDNS:
           enabled: true
           resolveMemberNames: true
-          forwardKubeDNSToHost: false
+          forwardKubeDNSToHost: false # Incompatible with Cilium bpf masquerade
 
   # Custom sysctl settings
   - |-
     machine:
       sysctls:
-        fs.inotify.max_queued_events: "65536"
-        fs.inotify.max_user_watches: "524288"
-        fs.inotify.max_user_instances: "8192"
-        net.core.rmem_max: "7500000"
-        net.core.wmem_max: "7500000"
+        fs.inotify.max_user_watches: 1048576
+        fs.inotify.max_user_instances: 8192
+        net.core.netdev_max_backlog: 30000
+        net.core.rmem_max: 67108864
+        net.core.wmem_max: 67108864
+        net.ipv4.tcp_rmem: 4096 87380 33554432
+        net.ipv4.tcp_wmem: 4096 65536 33554432
+        net.ipv4.tcp_tw_reuse: 1
+        net.ipv4.tcp_window_scaling: 1
+
+  # Custom sysfs settings
+  # - |-
+  #   machine:
+  #     sysfs:
+  #       devices.system.cpu.cpufreq.boost: 0
 
   # Mount openebs-hostpath in kubelet
   - |-
@@ -201,10 +209,7 @@ patches:
           - destination: /var/openebs/local
             type: bind
             source: /var/openebs/local
-            options:
-              - "bind"
-              - "rshared"
-              - "rw"
+            options: ["bind", "rshared", "rw"]
 
 controlPlane:
   nodeLabels:
@@ -225,6 +230,19 @@ controlPlane:
         scheduler:
           extraArgs:
             bind-address: 0.0.0.0
+          config:
+            apiVersion: kubescheduler.config.k8s.io/v1
+            kind: KubeSchedulerConfiguration
+            profiles:
+              - schedulerName: default-scheduler
+                pluginConfig:
+                  - name: PodTopologySpread
+                    args:
+                      defaultingType: List
+                      defaultConstraints:
+                        - maxSkew: 1
+                          topologyKey: kubernetes.io/hostname
+                          whenUnsatisfiable: ScheduleAnyway
 
     # ETCD configuration
     - |-
@@ -255,3 +273,10 @@ worker:
   nodeLabels:
     topology.kubernetes.io/region: main
     topology.kubernetes.io/zone: w
+  patches:
+    # Custom sysfs settings
+    - |-
+      machine:
+        sysfs:
+          block.sdb.queue.scheduler: none
+          # devices.system.cpu.cpufreq.boost: 0

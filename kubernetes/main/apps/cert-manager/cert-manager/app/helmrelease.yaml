@@ -31,3 +31,5 @@ spec:
       enabled: true
       servicemonitor:
         enabled: true
+    global:
+      logLevel: 6

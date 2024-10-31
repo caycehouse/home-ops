@@ -32,21 +32,18 @@ tasks:
       - test -d {{.CLUSTER_DIR}}/talos/clusterconfig
 
   apply-node:
-    desc: Apply Talos config to a node [CLUSTER=main] [HOSTNAME=required] [MODE=auto|no-reboot|reboot]
+    desc: Apply Talos config to a node [CLUSTER=main] [HOSTNAME=required]
     dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
-      - task: '{{if eq .MODE "reboot"}}down{{else}}noop{{end}}'
-      - '{{if eq .MODE "reboot"}}kubectl drain {{.HOSTNAME}} --ignore-daemonsets --delete-emptydir-data --force{{end}}'
+      - task: down
       - talhelper gencommand apply
-        --extra-flags=--mode={{.MODE}}
+        --extra-flags=--mode=staged
         --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml
         --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig
         --node {{.HOSTNAME}} | bash
+      - talosctl --nodes {{.HOSTNAME}} reboot
       - talosctl --nodes {{.HOSTNAME}} health --wait-timeout=10m --server=false
-      - '{{if eq .MODE "reboot"}}kubectl uncordon {{.HOSTNAME}}{{end}}'
-      - task: '{{if eq .MODE "reboot"}}up{{else}}noop{{end}}'
-    vars:
-      MODE: '{{.MODE | default "no-reboot"}}'
+      - task: up
     requires:
       vars: [CLUSTER, HOSTNAME]
     preconditions:
@@ -145,14 +142,9 @@ tasks:
   up:
     internal: true
     cmds:
-      - task: :kubernetes:delete-failed-pods
+      - defer:
+          task: :kubernetes:delete-failed-pods
       - flux --namespace flux-system resume kustomization --all
       - until kubectl wait cephcluster --for=jsonpath=.status.ceph.health=HEALTH_OK --timeout=10m --all --all-namespaces &>/dev/null; do sleep 5; done
       - until kubectl wait jobs --all --all-namespaces --for=condition=complete --timeout=5m &>/dev/null; do sleep 5; done
       - task: :volsync:state-resume
-
-  # Ref: https://github.com/go-task/task/issues/608
-  noop:
-    internal: true
-    silent: true
-    cmd: noop() { :; }

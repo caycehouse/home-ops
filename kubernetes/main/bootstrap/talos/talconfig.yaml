@@ -140,6 +140,12 @@ nodes:
             dhcp: false
           - vlanId: 70
             dhcp: false
+    patches:
+      # Custom sysfs settings
+      - |-
+        machine:
+          sysfs:
+            devices.system.cpu.cpufreq.boost: 0
 
 patches:
     # Configure nfs mount options & containerd

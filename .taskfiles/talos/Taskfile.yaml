@@ -8,28 +8,28 @@ tasks:
     desc: Generate clusterconfig for Talos [CLUSTER=main]
     cmds:
       - talhelper genconfig
-        --secret-file {{.CLUSTER_DIR}}/bootstrap/talos/talsecret.sops.yaml
-        --config-file {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
-        --out-dir {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig
+        --secret-file {{.CLUSTER_DIR}}/talos/talsecret.sops.yaml
+        --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml
+        --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig
     requires:
       vars: [CLUSTER]
     preconditions:
       - which talhelper
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/talsecret.sops.yaml
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
+      - test -f {{.CLUSTER_DIR}}/talos/talsecret.sops.yaml
+      - test -f {{.CLUSTER_DIR}}/talos/talconfig.yaml
 
   bootstrap-apply:
     desc: Apply the Talos configs to the nodes [CLUSTER=main]
     cmds:
       - talhelper gencommand apply
         --extra-flags=--insecure
-        --config-file {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
-        --out-dir {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig | bash
+        --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml
+        --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig | bash
     requires:
       vars: [CLUSTER]
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
-      - test -d {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig
+      - test -f {{.CLUSTER_DIR}}/talos/talconfig.yaml
+      - test -d {{.CLUSTER_DIR}}/talos/clusterconfig
 
   apply-node:
     desc: Apply Talos config to a node [CLUSTER=main] [HOSTNAME=required] [MODE=auto|no-reboot|reboot]
@@ -39,8 +39,8 @@ tasks:
       - '{{if eq .MODE "reboot"}}kubectl drain {{.HOSTNAME}} --ignore-daemonsets --delete-emptydir-data --force{{end}}'
       - talhelper gencommand apply
         --extra-flags=--mode={{.MODE}}
-        --config-file {{.CLUSTER_DIR}}/bootstrap/talos/talconfig.yaml
-        --out-dir {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig
+        --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml
+        --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig
         --node {{.HOSTNAME}} | bash
       - talosctl --nodes {{.HOSTNAME}} health --wait-timeout=10m --server=false
       - '{{if eq .MODE "reboot"}}kubectl uncordon {{.HOSTNAME}}{{end}}'
@@ -51,8 +51,8 @@ tasks:
       vars: [CLUSTER, HOSTNAME]
     preconditions:
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/{{.CLUSTER}}-{{.HOSTNAME}}.yaml
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/{{.CLUSTER}}-{{.HOSTNAME}}.yaml
       - talosctl --nodes {{.HOSTNAME}} get machineconfig &>/dev/null
 
   upgrade-node:
@@ -70,7 +70,7 @@ tasks:
       vars: [CLUSTER, HOSTNAME]
     preconditions:
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.HOSTNAME}} get machineconfig &>/dev/null
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/talos/releases/tag/$TALOS_VERSION
@@ -89,7 +89,7 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.CONTROLLER}} get machineconfig &>/dev/null
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/kubelet/releases/tag/$KUBERNETES_VERSION
@@ -105,7 +105,7 @@ tasks:
       vars: [CLUSTER, HOSTNAME]
     preconditions:
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.HOSTNAME}} get machineconfig &>/dev/null
 
@@ -116,7 +116,7 @@ tasks:
     requires:
       vars: [CLUSTER, HOSTNAME]
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.HOSTNAME}} get machineconfig &>/dev/null
 
@@ -130,7 +130,7 @@ tasks:
     requires:
       vars: [CLUSTER]
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
       - talosctl --nodes {{.NODES}} get machineconfig &>/dev/null
 

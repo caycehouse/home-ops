@@ -26,7 +26,7 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - talosctl config info &>/dev/null
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
 
   etcd:
     internal: true
@@ -35,7 +35,7 @@ tasks:
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
 
   conf:
@@ -45,7 +45,7 @@ tasks:
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
 
   apps:
@@ -55,7 +55,7 @@ tasks:
       - helmfile --quiet --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 5; done
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - test -f {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml
       - talosctl config info &>/dev/null
 

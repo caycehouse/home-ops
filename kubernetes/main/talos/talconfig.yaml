@@ -49,12 +49,6 @@ nodes:
             dhcp: false
           - vlanId: 70
             dhcp: false
-    patches:
-      # Custom sysfs settings
-      - |-
-        machine:
-          sysfs:
-            devices.system.cpu.cpufreq.boost: 0
   - hostname: k8s-1
     ipAddress: "192.168.42.11"
     schematic: &schematic
@@ -257,4 +251,3 @@ worker:
       machine:
         sysfs:
           block.sdb.queue.scheduler: none
-          # devices.system.cpu.cpufreq.boost: 0

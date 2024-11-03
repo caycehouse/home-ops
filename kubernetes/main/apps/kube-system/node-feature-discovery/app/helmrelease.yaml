@@ -29,8 +29,5 @@ spec:
       config:
         core:
           sources: ["pci", "system", "usb"]
-      tolerations:
-        - key: node-role.kubernetes.io/control-plane
-          operator: Exists
     prometheus:
       enable: true

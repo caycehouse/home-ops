@@ -46,8 +46,10 @@ tasks:
     cmds:
       - |
         kubectl debug --context {{.CLUSTER}} --namespace kube-system -it --image {{.IMAGE}} node/{{.HOSTNAME}}
+    vars:
+      IMAGE: '{{.IMAGE | default "alpine"}}'
     requires:
-      vars: [CLUSTER, HOSTNAME, IMAGE]
+      vars: [CLUSTER, HOSTNAME]
 
   sync-secrets:
     desc: Sync all ExternalSecrets [CLUSTER=main]

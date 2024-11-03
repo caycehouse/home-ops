@@ -23,7 +23,7 @@ cniConfig:
 nodes:
   - hostname: k8s-0
     ipAddress: "192.168.42.10"
-    installDisk: /dev/sda
+    installDisk: /dev/sdb
     schematic:
       customization:
         extraKernelArgs:

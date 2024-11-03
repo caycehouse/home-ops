@@ -69,6 +69,7 @@ spec:
             resources:
               requests:
                 cpu: 100m
+                memory: 2Gi # REMOVE THIS SOON
               limits:
                 gpu.intel.com/i915: 1
                 memory: 16Gi

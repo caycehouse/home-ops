@@ -10,8 +10,8 @@ tasks:
   talos:
     desc: Bootstrap Talos [CLUSTER=main]
     cmds:
-      - { task: ":talos:bootstrap-genconfig", vars: *vars }
-      - { task: ":talos:bootstrap-apply", vars: *vars }
+      - task: ":talos:bootstrap-genconfig"
+      - task: ":talos:bootstrap-apply"
       - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
       - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
     vars:

@@ -7,112 +7,55 @@ vars:
 
 tasks:
 
-  kubernetes:
-    desc: Bootstrap a Kubernetes cluster [CLUSTER=main] [NODES=k8s-0,k8s-1,...] [ROOK_DISK=/dev/nvme0n1]
-    prompt: Bootstrap a Kubernetes cluster ... continue?
-    vars: &vars
-      CLUSTER: '{{.CLUSTER}}'
-      NODES: '{{.NODES | default "k8s-0,k8s-1,k8s-2,k8s-3,k8s-4,k8s-5"}}'
-      ROOK_DISK: '{{.ROOK_DISK | default "/dev/nvme0n1"}}'
+  talos:
+    desc: Bootstrap Talos [CLUSTER=main]
     cmds:
       - { task: ":talos:bootstrap-genconfig", vars: *vars }
       - { task: ":talos:bootstrap-apply", vars: *vars }
-      - { task: etcd, vars: *vars }
-      - { task: conf, vars: *vars }
-      - { task: apps, vars: *vars }
-      - { task: rook, vars: *vars }
-      - { task: flux, vars: *vars }
+      - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
+      - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
+    vars:
+      TALOS_CONTROLLER:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     requires:
       vars: [CLUSTER]
     preconditions:
-      - talosctl config info &>/dev/null
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
-
-  etcd:
-    internal: true
-    cmd: until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
-    vars:
-      TALOS_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
-    preconditions:
       - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - talosctl config info &>/dev/null
 
-  conf:
-    internal: true
-    cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
-    vars:
-      TALOS_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+  # NOTE: Expects all nodes are part of the Ceph cluster and have the same Ceph disk path
+  rook:
+    desc: Bootstrap Rook-Ceph [CLUSTER=main] [DISK=/dev/nvme0n1]
+    cmds:
+      - minijinja-cli {{.BOOTSTRAP_RESOURCES_DIR}}/wipe-rook-job.yaml.j2 | kubectl apply --server-side --filename -
+      - until kubectl --namespace default get job/wipe-rook &>/dev/null; do sleep 5; done
+      - kubectl --namespace default wait job/wipe-rook --for=condition=complete --timeout=5m
+      - kubectl --namespace default logs job/wipe-rook
+      - kubectl --namespace default delete job wipe-rook
+    env:
+      DISK: '{{.DISK | default "/dev/nvme0n1"}}'
+      NODES:
+        sh: talosctl config info --output json | jq --raw-output '.nodes | length'
+    requires:
+      vars: [CLUSTER]
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
-      - talosctl config info &>/dev/null
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wipe-rook-job.yaml.j2
 
   apps:
-    internal: true
+    desc: Bootstrap Apps [CLUSTER=main]
     cmds:
-      - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 5; done
+      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - helmfile --quiet --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 5; done
+      - until kubectl wait nodes --for=condition=Ready --all --timeout=10m; do sleep 5; done
+    requires:
+      vars: [CLUSTER]
     preconditions:
       - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
       - test -f {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml
       - talosctl config info &>/dev/null
 
-  rook:
-    internal: true
-    vars: &vars
-      CLUSTER: '{{.CLUSTER}}'
-      NODE: '{{.ITEM}}'
-      ROOK_DISK: '{{.ROOK_DISK}}'
-    cmds:
-      - for: { var: NODES }
-        task: rook-data
-        vars: *vars
-      - for: { var: NODES }
-        task: rook-disk
-        vars: *vars
-
-  rook-disk:
-    internal: true
-    cmds:
-      - minijinja-cli {{.BOOTSTRAP_RESOURCES_DIR}}/rook-disk-job.yaml.j2 | kubectl apply --server-side --filename -
-      - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
-      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=5m
-      - kubectl --namespace {{.NS}} logs job/{{.JOB}}
-      - kubectl --namespace {{.NS}} delete job {{.JOB}}
-    vars:
-      JOB: wipe-disk-{{.NODE}}
-      NS: '{{.NS | default "default"}}'
-    env:
-      ROOK_DISK: '{{.ROOK_DISK}}'
-      JOB: '{{.JOB}}'
-      NODE: '{{.NODE}}'
-      NS: '{{.NS}}'
-    preconditions:
-      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/rook-disk-job.yaml.j2
-
-  rook-data:
-    internal: true
-    cmds:
-      - minijinja-cli {{.BOOTSTRAP_RESOURCES_DIR}}/rook-data-job.yaml.j2 | kubectl apply --server-side --filename -
-      - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
-      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=5m
-      - kubectl --namespace {{.NS}} logs job/{{.JOB}}
-      - kubectl --namespace {{.NS}} delete job {{.JOB}}
-    vars:
-      JOB: wipe-data-{{.NODE}}
-      NS: '{{.NS | default "default"}}'
-    env:
-      ROOK_DISK: '{{.ROOK_DISK}}'
-      JOB: '{{.JOB}}'
-      NODE: '{{.NODE}}'
-      NS: '{{.NS}}'
-    preconditions:
-      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/rook-data-job.yaml.j2
-
   flux:
-    internal: true
+    desc: Bootstrap Flux [CLUSTER=main]
     cmds:
       - kubectl apply --server-side --kustomize {{.CLUSTER_DIR}}/bootstrap/apps
       - for: { var: TEMPLATES }
@@ -125,5 +68,7 @@ tasks:
         sh: ls {{.CLUSTER_DIR}}/bootstrap/apps/*.j2
     env:
       VAULT: '{{if eq .CLUSTER "main"}}kubernetes{{else}}{{.CLUSTER}}{{end}}' # ¯\_(ツ)_/¯
+    requires:
+      vars: [CLUSTER]
     preconditions:
       - test -f {{.CLUSTER_DIR}}/flux/vars/cluster-settings.yaml

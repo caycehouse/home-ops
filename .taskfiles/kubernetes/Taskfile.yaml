@@ -5,7 +5,7 @@ version: '3'
 tasks:
 
   apply-ks:
-    desc: Apply a Flux Kustomization resource for a cluster [CLUSTER=main] [PATH=required] [NS=flux-system]
+    desc: Apply a Flux KS for a cluster [CLUSTER=main] [PATH=required] [NS=flux-system]
     cmd: >
       flux build --namespace {{.NS}} ks {{base .PATH}}
       --kustomization-file {{.CLUSTER_DIR}}/apps/{{.PATH}}/ks.yaml
@@ -23,7 +23,7 @@ tasks:
       - test -f {{.CLUSTER_DIR}}/apps/{{.PATH}}/ks.yaml
 
   browse-pvc:
-    desc: Mount PVC to an temp container for browsing [CLUSTER=main] [NS=default] [CLAIM=required]
+    desc: Mount a PVC to an temp container [CLUSTER=main] [NS=default] [CLAIM=required]
     interactive: true
     cmd: kubectl browse-pvc --namespace {{.NS}} --image docker.io/library/alpine:latest {{.CLAIM}}
     vars:
@@ -53,15 +53,16 @@ tasks:
     desc: Sync all ExternalSecrets [CLUSTER=main]
     cmds:
       - for: { var: SECRETS, split: "\n" }
-        cmd: kubectl --namespace {{splitList "," .ITEM | first}} annotate externalsecret {{splitList "," .ITEM | last}} force-sync="{{now | unixEpoch}}" --overwrite
+        cmd: kubectl --namespace {{splitList "," .ITEM | first}} annotate externalsecret {{splitList "," .ITEM | last}} force-sync="{{.TS}}" --overwrite
     vars:
       SECRETS:
+        TS: '{{now | unixEpoch}}'
         sh: kubectl get externalsecret --all-namespaces --no-headers --output=jsonpath='{range .items[*]}{.metadata.namespace},{.metadata.name}{"\n"}{end}'
     requires:
       vars: [CLUSTER]
 
-  delete-failed-pods:
-    desc: Delete pods in all namespaces with a Failed/Pending/Succeeded phase [CLUSTER=main]
+  delete-pods:
+    desc: Delete pods with a Failed/Pending/Succeeded phase [CLUSTER=main]
     cmds:
       - for:
           matrix:

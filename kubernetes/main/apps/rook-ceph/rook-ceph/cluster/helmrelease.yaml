@@ -76,15 +76,15 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "babybundts"
-            devices:
-              - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_1724177FAE58"
-          - name: "danish"
-            devices:
-              - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_1724177FBAE3"
-          - name: "honeybun"
+          - name: "k8s-0"
             devices:
               - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_172618204AAD"
+          - name: "k8s-1"
+            devices:
+              - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_1724177FAE58"
+          - name: "k8s-2"
+            devices:
+              - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_1724177FBAE3"
       # placement:
       #   mgr: &placement
       #     nodeAffinity:

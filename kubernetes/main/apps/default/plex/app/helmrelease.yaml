@@ -23,7 +23,7 @@ spec:
       strategy: rollback
       retries: 3
   dependsOn:
-    - name: nvidia-device-plugin
+    - name: intel-device-plugin-gpu
       namespace: kube-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -41,8 +41,6 @@ spec:
               tag: 1.41.1.9057-af5eaea7a@sha256:2eb26976f3a326f888664fda5c7533b18b06a32491fed016af35eceb7d059272
             env:
               TZ: ${TIMEZONE}
-              NVIDIA_DRIVER_CAPABILITIES: all
-              NVIDIA_VISIBLE_DEVICES: all
               PLEX_ADVERTISE_URL: https://plex.${SECRET_DOMAIN}:443,http://192.168.42.128:32400
               PLEX_PREFERENCE_LAN: "LanNetworksBandwidth=192.168.0.0/16,10.0.0.0/8,172.16.0.0/12"
               PLEX_NO_AUTH_NETWORKS: 192.168.10.0/24
@@ -72,10 +70,9 @@ spec:
               requests:
                 cpu: 100m
               limits:
+                gpu.intel.com/i915: 1
                 memory: 16Gi
-                nvidia.com/gpu: 1
     defaultPodOptions:
-      runtimeClassName: nvidia
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -85,7 +82,7 @@ spec:
         supplementalGroups: [44]
         seccompProfile: { type: RuntimeDefault }
       nodeSelector:
-        nvidia.feature.node.kubernetes.io/gpu: "true"
+        intel.feature.node.kubernetes.io/gpu: "true"
     service:
       app:
         controller: plex

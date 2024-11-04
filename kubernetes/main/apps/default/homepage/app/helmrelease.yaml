@@ -93,6 +93,8 @@ spec:
             path: /app/config/bookmarks.yaml
           - subPath: custom.css
             path: /app/config/custom.css
+          - subPath: custom.js
+            path: /app/config/custom.js
           - subPath: docker.yaml
             path: /app/config/docker.yaml
           - subPath: kubernetes.yaml

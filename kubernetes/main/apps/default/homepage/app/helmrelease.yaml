@@ -109,3 +109,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /app/config/logs
+      pages:
+        type: emptyDir
+        globalMounts:
+          - path: /app/.next/server/pages

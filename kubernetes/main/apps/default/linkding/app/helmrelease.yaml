@@ -54,12 +54,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 256Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: *app
@@ -92,5 +86,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /etc/linkding/data
-      tmp:
-        type: emptyDir

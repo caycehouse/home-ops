@@ -43,7 +43,7 @@ spec:
     persistence:
       config:
         type: secret
-        name: isponsorblocktv-config
+        name: isponsorblocktv-secret
         globalMounts:
           - path: /app/data/config.json
             subPath: config.json

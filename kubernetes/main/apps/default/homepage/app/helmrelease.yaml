@@ -47,7 +47,8 @@ spec:
                 enabled: true
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # Needs rw for caching.
+              # readOnlyRootFilesystem: true
               capabilities: { drop: ['ALL'] }
             resources:
               requests:
@@ -85,20 +86,12 @@ spec:
     serviceAccount:
       create: true
     persistence:
-      config:
-        type: emptyDir
-        globalMounts:
-          - path: /app/config
       homepage-config:
         type: configMap
         name: homepage-config
         globalMounts:
           - subPath: bookmarks.yaml
             path: /app/config/bookmarks.yaml
-          - subPath: custom.css
-            path: /app/config/custom.css
-          - subPath: custom.js
-            path: /app/config/custom.js
           - subPath: docker.yaml
             path: /app/config/docker.yaml
           - subPath: kubernetes.yaml
@@ -109,7 +102,3 @@ spec:
             path: /app/config/settings.yaml
           - subPath: widgets.yaml
             path: /app/config/widgets.yaml
-      logs:
-        type: emptyDir
-        globalMounts:
-          - path: /app/config/logs

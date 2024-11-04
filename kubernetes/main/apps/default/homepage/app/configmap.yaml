@@ -152,7 +152,3 @@ data:
         provider: google
         focus: true
         target: _blank
-
-  custom.css: ""
-
-  custom.js: ""

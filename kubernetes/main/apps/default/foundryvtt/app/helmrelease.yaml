@@ -54,7 +54,6 @@ spec:
                 enabled: true
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -65,10 +64,8 @@ spec:
       hostname: foundryvtt
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
+        runAsUser: 65534
+        runAsGroup: 65534
         seccompProfile: { type: RuntimeDefault }
     service:
       app:

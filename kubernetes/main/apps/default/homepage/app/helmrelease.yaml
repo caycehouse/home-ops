@@ -86,6 +86,10 @@ spec:
       create: true
     persistence:
       config:
+        type: emptyDir
+        globalMounts:
+          - path: /app/config
+      homepage-config:
         type: configMap
         name: homepage-config
         globalMounts:
@@ -109,7 +113,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /app/config/logs
-      pages:
-        type: emptyDir
-        globalMounts:
-          - path: /app/.next/server/pages

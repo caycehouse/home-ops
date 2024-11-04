@@ -104,3 +104,7 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /datastore
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

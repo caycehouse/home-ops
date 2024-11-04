@@ -40,7 +40,7 @@ spec:
                 cpu: 25m
               limits:
                 memory: 768Mi
-            args: ["./startup.sh"]
+            args: ['./startup.sh']
             probes:
               liveness: &probes
                 enabled: true
@@ -48,9 +48,9 @@ spec:
                 spec:
                   exec:
                     command:
-                    - /bin/sh
-                    - -c
-                    - /TwitchDropsMiner/healthcheck.sh
+                      - /bin/sh
+                      - -c
+                      - /TwitchDropsMiner/healthcheck.sh
                   initialDelaySeconds: 60
                   periodSeconds: 10
                   timeoutSeconds: 5
@@ -60,7 +60,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: { drop: ['ALL'] }
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -83,3 +83,7 @@ spec:
         globalMounts:
           - subPath: cookies.jar
             path: /TwitchDropsMiner/cookies.jar.import
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

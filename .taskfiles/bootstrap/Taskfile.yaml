@@ -72,3 +72,4 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - test -f {{.CLUSTER_DIR}}/flux/vars/cluster-settings.yaml
+      - op user get --me

@@ -88,5 +88,9 @@ spec:
           - hosts:
               - *hostName
     persistence:
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /etc/linkding/data
       tmp:
         type: emptyDir

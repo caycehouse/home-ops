@@ -60,18 +60,28 @@ spec:
                   httpGet:
                     path: /health/ready
                     port: *healthPort
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 64Mi
                 cpu: 10m
               limits:
                 memory: 128Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: *app
         ports:
           http:
-            port: &port 9000
+            port: 9000
           health:
             port: *healthPort
     serviceMonitor:

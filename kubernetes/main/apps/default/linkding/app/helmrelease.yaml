@@ -34,6 +34,8 @@ spec:
             image:
               repository: sissbruecker/linkding
               tag: 1.36.0@sha256:6e2cfd1c32dae78ff6d0fd3000562556f123502d4b79f4e3e53b4b0592022edd
+            env:
+              LD_LOG_X_FORWARDED_FOR: "true"
             envFrom: *envFrom
             probes:
               liveness:

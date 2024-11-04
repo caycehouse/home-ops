@@ -47,8 +47,7 @@ spec:
                 enabled: true
             securityContext:
               allowPrivilegeEscalation: false
-              # Needs rw for caching.
-              # readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false # next.js writes ton of weird files
               capabilities: { drop: ['ALL'] }
             resources:
               requests:
@@ -58,8 +57,8 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
+        runAsUser: 1000
+        runAsGroup: 1000
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
@@ -78,7 +77,7 @@ spec:
         className: external
         hosts:
           - host: '{{ .Release.Name }}.${SECRET_DOMAIN}'
-            paths: &paths
+            paths:
               - path: /
                 service:
                   identifier: app
@@ -86,6 +85,10 @@ spec:
     serviceAccount:
       create: true
     persistence:
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /app/config
       homepage-config:
         type: configMap
         name: homepage-config

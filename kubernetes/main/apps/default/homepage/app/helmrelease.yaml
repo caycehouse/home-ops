@@ -104,4 +104,4 @@ spec:
       logs:
         type: emptyDir
         globalMounts:
-          - /app/config/logs
+          - path: /app/config/logs

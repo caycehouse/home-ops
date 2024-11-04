@@ -80,6 +80,15 @@ spec:
       app:
         annotations:
           external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+          gethomepage.dev/description: Plex monitoring and tracking
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Starr
+          gethomepage.dev/href: "https://tautulli.${SECRET_DOMAIN}"
+          gethomepage.dev/icon: tautulli
+          gethomepage.dev/name: Tautulli
+          gethomepage.dev/widget.type: tautulli
+          gethomepage.dev/widget.url: http://tautulli.default.svc.cluster.local
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_TAUTULLI_TOKEN}}` }}"
         className: internal
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"

@@ -35,6 +35,10 @@ spec:
               tag: v2.2.1
             env:
               TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 15m
@@ -48,14 +52,6 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |
-          [{
-            "name": "multus-trusted",
-            "namespace": "network",
-            "ips": ["192.168.10.121/24"],
-            "mac": "86:de:8a:f5:17:0f"
-          }]
     persistence:
       config:
         type: secret

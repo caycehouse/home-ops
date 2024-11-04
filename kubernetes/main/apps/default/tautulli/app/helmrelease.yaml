@@ -88,7 +88,7 @@ spec:
           gethomepage.dev/name: Tautulli
           gethomepage.dev/widget.type: tautulli
           gethomepage.dev/widget.url: http://tautulli.default.svc.cluster.local
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_TAUTULLI_TOKEN}}` }}"
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_TAUTULLI_API_KEY}}` }}"
         className: internal
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"

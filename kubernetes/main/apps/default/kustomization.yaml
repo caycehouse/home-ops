@@ -38,6 +38,7 @@ resources:
   - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./sonarr/ks.yaml
+  - ./tautulli/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./valheim/ks.yaml
   - ./watchlistarr/ks.yaml

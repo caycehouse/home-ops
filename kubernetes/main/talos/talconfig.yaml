@@ -27,8 +27,6 @@ nodes:
     schematic:
       customization:
         extraKernelArgs:
-          - cpufreq.default_governor=performance
-          - intel_pstate=disable
           - mitigations=off
           - net.ifnames=0
         systemExtensions:
@@ -54,8 +52,6 @@ nodes:
     schematic: &schematic
       customization:
         extraKernelArgs:
-          - cpufreq.default_governor=performance
-          - intel_pstate=disable
           - mitigations=off
           - net.ifnames=0
         systemExtensions:
@@ -166,12 +162,7 @@ patches:
         net.ipv4.tcp_wmem: 4096 65536 33554432
         net.ipv4.tcp_tw_reuse: 1
         net.ipv4.tcp_window_scaling: 1
-
-  # Custom sysfs settings
-  # - |-
-  #   machine:
-  #     sysfs:
-  #       devices.system.cpu.cpufreq.boost: 0
+        vm.nr_hugepages: 1024
 
   # Mount openebs-hostpath in kubelet
   - |-

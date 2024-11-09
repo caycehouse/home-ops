@@ -30,10 +30,8 @@ machine:
     hostname: k8s-0
     interfaces:
       - deviceSelector:
-          hardwareAddr: b8:85:84:b6:*
-          driver: r8169
+          busPath: 0*
         dhcp: true
-        mtu: 9000
         vip:
           ip: 192.168.42.120
         vlans:

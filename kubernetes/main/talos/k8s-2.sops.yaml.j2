@@ -31,6 +31,7 @@ machine:
     interfaces:
       - deviceSelector:
           hardwareAddr: bc:24:11:17:*
+          driver: virtio
         dhcp: true
         mtu: 9000
         vip:
@@ -44,7 +45,7 @@ machine:
             vlanId: 70
   install:
     diskSelector:
-      model: /dev/sda
+      model: QEMU HARDDISK
     extraKernelArgs:
       - mitigations=off
       - net.ifnames=0

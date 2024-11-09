@@ -11,17 +11,14 @@ machine:
     - 127.0.0.1
     - 192.168.42.120
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:v1.31.1
+    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       rotate-server-certificates: "true"
     extraMounts:
       - destination: /var/openebs/local
         type: bind
         source: /var/openebs/local
-        options:
-          - bind
-          - rshared
-          - rw
+        options: ["bind", "rshared", "rw"]
     extraConfig:
       maxPods: 150
     defaultRuntimeSeccompProfileEnabled: true
@@ -33,7 +30,11 @@ machine:
     hostname: k8s-0
     interfaces:
       - deviceSelector:
-          busPath: 0*
+          hardwareAddr: b8:85:84:b6:*
+        dhcp: true
+        mtu: 9000
+        vip:
+          ip: 192.168.42.120
         vlans:
           - routes: []
             dhcp: false
@@ -41,18 +42,18 @@ machine:
           - routes: []
             dhcp: false
             vlanId: 70
-        dhcp: true
-        vip:
-          ip: 192.168.42.120
   install:
-    disk: /dev/sdb
+    diskSelector:
+      model: LITEON CV8-8E256
     extraKernelArgs:
       - mitigations=off
       - net.ifnames=0
-    image: factory.talos.dev/installer/a9c4df6be7640e78ecad1406257a2dce262dc9b4f0da3984a640688ea3974e9d:v1.8.2
+    image: factory.talos.dev/installer/ee96a19631f361e8aca087ead77beb49938e2ca1e4d13b918a537f6adb3aef88:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:
-    - content: |
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
         [plugins."io.containerd.grpc.v1.cri"]
           enable_unprivileged_ports = true
           enable_unprivileged_icmp = true
@@ -60,10 +61,10 @@ machine:
           discard_unpacked_layers = false
         [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
           discard_unpacked_layers = false
-      permissions: 0
-      path: /etc/cri/conf.d/20-customization.part
-      op: create
-    - content: |-
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0o644
+      content: |-
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True
@@ -71,20 +72,19 @@ machine:
         noatime=True
         rsize=1048576
         wsize=1048576
-      permissions: 420
-      path: /etc/nfsmount.conf
-      op: overwrite
   sysctls:
-    fs.inotify.max_user_instances: "8192"
-    fs.inotify.max_user_watches: "1048576"
-    net.core.netdev_max_backlog: "30000"
-    net.core.rmem_max: "67108864"
-    net.core.wmem_max: "67108864"
+    fs.inotify.max_user_watches: 1048576
+    fs.inotify.max_user_instances: 8192
+    net.core.netdev_max_backlog: 30000
+    net.core.rmem_max: 67108864
+    net.core.wmem_max: 67108864
     net.ipv4.tcp_rmem: 4096 87380 33554432
-    net.ipv4.tcp_tw_reuse: "1"
-    net.ipv4.tcp_window_scaling: "1"
     net.ipv4.tcp_wmem: 4096 65536 33554432
-    vm.nr_hugepages: "1024"
+    net.ipv4.tcp_tw_reuse: 1
+    net.ipv4.tcp_window_scaling: 1
+    vm.nr_hugepages: 1024
+  sysfs:
+    block.sda.queue.scheduler: none
   features:
     rbac: true
     stableHostname: true
@@ -101,10 +101,11 @@ machine:
       port: 7445
     hostDNS:
       enabled: true
-      forwardKubeDNSToHost: false
       resolveMemberNames: true
+      forwardKubeDNSToHost: false # Incompatible with Cilium bpf masquerade
   udev:
     rules:
+      # Intel GPU
       - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
   nodeLabels:
     topology.kubernetes.io/region: main
@@ -123,6 +124,8 @@ cluster:
       - 10.69.0.0/16
     serviceSubnets:
       - 10.96.0.0/16
+  coreDNS:
+    disabled: true
   token: ENC[AES256_GCM,data:JVw5UqJiGy2HkOoy/HRKGAwWAgPhNqg=,iv:2iNVIVUOifdoUb5N1A7K7FoKsHRd95uNlojtbIX41yY=,tag:HtwX0++7yhBh4jbRttck5w==,type:str]
   secretboxEncryptionSecret: ENC[AES256_GCM,data:VPcpjh4WhvH0GiF4U2/GqU1HgnpRENvN1hWDZBpI5OCV+3i7QDcLgebFo3E=,iv:M5laxUUryAm8Zqz+89CVOqxKAVG7aO0s3Vi+tmx45HI=,tag:VGL5kAkPFYy+mC1mpD0dIg==,type:str]
   ca:
@@ -134,9 +137,8 @@ cluster:
   serviceAccount:
     key: ENC[AES256_GCM,data:ZGnZh49iL4si2yZeD05blvDDI9XADsCeZycMYKkGIzdrz7zMZL5TmYgJn1Jfz8XMF4gReysPHrRwwBPUL4MIl/ImdTtUytOC1hMPe/96Sx/kHXFkLokbxiRQAvGf6b2xw0VVDbGLy1FI2JalvEFw+f6UvXngOKj/sXvisAYxnceDfaydotjHwcarDK/y9uIuU8n/+1XxaCN9ssfTFYA8TO/1JmqAwOrIIETkn8cX5oTeneGtXb5e6XFHnuqUlo6tvAFapZAwDX5PEMcIu88D4RDj3KcCvX8M+qhWj1f5nUK9pXJuc3loMYu2b26lYVYMDpyrDyef1FjXbjNVAMdMtlqIr3A1H0ejups5qot21z6Z6bX8P0yIN/ejQJo/RN/TcxG9y8ntGdznAzg+S7zZrw==,iv:Bp4V51jyOBCp9i3kVVLIHVtUxb5M6ALENzrG5rh+VCg=,tag:P/TJkGkKsQ5AVEYyLnFiLQ==,type:str]
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.31.1
+    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     certSANs:
-      - 192.168.42.120
       - 127.0.0.1
       - 192.168.42.120
     disablePodSecurityPolicy: true
@@ -146,29 +148,28 @@ cluster:
       rules:
         - level: Metadata
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:v1.31.1
+    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.31.1
   scheduler:
-    image: registry.k8s.io/kube-scheduler:v1.31.1
+    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
       kind: KubeSchedulerConfiguration
       profiles:
-        - pluginConfig:
-            - args:
+        - schedulerName: default-scheduler
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
                 defaultConstraints:
                   - maxSkew: 1
                     topologyKey: kubernetes.io/hostname
                     whenUnsatisfiable: ScheduleAnyway
-                defaultingType: List
-              name: PodTopologySpread
-          schedulerName: default-scheduler
   discovery:
     enabled: true
     registries:
@@ -184,9 +185,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
     advertisedSubnets:
       - 192.168.42.0/24
-  coreDNS:
-    disabled: true
-  allowSchedulingOnControlPlanes: true
+  allowSchedulingOnMasters: true
 sops:
   kms: []
   gcp_kms: []

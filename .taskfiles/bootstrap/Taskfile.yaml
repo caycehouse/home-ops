@@ -10,8 +10,6 @@ tasks:
   talos:
     desc: Bootstrap Talos [CLUSTER=main]
     cmds:
-      - task: ":talos:bootstrap-genconfig"
-      - task: ":talos:bootstrap-apply"
       - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
       - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
     vars:
@@ -21,7 +19,7 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - which talosctl
 
   # NOTE: Expects all nodes are part of the Ceph cluster and have the same Ceph disk path
@@ -53,7 +51,7 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - test -f {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml
       - which helmfile kubectl
 

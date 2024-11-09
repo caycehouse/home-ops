@@ -4,43 +4,12 @@ version: '3'
 
 tasks:
 
-  bootstrap-genconfig:
-    desc: Generate clusterconfig for Talos [CLUSTER=main]
-    cmds:
-      - talhelper genconfig
-        --secret-file {{.CLUSTER_DIR}}/talos/talsecret.sops.yaml
-        --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml
-        --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig
-    requires:
-      vars: [CLUSTER]
-    preconditions:
-      - which talhelper
-      - test -f {{.CLUSTER_DIR}}/talos/talsecret.sops.yaml
-      - test -f {{.CLUSTER_DIR}}/talos/talconfig.yaml
-
-  bootstrap-apply:
-    desc: Apply the Talos configs to the nodes [CLUSTER=main]
-    cmds:
-      - talhelper gencommand apply
-        --extra-flags=--insecure
-        --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml
-        --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig | bash
-    requires:
-      vars: [CLUSTER]
-    preconditions:
-      - test -f {{.CLUSTER_DIR}}/talos/talconfig.yaml
-      - test -d {{.CLUSTER_DIR}}/talos/clusterconfig
-
   apply-node:
     desc: Apply Talos config to a node [CLUSTER=main] [HOSTNAME=required]
     dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
       - task: down
-      - talhelper gencommand apply
-        --extra-flags=--mode=staged
-        --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml
-        --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig
-        --node {{.HOSTNAME}} | bash
+      - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/talos/{{.HOSTNAME}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.HOSTNAME}} apply-config --file /dev/stdin
       - talosctl --nodes {{.HOSTNAME}} health --wait-timeout=10m --server=false
       - task: up
     requires:
@@ -48,8 +17,8 @@ tasks:
     preconditions:
       - talosctl --nodes {{.HOSTNAME}} get machineconfig
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/{{.CLUSTER}}-{{.HOSTNAME}}.yaml
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talos/{{.HOSTNAME}}.sops.yaml.j2
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - which minijinja-cli sops talosctl
 
   upgrade-node:
@@ -70,7 +39,7 @@ tasks:
       - talosctl --nodes {{.HOSTNAME}} get machineconfig
       - talosctl config info
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - which kubectl talosctl
 
   upgrade-k8s:
@@ -90,7 +59,7 @@ tasks:
       - talosctl --nodes {{.CONTROLLER}} get machineconfig
       - talosctl config info
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - which talosctl
 
   reboot-node:
@@ -106,7 +75,7 @@ tasks:
       - talosctl --nodes {{.HOSTNAME}} get machineconfig
       - talosctl config info
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - which talosctl
 
   shutdown-cluster:
@@ -121,7 +90,7 @@ tasks:
     preconditions:
       - talosctl --nodes {{.NODES}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - which jq talosctl
 
   reset-node:
@@ -133,7 +102,7 @@ tasks:
     preconditions:
       - talosctl --nodes {{.HOSTNAME}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
 
   reset-cluster:
     desc: Reset Talos across the whole cluster [CLUSTER=main]
@@ -147,7 +116,7 @@ tasks:
     preconditions:
       - talosctl --nodes {{.NODES}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - which jq talosctl
 
   kubeconfig:
@@ -160,7 +129,7 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
+      - test -f {{.CLUSTER_DIR}}/talosconfig
       - which talosctl
 
   down:

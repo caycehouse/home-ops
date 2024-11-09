@@ -118,6 +118,7 @@ spec:
                 requests:
                   storage: 75Gi
     prometheus-node-exporter:
+      image: quay.io/prometheus/node-exporter:v1.8.1
       fullnameOverride: node-exporter
       prometheus:
         monitor:

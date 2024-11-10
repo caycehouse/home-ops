@@ -35,7 +35,7 @@ spec:
           reloader.stakater.com/auto: "true"
         cronjob:
           schedule: "@daily"
-          timeZone: &timeZone ${TIMEZONE}
+          timeZone: &timeZone America/New_York
           successfulJobsHistory: 1
           failedJobsHistory: 1
         containers:

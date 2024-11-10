@@ -34,7 +34,7 @@ spec:
               repository: ghcr.io/dmunozv04/isponsorblocktv
               tag: v2.2.1@sha256:97c9e4220074b67169cdafc7cb00b1fe53be9e1aadee08b81b05a3162c6ce426
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/New_York
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

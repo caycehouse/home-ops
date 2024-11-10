@@ -14,7 +14,7 @@
 
 <div align="center">
 
-[![Home-Internet](https://img.shields.io/uptimerobot/status/m797044251-175b66fd080347cba92eab7d?color=brightgreeen&label=Home%20Internet&style=for-the-badge&logo=v&logoColor=white)](https://status.housefam.casa)&nbsp;&nbsp;
+[![Home-Internet](https://img.shields.io/uptimerobot/status/m797044251-175b66fd080347cba92eab7d?color=brightgreeen&label=Home%20Internet&style=for-the-badge&logo=ubiquiti&logoColor=white)](https://status.housefam.casa)&nbsp;&nbsp;
 [![Status-Page](https://img.shields.io/uptimerobot/status/m797044253-d5e05cfb7efa9b098b99d258?color=brightgreeen&label=Status%20Page&style=for-the-badge&logo=statuspage&logoColor=white)](https://status.housefam.casa)&nbsp;&nbsp;
 [![Alertmanager](https://img.shields.io/endpoint?url=https%3A%2F%2Fhealthchecks.io%2Fb%2F2%2F03387ff3-d245-4a6f-89b7-c20f9b494bd0.shields&color=brightgreeen&label=Alertmanager&style=for-the-badge&logo=prometheus&logoColor=white)](https://status.housefam.casa)
 

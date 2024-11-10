@@ -54,10 +54,6 @@ spec:
           - "-LOf"
           - "https://mediafilez.forgecdn.net/files/5340/919/leaky-1.20.1-2.1.jar"
         workingDir: "/downloads"
-        resources:
-          limits:
-            cpu: "1"
-            memory: "1Gi"
         volumeMounts:
           - name: downloads
             mountPath: /downloads
@@ -127,7 +123,7 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: &mem 20Gi
+        memory: &mem 16Gi
       limits:
         memory: *mem
     extraVolumes:

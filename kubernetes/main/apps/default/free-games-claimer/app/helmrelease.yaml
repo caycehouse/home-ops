@@ -53,7 +53,7 @@ spec:
                   name: free-games-claimer-secret
             resources:
               requests:
-                cpu: 1000m
+                cpu: 100m
               limits:
                 memory: 2Gi
     service:

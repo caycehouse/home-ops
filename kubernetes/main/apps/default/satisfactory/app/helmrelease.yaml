@@ -42,9 +42,9 @@ spec:
               ROOTLESS: true
             resources:
               requests:
-                cpu: 1500m
+                cpu: 500m
               limits:
-                memory: 16Gi
+                memory: 8Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

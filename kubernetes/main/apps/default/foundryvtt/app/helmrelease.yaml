@@ -54,9 +54,9 @@ spec:
                 enabled: true
             resources:
               requests:
-                cpu: 2000m
+                cpu: 100m
               limits:
-                memory: 4Gi
+                memory: 2Gi
     defaultPodOptions:
       hostname: foundryvtt
     service:

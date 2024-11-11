@@ -30,7 +30,8 @@ machine:
     hostname: k8s-1
     interfaces:
       - deviceSelector:
-          busPath: 0*
+          hardwareAddr: e4:54:e8:84:*
+          driver: r8169
         dhcp: true
         vlans:
           - routes: []

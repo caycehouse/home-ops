@@ -30,7 +30,8 @@ machine:
     hostname: k8s-2
     interfaces:
       - deviceSelector:
-          busPath: 0*
+          hardwareAddr: bc:24:11:17:*
+          driver: virtio_net
         dhcp: true
         vlans:
           - routes: []

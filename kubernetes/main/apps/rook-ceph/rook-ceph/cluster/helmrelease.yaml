@@ -71,20 +71,11 @@ spec:
         connections:
           requireMsgr2: true
       storage:
-        useAllNodes: false
+        useAllNodes: true
         useAllDevices: false
+        devicePathFilter: /dev/disk/by-id/ata-MTFDDAK960TCB_.*
         config:
           osdsPerDevice: "1"
-        nodes:
-          - name: "k8s-0"
-            devices:
-              - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_172618204AAD"
-          - name: "k8s-1"
-            devices:
-              - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_1724177FAE58"
-          - name: "k8s-2"
-            devices:
-              - name: "/dev/disk/by-id/ata-MTFDDAK960TCB_1724177FBAE3"
       # placement:
       #   mgr: &placement
       #     nodeAffinity:

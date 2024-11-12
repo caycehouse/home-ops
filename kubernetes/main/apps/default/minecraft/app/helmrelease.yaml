@@ -26,8 +26,6 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
   uninstall:
     keepHistory: false
   values:

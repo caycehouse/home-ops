@@ -46,8 +46,10 @@ machine:
     diskSelector:
       model: LITEON CV8-8E256
     extraKernelArgs:
+      - apparmor=0
       - mitigations=off
       - net.ifnames=0
+      - security=none
     image: factory.talos.dev/installer/ee96a19631f361e8aca087ead77beb49938e2ca1e4d13b918a537f6adb3aef88:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:
@@ -68,7 +70,7 @@ machine:
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True
-        nconnect=4
+        nconnect=16
         noatime=True
         rsize=1048576
         wsize=1048576
@@ -82,9 +84,8 @@ machine:
     net.ipv4.tcp_wmem: 4096 65536 33554432
     net.ipv4.tcp_tw_reuse: 1
     net.ipv4.tcp_window_scaling: 1
+    net.ipv4.tcp_congestion_control: bbr
     vm.nr_hugepages: 1024
-  sysfs:
-    block.sda.queue.scheduler: none
   features:
     rbac: true
     stableHostname: true

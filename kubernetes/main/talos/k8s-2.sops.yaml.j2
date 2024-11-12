@@ -32,6 +32,7 @@ machine:
       - deviceSelector:
           hardwareAddr: bc:24:11:17:*
           driver: virtio_net
+        mtu: 9000
         dhcp: true
         vlans:
           - routes: []
@@ -64,7 +65,7 @@ machine:
     - op: overwrite
       path: /etc/nfsmount.conf
       permissions: 0o644
-      content: |-
+      content: |
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True
@@ -108,7 +109,6 @@ cluster:
   secret: ENC[AES256_GCM,data:12G4VhnMVmkKN0L2tsJWvijAUttkiaraG42I/wJca5u8c2XsBbSbbU4eetw=,iv:ZWC8XePvS0PFW7FOIaA5Y4xp4wuYzQJMsCp4thGFBe0=,tag:xpVXC+8D40ONqJXHxzOdoA==,type:str]
   controlPlane:
     endpoint: https://192.168.42.120:6443
-  clusterName: main
   network:
     cni:
       name: none
@@ -117,8 +117,9 @@ cluster:
       - 10.69.0.0/16
     serviceSubnets:
       - 10.96.0.0/16
+  coreDNS:
+    disabled: true
   token: ENC[AES256_GCM,data:Ed7DSjpr+bHmOLdvSYXwafV4XlOOMoA=,iv:JM1SMjg/QqO/PWOPv8GlSUCYGw7Othwdc/esuVjyBaM=,tag:dE/h4t+FPR/DcVdXfB5awQ==,type:str]
-  secretboxEncryptionSecret: ENC[AES256_GCM,data:l+/CnBkGjkpcVy/UCXkxJ9DJNq/XdaQoSnxIOlo7mTLq52q/2avexd5FtA0=,iv:ckaAuljMAj6wctjzh4DlUYx6ey+doFn5ccDtDX3T6GU=,tag:qWtmLfjyoy62V/DXXowSyA==,type:str]
   ca:
     crt: ENC[AES256_GCM,data:htnloxLt95Lh9f43Ilfuzjka19eLhl9YnI9puNm5qUAYaf7BTomqV019NCgPCbEClesYQVjKOR0PjM6dddNrd943EqrAmrg5vzp8wd9GwoNiinsWjPouDiqfSuWBBbw1MIeReU6HraTuv1cHFubMaBGS6j8HttuLz9d3kzztZ7og1GILF6qWR5uyiN2PDvjV5Bm2vsj3iZO6YYsWgxahM1GF+t+xhbP6NDwUFb7Svym+TWVlkjXQbxbsKLu1p5Jq+qcDemtECrpPqU9bkJo8j9R7Cwed+pbfDXfYSAzbF+8TuEgxcaYSsovZGb7K5xlDDL55SVJDgc9mekVasLs4M2Z/AIOPkt+B/k6zuMxgBdnRnBwFyz3PJqEux+AFFLc+MuMiYWjMICt5JJCIv0GRBwR5vKp19ZSyJQqMCv8qrYbp0r/ucmJw2tZjzcbxa1wnUMTac4H9qt7y9M7wau2KBn1Y4jkxAYlb3jWrF7aGazp3Ew9g9SQ/U3o6ldIGeNRqHU2IZ6qOqTxi8Pudr1YDqyGrjb1XGWugMNSfLlyXL2CoD3nihHV5ohiWNiwCmxeD1V66fQPclBT9ZLdblCaPGs78CTH1ODkxafUY+yBCsQF0Bv23apFJ2NDXm+8JDWf6y8w0HbDHfNmDAso3lDp7EXRic31gTORv85M8mV6RnBV3gM0B3PYKiEC3JEEp4OmmgNu9324lk1/gUK9prZRBYSe1kwl5maJZT/NNJSj5vIgsT1qoZjuMNIEQPHpcTmOrRlypbMBtyQVzLHVd/No9szJnYs8tgDUUTpvYS6aGP4Uz2TLe/JcO7VXPJEAwlpP4k2vISpWe/0YFJkYD67si59RgOPEFwi0HcxXtg7jabtkg+rcVAppugLiQwuGSHFuRLYZ9YjqGJO4qCe2OmO2FuXvmhs6GAQzzsYszE71/R26yBIOCNWBBheH6w137cpfEXpVvVzM66c8+C6Ul224wH2BHUg93lPIEJiYoBczu0emIZtHeD4SEzXu2WE4wo44o4hC/dQgvrKQSz5Mtqi3dUrBqjWxN4QzcWFVHBg==,iv:aniNX4fRKQAmy9fe3r9RDIPc6ourpo82TjtnYthDY+o=,tag:ED9/DCKolc2ru+4gWqF6+w==,type:str]
     key: ""
@@ -144,8 +145,8 @@ sops:
         T2dIU3NHTk9LcFg4dy9JUC9Dbjg2WG8KJNIBr2YfrOOtsSm4/ro8cSQ56nwLR1yP
         T63E0I0I0Fql7CNoKfMvorHtBBPgkbxN74zpMRKlwK5V+GIIZLrXvw==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2024-11-09T07:14:06Z"
-  mac: ENC[AES256_GCM,data:ULGnv9248DfgNI6JNKNWanVXnREtOR3CfBw3/KIdYSLrp6AYWRP41cfggTbnJzS6gGy2d//2KEe6yDaMeir3N79H3Y1p7iM16FGoz6Hrue9hIcBPjvuBmvmON43QMHe4gv33fbHWyX0tGiFR/W+2CHnMOBKKw4v+sXpRXoUKNiQ=,iv:veaSIX3aVjWtc3ELUyEn2t2xIcptZsSDkQvZM/62+KU=,tag:/97rqRdGDJnLelz7M/mv0A==,type:str]
+  lastmodified: "2024-11-12T20:37:32Z"
+  mac: ENC[AES256_GCM,data:yITvUOKY+Y0PcwEHHBBRvjZt5wecFgFsBR+HJgXqdmiU2uVOstmODQxg8owIU/usiTYU00LrhBCLyTdxaLAnSslIvc2GmybcZe3jk6gL3/KzAMzQcygGv5IUHPN9SFBcO5HHqO/vGs4cFsuNpMGlYE5RuWXH00dVOR+dnCWVFvU=,iv:DU2XeHRH+FL/q34gxSNtcSZiOdufUh/tWf04YOChVxQ=,tag:M37c14Zs5S8ZiATjv3PzEQ==,type:str]
   pgp: []
   encrypted_regex: ^(token|crt|key|id|secret|secretboxEncryptionSecret|ca)$
   mac_only_encrypted: true

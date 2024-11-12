@@ -32,6 +32,7 @@ machine:
       - deviceSelector:
           hardwareAddr: b8:85:84:b6:*
           driver: r8169
+        mtu: 9000
         dhcp: true
         vip:
           ip: 192.168.42.120
@@ -66,7 +67,7 @@ machine:
     - op: overwrite
       path: /etc/nfsmount.conf
       permissions: 0o644
-      content: |-
+      content: |
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True

@@ -32,6 +32,7 @@ machine:
       - deviceSelector:
           hardwareAddr: e4:54:e8:84:*
           driver: r8169
+        mtu: 9000
         dhcp: true
         vlans:
           - routes: []
@@ -64,7 +65,7 @@ machine:
     - op: overwrite
       path: /etc/nfsmount.conf
       permissions: 0o644
-      content: |-
+      content: |
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True
@@ -108,7 +109,6 @@ cluster:
   secret: ENC[AES256_GCM,data:dydVBKOZjjdxcwy9d/2llateAmfIOaBph0qS+9DpNRuhAVtDaerComymny4=,iv:9viJmIj78N9xGa0k4IxxbWVl1BRWLJRkqBPQAJdri5I=,tag:WifeIlBkNqvS1QU+Yrmyog==,type:str]
   controlPlane:
     endpoint: https://192.168.42.120:6443
-  clusterName: main
   network:
     cni:
       name: none
@@ -117,6 +117,8 @@ cluster:
       - 10.69.0.0/16
     serviceSubnets:
       - 10.96.0.0/16
+  coreDNS:
+    disabled: true
   token: ENC[AES256_GCM,data:GEo1Jfl7s664UsjtIs9F+n46p391FJg=,iv:qF3pToSE16XEZdu+QEPrf0+trnihCHci1afjJ9HZL8M=,tag:WX8XP9dYoAMJBldRwxJCtg==,type:str]
   ca:
     crt: ENC[AES256_GCM,data:geEb5IcfVGrf1R9z6fRfiKCHM/rMUoLLTpS113XWyW+dDk9Yuta36Fx4fwV5bF3N8elLudvYdvsrGpEShOiYbvCqeErVLvPDJPgInZDFjp9FFn+gb06oAKatuMvfLSIMCXfJna5WZl6iVWWdwA7Vysu8OetZBre3E2aoF/tXsExk+yStFPFhk5dpp95QYlNWKOaF6XQo0m/PtONFRIkhklrcGKXYRWwadV9rD5vsRj/WMTz09whPtiQ2nfD5zYcO+ocBJecu2W67EUNF4np2l8GPhEHutVZ5jjVW4GmqicW8UiX+Q+d1MKUkA0H9XblUKV/jIg0CyCAE8bXMGZm5sw88NIuzhfx121GQcGl3WXq6unwOzbVOVC/SmjWIYfDdSGG9YS1cQPnYrGXrhMurMmTRSOgiP+++UKNGe35idex6eIJpPf+aJhxHUiZAndf8VZnForR2Q6d3Xt6ugx58d+jUBnCZ31J+00bmKhXAkFuNh15xTYbrD0uQZ4fYv3o4qrTUuKdRXZIUzdwho6ql3LsO+kitorD56y3J2HpC32q6r88dICR/RCHpr/2LU0MEEKc3I1mcgahBWkfAawvqBz//CyMwjqJU9cK7AZ1co0NoV3JO04WXwaGlusEvuCHMHEXmhk39wFPEnzFA9lp8lqyDUd7tgM4p8/TBPXQQv/3GsW4i+YrOVCfOIwOMdS53tw4Bg4hRiej9j19h0no5BsS/vlcCRQLhnS30K6yWJSiTONwY/ZtxPymtzjXt6j3HQ0Xu/BEXOuo4NI8O2cBmLuc5TcfMZViq3VfENlekLoF2OyaUuVtrI8gGHF/6i6Bhoo+zUUl/qhkmgAkqXbhz7Kppu0Pa0FA+3xE5XhwBTIj9j3AORXsF8uhrR2Zu3J8AAwLHsB/caGwJJJ4ziwJz4FYdCIK73zBQ59te9KHAxgAVXcCeRY9Iq3wWXvhR4RufEhrab3O8JWWiJe881oeEIYOL4fk0YHfn+9gMkFxdMgMnXTJlnapuVoFWQcJ/5yGQ90kWK/8vzd1ONQ6VwZOuD7WIGGSrlVYRblmBpw==,iv:BvASahecsYREs8/WXIaFp2x6gKQHfZUDjRd13JeiLAs=,tag:mT605Qe12uz8L7fMFSVgaQ==,type:str]

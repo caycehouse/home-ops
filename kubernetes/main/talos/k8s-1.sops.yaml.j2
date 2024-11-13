@@ -29,9 +29,13 @@ machine:
   network:
     hostname: k8s-1
     interfaces:
-      - deviceSelector:
-          hardwareAddr: e4:54:e8:84:*
-          driver: r8169
+      - interface: bond0
+        bond:
+          mode: active-backup
+          miimon: 1000
+          deviceSelectors:
+            hardwareAddr: e4:54:e8:84:*
+            driver: r8169
         mtu: 9000
         dhcp: true
         vlans:
@@ -47,7 +51,6 @@ machine:
     extraKernelArgs:
       - apparmor=0
       - mitigations=off
-      - net.ifnames=0
       - security=none
     image: factory.talos.dev/installer/ee96a19631f361e8aca087ead77beb49938e2ca1e4d13b918a537f6adb3aef88:{{ ENV.TALOS_VERSION }}
     wipe: false

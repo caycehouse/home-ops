@@ -29,9 +29,13 @@ machine:
   network:
     hostname: k8s-2
     interfaces:
-      - deviceSelector:
-          hardwareAddr: bc:24:11:17:*
-          driver: virtio_net
+      - interface: bond0
+        bond:
+          mode: active-backup
+          miimon: 1000
+          deviceSelectors:
+            hardwareAddr: bc:24:11:17:*
+            driver: virtio_net
         mtu: 9000
         dhcp: true
         vlans:
@@ -47,7 +51,6 @@ machine:
     extraKernelArgs:
       - apparmor=0
       - mitigations=off
-      - net.ifnames=0
       - security=none
     image: factory.talos.dev/installer/b211d59400338ac56368fc37f5f85fa18cd8d9ee5b802c5853901609540edeb4:{{ ENV.TALOS_VERSION }}
     wipe: false

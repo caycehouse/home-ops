@@ -30,7 +30,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 30.0.2-apache@sha256:b3f749a1fc7f269c47d5df2d9663ffebe9b54cb4bdacf60ebb565f8b12c4ee0e
+      tag: 30.0.2-apache@sha256:300c55b0ebe11991c61a346025791ea5ebd90a14cec4abc6048aab2f1baaf69c
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     cronjob:

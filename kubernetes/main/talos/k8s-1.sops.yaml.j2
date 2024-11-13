@@ -34,8 +34,8 @@ machine:
           mode: active-backup
           miimon: 1000
           deviceSelectors:
-            hardwareAddr: e4:54:e8:84:*
-            driver: r8169
+            - hardwareAddr: e4:54:e8:84:*
+              driver: r8169
         mtu: 9000
         dhcp: true
         vlans:

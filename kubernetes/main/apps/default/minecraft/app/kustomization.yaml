@@ -5,5 +5,5 @@ resources:
   - ./dnsendpoint.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/gatus/app
-  - ../../../../templates/volsync
+  - ../../../../../shared/templates/gatus/app
+  - ../../../../../shared/templates/volsync

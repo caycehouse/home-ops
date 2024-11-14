@@ -35,7 +35,7 @@ machine:
           miimon: 1000
           deviceSelectors:
             - hardwareAddr: f8:bc:12:1d:*
-              driver: r8169
+              driver: i40e
         mtu: 9000
         dhcp: true
         vip:
@@ -49,7 +49,7 @@ machine:
             vlanId: 70
   install:
     diskSelector:
-      model: QEMU HARDDISK
+      model: WDC  WDBNCE0010P
     extraKernelArgs:
       - apparmor=0
       - mitigations=off

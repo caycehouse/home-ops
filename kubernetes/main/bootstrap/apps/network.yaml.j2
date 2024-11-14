@@ -7,12 +7,12 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: ${SECRET_DOMAIN/./-}-tls
+  name: housefam-casa-tls
   namespace: network
   annotations:
-    cert-manager.io/alt-names: '*.${SECRET_DOMAIN},${SECRET_DOMAIN}'
-    cert-manager.io/certificate-name: ${SECRET_DOMAIN/./-}
-    cert-manager.io/common-name: ${SECRET_DOMAIN}
+    cert-manager.io/alt-names: '*.housefam.casa,housefam.casa'
+    cert-manager.io/certificate-name: housefam-casa
+    cert-manager.io/common-name: housefam.casa
     cert-manager.io/ip-sans: ""
     cert-manager.io/issuer-group: ""
     cert-manager.io/issuer-kind: ClusterIssuer

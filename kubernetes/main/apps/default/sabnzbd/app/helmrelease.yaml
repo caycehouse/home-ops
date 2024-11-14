@@ -76,8 +76,8 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
-      nodeSelector:
-        topology.kubernetes.io/zone: w
+      # nodeSelector:
+        # topology.kubernetes.io/zone: w
     service:
       app:
         controller: sabnzbd

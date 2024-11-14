@@ -36,13 +36,13 @@ servers:
       - name: loop
       - name: reload
       - name: loadbalance
-# affinity:
-#   nodeAffinity:
-#     requiredDuringSchedulingIgnoredDuringExecution:
-#       nodeSelectorTerms:
-#         - matchExpressions:
-#             - key: node-role.kubernetes.io/control-plane
-#               operator: Exists
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: Exists
 tolerations:
   - key: CriticalAddonsOnly
     operator: Exists

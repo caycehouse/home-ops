@@ -76,15 +76,15 @@ spec:
         devicePathFilter: /dev/disk/by-id/ata-MTFDDAK960TCB_.*
         config:
           osdsPerDevice: "1"
-      # placement:
-      #   mgr: &placement
-      #     nodeAffinity:
-      #       requiredDuringSchedulingIgnoredDuringExecution:
-      #         nodeSelectorTerms:
-      #           - matchExpressions:
-      #               - key: node-role.kubernetes.io/control-plane
-      #                 operator: Exists
-      #   mon: *placement
+      placement:
+        mgr: &placement
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: node-role.kubernetes.io/control-plane
+                      operator: Exists
+        mon: *placement
       resources:
         mgr:
           requests:
@@ -125,7 +125,7 @@ spec:
           volumeBindingMode: Immediate
           parameters:
             imageFormat: "2"
-            imageFeatures: layering # TODO: append on next cluster rebuild ,fast-diff,object-map,deep-flatten,exclusive-lock
+            imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner

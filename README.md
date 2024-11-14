@@ -37,21 +37,21 @@
 
 ### To Recover cluster:
 
-1. `task talos:bootstrap`
-2. be patient...
-3. `task flux:bootstrap`
-4. ???
-5. success
+1. `task bootstrap:matchbox`
+2. `task bootstrap:talos`
+3. `task bootstrap:apps`
+4. `task bootstrap:rook`
+5. `task bootstrap:flux`
 
 ### To Upgrade Talos:
 
-`task talos:upgrade-talos node=<node> image=<factory_image_url>`
+`task talos:upgrade-node HOSTNAME=<hostname>`
 
 The factory image url can be generated at [factory.talos.dev](factory.talos.dev).
 
 ### To Upgrade k8s:
 
-`task talos:upgrade-k8s node=<node> to=<k8s_version>`
+`task talos:upgrade-k8s VERSION=<k8s_version>`
 
 ---
 
@@ -59,8 +59,9 @@ The factory image url can be generated at [factory.talos.dev](factory.talos.dev)
 
 | Device              | CPU          | OS Disk Size         | Data Disk Size                         | Ram   | Operating System    | Purpose               |
 |---------------------|--------------|----------------------|----------------------------------------|-------|---------------------|-----------------------|
-| OptiPlex 3060 Micro | i5-8500T     | 256GB NVMe           | 960GB SSD (rook-ceph)                  | 64GB  | Talos               | Kubernetes Controller |
-| PowerEdge r630      | 2xE5-2695 v4 | 2x1TB SSD (mirrored) | 2x960GB SSD (rook-ceph)                | 384GB | Proxmox 8           | VM Server             |
+| OptiPlex 3060 Micro | i5-8500T     | 256GB SSD            | 960GB SSD (rook-ceph)                  | 64GB  | Talos               | Kubernetes Controller |
+| OptiPlex 3070 Micro | i5-9500T     | 256GB NVMe           | 960GB SSD (rook-ceph)                  | 64GB  | Talos               | Kubernetes Controller |
+| PowerEdge r630      | 2xE5-2695 v4 | 1TB SSD              | 960GB SSD (rook-ceph)                  | 384GB | Talos               | Kubernetes Controller |
 | PowerEdge r730xd    | 2xE5-2620 v3 | 2x1TB SSD (mirrored) | 10x3TB and 2x10TB ZFS (mirrored vdevs) | 64GB  | TrueNAS Scale 24.04 | NFS + Backup Server   |
 | UniFi UDMP          | -            | -                    | 1x2TB HDD                              | -     | -                   | Router & NVR          |
 | UniFi USW-48-PoE    | -            | -                    | -                                      | -     | -                   | SFP+ PoE Switch       |

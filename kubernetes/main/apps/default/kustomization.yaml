@@ -29,7 +29,7 @@ resources:
   - ./oceanblock/ks.yaml
   # - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
-  - ./plex/ks.yaml
+  # - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml

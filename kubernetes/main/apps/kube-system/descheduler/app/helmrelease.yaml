@@ -36,6 +36,16 @@ spec:
                 evictLocalStoragePods: true
                 evictSystemCriticalPods: true
                 nodeFit: true
+            - name: LowNodeUtilization
+              args:
+                thresholds:
+                  cpu: 50
+                  memory: 50
+                  pods: 55
+                targetThresholds:
+                  cpu: 75
+                  memory: 75
+                  pods: 80
             - name: RemoveDuplicates
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity
@@ -51,6 +61,7 @@ spec:
           plugins:
             balance:
               enabled:
+                - LowNodeUtilization
                 - RemoveDuplicates
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:

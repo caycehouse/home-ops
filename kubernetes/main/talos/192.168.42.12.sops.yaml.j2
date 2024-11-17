@@ -7,9 +7,7 @@ machine:
   ca:
     crt: ENC[AES256_GCM,data:JTvX5sGqKT3VmhG+1FUrE24iTJ+bdKC4KKBpj/uJauqIr4+83AEYh6LSVK8K6nw+MJyxuUrDvNE+dtaIVJf2RAsEAMCrompuFNEEfN/5Ez9mBMGg13MPw2nusUjqwbz2tC6A7JpYloTfBqOfu4csHLHQMiuLtj/gVWKJV/1potFumTmHOxpjunfDUKb6zxyC/YsKDnHFrXF/2quTi/hIq6cXuPc/KADxG6RqsAJB32nlqgZolENykxnKAY20pJkzVAPKC6dUTFoq7RN8DXVB9ZMtYVBNdSpOs2iTxFfpQnyvGDuS6IU5s2qj8piJRLWBXqlxjocVk9H9Kd+4GbWWzo+hOanye8b3x4Ni2vs3EGZgpy7N/MUAFUd3PLxFHjzfYX9ebN0uNG4ydUvPUqrTKxFn9NgdohMZHeavJDgwVTjESa/t+f1zFm7j0OXt+OagmZ29X1qSPkoi1lUxfyU1j2rufeETzre7EWhND1D2A7Z/ARFN/qTqzu5W3fSseG3k5gZ4a99RX9fnHSm3uKDUJxrNXCRTiTTDS35DDqynijJYyVFXPIVcoW0Ep/J2Jcxt5ZqkNnSifcxTfcj9I78icC5KmXErhQG28YuHMWZ3k14uWidW+5nFZP3mguFtvUCnaYXCFZnTyRfNUP0oeRDF30tMuP2HlcAgOx4Z8lHIVqkye5X5AKytcCxWakjRjivETgWtHkhpS+H0I37Whhfr+KwPKjiKtVnPojhccrjUY3jfaCUPj02S0huJA/kiPVGO2Fs40446ERKc0M31bTyqU9ZE4tmFrm4Qw7+4WemALGjP1I5TB0c2ei+RTEROfRRRwwPtgVrAZL9NjfKUc3QE2iM8t97yLfg7aNfOiR6Lm4rCp6Xc,iv:HAQeQMpBkQR0aFnSZwgfd9O69igFo/pxo7UDHgCiTNA=,tag:thBoU/DjETy+/CFJdVd8ng==,type:str]
     key: ENC[AES256_GCM,data:foFBhyksG/J1yegBzDujAZZcziWTDwQnW6AYck5IQckpkVPo9aoxj5VhgT67AADXyR9UiDh4SmtTcdmLlOwzFYy5yd/S0L3boh9+E81XbtSqqCCVMTZliXFtExFPiq6m8G8aoe5QM1EV2AiE5GfFXs+kT1tE8B4LOqI1TTn4z/YqXpqNEv8CjvS6ennVS7l/E24ygtQXBvKmFUzBOEcOGSDp0IBl/pzKh2FJToh5M/y1xQPU,iv:W1Y7TSxr9XBdEB0iNABSx560ljhNTlx8Pv+bo2kVXlA=,tag:jXN4Qh53pDAYApEESgWNMA==,type:str]
-  certSANs:
-    - 127.0.0.1
-    - 192.168.42.120
+  certSANs: ["127.0.0.1", "192.168.42.120"]
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
@@ -23,8 +21,7 @@ machine:
       maxPods: 150
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
-      validSubnets:
-        - 192.168.42.0/24
+      validSubnets: ["192.168.42.0/24"]
     disableManifestsDirectory: true
   network:
     hostname: k8s-2
@@ -53,6 +50,7 @@ machine:
     extraKernelArgs:
       - apparmor=0
       - mitigations=off
+      - security=none
     image: factory.talos.dev/installer/f65979ed25844fb64c6c7767d935770fe915a060840541ab668914234ad8077a:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:
@@ -92,10 +90,8 @@ machine:
     stableHostname: true
     kubernetesTalosAPIAccess:
       enabled: true
-      allowedRoles:
-        - os:admin
-      allowedKubernetesNamespaces:
-        - system-upgrade
+      allowedRoles: ["os:admin"]
+      allowedKubernetesNamespaces: ["system-upgrade"]
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
@@ -109,6 +105,9 @@ machine:
     rules:
       # Intel GPU
       - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+  kernel:
+    modules:
+      - name: nbd
   nodeLabels:
     topology.kubernetes.io/region: main
     topology.kubernetes.io/zone: m
@@ -122,10 +121,8 @@ cluster:
     cni:
       name: none
     dnsDomain: cluster.local
-    podSubnets:
-      - 10.69.0.0/16
-    serviceSubnets:
-      - 10.96.0.0/16
+    podSubnets: ["10.69.0.0/16"]
+    serviceSubnets: ["10.96.0.0/16"]
   coreDNS:
     disabled: true
   token: ENC[AES256_GCM,data:Ed7DSjpr+bHmOLdvSYXwafV4XlOOMoA=,iv:JM1SMjg/QqO/PWOPv8GlSUCYGw7Othwdc/esuVjyBaM=,tag:dE/h4t+FPR/DcVdXfB5awQ==,type:str]
@@ -140,9 +137,7 @@ cluster:
     key: ENC[AES256_GCM,data:5MLk2vHPBP8NbAEJJJmuapsB3aKf9U4c93u6C04tDWsXMVqZ/QqJCEgcbm8ZTqcDBHW+/HpfZ+Chm2Ob7trWssTwuZ8Tiv3wXtTGIXRQoNEQSVLZJ5CywOGRGPoY9i66mFndd8lHdPgbPCQhtoThF2tOWpudAxLl/7pjrcNzOO+MxeQdiCyME7WzUS/MWlsGUmKV30VWeQwE+U8jYfGflqfCHHBWaxCtuMn5aezwCZl8e4zzDn16YASNzzwacBfUJaqJ+yjCNxUh3lq+XKWXqF8wEpthMR0jqMMRkdlAk4MDX+C0TqYoDo+1v1IR2vXGbLh0MeG8B6MN+cFJhQSfiMPP5VIJMWoZgNkiqb1guifIRS0YqJ2HmOavuoWgEhqG/4OEQMFjmUMi44GnJZYp1Q==,iv:RFE8vjjB0JwRnrSJj5QIsS8/0nTefDBz25UxY6aBVHo=,tag:ThSqcvijcAxM9k9LV8cLRA==,type:str]
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
-    certSANs:
-      - 127.0.0.1
-      - 192.168.42.120
+    certSANs: ["127.0.0.1", "192.168.42.120"]
     disablePodSecurityPolicy: true
     auditPolicy:
       apiVersion: audit.k8s.io/v1
@@ -185,8 +180,7 @@ cluster:
       key: ENC[AES256_GCM,data:rP5imfzH9K3pTlC7ouvhR3vsPP58+RXFzVoYZC5xQDjPKLdI6Id+vIacJfZQKWy1IovPz/aUEypKM9utG2OY3U8s1rq72vb3D/rEWJdBGopOlfYvIla5fCzY8ghKMWoetI8LpnoEJgQyKT5uaOpRNl+Ct3duzslfyuGUV5YGQIHcjj70kxaDsJfPj5cHoNbdT8gx3HHgvFkOJwpkSZO4U9UhDOqgbqV2kqQUUsdpQ3cMiB4IU+Sjl/VMXLBTzrxlq8i69IVSO3FDv/8EEmhsntoMyK8Z38Y2FNNIhbKBDYftr75/PkbrWPTWJ0jLn6Q1DmKEWzzY7sNSEeB1AoBa9vsLgL6sD7RZak0Zg4WFvoP4C4eAlMRk0HAy71I9buyNMfIsoAZdIMH5+T4MgWhJdg==,iv:cQj51S0d9TfdbSw+/tl0oLmSbUVtO20AMakxFMkHIcg=,tag:7U/h2ZL/brpmAFTj0nD7hA==,type:str]
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
-    advertisedSubnets:
-      - 192.168.42.0/24
+    advertisedSubnets: ["192.168.42.0/24"]
   allowSchedulingOnMasters: true
 sops:
   kms: []

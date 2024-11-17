@@ -45,7 +45,7 @@
 
 ### To Upgrade Talos:
 
-`task talos:upgrade-node HOSTNAME=<hostname>`
+`task talos:upgrade-node IP=<ip>`
 
 The factory image url can be generated at [factory.talos.dev](factory.talos.dev).
 

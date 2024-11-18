@@ -92,6 +92,6 @@ spec:
       bakery:
         type: nfs
         server: bakery.internal
-        path: /mnt/storage0
+        path: /mnt/storage1
         globalMounts:
           - path: /data

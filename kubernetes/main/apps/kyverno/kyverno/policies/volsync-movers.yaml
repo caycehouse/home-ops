@@ -46,7 +46,7 @@ spec:
                   - name: repository
                     nfs:
                       server: bakery.internal
-                      path: /mnt/storage0/Volsync
+                      path: /mnt/storage1/Volsync
     - name: mutate-volsync-dst-movers
       match:
         any:
@@ -71,4 +71,4 @@ spec:
                   - name: repository
                     nfs:
                       server: bakery.internal
-                      path: /mnt/storage0/Volsync
+                      path: /mnt/storage1/Volsync

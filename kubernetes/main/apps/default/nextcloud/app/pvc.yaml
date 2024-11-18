@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /mnt/storage0/nextcloud
+    path: /mnt/storage1/nextcloud
     server: bakery.internal
 ---
 apiVersion: v1

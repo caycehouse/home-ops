@@ -121,6 +121,6 @@ spec:
       config:
         type: nfs
         server: bakery.internal
-        path: /mnt/storage0/Minio
+        path: /mnt/storage1/Minio
         globalMounts:
           - path: /data

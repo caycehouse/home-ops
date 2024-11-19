@@ -93,7 +93,7 @@ spec:
       books:
         type: nfs
         server: bakery.internal
-        path: /mnt/storage0/media
+        path: /mnt/storage1/media
         globalMounts:
           - path: /books
             subPath: books

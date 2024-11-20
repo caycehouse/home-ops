@@ -44,15 +44,15 @@ tasks:
       - which k9s
 
   privileged:
-    desc: Run a privileged pod [CLUSTER=main] [IP=required] [IMAGE=alpine]
+    desc: Run a privileged pod [CLUSTER=main] [HOSTNAME=required] [IMAGE=alpine]
     interactive: true
     cmds:
       - |
-        kubectl debug --context {{.CLUSTER}} --namespace kube-system -it --image {{.IMAGE}} node/{{.IP}}
+        kubectl debug --context {{.CLUSTER}} --namespace kube-system -it --image {{.IMAGE}} node/{{.HOSTNAME}}
     vars:
       IMAGE: '{{.IMAGE | default "alpine"}}'
     requires:
-      vars: [CLUSTER, IP]
+      vars: [CLUSTER, HOSTNAME]
     preconditions:
       - which kubectl
 

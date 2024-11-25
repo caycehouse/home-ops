@@ -88,7 +88,7 @@ spec:
         apiKey:
           existingSecret: &secret atm9-secret
           secretKey: CF_API_KEY
-        filenameMatcher: "0.2.61"
+        filenameMatcher: "0.3.5"
         slug: "all-the-mods-9"
       rcon:
         enabled: true

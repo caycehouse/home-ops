@@ -49,3 +49,10 @@ tolerations:
   - key: node-role.kubernetes.io/control-plane
     operator: Exists
     effect: NoSchedule
+resources:
+  requests:
+    cpu: 10m
+    memory: &mem 100Mi
+  limits:
+    cpu: null
+    memory: *mem

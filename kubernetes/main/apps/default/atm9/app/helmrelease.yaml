@@ -31,31 +31,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    # initContainers:
-    #   - name: download
-    #     image: curlimages/curl:8.11.0@sha256:83a505ba2ba62f208ed6e410c268b7b9aa48f0f7b403c8108b9773b44199dbba
-    #     args:
-    #       - "-C"
-    #       - "-"
-    #       - "-LOf"
-    #       - "https://mediafilez.forgecdn.net/files/5239/660/totw_modded-forge-1.20.1-1.0.5.jar"
-    #       - "-C"
-    #       - "-"
-    #       - "-LOf"
-    #       - "https://mediafilez.forgecdn.net/files/5351/581/Structory_1.20.x_v1.3.5.jar"
-    #       - "-C"
-    #       - "-"
-    #       - "-LOf"
-    #       - "https://mediafilez.forgecdn.net/files/5480/567/allthewizardgear-1.20.1-1.1.4.jar"
-    #     workingDir: "/downloads"
-    #     volumeMounts:
-    #       - name: downloads
-    #         mountPath: /downloads
-    #     volumes:
-    #       - name: downloads
-    #         persistentVolumeClaim:
-    #           claimName: atm9-downloads
-    #     imagePullPolicy: IfNotPresent
     image:
       repository: itzg/minecraft-server
       tag: 2024.10.2-java17@sha256:db3ccc7db5371a7a4e7edf8696ccfa177f4b71a29ffbecc76e21a663d1bcf98d
@@ -120,11 +95,3 @@ spec:
         memory: &mem 16Gi
       limits:
         memory: *mem
-    extraVolumes:
-      - volumeMounts:
-          - name: downloads
-            mountPath: /downloads
-        volumes:
-          - name: downloads
-            persistentVolumeClaim:
-              claimName: atm9-downloads

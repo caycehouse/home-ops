@@ -38,12 +38,13 @@ spec:
               - get
               - list
               - watch
-      resources:
-        requests:
-          cpu: 10m
-          memory: &mem 175Mi
-        limits:
-          memory: *mem
+      container:
+        resources:
+          requests:
+            cpu: 10m
+            memory: &mem 175Mi
+          limits:
+            memory: *mem
       serviceMonitor:
         enabled: true
     backgroundController:

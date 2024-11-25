@@ -81,8 +81,9 @@ spec:
       terminationGracePeriodSeconds: 120
       resources:
         requests:
-          cpu: 100m
+          cpu: 208m
+          memory: &mem 1145Mi
         limits:
-          memory: 2Gi
+          memory: *mem
     defaultBackend:
       enabled: false

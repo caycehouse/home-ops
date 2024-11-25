@@ -86,10 +86,10 @@ spec:
                     fieldPath: spec.nodeName
             resources:
               requests:
-                cpu: "5m"
-                memory: "96Mi"
+                cpu: 10m
+                memory: &mem 326Mi
               limits:
-                memory: "1Gi"
+                memory: *mem
             securityContext:
               privileged: true
 

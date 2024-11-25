@@ -38,6 +38,12 @@ spec:
               - get
               - list
               - watch
+      resources:
+        requests:
+          cpu: 10m
+          memory: &mem 175Mi
+        limits:
+          memory: *mem
       serviceMonitor:
         enabled: true
     backgroundController:
@@ -53,9 +59,10 @@ spec:
               - watch
       resources:
         requests:
-          cpu: 100m
+          cpu: 10m
+          memory: &mem 134Mi
         limits:
-          memory: 1Gi
+          memory: *mem
       serviceMonitor:
         enabled: true
     reportsController:
@@ -69,8 +76,20 @@ spec:
               - get
               - list
               - watch
+      resources:
+        requests:
+          cpu: 10m
+          memory: &mem 100Mi
+        limits:
+          memory: *mem
       serviceMonitor:
         enabled: true
     cleanupController:
+      resources:
+        requests:
+          cpu: 10m
+          memory: &mem 127Mi
+        limits:
+          memory: *mem
       serviceMonitor:
         enabled: true

@@ -87,6 +87,8 @@ spec:
           gethomepage.dev/icon: prometheus
           gethomepage.dev/name: Prometheus
           gethomepage.dev/app: prometheus
+          gethomepage.dev/widget.type: prometheus
+          gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
         ingressClassName: internal
         hosts: ["prometheus.${SECRET_DOMAIN}"]
         pathType: Prefix

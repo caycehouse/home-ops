@@ -32,19 +32,14 @@ spec:
             image:
               repository: ghcr.io/larivierec/cloudflare-ddns
               tag: v1.0.2@sha256:a4f07465923311bf0bb34000d961eda673347380c0b052566cb9aa80952948a0
-            args:
-              - --zone-name
-              - ${SECRET_DOMAIN}
-              - --record-name
-              - ipv4.${SECRET_DOMAIN}
-              - --provider
-              - random
-            env:
-              ACCOUNT_TOKEN:
-                valueFrom:
-                  secretKeyRef:
-                    name: cloudflare-ddns-secret
-                    key: CF_API_TOKEN
+            envFrom:
+              - secretRef:
+                  name: cloudflare-ddns-secret
+            args: [
+              "--zone-name", "${SECRET_DOMAIN}",
+              "--record-name", "ipv4.${SECRET_DOMAIN}",
+              "--provider", "random"
+            ]
             probes:
               liveness:
                 enabled: true
@@ -52,14 +47,14 @@ spec:
                 spec:
                   httpGet:
                     path: /health/alive
-                    port: &healthPort 8080
+                    port: &port 8080
               readiness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /health/ready
-                    port: *healthPort
+                    port: *port
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -67,9 +62,8 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: &mem 100Mi
               limits:
-                memory: *mem
+                memory: 128Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -81,15 +75,13 @@ spec:
         controller: *app
         ports:
           http:
-            port: 9000
-          health:
-            port: *healthPort
+            port: *port
     serviceMonitor:
       app:
         serviceName: *app
         endpoints:
-          - port: health
+          - port: http
             scheme: http
             path: /metrics
-            interval: 30s
-            scrapeTimeout: 30s
+            interval: 1m
+            scrapeTimeout: 10s

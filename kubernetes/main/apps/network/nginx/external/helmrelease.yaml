@@ -82,7 +82,7 @@ spec:
       resources:
         requests:
           cpu: 208m
-          memory: &mem 1145Mi
+          memory: &mem 1500Mi
         limits:
           memory: *mem
     defaultBackend:

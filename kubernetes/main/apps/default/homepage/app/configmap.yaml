@@ -70,10 +70,6 @@ data:
           - Satisfactory:
                 icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
                 description: The factory must prevail!
-                widget:
-                  type: gamedig
-                  serverType: satisfactory
-                  url: tcp://satisfactory.default.svc.cluster.local:7777
           - All the Mods 9:
                 icon: https://media.forgecdn.net/avatars/thumbnails/902/338/256/256/638350403793040080.png
                 description: All the Mods 9

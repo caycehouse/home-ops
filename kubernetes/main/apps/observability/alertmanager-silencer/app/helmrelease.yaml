@@ -44,6 +44,7 @@ spec:
               MATCHERS_0: alertname=CephNodeInconsistentMTU
               MATCHERS_1: alertname=CephNodeNetworkBondDegraded
               MATCHERS_2: alertname=NodeBondingDegraded
+              MATCHERS_3: alertname=NodeMemoryHighUtilization instance=bakery.internal:9100 # openzfs arc fills up ram
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

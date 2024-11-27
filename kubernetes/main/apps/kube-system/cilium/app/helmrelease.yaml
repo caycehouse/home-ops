@@ -62,17 +62,3 @@ spec:
             gethomepage.dev/name: Hubble
           className: internal
           hosts: ["hubble.${SECRET_DOMAIN}"]
-    operator:
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-      dashboards:
-        enabled: true
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        trustCRDsExist: true
-    dashboards:
-      enabled: true

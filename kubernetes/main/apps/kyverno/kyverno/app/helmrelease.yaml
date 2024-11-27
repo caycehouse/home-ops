@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app kyverno
+  name: kyverno
 spec:
   interval: 30m
   chart:
@@ -28,69 +28,29 @@ spec:
     grafana:
       enabled: true
     admissionController:
+      replicas: 3
       clusterRole:
-        extraResources:
-          - apiGroups:
-              - '*'
-            resources:
-              - '*'
-            verbs:
-              - get
-              - list
-              - watch
-      container:
-        resources:
-          requests:
-            cpu: 10m
-            memory: &mem 175Mi
-          limits:
-            memory: *mem
+        extraResources: &extraResources
+          - apiGroups: ["*"]
+            resources: ["*"]
+            verbs: ["get", "list", "watch"]
       serviceMonitor:
         enabled: true
     backgroundController:
       clusterRole:
-        extraResources:
-          - apiGroups:
-              - '*'
-            resources:
-              - '*'
-            verbs:
-              - get
-              - list
-              - watch
+        extraResources: *extraResources
       resources:
         requests:
-          cpu: 10m
-          memory: &mem 134Mi
+          cpu: 100m
         limits:
-          memory: *mem
+          memory: 1Gi
       serviceMonitor:
         enabled: true
     reportsController:
       clusterRole:
-        extraResources:
-          - apiGroups:
-              - '*'
-            resources:
-              - '*'
-            verbs:
-              - get
-              - list
-              - watch
-      resources:
-        requests:
-          cpu: 10m
-          memory: &mem 100Mi
-        limits:
-          memory: *mem
+        extraResources: *extraResources
       serviceMonitor:
         enabled: true
     cleanupController:
-      resources:
-        requests:
-          cpu: 10m
-          memory: &mem 127Mi
-        limits:
-          memory: *mem
       serviceMonitor:
         enabled: true

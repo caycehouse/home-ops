@@ -28,7 +28,7 @@ spec:
   values:
     controllers:
       cloudflared:
-        replicas: 3
+        replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -70,9 +70,8 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: &mem 100Mi
               limits:
-                memory: *mem
+                memory: 256Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

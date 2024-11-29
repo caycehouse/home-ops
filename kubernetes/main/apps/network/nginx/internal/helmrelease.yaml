@@ -25,7 +25,7 @@ spec:
   values:
     fullnameOverride: nginx-internal
     controller:
-      replicaCount: 3
+      replicaCount: 2
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: internal.${SECRET_DOMAIN}
@@ -72,13 +72,12 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "network/${SECRET_DOMAIN/./-}-tls"
+        default-ssl-certificate: network/${SECRET_DOMAIN/./-}-tls
       terminationGracePeriodSeconds: 120
       resources:
         requests:
-          cpu: 267m
-          memory: &mem 1500Mi
+          cpu: 100m
         limits:
-          memory: *mem
+          memory: 1500Mi
     defaultBackend:
       enabled: false

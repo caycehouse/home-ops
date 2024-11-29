@@ -25,28 +25,11 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    master:
+      replicaCount: 2
     worker:
       config:
         core:
           sources: ["pci", "system", "usb"]
-      resources:
-        requests:
-          cpu: 10m
-          memory: &mem 100Mi
-        limits:
-          memory: *mem
     prometheus:
       enable: true
-    gc:
-      resources:
-        requests:
-          memory: &mem 100Mi
-        limits:
-          memory: *mem
-    master:
-      resources:
-        requests:
-          cpu: 10m
-          memory: &mem 100Mi
-        limits:
-          memory: *mem

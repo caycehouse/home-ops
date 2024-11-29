@@ -30,7 +30,7 @@ spec:
   values:
     fullnameOverride: nginx-external
     controller:
-      replicaCount: 3
+      replicaCount: 2
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: external.${SECRET_DOMAIN},ipv4.${SECRET_DOMAIN}
@@ -65,10 +65,11 @@ spec:
           "request_id": "$req_id", "remote_user": "$remote_user", "bytes_sent": $bytes_sent, "request_time": $request_time,
           "status": $status, "vhost": "$host", "request_proto": "$server_protocol", "path": "$uri", "request_query": "$args",
           "request_length": $request_length, "duration": $request_time, "method": "$request_method", "http_referrer": "$http_referer",
-          "http_user_agent": "$http_user_agent"}
+          "http_user_agent": "$http_user_agent", "country_code": "$geoip2_city_country_code", "country_name": "$geoip2_city_country_name"}
         proxy-body-size: 0
         proxy-buffer-size: 16k
         ssl-protocols: TLSv1.3 TLSv1.2
+        use-geoip2: true
         use-forwarded-headers: "true"
       metrics:
         enabled: true
@@ -77,13 +78,12 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "network/${SECRET_DOMAIN/./-}-tls"
+        default-ssl-certificate: network/${SECRET_DOMAIN/./-}-tls
       terminationGracePeriodSeconds: 120
       resources:
         requests:
-          cpu: 208m
-          memory: &mem 1500Mi
+          cpu: 100m
         limits:
-          memory: *mem
+          memory: 1500Mi
     defaultBackend:
       enabled: false

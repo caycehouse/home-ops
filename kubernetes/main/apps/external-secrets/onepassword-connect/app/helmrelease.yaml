@@ -26,6 +26,7 @@ spec:
     controllers:
       onepassword-connect:
         strategy: RollingUpdate
+        replicas: 2
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -68,9 +69,9 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources: &resources
               requests:
-                cpu: 71m
+                cpu: 10m
               limits:
-                memory: 100Mi
+                memory: 256M
           sync:
             image:
               repository: docker.io/1password/connect-sync

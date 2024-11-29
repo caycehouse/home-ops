@@ -26,9 +26,4 @@ spec:
       retries: 3
   values:
     fullnameOverride: gha-runner-scale-set-controller
-    resources:
-      requests:
-        cpu: 10m
-        memory: &mem 100Mi
-      limits:
-        memory: *mem
+    replicaCount: 2

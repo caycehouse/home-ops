@@ -9,8 +9,8 @@
     },
     {
       "description": ["Custom schedule for frequently updated packages"],
-      "matchDataSources": ["docker", "helm"],
-      "matchPackagePatterns": ["minio", "postgresql"],
+      "matchDataSources": ["docker"],
+      "matchPackagePatterns": ["minio"],
       "schedule": ["on the first day of the month"]
     },
     {

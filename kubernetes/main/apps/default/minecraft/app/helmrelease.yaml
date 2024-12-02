@@ -55,7 +55,7 @@ spec:
       whitelist: "FryyourBacon"
       rcon:
         enabled: true
-        existingSecret: *secret
+        existingSecret: &secret minecraft-secret
         secretKey: RCON_PASSWORD
       extraPorts:
       - name: metrics

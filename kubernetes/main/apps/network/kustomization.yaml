@@ -10,5 +10,6 @@ resources:
   - ./cloudflared/ks.yaml
   - ./echo-server/ks.yaml
   - ./external-dns/ks.yaml
+  - ./mc-router/ks.yaml
   - ./multus/ks.yaml
   - ./nginx/ks.yaml

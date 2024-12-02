@@ -39,14 +39,12 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      loadBalancerIP: 192.168.42.132
       maxPlayers: 10
       maxWorldSize: 29999984
       memory: "4G"
       motd: "The Fryer's Minecraft Server"
       ops: "FryyourBacon,3lGanso"
       overrideServerProperties: true
-      serviceType: LoadBalancer
       spawnProtection: 0
       type: "FABRIC"
       vanillaTweaksShareCodes:

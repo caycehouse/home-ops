@@ -75,7 +75,7 @@ spec:
             gethomepage.dev/enabled: "true"
             gethomepage.dev/href: https://mcsrvstat.us/server/mc.${SECRET_GAMING_DOMAIN}
             gethomepage.dev/description: Vanilla Minecraft server
-            gethomepage.dev/group: Utilities
+            gethomepage.dev/group: Games
             gethomepage.dev/icon: minecraft
             gethomepage.dev/name: Minecraft
             gethomepage.dev/widget.type: minecraft

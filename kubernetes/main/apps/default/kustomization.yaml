@@ -21,11 +21,11 @@ resources:
   - ./isponsorblocktv/ks.yaml
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
-  - ./minecraft/ks.yaml
+  # - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./nextcloud/ks.yaml
-  # - ./oceanblock/ks.yaml
+  - ./oceanblock/ks.yaml
   # - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./plex/ks.yaml

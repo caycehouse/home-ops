@@ -42,12 +42,6 @@ data:
   services.yaml: |
     ---
     - Games:
-          - OceanBlock:
-                icon: https://www.feed-the-beast.com/_next/image?url=https%3A%2F%2Fcdn.feed-the-beast.com%2Fblob%2Faf%2Faf4ef40799823b2cde0c85e46f9cbd855b92c2117304f913bba0436df72f7774.png&w=256&q=75
-                description: Time to dive in!
-                widget:
-                  type: minecraft
-                  url: udp://oceanblock-minecraft.default.svc.cluster.local:25565
           - "Seaopolis: Submerged":
                 icon: https://media.forgecdn.net/avatars/thumbnails/996/291/256/256/638512959898606189.png
                 description: "Seaopolis: Submerged"

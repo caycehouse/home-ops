@@ -80,7 +80,7 @@ spec:
             gethomepage.dev/group: Games
             gethomepage.dev/icon: https://media.forgecdn.net/avatars/342/91/637485703554418199.png
             gethomepage.dev/name: All in One
-            gethomepage.dev/app: allinone
+            gethomepage.dev/app: minecraft
             gethomepage.dev/widget.type: minecraft
             gethomepage.dev/widget.url: udp://allinone-minecraft.default.svc.cluster.local:25565
           hosts:

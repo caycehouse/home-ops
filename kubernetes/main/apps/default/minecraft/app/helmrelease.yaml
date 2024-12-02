@@ -78,6 +78,7 @@ spec:
             gethomepage.dev/group: Games
             gethomepage.dev/icon: minecraft
             gethomepage.dev/name: Minecraft
+            gethomepage.dev/app: minecraft
             gethomepage.dev/widget.type: minecraft
             gethomepage.dev/widget.url: udp://minecraft-minecraft.default.svc.cluster.local:25565
           hosts:

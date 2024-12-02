@@ -10,24 +10,21 @@ spec:
     spec:
       chart: minecraft
       version: 4.23.2
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: itzg
         namespace: flux-system
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-  uninstall:
-    keepHistory: false
   values:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
@@ -60,7 +57,7 @@ spec:
       whitelist: "FryyourBacon"
       rcon:
         enabled: true
-        existingSecret: &secret minecraft-secret
+        existingSecret: *secret
         secretKey: RCON_PASSWORD
       extraPorts:
       - name: metrics

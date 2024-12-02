@@ -36,6 +36,8 @@ spec:
       tag: 2024.10.2-java21@sha256:8bd119f65ef6e65bdb12f756bfb44a305b36b1adf868ade8027014fabc29c755
     livenessProbe:
       initialDelaySeconds: 120
+    serviceAnnotations:
+      mc-router.itzg.me/externalServerName: &host mc.${SECRET_GAMING_DOMAIN}
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -60,6 +62,23 @@ spec:
         enabled: true
         existingSecret: &secret minecraft-secret
         secretKey: RCON_PASSWORD
+      extraPorts:
+      - name: metrics
+        containerPort: 9225
+        protocol: TCP
+        service:
+          enabled: true
+          embedded: false
+          type: ClusterIP
+          port: 9225
+        ingress:
+          ingressClassName: external
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: mc-router.${SECRET_GAMING_DOMAIN}
+            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          hosts:
+           - name: *host
     persistence:
       dataDir:
         enabled: true
@@ -87,5 +106,3 @@ spec:
         memory: &mem 6Gi
       limits:
         memory: *mem
-    serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: mc.${SECRET_GAMING_DOMAIN}

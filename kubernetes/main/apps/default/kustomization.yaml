@@ -21,7 +21,7 @@ resources:
   - ./isponsorblocktv/ks.yaml
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
-  # - ./minecraft/ks.yaml
+  - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./nextcloud/ks.yaml

@@ -6,7 +6,7 @@ metadata:
   name: mc-router
 spec:
   endpoints:
-    - dnsName: "mc.${SECRET_GAMING_DOMAIN}"
+    - dnsName: "mc-router.${SECRET_GAMING_DOMAIN}"
       recordType: CNAME
       targets: ["ipv4.${SECRET_DOMAIN}"]
       providerSpecific:

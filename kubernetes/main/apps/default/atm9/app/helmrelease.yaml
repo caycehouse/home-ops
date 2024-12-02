@@ -58,6 +58,7 @@ spec:
       spawnProtection: 1
       type: "AUTO_CURSEFORGE"
       viewDistance: 6
+      whitelist: "FryyourBacon"
       autoCurseForge:
         apiKey:
           existingSecret: &secret atm9-secret
@@ -102,6 +103,8 @@ spec:
       ALLOW_FLIGHT: "true"
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
+      OVERRIDE_WHITELIST: "true"
       MEMORY: ""
       OP_PERMISSION_LEVEL: "3"
       SIMULATION_DISTANCE: "4"

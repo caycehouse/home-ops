@@ -42,13 +42,6 @@ data:
   services.yaml: |
     ---
     - Games:
-          - "Seaopolis: Submerged":
-                icon: https://media.forgecdn.net/avatars/thumbnails/996/291/256/256/638512959898606189.png
-                description: "Seaopolis: Submerged"
-                href: https://mcsrvstat.us/server/seaopolis.thefryer.games:25566
-                widget:
-                  type: minecraft
-                  url: udp://seaopolis-minecraft.default.svc.cluster.local:25565
           - Satisfactory:
                 icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
                 description: The factory must prevail!

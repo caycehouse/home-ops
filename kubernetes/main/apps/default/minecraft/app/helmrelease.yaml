@@ -27,7 +27,7 @@ spec:
       namespace: rook-ceph
   values:
     deploymentAnnotations:
-      secret.reloader.stakater.com/reload: &secret minecraft-secret
+      reloader.stakater.com/auto: "true"
     image:
       repository: itzg/minecraft-server
       tag: 2024.10.2-java21@sha256:8bd119f65ef6e65bdb12f756bfb44a305b36b1adf868ade8027014fabc29c755

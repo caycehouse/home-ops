@@ -10,30 +10,31 @@ spec:
     spec:
       chart: minecraft
       version: 4.23.2
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: itzg
         namespace: flux-system
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-  uninstall:
-    keepHistory: false
   values:
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
     image:
       repository: itzg/minecraft-server
       tag: 2024.10.2-java8@sha256:46863b4193f240514c802de7295edbd9ea54a46b2b49d59e052462157f7d1ff4
     livenessProbe:
       initialDelaySeconds: 120
+    serviceAnnotations:
+      mc-router.itzg.me/externalServerName: &host allinone.${SECRET_GAMING_DOMAIN}
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -47,6 +48,7 @@ spec:
       spawnProtection: 0
       type: "AUTO_CURSEFORGE"
       viewDistance: 7
+      whitelist: "FryyourBacon"
       autoCurseForge:
         apiKey:
           existingSecret: &secret allinone-secret
@@ -57,6 +59,32 @@ spec:
         enabled: true
         existingSecret: *secret
         secretKey: RCON_PASSWORD
+      extraPorts:
+      - name: metrics
+        containerPort: 9225
+        protocol: TCP
+        service:
+          enabled: true
+          embedded: false
+          type: ClusterIP
+          port: 9225
+        ingress:
+          ingressClassName: external
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: mc-router.${SECRET_GAMING_DOMAIN}
+            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/href: https://mcsrvstat.us/server/allinone.${SECRET_GAMING_DOMAIN}
+            gethomepage.dev/description: Modded One Block
+            gethomepage.dev/group: Games
+            gethomepage.dev/icon: https://media.forgecdn.net/avatars/342/91/637485703554418199.png
+            gethomepage.dev/name: All in One
+            gethomepage.dev/app: allinone
+            gethomepage.dev/widget.type: minecraft
+            gethomepage.dev/widget.url: udp://allinone-minecraft.default.svc.cluster.local:25565
+          hosts:
+           - name: *host
     persistence:
       dataDir:
         enabled: true
@@ -64,6 +92,8 @@ spec:
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
+      OVERRIDE_WHITELIST: "true"
       SNOOPER_ENABLED: "false"
       SYNC_CHUNK_WRITES: "false"
       USE_AIKAR_FLAGS: "true"

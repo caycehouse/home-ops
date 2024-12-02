@@ -6,7 +6,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  # - ./allinone/ks.yaml
+  - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
   - ./atuin/ks.yaml
   - ./bazarr/ks.yaml
@@ -21,7 +21,7 @@ resources:
   - ./isponsorblocktv/ks.yaml
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
-  - ./minecraft/ks.yaml
+  # - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./nextcloud/ks.yaml

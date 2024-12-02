@@ -33,8 +33,8 @@ resources:
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
-  # - ./satisfactory/ks.yaml
-  - ./seaopolis/ks.yaml
+  - ./satisfactory/ks.yaml
+  # - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml

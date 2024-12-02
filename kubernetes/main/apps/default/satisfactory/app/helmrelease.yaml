@@ -93,5 +93,5 @@ spec:
         accessMode: ReadWriteOnce
         globalMounts:
           - path: /config/gamefiles
-        size: 50Gi
+        size: 10Gi
         storageClass: ceph-block

@@ -10,27 +10,26 @@ spec:
     spec:
       chart: minecraft
       version: 4.23.2
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: itzg
         namespace: flux-system
   install:
-    createNamespace: true
     remediation:
       retries: 3
     timeout: 10m
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
     timeout: 10m
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-  uninstall:
-    keepHistory: false
   values:
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
     image:
       repository: itzg/minecraft-server
       tag: 2024.10.2-java17@sha256:db3ccc7db5371a7a4e7edf8696ccfa177f4b71a29ffbecc76e21a663d1bcf98d
@@ -44,18 +43,18 @@ spec:
       enabled: true
       failureThreshold: 60
       periodSeconds: 10
+    serviceAnnotations:
+      mc-router.itzg.me/externalServerName: &host atm9.${SECRET_GAMING_DOMAIN}
     minecraftServer:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      loadBalancerIP: 192.168.42.122
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxTickTime: 180000
       motd: "All the Mods 9 | 0.3.5"
       ops: "FryyourBacon"
       overrideServerProperties: true
-      serviceType: LoadBalancer
       spawnProtection: 1
       type: "AUTO_CURSEFORGE"
       viewDistance: 6
@@ -69,6 +68,32 @@ spec:
         enabled: true
         existingSecret: *secret
         secretKey: RCON_PASSWORD
+      extraPorts:
+      - name: metrics
+        containerPort: 9225
+        protocol: TCP
+        service:
+          enabled: true
+          embedded: false
+          type: ClusterIP
+          port: 9225
+        ingress:
+          ingressClassName: external
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: mc-router.${SECRET_GAMING_DOMAIN}
+            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/href: https://mcsrvstat.us/server/atm9.${SECRET_GAMING_DOMAIN}
+            gethomepage.dev/description: All the Mods 9
+            gethomepage.dev/group: Games
+            gethomepage.dev/icon: https://media.forgecdn.net/avatars/thumbnails/902/338/256/256/638350403793040080.png
+            gethomepage.dev/name: All the Mods 9
+            gethomepage.dev/app: minecraft
+            gethomepage.dev/widget.type: minecraft
+            gethomepage.dev/widget.url: udp://atm9-minecraft.default.svc.cluster.local:25565
+          hosts:
+           - name: *host
     persistence:
       dataDir:
         enabled: true
@@ -92,6 +117,6 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: &mem 16Gi
+        memory: &mem 12Gi
       limits:
         memory: *mem

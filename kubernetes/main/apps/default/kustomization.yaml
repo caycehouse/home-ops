@@ -6,8 +6,8 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./allinone/ks.yaml
-  # - ./atm9/ks.yaml
+  # - ./allinone/ks.yaml
+  - ./atm9/ks.yaml
   - ./atuin/ks.yaml
   - ./bazarr/ks.yaml
   - ./calibre-web/ks.yaml

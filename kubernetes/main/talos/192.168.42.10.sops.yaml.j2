@@ -49,8 +49,11 @@ machine:
       model: LITEON CV8-8E256
     extraKernelArgs:
       - apparmor=0
+      - init_on_alloc=0
+      - init_on_free=0
       - mitigations=off
       - security=none
+    # i915-ucode, intel-ucode, mei
     image: factory.talos.dev/installer/f65979ed25844fb64c6c7767d935770fe915a060840541ab668914234ad8077a:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:

@@ -12,15 +12,12 @@ webrtc:
     - urls:
         - stun:stun.cloudflare.com:3478
 streams:
-  front_door:
+  front_doorbell:
     - rtspx://192.168.1.1:7441/9OSfARR88cBMJtht
   side_yard:
     - rtspx://192.168.1.1:7441/pIqHnV33SjB5RC2P
 homekit:
-  front_door:
-    pairings:
-      - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
-      - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+  front_doorbell:
   side_yard:
     pairings:
       - client_id={{ .GO2RTC_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .GO2RTC_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0

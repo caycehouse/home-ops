@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - ./actions-runner-controller.yaml
+  - ./angelnu.yaml
   - ./backube.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml

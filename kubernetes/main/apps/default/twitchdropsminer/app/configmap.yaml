@@ -15,6 +15,7 @@ data:
         "exclude": {
             "__type": "set",
             "data": [
+                "Metin2",
                 "Mir Korabley",
                 "NARAKA: BLADEPOINT",
                 "Ninja Must Die",

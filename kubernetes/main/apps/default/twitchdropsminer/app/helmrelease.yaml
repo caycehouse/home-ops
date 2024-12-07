@@ -63,7 +63,7 @@ spec:
         name: *config
         globalMounts:
           - subPath: settings.json
-            path: /TwitchDropsMiner/settings.json
+            path: /TwitchDropsMiner/settings.json.import
           - subPath: startup.sh
             path: /TwitchDropsMiner/startup.sh
         defaultMode: 0777

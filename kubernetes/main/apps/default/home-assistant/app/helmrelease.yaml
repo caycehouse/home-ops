@@ -96,7 +96,6 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://hass.${SECRET_DOMAIN}"
           gethomepage.dev/description: Home Automation
@@ -114,7 +113,13 @@ spec:
                   port: http
       code-server:
         annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://hass-code.${SECRET_DOMAIN}"
+          gethomepage.dev/description: Home Assistant Code Editor
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: code
+          gethomepage.dev/name: HASS VSCode
+          gethomepage.dev/app: code-server
         className: internal
         hosts:
           - host: hass-code.${SECRET_DOMAIN}

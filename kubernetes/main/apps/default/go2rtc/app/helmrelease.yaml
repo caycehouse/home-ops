@@ -94,12 +94,11 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/description: Ultimate camera streaming application
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Utilities
           gethomepage.dev/href: "https://go2rtc.${SECRET_DOMAIN}"
-          gethomepage.dev/icon: https://raw.githubusercontent.com/AlexxIT/go2rtc/refs/heads/master/assets/logo.gif
+          gethomepage.dev/icon: go2rtc
           gethomepage.dev/name: go2rtc
         className: internal
         hosts:

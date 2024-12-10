@@ -96,7 +96,6 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/description: S3 compatible object store
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Storage

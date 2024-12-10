@@ -100,7 +100,6 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           gethomepage.dev/description: Minimalist and opinionated feed reader
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Reading

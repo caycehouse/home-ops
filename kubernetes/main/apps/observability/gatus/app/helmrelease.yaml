@@ -111,7 +111,12 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "status.${SECRET_DOMAIN}"
+          gethomepage.dev/description: Status Page
+          gethomepage.dev/group: Observability
+          gethomepage.dev/icon: gatus
+          gethomepage.dev/name: Gatus
         className: external
         hosts:
           - host: status.${SECRET_DOMAIN}

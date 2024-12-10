@@ -101,7 +101,11 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Magical Shell History
+          gethomepage.dev/group: Services
+          gethomepage.dev/icon: sh-atuin
+          gethomepage.dev/name: Atuin
         className: internal
         hosts:
           - host: sh.${SECRET_DOMAIN}

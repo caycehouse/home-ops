@@ -4,7 +4,11 @@ kind: Ingress
 metadata:
   name: webhook-receiver
   annotations:
-    external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Flux Webhook
+    gethomepage.dev/group: Services
+    gethomepage.dev/icon: flux-cd
+    gethomepage.dev/name: Flux
 spec:
   ingressClassName: external
   rules:

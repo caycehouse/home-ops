@@ -89,7 +89,6 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           gethomepage.dev/description: The Ultimate Indexer Manager
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr

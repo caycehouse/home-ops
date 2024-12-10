@@ -85,7 +85,12 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://echo-server.${SECRET_DOMAIN}"
+          gethomepage.dev/description: HTTP echo server
+          gethomepage.dev/group: Utilities
+          gethomepage.dev/icon: mdi-web-check
+          gethomepage.dev/name: Echo Server
         className: external
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"

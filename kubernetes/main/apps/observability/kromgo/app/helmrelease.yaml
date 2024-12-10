@@ -78,7 +78,11 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Safely expose metrics and health checks
+          gethomepage.dev/group: Services
+          gethomepage.dev/icon: mdi-list-status
+          gethomepage.dev/name: Kromgo
         className: external
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"

@@ -33,7 +33,7 @@ spec:
       replicaCount: 2
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: external.${SECRET_DOMAIN},ipv4.${SECRET_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: &hostname external.${SECRET_DOMAIN},ipv4.${SECRET_DOMAIN}
           lbipam.cilium.io/ips: 192.168.42.126
       ingressClassResource:
         name: external
@@ -79,7 +79,10 @@ spec:
             any: true
       extraArgs:
         default-ssl-certificate: network/${SECRET_DOMAIN/./-}-tls
+        publish-status-address: *hostname
       terminationGracePeriodSeconds: 120
+      publishService:
+        enabled: false
       resources:
         requests:
           cpu: 100m

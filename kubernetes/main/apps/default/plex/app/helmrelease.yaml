@@ -93,7 +93,6 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           gethomepage.dev/description: Media streaming platform
           gethomepage.dev/enabled: "true"

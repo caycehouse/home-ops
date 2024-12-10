@@ -41,11 +41,9 @@ spec:
             env:
               SCRIPT_NAME: alertmanager-silencer.sh
               ALERTMANAGER_URL: http://alertmanager-operated.observability.svc.cluster.local:9093
-              MATCHERS_0: alertname=CephNodeInconsistentMTU instance=bakery.internal:9100 # bakery not in ceph, container devices flag error
-              MATCHERS_1: alertname=CephNodeInconsistentMTU instance=hostess.internal:9100 # hostess not in ceph, container devices flag error
-              MATCHERS_2: alertname=CephNodeNetworkBondDegraded kubernetes_node=k8s-2 # duplicate nic mac for other sfp port
-              MATCHERS_3: alertname=NodeBondingDegraded kubernetes_node=k8s-2 # duplicate nic mac for other sfp port
-              MATCHERS_4: alertname=NodeMemoryHighUtilization instance=bakery.internal:9100 # openzfs arc fills up ram
+              MATCHERS_0: alertname=CephNodeNetworkBondDegraded kubernetes_node=k8s-2 # duplicate nic mac for other sfp port
+              MATCHERS_1: alertname=NodeBondingDegraded kubernetes_node=k8s-2 # duplicate nic mac for other sfp port
+              MATCHERS_2: alertname=NodeMemoryHighUtilization instance=bakery.internal:9100 # openzfs arc fills up ram
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

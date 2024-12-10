@@ -32,6 +32,7 @@ spec:
         gethomepage.dev/group: Services
         gethomepage.dev/icon: mdi-alpha-b-box
         gethomepage.dev/name: Blackbox exporter
+        gethomepage.dev/app: prometheus-blackbox-exporter
       className: internal
       hosts:
         - host: blackbox-exporter.${SECRET_DOMAIN}

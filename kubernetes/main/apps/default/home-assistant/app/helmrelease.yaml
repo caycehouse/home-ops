@@ -119,7 +119,7 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: code
           gethomepage.dev/name: HASS VSCode
-          gethomepage.dev/app: code-server
+          gethomepage.dev/app: home-assistant
         className: internal
         hosts:
           - host: hass-code.${SECRET_DOMAIN}

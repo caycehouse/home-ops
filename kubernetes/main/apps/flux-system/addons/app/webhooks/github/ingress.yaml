@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/group: Services
     gethomepage.dev/icon: flux-cd
     gethomepage.dev/name: Flux
-    gethomepage.dev/app: notification-controller
+    gethomepage.dev/pod-selector: "app=notification-controller"
 spec:
   ingressClassName: external
   rules:

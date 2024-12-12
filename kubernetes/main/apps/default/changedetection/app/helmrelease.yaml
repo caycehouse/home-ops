@@ -35,6 +35,8 @@ spec:
               tag: 0.48.01@sha256:3709fb9b4a2ebe5c4002887b9623c767d6d5e76e37520bf2509a8208147a8ae2
             env:
               PLAYWRIGHT_DRIVER_URL: ws://localhost:3000/?stealth=1&--disable-web-security=true
+              PUID: 65534
+              PGID: 65534
             probes:
               liveness:
                 enabled: true

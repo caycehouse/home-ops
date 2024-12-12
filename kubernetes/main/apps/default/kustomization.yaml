@@ -6,8 +6,8 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  # - ./allinone/ks.yaml
-  # - ./atm9/ks.yaml
+  - ./allinone/ks.yaml
+  - ./atm9/ks.yaml
   - ./atuin/ks.yaml
   - ./bazarr/ks.yaml
   - ./calibre-web/ks.yaml
@@ -21,11 +21,11 @@ resources:
   - ./isponsorblocktv/ks.yaml
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
-  # - ./minecraft/ks.yaml
+  - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./nextcloud/ks.yaml
-  # - ./oceanblock/ks.yaml
+  - ./oceanblock/ks.yaml
   # - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./plex/ks.yaml
@@ -33,12 +33,12 @@ resources:
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
-  # - ./satisfactory/ks.yaml
-  # - ./seaopolis/ks.yaml
+  - ./satisfactory/ks.yaml
+  - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./twitchdropsminer/ks.yaml
-  # - ./valheim/ks.yaml
+  - ./valheim/ks.yaml
   - ./watchlistarr/ks.yaml
   - ./zigbee2mqtt/ks.yaml

@@ -6,11 +6,10 @@ metadata:
   name: kube-prometheus-stack
 spec:
   interval: 30m
-  timeout: 15m
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 66.3.1
+      version: 66.4.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -49,8 +48,11 @@ spec:
         hosts: ["alertmanager.${SECRET_DOMAIN}"]
         pathType: Prefix
       alertmanagerSpec:
-        useExistingSecret: true
-        configSecret: alertmanager-secret
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
+        externalUrl: https://alertmanager.devbu.io
         storage:
           volumeClaimTemplate:
             spec:

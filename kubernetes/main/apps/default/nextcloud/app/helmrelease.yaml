@@ -152,7 +152,7 @@ spec:
           location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
             deny all;
           }
-      className: external
+      className: ipv4
       enabled: true
     internalDatabase:
       enabled: false

@@ -88,12 +88,17 @@ spec:
           image: busybox:1.36
           command: ['sh', '-c', 'wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb --no-check-certificate && mv GeoLite2-Country.mmdb /home/GeoLite2-Country.mmdb && wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb --no-check-certificate && mv GeoLite2-City.mmdb /home/GeoLite2-City.mmdb']
           volumeMounts:
+            - name: geolite2-city
+              mountPath: /home
             - name: geolite2-country
               mountPath: /home
       extraVolumes:
         - name: geolite2-country
           emptyDir: {}
       extraVolumeMounts:
+        - name: geolite2-city
+          mountPath: /etc/ingress-controller/geoip/GeoLite2-City.mmdb
+          subPath: GeoLite2-City.mmdb
         - name: geolite2-country
           mountPath: /etc/ingress-controller/geoip/GeoLite2-Country.mmdb
           subPath: GeoLite2-Country.mmdb

@@ -85,7 +85,7 @@ spec:
           memory: 2Gi
       extraInitContainers:
         - name: download-geolite-files
-          image: busybox:1.36
+          image: busybox:1.37
           command: ['sh', '-c', 'for type in ASN Country City; do wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-$type.mmdb --no-check-certificate && mv GeoLite2-$type.mmdb /home/GeoLite2-$type.mmdb; done']
           volumeMounts:
             - name: geolite-files

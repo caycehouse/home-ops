@@ -22,11 +22,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  valuesFrom:
-    - targetPath: controller.maxmindLicenseKey
-      kind: Secret
-      name: nginx-external-maxmind-secret
-      valuesKey: MAXMIND_LICENSE_KEY
   values:
     fullnameOverride: nginx-ipv4
     controller:
@@ -88,5 +83,19 @@ spec:
           cpu: 100m
         limits:
           memory: 2Gi
+      extraInitContainers:
+        - name: download-geolite2-country
+          image: busybox:1.36
+          command: ['sh', '-c', 'wget https://git.io/GeoLite2-Country.mmdb --no-check-certificate && mv GeoLite2-Country.mmdb /home/GeoLite2-Country.mmdb']
+          volumeMounts:
+            - name: geolite2-country
+              mountPath: /home
+      extraVolumes:
+        - name: geolite2-country
+          emptyDir: {}
+      extraVolumeMounts:
+        - name: geolite2-country
+          mountPath: /etc/ingress-controller/geoip/GeoLite2-Country.mmdb
+          subPath: GeoLite2-Country.mmdb
     defaultBackend:
       enabled: false

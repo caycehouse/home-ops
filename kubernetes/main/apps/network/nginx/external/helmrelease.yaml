@@ -86,7 +86,7 @@ spec:
       extraInitContainers:
         - name: download-geolite2-country
           image: busybox:1.36
-          command: ['sh', '-c', 'wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb --no-check-certificate && mv GeoLite2-Country.mmdb /home/GeoLite2-Country.mmdb']
+          command: ['sh', '-c', 'wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb --no-check-certificate && mv GeoLite2-Country.mmdb /home/GeoLite2-Country.mmdb && wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb --no-check-certificate && mv GeoLite2-City.mmdb /home/GeoLite2-City.mmdb']
           volumeMounts:
             - name: geolite2-country
               mountPath: /home

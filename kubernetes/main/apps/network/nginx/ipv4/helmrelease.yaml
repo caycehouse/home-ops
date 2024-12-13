@@ -84,18 +84,22 @@ spec:
         limits:
           memory: 2Gi
       extraInitContainers:
-        - name: download-geolite2-country
-          image: busybox:1.36
-          command: ['sh', '-c', 'wget https://git.io/GeoLite2-Country.mmdb --no-check-certificate && mv GeoLite2-Country.mmdb /home/GeoLite2-Country.mmdb']
+        - name: download-geolite2-files
+          image: alpine:3.21
+          command: ["sh", "/scripts/geolite.sh"]
           volumeMounts:
-            - name: geolite2-country
+            - name: geolite-files
               mountPath: /home
+            - name: geolite-script
+              mountPath: /scripts # Mount path for the bash script
       extraVolumes:
-        - name: geolite2-country
+        - name: geolite2-files
           emptyDir: {}
+        - name: geolite-script
+          configMap:
+            name: download-geolite-script
       extraVolumeMounts:
-        - name: geolite2-country
-          mountPath: /etc/ingress-controller/geoip/GeoLite2-Country.mmdb
-          subPath: GeoLite2-Country.mmdb
+        - name: "geolite-files"
+          mountPath: /etc/ingress-controller/geoip/
     defaultBackend:
       enabled: false

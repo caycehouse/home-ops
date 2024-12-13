@@ -72,7 +72,6 @@ spec:
           ingressClassName: external
           enabled: true
           annotations:
-            external-dns.alpha.kubernetes.io/target: mc-router.${SECRET_GAMING_DOMAIN}
             external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             gethomepage.dev/enabled: "true"
             gethomepage.dev/href: https://mcsrvstat.us/server/allinone.${SECRET_GAMING_DOMAIN}

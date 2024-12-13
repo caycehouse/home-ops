@@ -93,7 +93,7 @@ spec:
             - name: geolite-script
               mountPath: /scripts # Mount path for the bash script
       extraVolumes:
-        - name: geolite2-files
+        - name: geolite-files
           emptyDir: {}
         - name: geolite-script
           configMap:

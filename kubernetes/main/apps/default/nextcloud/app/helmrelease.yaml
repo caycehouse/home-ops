@@ -154,9 +154,6 @@ spec:
           }
       className: external
       enabled: true
-      tls:
-        - hosts:
-            - *app
     internalDatabase:
       enabled: false
     persistence:

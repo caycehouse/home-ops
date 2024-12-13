@@ -28,4 +28,5 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 192.168.42.140
-          external-dns.alpha.kubernetes.io/hostname: mc-router.${SECRET_GAMING_DOMAIN},allinone.${SECRET_GAMING_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: mc-router.${SECRET_GAMING_DOMAIN},allinone.${SECRET_GAMING_DOMAIN},atm9.${SECRET_GAMING_DOMAIN},oceanblock.${SECRET_GAMING_DOMAIN},seaopolis.${SECRET_GAMING_DOMAIN}
+

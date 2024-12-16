@@ -84,6 +84,24 @@ spec:
           game-udp:
             port: 7777
             protocol: UDP
+    ingress:
+      app:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_GAMING_DOMAIN}
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: The factory must prevail!
+          gethomepage.dev/group: Games
+          gethomepage.dev/icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
+          gethomepage.dev/name: Satisfactory
+        className: ipv4
+        hosts:
+          - host: "satisfactory.${SECRET_GAMING_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
     persistence:
       config:
         existingClaim: *app

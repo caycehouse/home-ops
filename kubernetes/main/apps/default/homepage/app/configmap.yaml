@@ -42,9 +42,6 @@ data:
   services.yaml: |
     ---
     - Games:
-          - Satisfactory:
-                icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
-                description: The factory must prevail!
           - Valheim:
                 icon: https://cdn2.steamgriddb.com/icon/a0b83c02d720415dada82e08bc09e9f3/32/256x256.png
                 description: Skål!

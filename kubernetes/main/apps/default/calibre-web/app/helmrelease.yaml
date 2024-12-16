@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/calibre-web
-              tag: 0.6.24@sha256:fb7f2ce546aae95fdbecd959ceace236ff8e0fea1f344167e54d2d209c128345
+              tag: 0.6.24@sha256:1f889bd5ec3333a5f3df06ad94b03a328fd919f442d709b03dcdd36c2c3dc42b
             probes:
               liveness:
                 enabled: true

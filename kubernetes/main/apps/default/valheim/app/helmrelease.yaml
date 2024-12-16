@@ -102,7 +102,6 @@ spec:
           external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_GAMING_DOMAIN}
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: ""
           gethomepage.dev/description: Skål!
           gethomepage.dev/group: Games
           gethomepage.dev/icon: https://cdn2.steamgriddb.com/icon/a0b83c02d720415dada82e08bc09e9f3/32/256x256.png

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 66.7.1
+      version: 67.1.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -93,10 +93,6 @@ spec:
         hosts: ["prometheus.${SECRET_DOMAIN}"]
         pathType: Prefix
       prometheusSpec:
-        image:
-          registry: quay.io
-          repository: prometheus/prometheus
-          tag: v3.0.1
         scrapeInterval: 1m # Must match interval in Grafana Helm chart
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false

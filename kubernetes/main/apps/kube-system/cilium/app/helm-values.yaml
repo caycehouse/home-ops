@@ -4,8 +4,7 @@ bandwidthManager:
   enabled: true
   bbr: true
 bpf:
-  # TODO: enable when upgrading to talos v1.9.0+, requires kernel 6.7+
-  # datapathMode: netkit
+  datapathMode: netkit
   masquerade: true
   preallocateMaps: true
   tproxy: true

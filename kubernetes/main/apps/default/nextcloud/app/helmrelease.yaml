@@ -116,7 +116,7 @@ spec:
           secure: ""
     ingress:
       annotations:
-        external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_GAMING_DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
         external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
         gethomepage.dev/enabled: "true"
         gethomepage.dev/href: "https://nc.${SECRET_DOMAIN}"

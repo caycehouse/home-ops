@@ -94,7 +94,7 @@ spec:
           gethomepage.dev/group: Games
           gethomepage.dev/icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
           gethomepage.dev/name: Satisfactory
-        className: ipv4
+        className: external
         hosts:
           - host: "satisfactory.${SECRET_GAMING_DOMAIN}"
             paths:

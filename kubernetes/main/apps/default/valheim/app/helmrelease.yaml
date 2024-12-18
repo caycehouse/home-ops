@@ -109,7 +109,7 @@ spec:
           gethomepage.dev/widget.type: gamedig
           gethomepage.dev/widget.serverType: valheim
           gethomepage.dev/widget.url: udp://valheim.default.svc.cluster.local:2457
-        className: ipv4
+        className: external
         hosts:
           - host: "valheim.${SECRET_GAMING_DOMAIN}"
             paths:

@@ -12,13 +12,13 @@ machine:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       rotate-server-certificates: "true"
+    extraConfig:
+      maxPods: 150
     extraMounts:
       - destination: /var/openebs/local
         type: bind
         source: /var/openebs/local
         options: ["bind", "rshared", "rw"]
-    extraConfig:
-      maxPods: 150
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["192.168.42.0/24"]
@@ -48,24 +48,19 @@ machine:
     diskSelector:
       model: LITEON CV8-8E256
     extraKernelArgs:
-      - apparmor=0
-      - init_on_alloc=0
-      - init_on_free=0
-      - mitigations=off
-      - security=none
-    # i915-ucode, intel-ucode, mei
-    image: factory.talos.dev/installer/f65979ed25844fb64c6c7767d935770fe915a060840541ab668914234ad8077a:{{ ENV.TALOS_VERSION }}
+      - apparmor=0           # Less security, faster puter
+      - init_on_alloc=0      # Less security, faster puter
+      - init_on_free=0       # Less security, faster puter
+      - mitigations=off      # Less security, faster puter
+      - security=none        # Less security, faster puter
+    # i915, intel-ucode, mei
+    image: factory.talos.dev/installer/039535a70c3bd1667c355eca78571267704e55c8a24785033d183b8f26e39d82:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
       content: |
-        [plugins."io.containerd.grpc.v1.cri"]
-          enable_unprivileged_ports = true
-          enable_unprivileged_icmp = true
-        [plugins."io.containerd.grpc.v1.cri".containerd]
-          discard_unpacked_layers = false
-        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+        [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
     - op: overwrite
       path: /etc/nfsmount.conf
@@ -80,9 +75,10 @@ machine:
     fs.inotify.max_user_watches: 1048576   # Watchdog
     fs.inotify.max_user_instances: 8192    # Watchdog
     net.core.default_qdisc: fq             # Networking Performance
-    net.core.rmem_max: 67108864            # Cloudflared / QUIC
-    net.core.wmem_max: 67108864            # Cloudflared / QUIC
+    net.core.rmem_max: 67108864            # Networking Performance | Cloudflared / QUIC
+    net.core.wmem_max: 67108864            # Networking Performance | Cloudflared / QUIC
     net.ipv4.tcp_congestion_control: bbr   # Networking Performance
+    net.ipv4.tcp_mtu_probing: 1            # Networking Performance
     net.ipv4.tcp_rmem: 4096 87380 33554432 # Networking Performance
     net.ipv4.tcp_wmem: 4096 65536 33554432 # Networking Performance
     net.ipv4.tcp_window_scaling: 1         # Networking Performance
@@ -173,9 +169,9 @@ cluster:
     enabled: true
     registries:
       kubernetes:
-        disabled: false
-      service:
         disabled: true
+      service:
+        disabled: false
   etcd:
     ca:
       crt: ENC[AES256_GCM,data:B3tyTYe7AZbnhjP3Id5gZlPUAOfs+V6hEVlhtU5XOHZAINc7PQK0QtBmDN0b0bv8ryP5f1FS7Hi9wD/6TzPS41Qhs933acjoF/CtoaxiIgL+H0dE/oJ2TiGsMEn5HwHOSkT/Rq8xGfLAzUWIuSD3rQ9CvYGinx2rGcEyXR7iRmYGAqlCUMFITVAY3YiLveAi5m6agzp7SmeLXaP/bs+8ZEFHQag3oPOiVRU52li2yHYx/qyVQK78qhYvEnBj2eTyOqMoo4sV1S1mgVOFa2NFeFZ5XuYZAr25bs3Q2GBbB5z/Ud1GiXMnt+rd/rFGilR+LGLjqhVLXtGXn/c9Ex8LC2dWHRj6L8AID27ww5mtSstgEKYw80Re68rjInOKjpyCE5N7rfxNShZLGpiZ6E2dsQK7aEKptXsb7Ocagk18MmSk3yG1Jl+m6va0H5UaDx6hfD5B/xwaxN++lKXQLXD7Y23PCTmXdWtBJuSCT8n83ntRAtz5Hk7/yx28NgAVJIYlsjvXVBMNGfB9Q7Cgckse/4Ty54rMnxg/4mMVcTdgmVgeIeeIxu/v87tSD2O++1SsBobvr6gKezxTguGU6IMqzDxhmB5LlRHkYIRI52seRXTpWU/oZnQ3YlGhOFUOtwzA1gbuIgo+RMVmsJsT7crZ3kNzSLMltUIuQWNT+Jf2pZ0uMy6JtqFz1jLq58Nvc5NSgOF07J5ULHfKJ5P10iBUFHLMHaz4KegHmZLhJuZw9rqlcpuhaMQKhB2rIJFgpNYwRt16RczRzreAfqT3U+WZF+jA8GyHs8VHDjUxDdwp0B+wOCN6wtpLhS/nq8CjBvn5aoAi93wsqwI/2RtvDXrt5LHFNml4bsGairh3IDgI+nQv9ImqtYR6bG5RI0ItV17up3SaflTxLLHWCMh7VLC6ts0azYQWw5OirE6w21RfF1cFRtPa0qIzH/CVTwfDRffuKePmIboQtkjR3ebTPemjd0DnMifeqiDmFKiN9IqUH00u1joVkLr4Qclyv4q94JcQNmhaZQ==,iv:Fpl3khYKqqIim1YbHtQdTcAHW8BlL9hN3GIcHYNdjTE=,tag:V3YVq+DiAe+NtUdRroKpWA==,type:str]

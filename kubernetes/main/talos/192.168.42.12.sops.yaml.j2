@@ -89,7 +89,7 @@ machine:
     kubernetesTalosAPIAccess:
       enabled: true
       allowedRoles: ["os:admin"]
-      allowedKubernetesNamespaces: ["system-upgrade"]
+      allowedKubernetesNamespaces: ["kube-system"]
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
@@ -167,11 +167,6 @@ cluster:
                     whenUnsatisfiable: ScheduleAnyway
   discovery:
     enabled: true
-    registries:
-      kubernetes:
-        disabled: true
-      service:
-        disabled: false
   etcd:
     ca:
       crt: ENC[AES256_GCM,data:PDApyPX+2POgDuULfWROjxxpyCKS4k9qFcRW7pcRFVYdq71yfj+cCLm79KPSUXSjkrZcn9GBCxMtjS8xqOwRqov/P91vh/sFcPsNXivXLUZ0KdygF7Y3WykKdoxfifP3ycPAsJcFu4tcn8XTpkoln74PcbNK2HG5esRqv3pKOuAxUhYDgW45JkVIhNN1Fx6+YUTrw8wTlZzS8QyioiA+RBux8mfo/Kx+EnuVa8UiQl4Cx5943Lfh0BhkITMXJzFJ/fqzqd7yOGQNmiNYcV60X36jmtVYy9f7YvpHozkVXDIJtVCn+91cFTU1Zear3sdqsrnxbQQA1eJLnYd0tkPT0/y/ZkTWrf/stNiZQ80eClDCnrPyvkXwXk8V4ltAELfVk/Eu2HP0AQzH37Ekniq500o2qpiF9bnS1Ei5lG10diTC3h4eApq75aSqTnZL0p5AqUpTT7iwMht8ZgJqWZSzsG13wN/OIcloUSvmk11CyCnUl13n+mdNL3VbEeWj/9POvT25jUtc3zyQjXfh09rrhrUfV5RWUhoBC4in30TNHIRntROthNOWpqcumVRU/cGjx0ZttIQGHUMh5LEk1JuZYveXlAs2boFgXKX8Z0i3+MOLYpfTVQM2EOBJVhPJ3+hOZJqlw1JsFjCrgDY1n2ZNsY5waQ+MdHi2CLdtXG/VQNmSFERMRcXBB5HAyH8s5wL4WulbZLyr7B03iw4NYXksRmvHcDT/RSMsJbgUMRjKtPzJhgt1EHupUKxa6xteJlVU05vtK83z4tdy5TGyyNWq57jqBtx/Vhbxemum8BA9TSiiG2YWs+ERXvYnsQ5KvQxXYDs0zPiYsXQfLOccycZnAn9W6SC+u9niLNUejepsqNqiDkcKfP2obk6tb0TD2bsBRYZeBH9CQI2jMux/+TJj8u0vMd4nlpRJkVQEsfgtaQmT9ELSDu41EM41z7nld+1KTWn4vHz9wl8KXtSB4fGnUFpWjErDEGXH+YD8BJQ93cm9P0Inwtarnhzo5lNBib0SKBF/rQ==,iv:qfhHzY6F3JkwyC+NqD6jnRZWxhG/VoLPz/obTcoWuEo=,tag:qKnptvJZulZ2ex/rYKFPyQ==,type:str]

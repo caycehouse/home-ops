@@ -19,13 +19,6 @@ tasks:
       - which brew
       - test -f {{.WORKSTATION_RESOURCES_DIR}}/Brewfile
 
-  golang:
-    desc: Set up Go tools
-    deps: [brew]
-    cmds: []
-    preconditions:
-      - which go
-
   krew:
     desc: Set up Krew tools
     deps: [brew]

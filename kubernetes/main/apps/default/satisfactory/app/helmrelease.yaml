@@ -94,6 +94,9 @@ spec:
           gethomepage.dev/group: Games
           gethomepage.dev/icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
           gethomepage.dev/name: Satisfactory
+          gethomepage.dev/widget.type: gamedig
+          gethomepage.dev/widget.serverType: satisfactory
+          gethomepage.dev/widget.url: udp://satisfactory.default.svc.cluster.local:7777
         className: external
         hosts:
           - host: "satisfactory.${SECRET_GAMING_DOMAIN}"

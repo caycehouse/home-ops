@@ -19,6 +19,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./isponsorblocktv/ks.yaml
+  - ./jellyseerr/ks.yaml
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
   - ./minecraft/ks.yaml
@@ -26,7 +27,6 @@ resources:
   - ./minio/ks.yaml
   - ./nextcloud/ks.yaml
   - ./oceanblock/ks.yaml
-  # - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml

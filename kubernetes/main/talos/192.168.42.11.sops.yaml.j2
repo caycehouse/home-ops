@@ -78,6 +78,7 @@ machine:
     net.core.rmem_max: 67108864            # Networking Performance | Cloudflared / QUIC
     net.core.wmem_max: 67108864            # Networking Performance | Cloudflared / QUIC
     net.ipv4.tcp_congestion_control: bbr   # Networking Performance
+    net.ipv4.tcp_fastopen: 3               # Send and accept data in the opening SYN packet
     net.ipv4.tcp_mtu_probing: 1            # Networking Performance
     net.ipv4.tcp_rmem: 4096 87380 33554432 # Networking Performance
     net.ipv4.tcp_wmem: 4096 65536 33554432 # Networking Performance
@@ -135,6 +136,8 @@ cluster:
     key: ENC[AES256_GCM,data:CZb7WL07DYTdvqNKX+/1KaTRcy2ZZKIgsR+iERyU32HKJ3a3d2Iyp6xGJxUUp7EMS0gAKj7V40nXS7eAUswfwL/gVrI9lxOy5PNNrwtDihhNbd4oMFzqrBZ9skyZENC8R+8ROyoJSsUMXw4U5ENPxfWX8Q1RW2Av4GDxU+51iC8SPjPRrVmO9thGi7yFHf7uU45PMI3SeyG798qgtaURrYa7jBAvvMrwVjx47f164/b+bxsl8kGNK/i3KiM0iGaXeh1CsJKr/bCGBdAL/FsRGErgig2erqJnr9mQbZKXGq1gAF+B1YfMDc2fl4HKilCeGJUaFnT68J1JbgdBKtiGVQPUWKtY4PcVAja0zgZXBcQPmtFl6YCLQyoKLsDgfM4wIeUVseI7QeiUyMMkDAKarA==,iv:Mmya2IvTaEIUDIyP5Tb3bvVc2ba/OFTzrwTm/x7InqQ=,tag:fX1EdRi2NWcDOLBFWsqPFw==,type:str]
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
+    extraArgs:
+      feature-gates: AuthorizeNodeWithSelectors=false
     certSANs: ["127.0.0.1", "192.168.42.120"]
     disablePodSecurityPolicy: true
     auditPolicy:
@@ -165,6 +168,13 @@ cluster:
                   - maxSkew: 1
                     topologyKey: kubernetes.io/hostname
                     whenUnsatisfiable: ScheduleAnyway
+  discovery:
+    enabled: true
+    registries:
+      kubernetes:
+        disabled: false
+      service:
+        disabled: true
   etcd:
     ca:
       crt: ENC[AES256_GCM,data:E3ekYav67KZi/HRuj8LnbueFpuq00CX2keXA3vusNdzMilFqDsqdCXAU9RBhUc772OPJlhPUaJYVJ680KHd5udjdBtZU28FQlI+mVuUO8vIYnz6rd1Py9uiryYgWS1cTRUJKW9t2qCjWhabca9GeyuJmwTLT8FI12o9kQ7Rr+FB8CbmDUDRTtC6Gb/nk98Q63NGMcHjF7I2jcOeqX4CbkvAU7MMvGrYZ9yeTQF2Bm6MpUqFYbVrD5TCyRnA8lWW7gl+8q+HvX0ppHe26j70UF6f6Yw4breLyCk1+kJ/4rc6p/TKgFoXoLXaKSFSiTAAVgGU5fSTkMIwnhv9P8djFRiG0m7boIUGYoDc8fu86fTA1D5TUxhyaHqhW1b2IjLMC/ecd5LQYrxPvKhxyIB1kDTpcPimTQlcmrUn1dkL896UfZpZKB2DuWHRu/S5u9WrPFSp40D564gN2RGSCMd13GhOMJstCC1Umyc3gpncQtagH/BCK9vYaXbHgN/R+KCagYCzEsrlrS2WDGHdYhqvsIiUPH7mIUGL+3Jfv7+48WMMxZFHBom8y3TTNdhfYQAQRUNXb/+Pk8w4Z3nM1uozwKnWWodcGfNsXu7YV9VJXXgw2b+JUIeS8/K4OmPW/hWjwSZZueZMoCscRHo2YANzta7YP46UpS+NzvTykDIDHJpoiorAq0/JSVMjfDHm5qSDqX5W1NDYR78YNysBj7PIKe4bx3wP+KwmlJ0WM2Ep+kfKNPBNi1STr0aEZMEoPIAT7qppn8OppomaRFJVHNe4saYdCeX+sJSGeIkaxwEKMW+RYl8zSYuS5vVronLxlaiwWAFl5Fe66XczFvmBYMKzMpqbw2A6EVuqJU4giPkozgyfoI0oh+1O3UQ/LWxvqaD8FsgudrXx5s57lQMRbveGoJqgUlPgUnFpE5PU1eopTQbsLy3MpafAY7MuEs21HsJfegGvj7nyWtn9D9SvvmI0NXZrkag371tqjfqs1Fi7sLsdcvQPykG4KEGpxPNOBhj+A7dX+PA==,iv:GRLrxrk8LDyaSOSyojs/vEp/5wDbeYBAz6RCC84T0wc=,tag:vYsyYGeNDGi4jDw3Zrt8yw==,type:str]

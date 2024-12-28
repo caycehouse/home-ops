@@ -48,11 +48,11 @@ spec:
               UNIQUE_FILENAMES: true
               METHOD: WATCH
             restartPolicy: Always
-            resources: &resources
+            resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 128Mi
         containers:
           app:
             image:
@@ -81,7 +81,11 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-            resources: *resources
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 256Mi
     defaultPodOptions:
       dnsConfig:
         options:

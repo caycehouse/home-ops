@@ -42,9 +42,11 @@ spec:
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxWorldSize: 29999984
+      memory: ""
       motd: "The Fryer's Minecraft Server"
       ops: "FryyourBacon,3lGanso"
       overrideServerProperties: true
+      removeOldMods: true
       spawnProtection: 0
       type: "FABRIC"
       vanillaTweaksShareCodes:
@@ -91,7 +93,6 @@ spec:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
-      MEMORY: ""
       OVERRIDE_WHITELIST: "true"
       PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/master/pack.toml"
       RCON_CMDS_STARTUP: |-

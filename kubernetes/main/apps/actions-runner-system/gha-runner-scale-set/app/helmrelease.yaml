@@ -45,15 +45,30 @@ spec:
     runnerScaleSetName: gha-runner-scale-set
     githubConfigUrl: https://github.com/caycehouse/home-ops
     minRunners: 1
-    maxRunners: 6
+    maxRunners: 3
     containerMode:
       type: dind
     template:
       spec:
+        automountServiceAccountToken: true
         containers:
           - name: runner
             image: ghcr.io/caycehouse/actions-runner:2.321.0@sha256:1e5caf959a51a2589631ba557eb2e4efb1e9a066114c58f1db03c7b1c5d71f51
             command: ["/home/runner/run.sh"]
+            env:
+              - name: NODE_IP
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+            volumeMounts:
+              - mountPath: /var/run/secrets/talos.dev
+                name: talos
+                readOnly: true
+        serviceAccountName: actions-runner
+        volumes:
+          - name: talos
+            secret:
+              secretName: actions-runner
     controllerServiceAccount:
       name: gha-runner-scale-set-controller
       namespace: actions-runner-system

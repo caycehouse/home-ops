@@ -41,4 +41,4 @@ resources:
   - ./twitchdropsminer/ks.yaml
   # - ./valheim/ks.yaml
   - ./watchlistarr/ks.yaml
-  - ./zigbee2mqtt/ks.yaml
+  # - ./zigbee2mqtt/ks.yaml

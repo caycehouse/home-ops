@@ -50,6 +50,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+              ZIGBEE2MQTT_CONFIG_ADVANCED_TRANSMIT_POWER: 20
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
               # https://github.com/basnijholt/adaptive-lighting/discussions/506
@@ -69,6 +70,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.1.90:6638
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
               # DEBUG: "zigbee-herdsman*"
             envFrom:
               - secretRef:

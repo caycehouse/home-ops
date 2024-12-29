@@ -26,7 +26,7 @@ resources:
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./nextcloud/ks.yaml
-  - ./oceanblock/ks.yaml
+  # - ./oceanblock/ks.yaml
   - ./paperless/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
@@ -34,7 +34,7 @@ resources:
   - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
   # - ./satisfactory/ks.yaml
-  - ./seaopolis/ks.yaml
+  # - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml

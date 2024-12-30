@@ -30,5 +30,6 @@ resources:
   - ./rook-ceph.yaml
   - ./spegel.yaml
   - ./stakater.yaml
-  - ./stevehipwell.yaml
+  # - ./stevehipwell.yaml
   - ./weave-gitops.yaml
+  - ./wiremind.yaml

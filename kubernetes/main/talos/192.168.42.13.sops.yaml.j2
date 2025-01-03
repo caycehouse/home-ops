@@ -35,8 +35,6 @@ machine:
               driver: r8169
         mtu: 1500
         dhcp: true
-        vip:
-          ip: 192.168.42.120
         vlans:
           - routes: []
             dhcp: false
@@ -87,10 +85,6 @@ machine:
   features:
     rbac: true
     stableHostname: true
-    kubernetesTalosAPIAccess:
-      enabled: true
-      allowedRoles: ["os:admin"]
-      allowedKubernetesNamespaces: ["actions-runner-system", "kube-system"]
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:

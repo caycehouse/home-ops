@@ -67,6 +67,19 @@ spec:
       - apiVersion: monitoring.giantswarm.io/v1alpha1
         kind: Silence
         metadata:
+          name: ceph-node-local-diskspace-warning-nvme
+          namespace: observability
+        spec:
+          matchers:
+            - name: alertname
+              value: CephNodeDiskspaceWarning
+              isRegex: false
+            - name: device
+              value: /dev/nvme0n1p6
+              isRegex: true
+      - apiVersion: monitoring.giantswarm.io/v1alpha1
+        kind: Silence
+        metadata:
           name: bakery-memory-high-utilization
           namespace: observability
         spec:

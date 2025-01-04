@@ -31,8 +31,8 @@ machine:
           mode: active-backup
           miimon: 1000
           deviceSelectors:
-            - hardwareAddr: f8:bc:12:1d:*
-              driver: i40e
+            - hardwareAddr: 70:b5:e8:57:*
+              driver: r8169
         mtu: 1500
         dhcp: true
         vip:
@@ -46,7 +46,7 @@ machine:
             vlanId: 70
   install:
     diskSelector:
-      model: WDC  WDBNCE0010P
+      model: CL1-3D256-Q11 NVMe SSSTC 256GB
     extraKernelArgs:
       - apparmor=0           # Less security, faster puter
       - init_on_alloc=0      # Less security, faster puter

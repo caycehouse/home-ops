@@ -77,29 +77,3 @@ spec:
             - name: instance
               value: bakery.internal:9100
               isRegex: false
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: k8s-2-ceph-node-network-bond-degraded
-          namespace: observability
-        spec:
-          matchers:
-            - name: alertname
-              value: CephNodeNetworkBondDegraded
-              isRegex: false
-            - name: kubernetes_node
-              value: k8s-2
-              isRegex: false
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: k8s-2-node-bonding-degraded
-          namespace: observability
-        spec:
-          matchers:
-            - name: alertname
-              value: NodeBondingDegraded
-              isRegex: false
-            - name: kubernetes_node
-              value: k8s-2
-              isRegex: false

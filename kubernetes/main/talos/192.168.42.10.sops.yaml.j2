@@ -31,8 +31,8 @@ machine:
           mode: active-backup
           miimon: 1000
           deviceSelectors:
-            - hardwareAddr: b8:85:84:b6:*
-              driver: r8169
+            - hardwareAddr: a4:bb:6d:7b:*
+              driver: e1000e
         mtu: 1500
         dhcp: true
         vip:
@@ -46,7 +46,7 @@ machine:
             vlanId: 70
   install:
     diskSelector:
-      model: LITEON CV8-8E256
+      model: PC SN520 NVMe WDC 256GB
     extraKernelArgs:
       - apparmor=0           # Less security, faster puter
       - init_on_alloc=0      # Less security, faster puter

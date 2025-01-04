@@ -37,11 +37,10 @@
 
 ### To Recover cluster:
 
-1. `task bootstrap:matchbox`
-2. `task bootstrap:talos`
-3. `task bootstrap:apps`
-4. `task bootstrap:rook`
-5. `task bootstrap:flux`
+1. `task bootstrap:talos`
+2. `task bootstrap:apps`
+3. `task bootstrap:rook`
+4. `task bootstrap:flux`
 
 ### To Upgrade Talos:
 

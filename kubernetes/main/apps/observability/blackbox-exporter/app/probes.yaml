@@ -13,6 +13,5 @@ spec:
       static:
         - bakery.internal
         - octopi.internal
-        - r630-idrac.internal
         - r730xd-idrac.internal
         - zigbee-controller.internal

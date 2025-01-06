@@ -29,7 +29,6 @@ machine:
       - interface: bond0
         bond:
           mode: active-backup
-          miimon: 1000
           deviceSelectors:
             - hardwareAddr: a4:bb:6d:7b:*
               driver: e1000e
@@ -38,12 +37,12 @@ machine:
         vip:
           ip: 192.168.42.120
         vlans:
-          - routes: []
+          - vlanId: 10
             dhcp: false
-            vlanId: 10
-          - routes: []
+            mtu: 1500
+          - vlanId: 70
             dhcp: false
-            vlanId: 70
+            mtu: 1500
   install:
     diskSelector:
       model: PC SN520 NVMe WDC 256GB

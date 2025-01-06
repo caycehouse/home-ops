@@ -29,7 +29,6 @@ machine:
       - interface: bond0
         bond:
           mode: active-backup
-          miimon: 1000
           deviceSelectors:
             - hardwareAddr: 70:b5:e8:57:*
               driver: r8169
@@ -38,12 +37,12 @@ machine:
         vip:
           ip: 192.168.42.120
         vlans:
-          - routes: []
+          - vlanId: 10
             dhcp: false
-            vlanId: 10
-          - routes: []
+            mtu: 1500
+          - vlanId: 70
             dhcp: false
-            vlanId: 70
+            mtu: 1500
   install:
     diskSelector:
       model: CL1-3D256-Q11 NVMe SSSTC 256GB

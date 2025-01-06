@@ -54,7 +54,6 @@ spec:
           enabled: true
           annotations:
             gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: "https://hubble.${SECRET_DOMAIN}"
             gethomepage.dev/description: Network visibility and security
             gethomepage.dev/group: Observability
             gethomepage.dev/icon: cilium

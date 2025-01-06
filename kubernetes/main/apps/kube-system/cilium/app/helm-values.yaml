@@ -1,3 +1,6 @@
+# Note: 'enableIPv4BIGTCP' is omitted because it is only supported on specific NICs
+# (mlx4, mlx5, ice) and provides little benefit for 1Gbps networks.
+# Refer to https://docs.cilium.io/en/stable/operations/performance/tuning for more details.
 ---
 autoDirectNodeRoutes: true
 bandwidthManager:
@@ -18,7 +21,6 @@ cluster:
 cni:
   exclusive: false
 devices: bond+
-enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
 envoy:

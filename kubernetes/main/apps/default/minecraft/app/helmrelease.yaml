@@ -94,7 +94,8 @@ spec:
       ENFORCE_WHITELIST: "true"
       MEMORY: ""
       OVERRIDE_WHITELIST: "true"
-      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/master/pack.toml"
+      # renovate: datasource=github-releases depName=caycehouse/fabulously-optimized-server
+      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/refs/tags/v6.5.0-alpha.7/pack.toml"
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule playersSleepingPercentage 0

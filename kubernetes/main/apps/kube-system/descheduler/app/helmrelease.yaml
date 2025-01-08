@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -49,6 +49,17 @@ spec:
                 evictLocalStoragePods: true
                 evictSystemCriticalPods: true
                 nodeFit: true
+            - name: LowNodeUtilization
+              args:
+                targetThresholds:
+                  cpu: 60
+                  memory: 60
+                  pods: 60
+                thresholds:
+                  cpu: 35
+                  memory: 40
+                  pods: 50
+            - name: RemoveDuplicates
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity
               args:
@@ -63,6 +74,8 @@ spec:
           plugins:
             balance:
               enabled:
+                - LowNodeUtilization
+                - RemoveDuplicates
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:

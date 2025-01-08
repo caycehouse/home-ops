@@ -54,11 +54,11 @@ spec:
                 targetThresholds:
                   cpu: 75
                   memory: 75
-                  pods: 80
+                  pods: 60
                 thresholds:
                   cpu: 50
                   memory: 50
-                  pods: 55
+                  pods: 50
             - name: RemoveDuplicates
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity

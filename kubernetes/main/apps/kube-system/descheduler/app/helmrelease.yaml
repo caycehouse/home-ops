@@ -38,14 +38,14 @@ spec:
                 nodeFit: true
             - name: LowNodeUtilization
               args:
-                thresholds:
-                  cpu: 50
-                  memory: 50
-                  pods: 55
                 targetThresholds:
-                  cpu: 75
-                  memory: 75
-                  pods: 80
+                  cpu: 60
+                  memory: 60
+                  pods: 60
+                thresholds:
+                  cpu: 35
+                  memory: 40
+                  pods: 50
             - name: RemoveDuplicates
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity

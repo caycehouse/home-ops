@@ -52,12 +52,8 @@ spec:
             - name: LowNodeUtilization
               args:
                 targetThresholds:
-                  cpu: 60
-                  memory: 60
                   pods: 60
                 thresholds:
-                  cpu: 35
-                  memory: 40
                   pods: 50
             - name: RemoveDuplicates
             - name: RemovePodsViolatingInterPodAntiAffinity

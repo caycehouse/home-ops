@@ -25,38 +25,39 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: cilium-helm-values
-  values:
-    hubble:
-      enabled: true
-      metrics:
-        enabled:
-          - dns:query
-          - drop
-          - tcp
-          - flow
-          - port-distribution
-          - icmp
-          - http
-        serviceMonitor:
-          enabled: true
-        dashboards:
-          enabled: true
-      relay:
-        enabled: true
-        rollOutPods: true
-        prometheus:
-          serviceMonitor:
-            enabled: true
-      ui:
-        enabled: true
-        rollOutPods: true
-        ingress:
-          enabled: true
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/description: Network visibility and security
-            gethomepage.dev/group: Observability
-            gethomepage.dev/icon: cilium
-            gethomepage.dev/name: Hubble
-          className: internal
-          hosts: ["hubble.${SECRET_DOMAIN}"]
+  # Enable Hubble, Hubble Relay and Hubble UI
+  # values:
+  #   hubble:
+  #     enabled: true
+  #     metrics:
+  #       enabled:
+  #         - dns:query
+  #         - drop
+  #         - tcp
+  #         - flow
+  #         - port-distribution
+  #         - icmp
+  #         - http
+  #       serviceMonitor:
+  #         enabled: true
+  #       dashboards:
+  #         enabled: true
+  #     relay:
+  #       enabled: true
+  #       rollOutPods: true
+  #       prometheus:
+  #         serviceMonitor:
+  #           enabled: true
+  #     ui:
+  #       enabled: true
+  #       rollOutPods: true
+  #       ingress:
+  #         enabled: true
+  #         annotations:
+  #           gethomepage.dev/enabled: "true"
+  #           gethomepage.dev/description: Network visibility and security
+  #           gethomepage.dev/group: Observability
+  #           gethomepage.dev/icon: cilium
+  #           gethomepage.dev/name: Hubble
+  #         className: internal
+  #         hosts: ["hubble.${SECRET_DOMAIN}"]

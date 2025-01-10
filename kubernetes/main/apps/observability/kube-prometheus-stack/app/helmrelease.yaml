@@ -52,7 +52,7 @@ spec:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: https://alertmanager.devbu.io
+        externalUrl: https://alertmanager.${SECRET_DOMAIN}
         storage:
           volumeClaimTemplate:
             spec:

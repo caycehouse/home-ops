@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ../../templates/flux
   # Flux-Kustomizations
   # - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
@@ -41,3 +42,11 @@ resources:
   # - ./valheim/ks.yaml
   - ./watchlistarr/ks.yaml
   - ./zigbee/ks.yaml
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: default
+    unsetOnly: true

@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app valheim
+  namespace: flux-system
+spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: external-secrets-stores
+    - name: volsync
+  path: ./kubernetes/apps/default/valheim/app
+  prune: false # revert to true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  postBuild:
+    substitute:
+      APP: *app
+      GATUS_URL: udp://valheim.default.svc.cluster.local:2456
+      VOLSYNC_CAPACITY: 5Gi

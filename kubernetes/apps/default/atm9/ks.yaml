@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app atm9
+  namespace: flux-system
+spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: external-secrets-stores
+    - name: volsync
+  path: ./kubernetes/apps/default/atm9/app
+  prune: false # revert to true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app
+      GATUS_URL: tcp://atm9-minecraft.default.svc.cluster.local:25565
+      VOLSYNC_CAPACITY: 64Gi

@@ -39,7 +39,7 @@
 ### To Recover cluster:
 
 1. `task bootstrap:talos`
-2. `task bootstrap:apps MODEL=MTFDDAK960TCB`
+2. `task bootstrap:apps ROOK_DISK=MTFDDAK960TCB`
 
 ### To Upgrade Talos:
 

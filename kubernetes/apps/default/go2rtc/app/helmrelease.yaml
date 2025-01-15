@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: go2rtc
+  name: &app go2rtc
 spec:
   interval: 30m
   chart:
@@ -25,7 +25,6 @@ spec:
   values:
     controllers:
       go2rtc:
-        strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -74,11 +73,7 @@ spec:
           }]
     service:
       app:
-        controller: go2rtc
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: go2rtc-streams.${SECRET_DOMAIN}
-          lbipam.cilium.io/ips: 192.168.42.124
+        controller: *app
         ports:
           http:
             port: *port
@@ -101,7 +96,7 @@ spec:
           gethomepage.dev/name: go2rtc
         className: internal
         hosts:
-          - host: go2rtc.${SECRET_DOMAIN}
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:

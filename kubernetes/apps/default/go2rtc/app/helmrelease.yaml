@@ -25,7 +25,6 @@ spec:
   values:
     controllers:
       go2rtc:
-        # replicas: 2
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -58,7 +57,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 128Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

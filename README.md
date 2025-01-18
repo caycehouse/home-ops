@@ -49,7 +49,7 @@ The factory image url can be generated at [factory.talos.dev](factory.talos.dev)
 
 ### To Upgrade k8s:
 
-`task talos:upgrade-k8s VERSION=<k8s_version>`
+`task talos:upgrade-k8s`
 
 ---
 

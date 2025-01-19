@@ -86,7 +86,7 @@ spec:
           gethomepage.dev/href: "https://changedetection.${SECRET_DOMAIN}"
           gethomepage.dev/description: Website change detection
           gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: changedetection-io
+          gethomepage.dev/icon: changedetection
           gethomepage.dev/name: changedetection.io
         className: internal
         hosts:

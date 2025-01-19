@@ -31,5 +31,4 @@ resources:
   - ./spegel.yaml
   - ./stakater.yaml
   # - ./stevehipwell.yaml
-  - ./weave-gitops.yaml
   - ./wiremind.yaml

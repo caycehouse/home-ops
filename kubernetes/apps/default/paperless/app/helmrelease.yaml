@@ -50,8 +50,8 @@ spec:
               PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
               PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
               PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
-              PAPERLESS_MEDIA_ROOT: /data/local/media
-              PAPERLESS_DATA_DIR: /data/local/data
+              PAPERLESS_MEDIA_ROOT: /data/media
+              PAPERLESS_DATA_DIR: /data/data
             envFrom: *envFrom
             probes:
               liveness: &probes
@@ -112,4 +112,4 @@ spec:
       data:
         existingClaim: paperless
         globalMounts:
-          - path: /data/local
+          - path: /data

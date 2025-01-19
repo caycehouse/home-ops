@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app paperless
+  name: paperless
 spec:
   interval: 30m
   chart:
@@ -29,7 +29,7 @@ spec:
     controllers:
       paperless:
         annotations:
-          secret.reloader.stakater.com/reload: &secret paperless-secret
+          reloader.stakater.com/auto: "true"
         initContainers:
           init-db:
             image:
@@ -37,7 +37,7 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: *secret
+                  name: paperless-secret
         containers:
           app:
             image:
@@ -109,7 +109,5 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      library:
-        existingClaim: *app
-        globalMounts:
-          - path: /data/local
+      data:
+        existingClaim: paperless

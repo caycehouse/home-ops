@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app twitchdropsminer
+  name: twitchdropsminer
 spec:
   interval: 30m
   chart:
@@ -28,8 +28,7 @@ spec:
         replicas: 1
         pod:
           annotations:
-            configmap.reloader.stakater.com/reload: &config twitchdropsminer-config
-            secret.reloader.stakater.com/reload: &secret twitchdropsminer-secret
+            reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -58,18 +57,18 @@ spec:
                   failureThreshold: 3
               readiness: *probes
     persistence:
-      config:
+      config-file:
         type: configMap
-        name: *config
+        name: twitchdropsminer-config
         globalMounts:
           - subPath: settings.json
             path: /TwitchDropsMiner/settings.json.import
           - subPath: startup.sh
             path: /TwitchDropsMiner/startup.sh
         defaultMode: 0777
-      cookies:
+      secret-file:
         type: secret
-        name: *secret
+        name: twitchdropsminer-secret
         globalMounts:
           - subPath: cookies.jar
             path: /TwitchDropsMiner/cookies.jar.import

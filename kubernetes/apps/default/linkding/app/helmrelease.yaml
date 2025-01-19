@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app linkding
+  name: linkding
 spec:
   interval: 30m
   chart:
@@ -54,7 +54,7 @@ spec:
                 memory: 256Mi
     service:
       app:
-        controller: *app
+        controller: linkding
         ports:
           http:
             port: 9090
@@ -69,7 +69,7 @@ spec:
           gethomepage.dev/name: linkding
         className: external
         hosts:
-          - host: &hostName bookmarks.${SECRET_DOMAIN}
+          - host: bookmarks.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:

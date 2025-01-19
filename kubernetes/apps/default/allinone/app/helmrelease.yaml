@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app allinone
+  name: allinone
 spec:
   interval: 30m
   chart:
@@ -88,7 +88,7 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: *app
+        existingClaim: allinone
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"

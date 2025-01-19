@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app satisfactory
+  name: satisfactory
 spec:
   interval: 30m
   chart:
@@ -72,7 +72,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: *app
+        controller: satisfactory
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: satisfactory.${SECRET_GAMING_DOMAIN}
@@ -107,9 +107,7 @@ spec:
                   port: 9225
     persistence:
       config:
-        existingClaim: *app
-        globalMounts:
-          - path: /config
+        existingClaim: satisfactory
       runtime:
         accessMode: ReadWriteOnce
         globalMounts:

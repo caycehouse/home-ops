@@ -107,14 +107,6 @@ spec:
     persistence:
       config:
         existingClaim: sabnzbd
-      tmp:
-        type: emptyDir
-      scripts:
-        type: configMap
-        name: sabnzbd-scripts
-        defaultMode: 0775
-        globalMounts:
-          - readOnly: true
       media:
         type: nfs
         server: bakery.internal
@@ -122,3 +114,11 @@ spec:
         globalMounts:
           - path: /data/usenet
             subPath: usenet
+      scripts:
+        type: configMap
+        name: sabnzbd-scripts
+        defaultMode: 0775
+        globalMounts:
+          - readOnly: true
+      tmp:
+        type: emptyDir

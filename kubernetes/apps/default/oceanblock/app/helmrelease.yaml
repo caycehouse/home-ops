@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app oceanblock
+  name: oceanblock
 spec:
   interval: 30m
   chart:
@@ -81,7 +81,7 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: *app
+        existingClaim: oceanblock
     extraEnv:
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"

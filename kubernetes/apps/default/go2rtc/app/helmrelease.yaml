@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app go2rtc
+  name: go2rtc
 spec:
   interval: 30m
   chart:
@@ -73,7 +73,7 @@ spec:
           }]
     service:
       app:
-        controller: *app
+        controller: go2rtc
         ports:
           http:
             port: *port
@@ -103,7 +103,7 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
+      config-file:
         type: configMap
         name: go2rtc-configmap
         globalMounts:

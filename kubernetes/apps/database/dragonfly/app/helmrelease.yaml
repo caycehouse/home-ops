@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app dragonfly-operator
+  name: dragonfly-operator
 spec:
   interval: 30m
   chart:
@@ -75,7 +75,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: *app
+        controller: dragonfly-operator
         ports:
           http:
             port: *port
@@ -83,7 +83,7 @@ spec:
             port: 8080
     serviceMonitor:
       app:
-        serviceName: *app
+        serviceName: dragonfly-operator
         endpoints:
           - port: metrics
             scheme: http
@@ -92,4 +92,4 @@ spec:
             scrapeTimeout: 10s
     serviceAccount:
       create: true
-      name: *app
+      name: dragonfly-operator

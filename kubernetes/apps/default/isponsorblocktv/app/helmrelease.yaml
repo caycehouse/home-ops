@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app isponsorblocktv
+  name: isponsorblocktv
 spec:
   interval: 30m
   chart:
@@ -53,7 +53,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     persistence:
-      config:
+      config-file:
         type: secret
         name: isponsorblocktv-secret
         globalMounts:

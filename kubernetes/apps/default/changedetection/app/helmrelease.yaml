@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app changedetection
+  name: changedetection
 spec:
   interval: 30m
   chart:
@@ -75,7 +75,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: *app
+        controller: changedetection
         ports:
           http:
             port: 5000
@@ -97,11 +97,7 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
-        existingClaim: *app
-        globalMounts:
-          - path: /datastore
+      datastore:
+        existingClaim: changedetection
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app meshcentral
+  name: meshcentral
 spec:
   interval: 30m
   chart:
@@ -48,7 +48,7 @@ spec:
                 memory: 256Mi
     service:
       app:
-        controller: *app
+        controller: meshcentral
         ports:
           http:
             port: 4430
@@ -72,14 +72,14 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
+      config-file:
         type: configMap
         name: meshcentral-config
         globalMounts:
           - subPath: config.json
             path: /opt/meshcentral/meshcentral-data/config.json
       data:
-        existingClaim: *app
+        existingClaim: meshcentral
         globalMounts:
           - path: /opt/meshcentral/meshcentral-data
             subPath: data

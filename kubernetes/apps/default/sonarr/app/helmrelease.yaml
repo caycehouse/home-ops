@@ -112,10 +112,16 @@ spec:
     persistence:
       config:
         existingClaim: sonarr
-      cache:
+      config-cache:
         existingClaim: sonarr-cache
         globalMounts:
           - path: /config/MediaCover
+      media:
+        type: nfs
+        server: bakery.internal
+        path: /mnt/storage1/media
+        globalMounts:
+          - path: /data
       scripts:
         type: configMap
         name: sonarr-configmap
@@ -132,9 +138,3 @@ spec:
             readOnly: true
       tmp:
         type: emptyDir
-      data:
-        type: nfs
-        server: bakery.internal
-        path: /mnt/storage1/media
-        globalMounts:
-          - path: /data

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app nextcloud
+  name: nextcloud
 spec:
   interval: 30m
   chart:
@@ -32,7 +32,7 @@ spec:
       repository: nextcloud
       tag: 30.0.5-apache@sha256:02441f524c6fab3aadbf7157f6e0484927e231d685b248dc0734fa2941b4445e
     deploymentAnnotations:
-      secret.reloader.stakater.com/reload: &secret nextcloud-secret
+      reloader.stakater.com/auto: "true"
     cronjob:
       enabled: true
       resources:
@@ -45,7 +45,7 @@ spec:
       type: postgresql
       existingSecret:
         enabled: true
-        secretName: *secret
+        secretName: &secret nextcloud-secret
         hostKey: POSTGRES_HOST
         databaseKey: POSTGRES_DB
         usernameKey: POSTGRES_USER
@@ -158,7 +158,7 @@ spec:
       enabled: false
     persistence:
       enabled: true
-      existingClaim: *app
+      existingClaim: nextcloud
       nextcloudData:
         enabled: true
         existingClaim: "nextcloud-data"

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app valheim
+  name: valheim
 spec:
   interval: 30m
   chart:
@@ -32,7 +32,7 @@ spec:
       valheim:
         replicas: 1
         annotations:
-          secret.reloader.stakater.com/reload: &secret valheim-secret
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -45,7 +45,7 @@ spec:
               TZ: America/New_York
             envFrom:
               - secretRef:
-                  name: *secret
+                  name: valheim-secret
             probes:
               liveness:
                 enabled: true
@@ -85,7 +85,7 @@ spec:
       terminationGracePeriodSeconds: 120
     service:
       app:
-        controller: *app
+        controller: valheim
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: "192.168.42.133"
@@ -119,9 +119,7 @@ spec:
                   port: 9225
     persistence:
       config:
-        existingClaim: *app
-        globalMounts:
-          - path: /config
+        existingClaim: valheim
       runtime:
         accessMode: ReadWriteOnce
         globalMounts:

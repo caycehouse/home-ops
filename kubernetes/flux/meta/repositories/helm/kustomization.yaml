@@ -14,13 +14,13 @@ resources:
   - ./emqx.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
-  - ./fluxcd-community.yaml
+  # - ./fluxcd-community.yaml
   - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./intel.yaml
   - ./itzg.yaml
   - ./jetstack.yaml
-  - ./kyverno.yaml
+  # - ./kyverno.yaml
   - ./metrics-server.yaml
   - ./nextcloud.yaml
   - ./node-feature-discovery.yaml

@@ -44,7 +44,7 @@ spec:
                 sabnzbd.default.svc,
                 sabnzbd.default.svc.cluster,
                 sabnzbd.default.svc.cluster.local,
-                sab.${SECRET_DOMAIN}
+                sab.housefam.casa
               PUSHOVER_ENABLED: true
             envFrom:
               - secretRef:
@@ -90,7 +90,7 @@ spec:
           gethomepage.dev/description: Usenet downloader
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
-          gethomepage.dev/href: "https://sab.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://sab.housefam.casa"
           gethomepage.dev/icon: sabnzbd
           gethomepage.dev/name: SABnzbd
           gethomepage.dev/widget.type: sabnzbd
@@ -98,7 +98,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SABNZBD_API_KEY}}` }}"
         className: internal
         hosts:
-          - host: "sab.${SECRET_DOMAIN}"
+          - host: "sab.housefam.casa"
             paths:
               - path: /
                 service:

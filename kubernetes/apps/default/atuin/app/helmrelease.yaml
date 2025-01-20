@@ -108,7 +108,7 @@ spec:
           gethomepage.dev/name: Atuin
         className: internal
         hosts:
-          - host: sh.${SECRET_DOMAIN}
+          - host: sh.housefam.casa
             paths:
               - path: /
                 service:

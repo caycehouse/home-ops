@@ -47,7 +47,7 @@ spec:
               PAPERLESS_PORT: &port 8000
               PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/0
               PAPERLESS_TIME_ZONE: America/New_York
-              PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
+              PAPERLESS_URL: "https://paperless.housefam.casa"
               PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
               PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
               PAPERLESS_MEDIA_ROOT: /data/media
@@ -94,7 +94,7 @@ spec:
           gethomepage.dev/description: Document management system
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Utilities
-          gethomepage.dev/href: "https://paperless.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://paperless.housefam.casa"
           gethomepage.dev/icon: paperless-ngx
           gethomepage.dev/name: Paperless-ngx
           gethomepage.dev/widget.type: paperlessngx
@@ -102,7 +102,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}` }}"
         className: external
         hosts:
-          - host: "paperless.${SECRET_DOMAIN}"
+          - host: "paperless.housefam.casa"
             paths:
               - path: /
                 service:

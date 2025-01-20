@@ -34,7 +34,7 @@ spec:
     livenessProbe:
       initialDelaySeconds: 120
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: &host mc.${SECRET_GAMING_DOMAIN}
+      mc-router.itzg.me/externalServerName: &host mc.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -71,10 +71,10 @@ spec:
           ingressClassName: external
           enabled: true
           annotations:
-            external-dns.alpha.kubernetes.io/target: mc-router.${SECRET_GAMING_DOMAIN}
+            external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
             external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: https://mcsrvstat.us/server/mc.${SECRET_GAMING_DOMAIN}
+            gethomepage.dev/href: https://mcsrvstat.us/server/mc.thefryer.games
             gethomepage.dev/description: Vanilla Minecraft server
             gethomepage.dev/group: Games
             gethomepage.dev/icon: minecraft

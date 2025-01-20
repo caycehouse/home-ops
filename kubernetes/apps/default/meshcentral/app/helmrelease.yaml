@@ -55,17 +55,17 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ipv4.housefam.casa
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://meshcentral.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://meshcentral.housefam.casa"
           gethomepage.dev/description: Agent-based remote desktop
           gethomepage.dev/group: Remote Access
           gethomepage.dev/icon: meshcentral
           gethomepage.dev/name: MeshCentral
         className: external
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

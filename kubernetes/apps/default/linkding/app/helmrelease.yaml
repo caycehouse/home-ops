@@ -62,14 +62,14 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://bookmarks.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://bookmarks.housefam.casa"
           gethomepage.dev/description: Bookmark Manager
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: linkding
           gethomepage.dev/name: linkding
         className: external
         hosts:
-          - host: bookmarks.${SECRET_DOMAIN}
+          - host: bookmarks.housefam.casa
             paths:
               - path: /
                 service:

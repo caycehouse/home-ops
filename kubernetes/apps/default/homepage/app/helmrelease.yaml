@@ -75,7 +75,7 @@ spec:
           nginx.ingress.kubernetes.io/session-cookie-max-age: '172800'
         className: external
         hosts:
-          - host: '{{ .Release.Name }}.${SECRET_DOMAIN}'
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

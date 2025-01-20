@@ -5,7 +5,7 @@ metadata:
   name: emqx-dashboard
   annotations:
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://emqx.${SECRET_DOMAIN}"
+    gethomepage.dev/href: "https://emqx.housefam.casa"
     gethomepage.dev/description: Scalable MQTT broker solution
     gethomepage.dev/group: Utilities
     gethomepage.dev/icon: emqx
@@ -14,7 +14,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: emqx.${SECRET_DOMAIN}
+    - host: emqx.housefam.casa
       http:
         paths:
           - path: /

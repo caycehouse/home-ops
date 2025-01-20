@@ -60,4 +60,4 @@ spec:
   #           gethomepage.dev/icon: cilium
   #           gethomepage.dev/name: Hubble
   #         className: internal
-  #         hosts: ["hubble.${SECRET_DOMAIN}"]
+  #         hosts: ["hubble.housefam.casa"]

@@ -111,14 +111,14 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "status.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "status.housefam.casa"
           gethomepage.dev/description: Status Page
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: gatus
           gethomepage.dev/name: Gatus
         className: external
         hosts:
-          - host: status.${SECRET_DOMAIN}
+          - host: status.housefam.casa
             paths:
               - path: /
                 service:

@@ -66,14 +66,14 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://foundry.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://foundry.housefam.casa"
           gethomepage.dev/description: Roleplaying Platform
           gethomepage.dev/group: Games
           gethomepage.dev/icon: foundry-vtt
           gethomepage.dev/name: Foundry VTT
         className: external
         hosts:
-          - host: "foundry.${SECRET_DOMAIN}"
+          - host: "foundry.housefam.casa"
             paths:
               - path: /
                 service:

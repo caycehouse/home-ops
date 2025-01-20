@@ -7,7 +7,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: ${SECRET_ACME_EMAIL}
+    email: cayce@caycehouse.com
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
@@ -17,4 +17,4 @@ spec:
               name: cloudflare-secret
               key: CF_API_TOKEN
         selector:
-          dnsZones: ["${SECRET_DOMAIN}"]
+          dnsZones: ["housefam.casa"]

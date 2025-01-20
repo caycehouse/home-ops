@@ -95,7 +95,7 @@ spec:
           gethomepage.dev/description: TV PVR
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
-          gethomepage.dev/href: "https://sonarr.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://sonarr.housefam.casa"
           gethomepage.dev/icon: sonarr
           gethomepage.dev/name: Sonarr
           gethomepage.dev/widget.type: sonarr
@@ -103,7 +103,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SONARR_API_KEY}}` }}"
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

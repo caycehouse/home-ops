@@ -60,7 +60,7 @@ spec:
     sources: ["ingress", "service"]
     txtOwnerId: main
     txtPrefix: k8s.main.
-    domainFilters: ["${SECRET_DOMAIN}", "${SECRET_GAMING_DOMAIN}"]
+    domainFilters: ["housefam.casa", "thefryer.games"]
     serviceMonitor:
       enabled: true
     podAnnotations:

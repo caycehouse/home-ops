@@ -32,7 +32,6 @@ tasks:
     cmds:
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op run --env-file {{.BOOTSTRAP_DIR}}/.secrets.env --no-masking -- minijinja-cli {{.BOOTSTRAP_DIR}}/apps/templates/resources.yaml.j2 | kubectl apply --server-side --filename -
-      - sops --decrypt {{.CLUSTER_DIR}}/flux/meta/settings/cluster-secrets.secret.sops.yaml | kubectl apply --server-side --filename - # TODO: Not sure if I still need this...
       - helmfile --quiet --file {{.BOOTSTRAP_DIR}}/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - helmfile --quiet --file {{.BOOTSTRAP_DIR}}/apps/helmfile.yaml destroy --selector name=wipe-rook
     env:
@@ -45,11 +44,8 @@ tasks:
     preconditions:
       - op user get --me
       - talosctl config info
-      - test -f {{.ROOT_DIR}}/age.key # TODO: Not sure if I still need this...
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - test -f {{.BOOTSTRAP_DIR}}/apps/helmfile.yaml
       - test -f {{.BOOTSTRAP_DIR}}/apps/templates/resources.yaml.j2
       - test -f {{.BOOTSTRAP_DIR}}/apps/templates/wipe-rook.yaml.gotmpl
-      - test -f {{.CLUSTER_DIR}}/flux/meta/settings/cluster-secrets.secret.sops.yaml # TODO: Not sure if I still need this...
-      - sops filestatus {{.CLUSTER_DIR}}/flux/meta/settings/cluster-secrets.secret.sops.yaml | jq --exit-status '.encrypted' # TODO: Not sure if I still need this...
       - which curl jq helmfile kubectl op talosctl

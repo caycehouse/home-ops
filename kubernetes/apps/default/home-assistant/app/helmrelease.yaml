@@ -39,7 +39,7 @@ spec:
               TZ: America/New_York
               HASS_HTTP_TRUSTED_PROXY_1: 192.168.42.0/24
               HASS_HTTP_TRUSTED_PROXY_2: 10.69.0.0/16
-              HASS_INTERNAL_URL: &hass_url https://hass.${SECRET_DOMAIN}
+              HASS_INTERNAL_URL: &hass_url https://hass.housefam.casa
               HASS_EXTERNAL_URL: *hass_url
             envFrom:
               - secretRef:
@@ -97,7 +97,7 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://hass.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://hass.housefam.casa"
           gethomepage.dev/description: Home Automation
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: home-assistant
@@ -105,7 +105,7 @@ spec:
           gethomepage.dev/app: home-assistant
         className: external
         hosts:
-          - host: hass.${SECRET_DOMAIN}
+          - host: hass.housefam.casa
             paths:
               - path: /
                 service:
@@ -114,7 +114,7 @@ spec:
       code-server:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://hass-code.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://hass-code.housefam.casa"
           gethomepage.dev/description: Home Assistant Code Editor
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: code
@@ -122,7 +122,7 @@ spec:
           gethomepage.dev/app: home-assistant
         className: internal
         hosts:
-          - host: hass-code.${SECRET_DOMAIN}
+          - host: hass-code.housefam.casa
             paths:
               - path: /
                 service:

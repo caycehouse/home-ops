@@ -35,7 +35,7 @@ spec:
         gethomepage.dev/app: prometheus-blackbox-exporter
       className: internal
       hosts:
-        - host: blackbox-exporter.${SECRET_DOMAIN}
+        - host: blackbox-exporter.housefam.casa
           paths:
             - path: /
               pathType: Prefix

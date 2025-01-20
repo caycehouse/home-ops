@@ -91,12 +91,12 @@ spec:
           gethomepage.dev/description: Ultimate camera streaming application
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Utilities
-          gethomepage.dev/href: "https://go2rtc.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://go2rtc.housefam.casa"
           gethomepage.dev/icon: go2rtc
           gethomepage.dev/name: go2rtc
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

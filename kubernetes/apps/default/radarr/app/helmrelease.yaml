@@ -95,7 +95,7 @@ spec:
           gethomepage.dev/description: Movie PVR
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
-          gethomepage.dev/href: "https://radarr.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://radarr.housefam.casa"
           gethomepage.dev/icon: radarr
           gethomepage.dev/name: Radarr
           gethomepage.dev/widget.type: radarr
@@ -103,7 +103,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_RADARR_API_KEY}}` }}"
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

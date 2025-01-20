@@ -12,7 +12,7 @@ data:
                         "plugins": {
                               "enabled": false
                         },
-                        "cert": "meshcentral.${SECRET_DOMAIN}",
+                        "cert": "meshcentral.housefam.casa",
                         "port": 4430,
                         "AliasPort": 443,
                         "redirPort": 800,
@@ -23,7 +23,7 @@ data:
                         "": {
                               "minify": true,
                               "localSessionRecording": false,
-                              "certUrl": "https://meshcentral.${SECRET_DOMAIN}"
+                              "certUrl": "https://meshcentral.housefam.casa"
                         }
                   }
             }

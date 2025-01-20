@@ -43,7 +43,7 @@ spec:
               repository: ghcr.io/miniflux/miniflux
               tag: 2.2.4-distroless@sha256:c09492e6c353ab15c8aae824dd2c0c4247dc84d1ef0ac795226155365465343d
             env:
-              BASE_URL: https://rss.${SECRET_DOMAIN}
+              BASE_URL: https://rss.housefam.casa
               CREATE_ADMIN: "1"
               # DEBUG: "1"
               LOG_DATE_TIME: "1"
@@ -103,7 +103,7 @@ spec:
           gethomepage.dev/description: Minimalist and opinionated feed reader
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Reading
-          gethomepage.dev/href: "https://rss.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://rss.housefam.casa"
           gethomepage.dev/icon: miniflux
           gethomepage.dev/name: Miniflux
           gethomepage.dev/widget.type: miniflux
@@ -111,7 +111,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_MINIFLUX_API_KEY}}` }}"
         className: external
         hosts:
-          - host: "rss.${SECRET_DOMAIN}"
+          - host: "rss.housefam.casa"
             paths:
               - path: /
                 service:

@@ -44,7 +44,7 @@ spec:
       failureThreshold: 60
       periodSeconds: 10
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: &host seaopolis.${SECRET_GAMING_DOMAIN}
+      mc-router.itzg.me/externalServerName: &host seaopolis.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -85,10 +85,10 @@ spec:
           ingressClassName: external
           enabled: true
           annotations:
-            external-dns.alpha.kubernetes.io/target: mc-router.${SECRET_GAMING_DOMAIN}
+            external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
             external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: https://mcsrvstat.us/server/seaopolis.${SECRET_GAMING_DOMAIN}
+            gethomepage.dev/href: https://mcsrvstat.us/server/seaopolis.thefryer.games
             gethomepage.dev/description: "Seaopolis: Submerged"
             gethomepage.dev/group: Games
             gethomepage.dev/icon: https://media.forgecdn.net/avatars/thumbnails/996/291/256/256/638512959898606189.png

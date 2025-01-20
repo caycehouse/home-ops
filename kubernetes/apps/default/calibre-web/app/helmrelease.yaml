@@ -72,12 +72,12 @@ spec:
           gethomepage.dev/description: An eBook Library
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Reading
-          gethomepage.dev/href: "https://calibre-web.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://calibre-web.housefam.casa"
           gethomepage.dev/icon: calibre-web
           gethomepage.dev/name: Calibre-Web
         className: external
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

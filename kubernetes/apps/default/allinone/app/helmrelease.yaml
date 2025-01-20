@@ -34,7 +34,7 @@ spec:
     livenessProbe:
       initialDelaySeconds: 120
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: &host allinone.${SECRET_GAMING_DOMAIN}
+      mc-router.itzg.me/externalServerName: &host allinone.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -72,10 +72,10 @@ spec:
           ingressClassName: external
           enabled: true
           annotations:
-            external-dns.alpha.kubernetes.io/target: mc-router.${SECRET_GAMING_DOMAIN}
+            external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
             external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: https://mcsrvstat.us/server/allinone.${SECRET_GAMING_DOMAIN}
+            gethomepage.dev/href: https://mcsrvstat.us/server/allinone.thefryer.games
             gethomepage.dev/description: Modded One Block
             gethomepage.dev/group: Games
             gethomepage.dev/icon: https://media.forgecdn.net/avatars/342/91/637485703554418199.png

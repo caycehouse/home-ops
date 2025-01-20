@@ -36,8 +36,8 @@ spec:
               - secretRef:
                   name: cloudflare-ddns-secret
             args: [
-              "--zone-name", "${SECRET_DOMAIN}",
-              "--record-name", "ipv4.${SECRET_DOMAIN}",
+              "--zone-name", "housefam.casa",
+              "--record-name", "ipv4.housefam.casa",
               "--provider", "random"
             ]
             probes:

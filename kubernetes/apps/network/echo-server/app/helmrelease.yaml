@@ -86,14 +86,14 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://echo-server.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://echo-server.housefam.casa"
           gethomepage.dev/description: HTTP echo server
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: mdi-web-check
           gethomepage.dev/name: Echo Server
         className: external
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

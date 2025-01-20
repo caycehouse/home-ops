@@ -44,7 +44,7 @@ spec:
       failureThreshold: 60
       periodSeconds: 10
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: &host atm9.${SECRET_GAMING_DOMAIN}
+      mc-router.itzg.me/externalServerName: &host atm9.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -82,10 +82,10 @@ spec:
           ingressClassName: external
           enabled: true
           annotations:
-            external-dns.alpha.kubernetes.io/target: mc-router.${SECRET_GAMING_DOMAIN}
+            external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
             external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: https://mcsrvstat.us/server/atm9.${SECRET_GAMING_DOMAIN}
+            gethomepage.dev/href: https://mcsrvstat.us/server/atm9.thefryer.games
             gethomepage.dev/description: All the Mods 9
             gethomepage.dev/group: Games
             gethomepage.dev/icon: https://media.forgecdn.net/avatars/thumbnails/902/338/256/256/638350403793040080.png

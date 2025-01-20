@@ -50,7 +50,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_FILTERED_CACHE: '["brightness", "rgb_color", "hs_color", "xy_color", "color_temp_kelvin", "color_temp", "color", "color_mode"]'
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.${SECRET_DOMAIN}
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.housefam.casa
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_STATUS_TOPIC: homeassistant/status
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
@@ -106,14 +106,14 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://zigbee.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://zigbee.housefam.casa"
           gethomepage.dev/description: Zigbee device integration hub
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: zigbee2mqtt
           gethomepage.dev/name: Zigbee2MQTT
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

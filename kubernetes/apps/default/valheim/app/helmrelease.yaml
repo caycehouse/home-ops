@@ -99,7 +99,7 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_GAMING_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ipv4.thefryer.games
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Skål!
@@ -111,7 +111,7 @@ spec:
           gethomepage.dev/widget.url: udp://valheim.default.svc.cluster.local:2457
         className: external
         hosts:
-          - host: "valheim.${SECRET_GAMING_DOMAIN}"
+          - host: "valheim.thefryer.games"
             paths:
               - path: /
                 service:

@@ -36,7 +36,7 @@ spec:
       dashboard:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://rook.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://rook.housefam.casa"
           gethomepage.dev/description: Distributed storage system
           gethomepage.dev/group: Storage
           gethomepage.dev/icon: rook
@@ -44,7 +44,7 @@ spec:
           gethomepage.dev/app: ceph-mgr
         ingressClassName: internal
         host:
-          name: rook.${SECRET_DOMAIN}
+          name: rook.housefam.casa
           path: /
     toolbox:
       enabled: true
@@ -212,5 +212,5 @@ spec:
       #       nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
       #     ingressClassName: internal
       #     host:
-      #       name: rgw.${SECRET_DOMAIN}
+      #       name: rgw.housefam.casa
       #       path: /

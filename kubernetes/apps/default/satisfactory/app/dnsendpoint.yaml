@@ -6,9 +6,9 @@ metadata:
   name: satisfactory
 spec:
   endpoints:
-    - dnsName: "satisfactory.${SECRET_GAMING_DOMAIN}"
+    - dnsName: "satisfactory.thefryer.games"
       recordType: CNAME
-      targets: ["ipv4.${SECRET_DOMAIN}"]
+      targets: ["ipv4.housefam.casa"]
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"

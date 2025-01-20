@@ -80,7 +80,7 @@ spec:
           gethomepage.dev/description: Plex monitoring and tracking
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
-          gethomepage.dev/href: "https://tautulli.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://tautulli.housefam.casa"
           gethomepage.dev/icon: tautulli
           gethomepage.dev/name: Tautulli
           gethomepage.dev/widget.type: tautulli
@@ -88,7 +88,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_TAUTULLI_API_KEY}}` }}"
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

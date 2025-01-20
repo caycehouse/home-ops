@@ -79,14 +79,14 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://requests.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://requests.housefam.casa"
           gethomepage.dev/description: Media Discovery & Request Management
           gethomepage.dev/group: Starr
           gethomepage.dev/icon: jellyseerr
           gethomepage.dev/name: Jellyseerr
         className: external
         hosts:
-          - host: requests.${SECRET_DOMAIN}
+          - host: requests.housefam.casa
             paths:
               - path: /
                 service:

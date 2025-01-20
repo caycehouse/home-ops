@@ -103,7 +103,7 @@ spec:
           gethomepage.dev/description: Subtitle companion
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
-          gethomepage.dev/href: "https://bazarr.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://bazarr.housefam.casa"
           gethomepage.dev/icon: bazarr
           gethomepage.dev/name: Bazarr
           gethomepage.dev/widget.type: bazarr
@@ -111,7 +111,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_BAZARR_API_KEY}}` }}"
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

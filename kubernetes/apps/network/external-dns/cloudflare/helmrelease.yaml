@@ -46,7 +46,7 @@ spec:
     sources: ["crd", "ingress"]
     txtOwnerId: default
     txtPrefix: k8s.
-    domainFilters: ["${SECRET_DOMAIN}", "${SECRET_GAMING_DOMAIN}"]
+    domainFilters: ["housefam.casa", "thefryer.games"]
     serviceMonitor:
       enabled: true
     podAnnotations:

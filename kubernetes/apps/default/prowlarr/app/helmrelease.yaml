@@ -92,7 +92,7 @@ spec:
           gethomepage.dev/description: The Ultimate Indexer Manager
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Starr
-          gethomepage.dev/href: "https://prowlarr.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://prowlarr.housefam.casa"
           gethomepage.dev/icon: prowlarr
           gethomepage.dev/name: Prowlarr
           gethomepage.dev/widget.type: prowlarr
@@ -100,7 +100,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PROWLARR_API_KEY}}` }}"
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

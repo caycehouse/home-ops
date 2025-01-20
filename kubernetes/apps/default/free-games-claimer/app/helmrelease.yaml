@@ -64,14 +64,14 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://fgc.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://fgc.housefam.casa"
           gethomepage.dev/description: Free games claimer
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: mdi-gamepad
           gethomepage.dev/name: free-games-claimer
         className: internal
         hosts:
-          - host: fgc.${SECRET_DOMAIN}
+          - host: fgc.housefam.casa
             paths:
               - path: /
                 service:

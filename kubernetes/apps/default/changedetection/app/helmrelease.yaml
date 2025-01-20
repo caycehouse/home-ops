@@ -83,14 +83,14 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://changedetection.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://changedetection.housefam.casa"
           gethomepage.dev/description: Website change detection
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: changedetection
           gethomepage.dev/name: changedetection.io
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:

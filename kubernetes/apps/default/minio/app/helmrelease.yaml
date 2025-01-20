@@ -33,12 +33,12 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-12-18T13-15-44Z@sha256:1dce27c494a16bae114774f1cec295493f3613142713130c2d22dd5696be6ad3
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN},https://s3.${SECRET_DOMAIN}
-              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.housefam.casa,https://s3.housefam.casa
+              MINIO_BROWSER_REDIRECT_URL: https://minio.housefam.casa
               MINIO_PROMETHEUS_JOB_ID: minio
-              MINIO_PROMETHEUS_URL: https://prometheus.${SECRET_DOMAIN}
+              MINIO_PROMETHEUS_URL: https://prometheus.housefam.casa
               MINIO_PROMETHEUS_AUTH_TYPE: public
-              MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN}
+              MINIO_SERVER_URL: https://s3.housefam.casa
               MINIO_STORAGE_CLASS_RRS: EC:0
               MINIO_STORAGE_CLASS_STANDARD: EC:0
               MINIO_UPDATE: "off"
@@ -99,18 +99,18 @@ spec:
           gethomepage.dev/description: S3 compatible object store
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Storage
-          gethomepage.dev/href: "https://minio.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://minio.housefam.casa"
           gethomepage.dev/icon: minio
           gethomepage.dev/name: MinIO
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.housefam.casa"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: s3.${SECRET_DOMAIN}
+          - host: s3.housefam.casa
             paths:
               - path: /
                 service:

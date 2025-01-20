@@ -28,7 +28,7 @@ spec:
       replicaCount: 2
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: external.${SECRET_DOMAIN}, ipv4.${SECRET_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: external.housefam.casa, ipv4.housefam.casa
           lbipam.cilium.io/ips: 192.168.42.126
       ingressClassResource:
         name: external
@@ -75,8 +75,8 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: cert-manager/${SECRET_DOMAIN/./-}-tls
-        publish-status-address: external.${SECRET_DOMAIN}
+        default-ssl-certificate: cert-manager/housefam-casa-tls
+        publish-status-address: external.housefam.casa
       terminationGracePeriodSeconds: 120
       publishService:
         enabled: false

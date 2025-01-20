@@ -38,21 +38,21 @@ spec:
         enabled: true
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://alertmanager.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://alertmanager.housefam.casa"
           gethomepage.dev/description: Notification orchestration for Prometheus
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: alertmanager
           gethomepage.dev/name: Alertmanager
           gethomepage.dev/app: alertmanager
         ingressClassName: internal
-        hosts: ["alertmanager.${SECRET_DOMAIN}"]
+        hosts: ["alertmanager.housefam.casa"]
         pathType: Prefix
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: https://alertmanager.${SECRET_DOMAIN}
+        externalUrl: https://alertmanager.housefam.casa
         storage:
           volumeClaimTemplate:
             spec:
@@ -81,7 +81,7 @@ spec:
         enabled: true
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://prometheus.${SECRET_DOMAIN}"
+          gethomepage.dev/href: "https://prometheus.housefam.casa"
           gethomepage.dev/description: Insightful Data Visualization
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: prometheus
@@ -90,7 +90,7 @@ spec:
           gethomepage.dev/widget.type: prometheus
           gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
         ingressClassName: internal
-        hosts: ["prometheus.${SECRET_DOMAIN}"]
+        hosts: ["prometheus.housefam.casa"]
         pathType: Prefix
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false

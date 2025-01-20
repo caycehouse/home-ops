@@ -6,23 +6,23 @@ metadata:
   name: &app satisfactory
   namespace: flux-system
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: volsync
-  path: ./kubernetes/apps/default/satisfactory/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  wait: false
   interval: 30m
-  timeout: 5m
+  path: ./kubernetes/apps/default/satisfactory/app
   postBuild:
     substitute:
       APP: *app
       GATUS_URL: udp://satisfactory.default.svc.cluster.local:7777
       VOLSYNC_CAPACITY: 15Gi
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false

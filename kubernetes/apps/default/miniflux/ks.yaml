@@ -6,24 +6,24 @@ metadata:
   name: &app miniflux
   namespace: flux-system
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg-cluster
     - name: onepassword-store
-  path: ./kubernetes/apps/default/miniflux/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  wait: false
   interval: 30m
-  timeout: 5m
+  path: ./kubernetes/apps/default/miniflux/app
   postBuild:
     substitute:
       APP: *app
       GATUS_PATH: /healthcheck
       GATUS_SUBDOMAIN: rss
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false

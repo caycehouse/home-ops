@@ -22,8 +22,8 @@ metadata:
     controller.cert-manager.io/fao: "true"
 type: kubernetes.io/tls
 data:
-  tls.crt: op://$VAULT/housefam-casa-tls/tls.crt
-  tls.key: op://$VAULT/housefam-casa-tls/tls.key
+  tls.crt: {{ ENV.INGRESS_NGINX_TLS_CRT }}
+  tls.key: {{ ENV.INGRESS_NGINX_TLS_KEY }}
 ---
 apiVersion: v1
 kind: Namespace
@@ -36,5 +36,5 @@ metadata:
   name: onepassword-secret
   namespace: external-secrets
 stringData:
-  1password-credentials.json: op://$VAULT/1password/OP_CREDENTIALS_JSON
-  token: op://$VAULT/1password/OP_CONNECT_TOKEN
+  1password-credentials.json: {{ ENV.ONEPASSWORD_CREDENTIALS }}
+  token: {{ ENV.ONEPASSWORD_CONNECT_TOKEN }}

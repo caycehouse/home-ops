@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../templates/alerts
   # Flux-Kustomizations
   # - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
@@ -42,6 +41,8 @@ resources:
   # - ./valheim/ks.yaml
   - ./watchlistarr/ks.yaml
   - ./zigbee/ks.yaml
+components:
+  - ../../components/alerts
 transformers:
   - |-
     apiVersion: builtin

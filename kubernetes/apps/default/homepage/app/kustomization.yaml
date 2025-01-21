@@ -6,4 +6,3 @@ resources:
   - ./configmap.yaml
   - ./helmrelease.yaml
   - ./rbac.yaml
-  - ../../../../templates/gatus/external

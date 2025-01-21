@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../templates/gatus/guarded
+    - ../../../../components/gatus/guarded
   dependsOn:
     - name: onepassword-store
   interval: 30m

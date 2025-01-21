@@ -1,0 +1,10 @@
+endpoints:
+  - name: "${APP}"
+    group: app
+    url: "${GATUS_URL}"
+    interval: 1m
+    ui:
+      hide-url: true
+      hide-hostname: true
+    conditions:
+      - "[CONNECTED] == true"

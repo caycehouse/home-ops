@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/external
+    - ../../../../flux/components/gatus/external
   interval: 30m
   path: ./kubernetes/apps/network/echo-server/app
   postBuild:
@@ -21,6 +21,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: network
+  targetNamespace: *namespace
   timeout: 5m
   wait: false

@@ -2,6 +2,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: default
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
@@ -43,12 +44,5 @@ resources:
   - ./watchlistarr/ks.yaml
   - ./zigbee/ks.yaml
 components:
-  - ../../components/alerts
-transformers:
-  - |-
-    apiVersion: builtin
-    kind: NamespaceTransformer
-    metadata:
-      name: not-used
-      namespace: default
-    unsetOnly: true
+  - ../../flux/components/alerts
+  - ../../flux/components/sops

@@ -110,10 +110,10 @@ spec:
       media:
         type: nfs
         server: bakery.internal
-        path: /mnt/storage1/media
+        path: /mnt/storage1/Media
         globalMounts:
-          - path: /data/usenet
-            subPath: usenet
+          - path: /media/Downloads/sabnzbd
+            subPath: Downloads/sabnzbd
       scripts:
         type: configMap
         name: sabnzbd-scripts

@@ -1,7 +1,3 @@
-# This is a generic example of a configuration file
-# Rename this file to `config.yml`, copy it to a `config` folder, and mount that folder as per the docker-compose.example.yml
-# Only uncomment the lines you want to use/modify, or add new ones where needed
-
 exclude:
   # Exclude platforms to be scanned
   platforms: [] # ['my_excluded_platform_1', 'my_excluded_platform_2']
@@ -39,7 +35,9 @@ system:
   # Asociate different platform names to your current file system platform names
   # [your custom platform folder name]: [RomM platform name]
   # In this example if you have a 'gc' folder, RomM will treat it like the 'ngc' folder and if you have a 'psx' folder, RomM will treat it like the 'ps' folder
-  platforms: {} # { gc: 'ngc', psx: 'ps' }
+  platforms: {
+    nes: 'nes'
+  }
 
   # Asociate one platform to it's main version
   versions: {} # { naomi: 'arcade' }

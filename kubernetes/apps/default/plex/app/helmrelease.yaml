@@ -131,10 +131,9 @@ spec:
       media:
         type: nfs
         server: bakery.internal
-        path: /mnt/storage1/media
+        path: /mnt/storage1/Media
         globalMounts:
-          - path: /data/media
-            subPath: media
+          - path: /media
             readOnly: true
       tmp:
         type: emptyDir

@@ -113,4 +113,5 @@ spec:
         globalMounts:
           - path: /romm/library
             subPath: Library/ROMs
-
+      tmp:
+        type: emptyDir

@@ -24,7 +24,7 @@ spec:
       APP: *app
       GATUS_URL: udp://valheim.default.svc.cluster.local:2456
       VOLSYNC_CAPACITY: 5Gi
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: flux-system

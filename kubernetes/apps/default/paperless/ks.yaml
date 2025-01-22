@@ -27,7 +27,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 30Gi
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: flux-system

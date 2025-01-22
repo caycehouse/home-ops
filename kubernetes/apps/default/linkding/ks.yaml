@@ -22,7 +22,7 @@ spec:
     substitute:
       APP: *app
       GATUS_SUBDOMAIN: bookmarks
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -24,7 +24,7 @@ spec:
       APP: *app
       GATUS_URL: tcp://minecraft-minecraft.default.svc.cluster.local:25565
       VOLSYNC_CAPACITY: 15Gi
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: flux-system

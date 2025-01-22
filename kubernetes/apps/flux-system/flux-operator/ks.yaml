@@ -11,12 +11,12 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/flux-system/flux-operator/app
-  prune: false # never should be deleted
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: flux-system
   timeout: 5m
   wait: false
 ---
@@ -32,11 +32,11 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/flux-system/flux-operator/instance
-  prune: false # never should be deleted
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: flux-system
   timeout: 5m
   wait: false

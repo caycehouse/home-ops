@@ -14,6 +14,7 @@ spec:
     - ../../../../flux/components/volsync
   dependsOn:
     - name: emqx-cluster
+      namespace: database
     - name: onepassword-store
       namespace: external-secrets
     - name: volsync

@@ -87,9 +87,9 @@ spec:
       books:
         type: nfs
         server: bakery.internal
-        path: /mnt/storage1/media
+        path: /mnt/storage1/Media
         globalMounts:
-          - path: /books
-            subPath: books
+          - path: /media/Library/Books
+            subPath: Library/Books
       config:
         existingClaim: calibre-web

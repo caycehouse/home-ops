@@ -23,7 +23,7 @@ spec:
       APP: *app
       GATUS_PATH: /healthcheck
       GATUS_SUBDOMAIN: rss
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

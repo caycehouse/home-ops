@@ -24,7 +24,7 @@ spec:
       APP: *app
       GATUS_URL: tcp://seaopolis-minecraft.default.svc.cluster.local:25565
       VOLSYNC_CAPACITY: 8Gi
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

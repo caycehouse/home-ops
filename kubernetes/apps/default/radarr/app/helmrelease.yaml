@@ -123,9 +123,7 @@ spec:
       media:
         type: nfs
         server: bakery.internal
-        path: /mnt/storage1/media
-        globalMounts:
-          - path: /data
+        path: /mnt/storage1/Media
       scripts:
         type: configMap
         name: radarr-configmap

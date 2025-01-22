@@ -95,7 +95,10 @@ spec:
       config:
         existingClaim: romm
         globalMounts:
-          - path: /romm
+          - path: /romm/assets
+            subPath: assets
+          - path: /romm/resources
+            subPath: resources
       config-file:
         type: configMap
         name: romm-configmap

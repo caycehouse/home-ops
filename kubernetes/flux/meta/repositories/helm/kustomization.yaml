@@ -11,6 +11,7 @@ resources:
   - ./controlplaneio.yaml
   - ./coredns.yaml
   - ./descheduler.yaml
+  - ./dragonfly-operator.yaml
   - ./emqx.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml

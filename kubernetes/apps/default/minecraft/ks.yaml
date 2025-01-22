@@ -4,17 +4,19 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app minecraft
-  namespace: flux-system
+  namespace: &namespace default
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/app
-    - ../../../../components/volsync
+    - ../../../../flux/components/gatus/app
+    - ../../../../flux/components/volsync
   dependsOn:
     - name: onepassword-store
+      namespace: external-secrets
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/default/minecraft/app
   postBuild:
@@ -22,11 +24,11 @@ spec:
       APP: *app
       GATUS_URL: tcp://minecraft-minecraft.default.svc.cluster.local:25565
       VOLSYNC_CAPACITY: 15Gi
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: *namespace
   timeout: 5m
   wait: false

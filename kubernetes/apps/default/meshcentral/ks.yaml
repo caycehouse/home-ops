@@ -4,28 +4,30 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app meshcentral
-  namespace: flux-system
+  namespace: &namespace default
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/external
-    - ../../../../components/volsync
+    - ../../../../flux/components/gatus/external
+    - ../../../../flux/components/volsync
   dependsOn:
     - name: onepassword-store
+      namespace: external-secrets
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/default/meshcentral/app
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 15Gi
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: *namespace
   timeout: 5m
   wait: false

@@ -117,9 +117,7 @@ spec:
                   identifier: app
                   port: s3
     persistence:
-      config:
+      data:
         type: nfs
         server: bakery.internal
         path: /mnt/storage1/Minio
-        globalMounts:
-          - path: /data

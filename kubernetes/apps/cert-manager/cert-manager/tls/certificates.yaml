@@ -3,11 +3,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "housefam-casa"
+  name: housefam-casa
 spec:
-  secretName: "housefam-casa-tls"
+  secretName: housefam-casa-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "housefam.casa"
+  commonName: housefam.casa
   dnsNames: ["housefam.casa", "*.housefam.casa"]

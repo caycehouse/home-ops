@@ -24,26 +24,6 @@ tasks:
       - '[[ "{{.STATE}}" == "suspend" || "{{.STATE}}" == "resume" ]]'
       - which flux kubectl
 
-  list:
-    desc: List snapshots for an application [NS=default] [APP=required]
-    cmds:
-      - minijinja-cli {{.VOLSYNC_RESOURCES_DIR}}/list.yaml.j2 | kubectl apply --server-side --filename -
-      - until kubectl --namespace {{.NS}} get job/list-{{.APP}} &>/dev/null; do sleep 5; done
-      - kubectl --namespace {{.NS}} wait job/list-{{.APP}} --for=condition=complete --timeout=5m
-      - kubectl --namespace {{.NS}} logs job/list-{{.APP}} --container main
-      - kubectl --namespace {{.NS}} delete job/list-{{.APP}}
-    vars:
-      NS: '{{.NS | default "default"}}'
-      APP: '{{.APP}}'
-    env:
-      NS: '{{.NS}}'
-      APP: '{{.APP}}'
-    requires:
-      vars: [APP]
-    preconditions:
-      - test -f {{.VOLSYNC_RESOURCES_DIR}}/list.yaml.j2
-      - which kubectl minijinja-cli
-
   unlock:
     desc: Unlock all restic source repos
     cmds:

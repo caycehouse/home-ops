@@ -96,7 +96,7 @@ spec:
           gethomepage.dev/name: go2rtc
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.housefam.casa"
+          - host: go2rtc.housefam.casa
             paths:
               - path: /
                 service:

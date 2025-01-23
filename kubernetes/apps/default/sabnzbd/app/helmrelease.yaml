@@ -98,7 +98,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SABNZBD_API_KEY}}` }}"
         className: internal
         hosts:
-          - host: "sab.housefam.casa"
+          - host: sab.housefam.casa
             paths:
               - path: /
                 service:

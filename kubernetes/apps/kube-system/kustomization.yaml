@@ -4,8 +4,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: kube-system
 resources:
-  - ./coredns/ks.yaml
   - ./cilium/ks.yaml
+  - ./coredns/ks.yaml
   - ./descheduler/ks.yaml
   - ./fstrim/ks.yaml
   - ./intel-device-plugin/ks.yaml

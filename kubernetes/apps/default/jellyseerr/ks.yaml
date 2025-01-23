@@ -20,8 +20,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: requests
       GATUS_PATH: /api/v1/status
+      GATUS_SUBDOMAIN: requests
       VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:

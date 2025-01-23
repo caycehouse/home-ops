@@ -81,15 +81,15 @@ spec:
         seccompProfile: { type: RuntimeDefault }
       # nodeSelector:
         # topology.kubernetes.io/zone: w
-    affinity: # TODO: remove this once k8s-1 is replaced.
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: NotIn
-                  values:
-                    - k8s-1
+      affinity: # TODO: remove this once k8s-1 is replaced.
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                      - k8s-1
     service:
       app:
         controller: sabnzbd

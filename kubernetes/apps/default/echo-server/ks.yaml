@@ -3,19 +3,19 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cloudflared
-  namespace: &namespace network
+  name: &app echo-server
+  namespace: &namespace default
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: external-dns-cloudflare
-      namespace: network
-    - name: onepassword-store
-      namespace: external-secrets
+  components:
+    - ../../../../flux/components/gatus/external
   interval: 30m
-  path: ./kubernetes/apps/network/cloudflared/app
+  path: ./kubernetes/apps/default/echo-server/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -23,4 +23,4 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
-  wait: true
+  wait: false

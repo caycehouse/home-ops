@@ -4,13 +4,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: network
 resources:
-  - ./cloudflare-ddns/ks.yaml
-  - ./cloudflared/ks.yaml
-  - ./echo-server/ks.yaml
-  - ./external-dns/ks.yaml
+  - ./external/ks.yaml
+  - ./internal/ks.yaml
   - ./mc-router/ks.yaml
   - ./multus/ks.yaml
-  - ./nginx/ks.yaml
 components:
   - ../../flux/components/alerts
   - ../../flux/components/sops

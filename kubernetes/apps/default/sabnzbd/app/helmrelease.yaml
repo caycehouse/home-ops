@@ -119,6 +119,8 @@ spec:
     persistence:
       config:
         existingClaim: sabnzbd
+      incomplete:
+        type: emptyDir
       media:
         type: nfs
         server: bakery.internal

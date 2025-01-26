@@ -50,7 +50,7 @@
 | System Password               | Not Set                                                                                                             |
 | Internal HDD-0 Password       | Not Set                                                                                                             |
 | Strong Password               | Disabled                                                                                                            |
-| Password Configuration        | 4-32 for both Admin and System Password                                                                             |
+| Password Configuration        | Leave Default                                                                                                       |
 | Password Bypass               | Disabled                                                                                                            |
 | Password Change               | Enabled                                                                                                             |
 | UEFI Capsule Firmware Updates | Enabled                                                                                                             |
@@ -75,12 +75,13 @@
 | Intel&reg; SGX&trade; Enable | Software Controlled |
 
 ## Performance
-| Option                | Setting             |
-|-----------------------|---------------------|
-| Multi Core Support    | All            |
-| Intel&reg; SpeedStep&trade;    | Enabled            |
-| C-States Control    | Enabled            |
-| Intel&reg; TurboBoost&trade;   | Enabled            |
+| Option                       | Setting |
+|------------------------------|---------|
+| Multi Core Support           | All     |
+| Intel&reg; SpeedStep&trade;  | Enabled |
+| C-States Control             | Enabled |
+| Intel&reg; TurboBoost&trade; | Enabled |
+| HyperThread control          | Enabled |
 
 ## Power Management
 | Option                              | Setting  |
@@ -111,8 +112,8 @@
 | VT for Direct I/O | Enabled |
 
 ## Wireless
-| Option                 | Setting    |
-|------------------------|------------|
+| Option                 | Setting     |
+|------------------------|-------------|
 | Wireless Device Enable | All Enabled |
 
 ## Maintenance

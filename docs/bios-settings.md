@@ -6,7 +6,7 @@
 3. [Video](#Video)
 4. [Security](#Security)
 5. [Secure Boot](#Secure-Boot)
-6. [Intel&reg; Software Guard Extensions&trade;](#Intel&reg;-Software-Guard-Extensions&trade;)
+6. [Intel&reg; Software Guard Extensions&trade;](#Intel-Software-Guard-Extensions)
 7. [Performance](#Performance)
 8. [Power Management](#Power-Management)
 9. [POST Behavior](#POST-Behavior)

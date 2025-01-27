@@ -30,7 +30,7 @@ spec:
           cni-plugins:
             image:
               repository: ghcr.io/caycehouse/cni-plugins
-              tag: 1.6.2@sha256:b93acc22432e286b64122095223cd30961afc58ffc48e7cda2ee667799f2126f
+              tag: 1.6.2@sha256:7c446dd606ba33d4f549750278e16eff51ae71d40be7b1a18aa90f0c18f93cf6
         containers:
           multus:
             image:

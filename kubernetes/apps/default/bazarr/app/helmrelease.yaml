@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/bazarr
-              tag: 1.5.1@sha256:48ff91e45412e74d799c8c94f2acc7fad531fba127de4a6a3f343155fff15243
+              tag: 1.5.1@sha256:7cd2dfe217a29cfc58f4dde0b42e345fae1156e2f16740c98ce374e6dcc563df
             env:
               TZ: America/New_York
             envFrom: *envFrom

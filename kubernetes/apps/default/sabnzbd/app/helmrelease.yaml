@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/sabnzbd
-              tag: 4.4.1@sha256:81d624d6bf96c70e7beb0973fb4eb6999c0ba7d11a644c5ecb6c05e49b99f954
+              tag: 4.4.1@sha256:198d6c9fc067fcc2b0193637be9069d080be546af106f3aad4ca458c2a132e1f
             env:
               TZ: America/New_York
               SABNZBD__PORT: &port 80

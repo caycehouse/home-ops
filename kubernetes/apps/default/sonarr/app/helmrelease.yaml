@@ -116,7 +116,6 @@ spec:
         existingClaim: sonarr-cache
         globalMounts:
           - path: /config/MediaCover
-            subPath: MediaCover
       media:
         type: nfs
         server: bakery.internal

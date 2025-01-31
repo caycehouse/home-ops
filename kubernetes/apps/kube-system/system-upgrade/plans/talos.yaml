@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/upgrade.cattle.io/plan_v1.json
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: talos
+spec:
+  version: ${TALOS_VERSION}
+  concurrency: 1
+  exclusive: true
+  serviceAccountName: system-upgrade
+  secrets:
+    - name: system-upgrade
+      path: /var/run/secrets/talos.dev
+      ignoreUpdates: true
+  prepare:
+    image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
+    envs: &envs
+      - name: NODE
+        valueFrom:
+          fieldRef:
+            fieldPath: spec.nodeName
+    args:
+      - --nodes=$(NODE)
+      - health
+  upgrade:
+    image: ghcr.io/jfroy/tnu:0.2.1
+    envs: *envs
+    args:
+      - --node=$(NODE)
+      - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --powercycle

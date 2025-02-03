@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/nfd.k8s-sigs.io/nodefeaturerule_v1alpha1.json
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: intel-e1000e-module
+spec:
+  rules:
+    - # Intel e1000e module
+      name: e1000e
+      labels:
+        intel.feature.node.kubernetes.io/e1000e: "true"
+      matchFeatures:
+        - feature: kernel.loadedmodule
+          matchExpressions:
+            e1000e: { op: Exists }

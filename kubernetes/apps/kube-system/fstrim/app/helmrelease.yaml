@@ -28,7 +28,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: 0 0 * * 0
-          parallelism: 3 # Set to total number of nodes
+          parallelism: 4 # Set to total number of nodes
           successfulJobsHistory: 1
           failedJobsHistory: 1
         containers:

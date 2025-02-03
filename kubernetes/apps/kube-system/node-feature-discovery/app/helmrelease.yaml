@@ -30,6 +30,6 @@ spec:
     worker:
       config:
         core:
-          labelSources: ["pci", "system", "usb", "network"]
+          labelSources: ["pci", "system", "usb"]
     prometheus:
       enable: true

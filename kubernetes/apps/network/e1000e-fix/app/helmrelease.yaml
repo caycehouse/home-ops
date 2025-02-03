@@ -44,7 +44,7 @@ spec:
                                     ethtool -k % && \
                                     echo '==========' && \
                                     echo 'Disabling offloads for %...' && \
-                                    ethtool -K % tso off && \
+                                    ethtool -K % tso off gso off gro off && \
                                     echo '==========' && \
                                     echo '% - AFTER' && \
                                     echo '==========' && \

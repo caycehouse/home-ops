@@ -28,8 +28,8 @@ machine:
         bond:
           mode: active-backup
           deviceSelectors:
-            - hardwareAddr: 70:b5:e8:57:*
-              driver: r8169
+            - hardwareAddr: c0:25:a5:a0:*
+              driver: e1000e
         mtu: 1500
         dhcp: true
         vlans:
@@ -41,7 +41,7 @@ machine:
             mtu: 1500
   install:
     diskSelector:
-      model: CL1-3D256-Q11 NVMe SSSTC 256GB
+      model: PNY CS2140 500GB SSD
     extraKernelArgs:
       - apparmor=0           # Less security, faster puter
       - init_on_alloc=0      # Less security, faster puter

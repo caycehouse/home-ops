@@ -111,7 +111,9 @@ spec:
         server: bakery.internal
         path: /mnt/storage1/Media
         globalMounts:
-          - path: /romm/library
+          - path: /romm/library/bios
+            subPath: Library/BIOS
+          - path: /romm/library/roms
             subPath: Library/ROMs
       tmp:
         type: emptyDir

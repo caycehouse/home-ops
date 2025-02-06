@@ -22,9 +22,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     controllers:
       romm:
@@ -92,13 +89,6 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
-        existingClaim: romm
-        globalMounts:
-          - path: /romm/assets
-            subPath: assets
-          - path: /romm/resources
-            subPath: resources
       config-file:
         type: configMap
         name: romm-configmap
@@ -111,13 +101,15 @@ spec:
         server: bakery.internal
         path: /mnt/storage1/Media
         globalMounts:
+          - path: /romm/assets
+            subPath: Library/ROMs/romm/assets
           - path: /romm/library/bios
             subPath: Library/ROMs/romm/bios
             readOnly: true
           - path: /romm/library/roms
             subPath: Library/ROMs/romm/roms
             readOnly: true
-          - path: /romm/resources-new
+          - path: /romm/resources
             subPath: Library/ROMs/romm/resources
       tmp:
         type: emptyDir

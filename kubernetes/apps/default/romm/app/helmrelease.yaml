@@ -117,5 +117,7 @@ spec:
           - path: /romm/library/roms
             subPath: Library/ROMs/romm/roms
             readOnly: true
+          - path: /romm/resources-new
+            subPath: Library/ROMs/romm/resources
       tmp:
         type: emptyDir

@@ -64,6 +64,8 @@ spec:
         smtpHostKey: SMTP_HOST
         smtpUsernameKey: SMTP_USER
         smtpPasswordKey: SMTP_PASS
+        # https://github.com/xperimental/nextcloud-exporter?tab=readme-ov-file#token-authentication
+        tokenKey: METRICS_TOKEN
       defaultConfigs:
         redis.config.php: false
       configs:

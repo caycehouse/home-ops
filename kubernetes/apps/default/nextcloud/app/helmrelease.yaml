@@ -52,8 +52,10 @@ spec:
         passwordKey: POSTGRES_PASSWORD
     metrics:
       enabled: true
+      server: https://nc.housefam.casa
       serviceMonitor:
         enabled: true
+      timeout: 10s
     nextcloud:
       host: "nc.housefam.casa"
       existingSecret:

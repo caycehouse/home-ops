@@ -11,7 +11,6 @@ bpf:
   masquerade: true
   preallocateMaps: true
   tproxy: true
-  vlanBypass: [0]
 bgpControlPlane:
   enabled: true
 cgroup:

@@ -22,7 +22,6 @@ cluster:
   name: main
 cni:
   exclusive: false
-devices: bond+
 endpointRoutes:
   enabled: true
 envoy:

@@ -11,78 +11,69 @@ repositories:
   - name: cilium
     url: https://helm.cilium.io
 
-  - name: coredns
-    url: https://coredns.github.io/helm
-
   - name: jetstack
     url: https://charts.jetstack.io
 
 releases:
-  - name: kube-prometheus-stack-crds
-    namespace: observability
+  - name: prometheus-operator-crds
+    namespace: kube-system
     chart: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
-    version: 17.0.2
+    version: 18.0.0
+    values:
+      - crds:
+          annotations:
+            helm.sh/resource-policy: keep
 
   - name: cilium
     namespace: kube-system
     chart: cilium/cilium
-    version: 1.16.6
-    values:
-      - ../apps/kube-system/cilium/app/helm-values.yaml
-    needs:
-      - observability/kube-prometheus-stack-crds
+    version: 1.17.0
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/cilium/app/helm-values.yaml']
+    hooks:
+      - events: ["postsync"]
+        command: bash
+        args: ['{{ requiredEnv "KUBERNETES_DIR" }}/bootstrap/apps/scripts/cilium-postsync.sh']
+    needs: ['kube-system/prometheus-operator-crds']
 
   - name: coredns
     namespace: kube-system
-    chart: coredns/coredns
-    version: 1.37.3
-    values:
-      - ../apps/kube-system/coredns/app/helm-values.yaml
-    needs:
-      - kube-system/cilium
+    chart: oci://ghcr.io/coredns/charts/coredns
+    version: 1.39.0
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/coredns/app/helm-values.yaml']
+    needs: ['kube-system/cilium']
 
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.16.3
-    values:
-      - ../apps/cert-manager/cert-manager/app/helm-values.yaml
-    needs:
-      - kube-system/coredns
+    version: v1.17.0
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/cert-manager/cert-manager/app/helm-values.yaml']
+    needs: ['kube-system/coredns']
 
   - name: external-secrets
     namespace: external-secrets
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.13.0
-    values:
-      - ../apps/external-secrets/external-secrets/app/helm-values.yaml
-    needs:
-      - kube-system/coredns
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/external-secrets/external-secrets/app/helm-values.yaml']
+    needs: ['cert-manager/cert-manager']
 
   - name: wipe-rook
     namespace: kube-system
     chart: oci://ghcr.io/bjw-s/helm/app-template
-    version: 3.6.1
-    values:
-      - ./templates/wipe-rook.yaml.gotmpl
-    needs:
-      - kube-system/coredns
+    version: 3.7.0
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/bootstrap/apps/templates/wipe-rook.yaml.gotmpl']
+    needs: ['external-secrets/external-secrets']
 
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.13.0
-    values:
-      - ../apps/flux-system/flux-operator/app/helm-values.yaml
-    needs:
-      - kube-system/wipe-rook
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux-operator/app/helm-values.yaml']
+    needs: ['kube-system/wipe-rook']
 
   - name: flux-instance
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     version: 0.13.0
     wait: false
-    values:
-      - ../apps/flux-system/flux-operator/instance/helm-values.yaml
-    needs:
-      - flux-system/flux-operator
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux-operator/instance/helm-values.yaml']
+    needs: ['flux-system/flux-operator']

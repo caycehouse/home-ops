@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.6.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -30,7 +30,7 @@ spec:
           cni-plugins:
             image:
               repository: ghcr.io/caycehouse/cni-plugins
-              tag: 1.6.2@sha256:b93acc22432e286b64122095223cd30961afc58ffc48e7cda2ee667799f2126f
+              tag: 1.6.2@sha256:dcbbae903beceaebf919a67ffd7245ce783b7fd4b2023ed7d83e8f873e32e064
         containers:
           multus:
             image:

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.6.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/calibre-web
-              tag: 0.6.24@sha256:1f889bd5ec3333a5f3df06ad94b03a328fd919f442d709b03dcdd36c2c3dc42b
+              tag: 0.6.24@sha256:33f9270ce23a6b11772cdf1c741e39ccedf37eb6b14402e8b1cc2b5f40076e4b
             probes:
               liveness:
                 enabled: true

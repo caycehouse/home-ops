@@ -2,16 +2,17 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: default
+components:
+  - ../../flux/components/common
 resources:
-  # Pre Flux-Kustomizations
-  - ./namespace.yaml
-  # Flux-Kustomizations
   # - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
   - ./atuin/ks.yaml
   - ./bazarr/ks.yaml
   - ./calibre-web/ks.yaml
   - ./changedetection/ks.yaml
+  - ./echo-server/ks.yaml
   - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml
   - ./go2rtc/ks.yaml
@@ -31,6 +32,7 @@ resources:
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml
+  - ./romm/ks.yaml
   - ./sabnzbd/ks.yaml
   # - ./satisfactory/ks.yaml
   # - ./seaopolis/ks.yaml
@@ -41,13 +43,3 @@ resources:
   # - ./valheim/ks.yaml
   - ./watchlistarr/ks.yaml
   - ./zigbee/ks.yaml
-components:
-  - ../../components/alerts
-transformers:
-  - |-
-    apiVersion: builtin
-    kind: NamespaceTransformer
-    metadata:
-      name: not-used
-      namespace: default
-    unsetOnly: true

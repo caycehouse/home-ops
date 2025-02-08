@@ -30,7 +30,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 30.0.5-apache@sha256:02441f524c6fab3aadbf7157f6e0484927e231d685b248dc0734fa2941b4445e
+      tag: 30.0.5-apache@sha256:855246390e5247e13492570ac4db8ee427fe426d536912aaaa8b50956059b974
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
     cronjob:
@@ -54,6 +54,7 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+      timeout: 10s
     nextcloud:
       host: "nc.housefam.casa"
       existingSecret:
@@ -64,6 +65,8 @@ spec:
         smtpHostKey: SMTP_HOST
         smtpUsernameKey: SMTP_USER
         smtpPasswordKey: SMTP_PASS
+        # https://github.com/xperimental/nextcloud-exporter?tab=readme-ov-file#token-authentication
+        tokenKey: METRICS_TOKEN
       defaultConfigs:
         redis.config.php: false
       configs:

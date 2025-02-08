@@ -30,7 +30,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: itzg/minecraft-server
-      tag: 2025.1.0-java21@sha256:9a6e89f544eb44675a97bda7285f13a72794624e0b448a93b6b6058d0713323a
+      tag: 2025.2.0-java21@sha256:498b3e03fc49cde4370f2f5a20552751526c8d6774dde12d5f4a0b92c95b00b5
     livenessProbe:
       initialDelaySeconds: 120
     serviceAnnotations:
@@ -95,7 +95,7 @@ spec:
       MEMORY: ""
       OVERRIDE_WHITELIST: "true"
       # renovate: datasource=github-releases depName=caycehouse/fabulously-optimized-server
-      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/refs/tags/v6.5.0-beta.2/pack.toml"
+      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/refs/tags/v6.5.0-beta.4/pack.toml"
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule playersSleepingPercentage 0

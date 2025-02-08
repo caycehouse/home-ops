@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.6.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/radarr
-              tag: 5.17.2.9580@sha256:2ce1cc2924d961eb5b6d56b84bf5b11b3d82c31f084d2cc8c4dd2c3d75c8f73d
+              tag: 5.18.4.9674@sha256:7dfa3dbbd3206603fe020ca7123b6d35c3b6cb7b12bb2f2fa1611a9f860fe513
             env:
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__APP__THEME: dark

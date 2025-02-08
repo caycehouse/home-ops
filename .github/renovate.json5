@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     ":skipStatusChecks",
-    "github>caycehouse/renovate-config",
+    "github>caycehouse/renovate-config", // TODO: Update renovate-config repo
     "github>caycehouse/renovate-config:autoMerge.json5",
     "github>caycehouse/home-ops//.github/renovate/customManagers.json5",
     "github>caycehouse/home-ops//.github/renovate/grafanaDashboards.json5",

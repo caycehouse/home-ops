@@ -59,12 +59,12 @@ spec:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/caycehouse/actions-runner:2.321.0@sha256:ccc81ae184ab8b40176c1540388f5b859dd526d8de632246b3a1d88c22c1b8dd
+            image: ghcr.io/caycehouse/actions-runner:2.322.0@sha256:7da175d882a6f27b6a3d825c7392b5326fbafb5a0ecdabd3dcd8459a3b27372b
             command: ["/home/runner/run.sh"]
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                 value: "false"
-              - name: NODE_IP
+              - name: NODE
                 valueFrom:
                   fieldRef:
                     fieldPath: status.hostIP

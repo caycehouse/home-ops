@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.6.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/sabnzbd
-              tag: 4.4.1@sha256:178f8234a5da82f005a1e939bcf61c5a88d63e4e68126d1f7b8c83d39c689c34
+              tag: 4.4.1@sha256:198d6c9fc067fcc2b0193637be9069d080be546af106f3aad4ca458c2a132e1f
             env:
               TZ: America/New_York
               SABNZBD__PORT: &port 80
@@ -50,15 +50,18 @@ spec:
               - secretRef:
                   name: sabnzbd-secret
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
+                  httpGet:
+                    path: /api?mode=version
+                    port: *port
+                  initialDelaySeconds: 0
                   periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -76,8 +79,8 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
-      # nodeSelector:
-        # topology.kubernetes.io/zone: w
+      nodeSelector:
+        topology.kubernetes.io/zone: w
     service:
       app:
         controller: sabnzbd
@@ -98,7 +101,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SABNZBD_API_KEY}}` }}"
         className: internal
         hosts:
-          - host: "sab.housefam.casa"
+          - host: sab.housefam.casa
             paths:
               - path: /
                 service:
@@ -107,6 +110,8 @@ spec:
     persistence:
       config:
         existingClaim: sabnzbd
+      incomplete:
+        type: emptyDir
       media:
         type: nfs
         server: bakery.internal

@@ -2,24 +2,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: network
+components:
+  - ../../flux/components/common
 resources:
-  # Pre Flux-Kustomizations
-  - ./namespace.yaml
-  # Flux-Kustomizations
-  - ./cloudflare-ddns/ks.yaml
-  - ./cloudflared/ks.yaml
-  - ./echo-server/ks.yaml
-  - ./external-dns/ks.yaml
+  - ./e1000e-fix/ks.yaml
+  - ./external/ks.yaml
+  - ./internal/ks.yaml
   - ./mc-router/ks.yaml
   - ./multus/ks.yaml
-  - ./nginx/ks.yaml
-components:
-  - ../../components/alerts
-transformers:
-  - |-
-    apiVersion: builtin
-    kind: NamespaceTransformer
-    metadata:
-      name: not-used
-      namespace: network
-    unsetOnly: true

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.6.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -96,7 +96,7 @@ spec:
           gethomepage.dev/name: go2rtc
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.housefam.casa"
+          - host: go2rtc.housefam.casa
             paths:
               - path: /
                 service:

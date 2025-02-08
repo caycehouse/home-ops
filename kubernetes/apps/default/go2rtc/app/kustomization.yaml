@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: go2rtc-configmap
     files:
-      - ./resources/go2rtc.yaml
+      - go2rtc.yaml=./resources/go2rtc.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

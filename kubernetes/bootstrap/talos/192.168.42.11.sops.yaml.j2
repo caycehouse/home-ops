@@ -28,8 +28,8 @@ machine:
         bond:
           mode: active-backup
           deviceSelectors:
-            - hardwareAddr: e4:54:e8:84:*
-              driver: r8169
+            - hardwareAddr: c0:25:a5:a1:*
+              driver: e1000e
         mtu: 1500
         dhcp: true
         vip:
@@ -55,7 +55,8 @@ machine:
     image: factory.talos.dev/installer/039535a70c3bd1667c355eca78571267704e55c8a24785033d183b8f26e39d82:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:
-    - op: create
+    - # Spegel
+      op: create
       path: /etc/cri/conf.d/20-customization.part
       content: |
         [plugins."io.containerd.cri.v1.images"]
@@ -135,8 +136,9 @@ cluster:
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
-      runtime-config: admissionregistration.k8s.io/v1alpha1=true
+      enable-aggregator-routing: true
       feature-gates: MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1alpha1=true
     certSANs: ["127.0.0.1", "192.168.42.120"]
     disablePodSecurityPolicy: true
     auditPolicy:

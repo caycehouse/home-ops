@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.6.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/tautulli
-              tag: 2.15.1@sha256:814a204b5a9a9cf2c70605b929753757207d28142e0afe5fdc9e3a41bcb0d972
+              tag: 2.15.1@sha256:c339fcacdc90f0afa2fd83610683579fe71d8e591c9e469d728b5e4bf9377265
             env:
               TZ: America/New_York
               TAUTULLI__PORT: &port 80

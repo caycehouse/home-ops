@@ -27,8 +27,6 @@ spec:
     manager:
       image:
         repository: ghcr.io/dragonflydb/operator
-    service:
-      metricsPort: 8443
     serviceMonitor:
       enabled: true
       interval: 1m

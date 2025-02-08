@@ -32,3 +32,4 @@ spec:
       interval: 1m
     grafanaDashboard:
       enabled: true
+      folder: ""

@@ -27,9 +27,9 @@ spec:
     manager:
       image:
         repository: ghcr.io/dragonflydb/operator
-    serviceMonitor:
-      enabled: true
-      interval: 1m
+    # serviceMonitor: # TODO: Enable when fixed
+    #   enabled: true
+    #   interval: 1m
     grafanaDashboard:
       enabled: true
       folder: ""

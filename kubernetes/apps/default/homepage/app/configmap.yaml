@@ -71,11 +71,6 @@ data:
                   key: {{HOMEPAGE_VAR_OCTOPI_API_KEY}}
                   type: octoprint
                   url: http://octopi.internal
-          - Proxmox:
-                icon: proxmox
-                description: Virtualization platform
-                href: https://cupcakes.internal:8006
-                ping: localhost
 
   settings.yaml: |
     ---

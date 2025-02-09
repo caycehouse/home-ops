@@ -13,6 +13,8 @@ spec:
     - ../../../../flux/components/gatus/app
     - ../../../../flux/components/volsync
   dependsOn:
+    - name: external-external-dns
+      namespace: network
     - name: volsync
       namespace: volsync-system
   interval: 30m

@@ -46,6 +46,15 @@ nodes:
           - vlanId: 70
             dhcp: false
             mtu: 1500
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/mei
+    extraManifests:
+      - ./watchdog.yaml
   - hostname: k8s-1
     ipAddress: 192.168.42.11
     controlPlane: true
@@ -69,6 +78,15 @@ nodes:
           - vlanId: 70
             dhcp: false
             mtu: 1500
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/mei
+    extraManifests:
+      - ./watchdog.yaml
   - hostname: k8s-2
     ipAddress: 192.168.42.12
     controlPlane: true
@@ -92,6 +110,15 @@ nodes:
           - vlanId: 70
             dhcp: false
             mtu: 1500
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/mei
+    extraManifests:
+      - ./watchdog.yaml
   - hostname: k8s-3
     ipAddress: 192.168.42.13
     controlPlane: false
@@ -113,6 +140,15 @@ nodes:
           - vlanId: 70
             dhcp: false
             mtu: 1500
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/mei
+    extraManifests:
+      - ./watchdog.yaml
 
 patches:
   # Configure containerd
@@ -224,6 +260,7 @@ patches:
     cluster:
       apiServer:
         extraArgs:
+          enable-aggregator-routing: true
           runtime-config: admissionregistration.k8s.io/v1alpha1=true
           feature-gates: MutatingAdmissionPolicy=true
 

@@ -14,19 +14,6 @@ spec:
         kind: HelmRepository
         name: descheduler
         namespace: flux-system
-  # TODO: Remove when https://github.com/kubernetes-sigs/descheduler/pull/1596 is included a release
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: ClusterRole
-            patch: |
-              - op: add
-                path: /rules/-
-                value:
-                  verbs: ["get", "watch", "list"]
-                  apiGroups: ["policy"]
-                  resources: ["poddisruptionbudgets"]
   install:
     remediation:
       retries: 3

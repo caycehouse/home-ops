@@ -123,7 +123,7 @@ spec:
         gethomepage.dev/group: Storage
         gethomepage.dev/icon: nextcloud
         gethomepage.dev/name: Nextcloud
-        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, X-Real-IP, X-Frame-Options, X-Content-Type-Options, X-Forwarded-Proto"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, X-Real-IP, X-Frame-Options, X-Content-Type-Options, X-Forwarded-Proto, X-Forwarded-Host"
         nginx.ingress.kubernetes.io/proxy-body-size: "16G"
         nginx.ingress.kubernetes.io/proxy-buffering: "off"
         nginx.ingress.kubernetes.io/proxy-request-buffering: "off"

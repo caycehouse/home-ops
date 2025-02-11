@@ -46,6 +46,73 @@ nodes:
           - vlanId: 70
             dhcp: false
             mtu: 1500
+  - hostname: k8s-1
+    ipAddress: 192.168.42.11
+    controlPlane: true
+    installDiskSelector:
+      model: PM991 NVMe Samsung 256GB
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: c0:25:a5:a1:*
+              driver: e1000e
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: 192.168.42.120
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            mtu: 1500
+          - vlanId: 70
+            dhcp: false
+            mtu: 1500
+  - hostname: k8s-2
+    ipAddress: 192.168.42.12
+    controlPlane: true
+    installDiskSelector:
+      model: CL1-3D256-Q11 NVMe SSSTC 256GB
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: 70:b5:e8:57:*
+              driver: r8169
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: 192.168.42.120
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            mtu: 1500
+          - vlanId: 70
+            dhcp: false
+            mtu: 1500
+  - hostname: k8s-3
+    ipAddress: 192.168.42.13
+    controlPlane: false
+    installDiskSelector:
+      model: PNY CS2140 500GB SSD
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: c0:25:a5:a0:*
+              driver: e1000e
+        dhcp: true
+        mtu: 1500
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            mtu: 1500
+          - vlanId: 70
+            dhcp: false
+            mtu: 1500
 
 patches:
   # Configure containerd

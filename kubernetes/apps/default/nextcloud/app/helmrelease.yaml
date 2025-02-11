@@ -28,11 +28,11 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   values:
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
     image:
       repository: nextcloud
       tag: 30.0.5-apache@sha256:855246390e5247e13492570ac4db8ee427fe426d536912aaaa8b50956059b974
-    deploymentAnnotations:
-      reloader.stakater.com/auto: "true"
     cronjob:
       enabled: true
       resources:
@@ -69,21 +69,13 @@ spec:
         tokenKey: METRICS_TOKEN
       defaultConfigs:
         redis.config.php: false
+        s3.config.php: false
+        swift.config.php: false
       configs:
-        proxy.config.php: |-
+        custom.config.php: |-
           <?php
           $CONFIG = array (
-            'trusted_proxies' => array(
-              0 => '127.0.0.1',
-              1 => '10.0.0.0/8',
-              2 => '172.16.0.0/12',
-              3 => '192.168.0.0/16',
-            ),
-            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-          );
-        redis.config.php: |-
-          <?php
-          $CONFIG = array (
+            'maintenance_window_start' => 6,
             'memcache.distributed' => '\OC\Memcache\Redis',
             'memcache.locking' => '\OC\Memcache\Redis',
             'redis' => array(
@@ -93,6 +85,10 @@ spec:
             ),
           );
       extraEnv:
+        - name: FORWARDED_FOR_HEADERS
+          value: "HTTP_X_FORWARDED_FOR"
+        - name: TRUSTED_PROXIES
+          value: "127.0.0.1 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
         - name: OVERWRITECLIURL
           value: "https://nc.housefam.casa"
         - name: OVERWRITEHOST

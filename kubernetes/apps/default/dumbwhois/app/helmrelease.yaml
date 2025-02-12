@@ -72,7 +72,7 @@ spec:
           gethomepage.dev/href: "https://whois.housefam.casa"
           gethomepage.dev/icon: calibre-web
           gethomepage.dev/name: DumbWhois
-        className: external
+        className: internal
         hosts:
           - host: "whois.housefam.casa"
             paths:

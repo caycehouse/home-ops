@@ -12,6 +12,7 @@ resources:
   - ./bazarr/ks.yaml
   - ./calibre-web/ks.yaml
   - ./changedetection/ks.yaml
+  - ./dumbwhois/ks.yaml
   - ./echo-server/ks.yaml
   - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml

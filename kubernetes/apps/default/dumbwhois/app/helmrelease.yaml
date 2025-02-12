@@ -28,7 +28,7 @@ spec:
         containers:
           app:
             image:
-              repository: dumbwareio/dumbkan
+              repository: dumbwareio/dumbwhois
               tag: latest@sha256:b9d0144e306e033db4b9da9760a953fc4ac21a79235e13fbf978fcd82768938f
             probes:
               liveness:

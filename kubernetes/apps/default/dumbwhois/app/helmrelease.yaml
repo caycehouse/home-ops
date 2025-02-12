@@ -59,8 +59,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
@@ -75,7 +73,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Utilities
           gethomepage.dev/href: "https://whois.housefam.casa"
-          gethomepage.dev/icon: calibre-web
+          gethomepage.dev/icon: sh-dumbwhois
           gethomepage.dev/name: DumbWhois
         className: internal
         hosts:

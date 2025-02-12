@@ -69,7 +69,7 @@ spec:
     ingress:
       app:
         annotations:
-          gethomepage.dev/description: A Dumb&trade; WHOIS service
+          gethomepage.dev/description: A Dumb WHOIS
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Utilities
           gethomepage.dev/href: "https://whois.housefam.casa"

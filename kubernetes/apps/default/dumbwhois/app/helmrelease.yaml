@@ -30,16 +30,21 @@ spec:
             image:
               repository: dumbwareio/dumbwhois
               tag: latest@sha256:b9d0144e306e033db4b9da9760a953fc4ac21a79235e13fbf978fcd82768938f
+            env:
+              PORT: &port 80
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -62,7 +67,7 @@ spec:
         controller: dumbwhois
         ports:
           http:
-            port: 3000
+            port: *port
     ingress:
       app:
         annotations:

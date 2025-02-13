@@ -62,7 +62,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        seccompProfile: { type: RuntimeDefault }
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{

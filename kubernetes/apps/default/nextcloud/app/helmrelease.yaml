@@ -83,6 +83,9 @@ spec:
               'port' => 6379,
               'dbindex' => 3
             ),
+            'trusted_domains' => array (
+              $_ENV["NEXTCLOUD_TRUSTED_DOMAINS"], # fix probes 400 error
+            ),
           );
       extraEnv:
         - name: FORWARDED_FOR_HEADERS

@@ -74,11 +74,6 @@ spec:
       configs:
         custom.config.php: |-
           <?php
-          $trustedDomains = getenv('NEXTCLOUD_TRUSTED_DOMAINS');
-          if ($trustedDomains) {
-            $CONFIG['trusted_domains'] = array_filter(array_map('trim', explode(' ', $trustedDomains)));
-          }
-
           $CONFIG = array (
             'maintenance_window_start' => 6,
             'memcache.distributed' => '\OC\Memcache\Redis',
@@ -89,6 +84,11 @@ spec:
               'dbindex' => 3,
             ),
           );
+
+          $trustedDomains = getenv('NEXTCLOUD_TRUSTED_DOMAINS');
+          if ($trustedDomains) {
+            $CONFIG['trusted_domains'] = array_filter(array_map('trim', explode(' ', $trustedDomains)));
+          }
       extraEnv:
         - name: FORWARDED_FOR_HEADERS
           value: "HTTP_X_FORWARDED_FOR"

@@ -1,0 +1,13 @@
+machine:
+  install:
+    diskSelector:
+      model: PNY CS2140 500GB SSD
+  network:
+    hostname: k8s-3
+    interfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: c0:25:a5:a0:*
+              driver: e1000e

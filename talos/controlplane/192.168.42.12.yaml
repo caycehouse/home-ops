@@ -1,0 +1,13 @@
+machine:
+  install:
+    diskSelector:
+      model: CL1-3D256-Q11 NVMe SSSTC 256GB
+  network:
+    hostname: k8s-2
+    interfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: 70:b5:e8:57:*
+              driver: r8169

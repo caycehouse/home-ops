@@ -44,7 +44,7 @@ tasks:
       - talosctl config info
       - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.TALOS_DIR}}/{{.TALOS_MACHINE_TYPE}}.yaml.j2
-      - test -f {{.TALOS_DIR}}/{{.TALOS_MACHINE_TYPE}}/{{.IP}}.yaml
+      - test -f {{.TALOS_DIR}}/patches/{{.IP}}.yaml
       - test -f {{.ROOT_DIR}}/talosconfig
       - which minijinja-cli talosctl yq
 

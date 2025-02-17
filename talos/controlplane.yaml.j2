@@ -26,9 +26,6 @@ machine:
       - interface: bond0
         bond:
           mode: active-backup
-          deviceSelectors:
-            - hardwareAddr: a4:bb:6d:7b:*
-              driver: e1000e
         mtu: 1500
         dhcp: true
         vip:
@@ -45,10 +42,8 @@ machine:
       - init_on_alloc=0                     # Less security, faster puter
       - init_on_free=0                      # Less security, faster puter
       - mitigations=off                     # Less security, faster puter
-      - module_blacklist=igc                # Disable onboard NIC
       - security=none                       # Less security, faster puter
       - talos.auditd.disabled=1             # Less security, faster puter
-    # i915, intel-ucode, mei
     image: factory.talos.dev/installer/039535a70c3bd1667c355eca78571267704e55c8a24785033d183b8f26e39d82:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:

@@ -11,7 +11,9 @@ vars:
   SCRIPTS_DIR: '{{.ROOT_DIR}}/scripts'
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
 
-dotenv: ['{{.ROOT_DIR}}/.talos.env']
+dotenv:
+  - '{{.BOOTSTRAP_DIR}}/.env'
+  - '{{.KUBERNETES_DIR}}/components/system-upgrade/.env'
 
 env:
   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
@@ -21,7 +23,9 @@ env:
 
 includes:
   bootstrap: .taskfiles/bootstrap
-  kubernetes: .taskfiles/kubernetes
+  kubernetes:
+    aliases: [k8s]
+    taskfile: .taskfiles/kubernetes
   talos: .taskfiles/talos
   volsync: .taskfiles/volsync
   workstation: .taskfiles/workstation
@@ -31,9 +35,3 @@ tasks:
   default:
     cmd: task --list
     silent: true
-
-  # Ref: https://github.com/go-task/task/issues/608
-  noop:
-    internal: true
-    silent: true
-    cmd: noop() { :; }

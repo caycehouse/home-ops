@@ -184,8 +184,6 @@ cluster:
     advertisedSubnets: ["192.168.42.0/24"]
   allowSchedulingOnControlPlanes: true
 ---
-# watchdog.yaml
-# talosctl patch mc -p @watchdog.yaml
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0

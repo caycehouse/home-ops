@@ -1,0 +1,13 @@
+machine:
+  install:
+    diskSelector:
+      model: PC SN520 NVMe WDC 256GB
+  network:
+    hostname: k8s-0
+    interfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: a4:bb:6d:7b:*
+              driver: e1000e

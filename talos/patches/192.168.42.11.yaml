@@ -1,0 +1,13 @@
+machine:
+  install:
+    diskSelector:
+      model: PM991 NVMe Samsung 256GB
+  network:
+    hostname: k8s-1
+    interfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: c0:25:a5:a1:*
+              driver: e1000e

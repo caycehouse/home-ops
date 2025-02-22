@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: dumbwareio/dumbwhois
-              tag: latest@sha256:4ebac95a52823d12f334780b2113c4625c42eeb6cb483d8365d3813c94becfae
+              tag: latest@sha256:247222b4239244fd1fbba983c58a3d0466a2a931652b6b5cf55ee5669da0c5a8
             env:
               PORT: &port 80
             probes:

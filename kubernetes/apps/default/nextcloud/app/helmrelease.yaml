@@ -24,9 +24,6 @@ spec:
       strategy: rollback
       retries: 3
     timeout: 60m
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"

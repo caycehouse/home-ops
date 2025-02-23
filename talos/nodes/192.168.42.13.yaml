@@ -1,7 +1,4 @@
 machine:
-  install:
-    diskSelector:
-      model: PNY CS2140 500GB SSD
   network:
     hostname: k8s-3
     interfaces:
@@ -11,3 +8,7 @@ machine:
           deviceSelectors:
             - hardwareAddr: c0:25:a5:a0:*
               driver: e1000e
+  install:
+    diskSelector:
+      model: PNY CS2140 500GB SSD
+    image: factory.talos.dev/installer/039535a70c3bd1667c355eca78571267704e55c8a24785033d183b8f26e39d82:{{ ENV.TALOS_VERSION }}

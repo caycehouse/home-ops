@@ -8,7 +8,6 @@
     "github>caycehouse/home-ops//.renovate/groups.json5",
     "github>caycehouse/home-ops//.renovate/packageRules.json5"
   ],
-  "requireConfig": "ignored",
   "ignorePaths": ["**/*.sops.*", "**/resources/**"],
   "flux": {
     "fileMatch": [

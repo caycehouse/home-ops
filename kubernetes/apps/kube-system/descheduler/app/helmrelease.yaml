@@ -47,13 +47,6 @@ spec:
                 excludeOwnerKinds:
                   - Job
                 minPodLifetimeSeconds: 1800
-            - name: LowNodeUtilization
-              args:
-                targetThresholds:
-                  pods: 60
-                thresholds:
-                  pods: 50
-            - name: RemoveDuplicates
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity
               args:
@@ -64,8 +57,6 @@ spec:
           plugins:
             balance:
               enabled:
-                - LowNodeUtilization
-                - RemoveDuplicates
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:

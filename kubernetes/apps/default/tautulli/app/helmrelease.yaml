@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/tautulli
-              tag: 2.15.1@sha256:2a938ff9928b5635d1dacf2ccb9955310fdc6b1b50d1227ff2d45020ee5d754b
+              tag: 2.15.1@sha256:fbb56fd0baf5e58ad1ed30d3a29348e51468026acedbe892d0b9454d3cfe40f4
             env:
               TZ: America/New_York
               TAUTULLI__PORT: &port 80

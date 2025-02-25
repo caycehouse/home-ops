@@ -9,7 +9,6 @@ resources:
   # - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
   - ./atuin/ks.yaml
-  - ./bazarr/ks.yaml
   - ./calibre-web/ks.yaml
   - ./changedetection/ks.yaml
   - ./dumbwhois/ks.yaml
@@ -20,7 +19,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./isponsorblocktv/ks.yaml
-  - ./jellyseerr/ks.yaml
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
   - ./minecraft/ks.yaml
@@ -30,17 +28,11 @@ resources:
   # - ./oceanblock/ks.yaml
   - ./paperless/ks.yaml
   - ./plex/ks.yaml
-  - ./prowlarr/ks.yaml
-  - ./radarr/ks.yaml
-  - ./recyclarr/ks.yaml
   - ./romm/ks.yaml
-  - ./sabnzbd/ks.yaml
   # - ./satisfactory/ks.yaml
   # - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml
-  - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./twitchdropsminer/ks.yaml
   # - ./valheim/ks.yaml
-  - ./watchlistarr/ks.yaml
   - ./zigbee/ks.yaml

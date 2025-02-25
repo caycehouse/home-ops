@@ -3,7 +3,6 @@
   "extends": [
     "github>caycehouse/renovate-config", // TODO: Update renovate-config repo
     "github>caycehouse/renovate-config:autoMerge.json5",
-    "github>caycehouse/home-ops//.renovate/customManagers.json5",
     "github>caycehouse/home-ops//.renovate/grafanaDashboards.json5",
     "github>caycehouse/home-ops//.renovate/groups.json5",
     "github>caycehouse/home-ops//.renovate/packageRules.json5"

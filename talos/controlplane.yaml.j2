@@ -19,18 +19,6 @@ machine:
     nodeIP:
       validSubnets: ["192.168.42.0/24"]
     disableManifestsDirectory: true
-  network:
-    interfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-        mtu: 1500
-        dhcp: true
-        vip:
-          ip: 192.168.42.120
-        vlans:
-          - { vlanId: 10, dhcp: false, mtu: 1500 }
-          - { vlanId: 70, dhcp: false, mtu: 1500 }
   install:
     extraKernelArgs:
       - i915.enable_guc=2                   # Comet Lake CPU / iGPU

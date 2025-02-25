@@ -8,6 +8,13 @@ machine:
           deviceSelectors:
             - hardwareAddr: a4:bb:6d:7b:*
               driver: e1000e
+        mtu: 1500
+        dhcp: true
+        vip:
+          ip: 192.168.42.120
+        vlans:
+          - { vlanId: 10, dhcp: false, mtu: 1500 }
+          - { vlanId: 70, dhcp: false, mtu: 1500 }
   install:
     diskSelector:
       model: PC SN520 NVMe WDC 256GB

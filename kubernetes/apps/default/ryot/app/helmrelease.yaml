@@ -42,7 +42,6 @@ spec:
               tag: v8.2.2@sha256:7484a6d2c11c7bbbab5100c1b29627befdced210dfd8edeaa87cec8882aa6568
             env:
               DISABLE_TELEMETRY: true
-              PORT: &port 80
               TZ: America/New_York
             envFrom: *envFrom
             probes:
@@ -69,7 +68,7 @@ spec:
         controller: ryot
         ports:
           http:
-            port: *port
+            port: 8000
     ingress:
       app:
         annotations:

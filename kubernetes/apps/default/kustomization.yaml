@@ -34,5 +34,4 @@ resources:
   - ./tautulli/ks.yaml
   - ./twitchdropsminer/ks.yaml
   # - ./valheim/ks.yaml
-  - ./watcharr/ks.yaml
   - ./zigbee/ks.yaml

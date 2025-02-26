@@ -28,6 +28,7 @@ resources:
   - ./paperless/ks.yaml
   - ./plex/ks.yaml
   - ./romm/ks.yaml
+  - ./ryot/ks.yaml
   # - ./satisfactory/ks.yaml
   # - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml

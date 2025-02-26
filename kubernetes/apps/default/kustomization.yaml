@@ -9,7 +9,6 @@ resources:
   # - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
   - ./atuin/ks.yaml
-  - ./calibre-web/ks.yaml
   - ./changedetection/ks.yaml
   - ./dumbwhois/ks.yaml
   - ./echo-server/ks.yaml

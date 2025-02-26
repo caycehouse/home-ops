@@ -51,7 +51,7 @@ spec:
               readiness:
                 enabled: true
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:

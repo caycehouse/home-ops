@@ -6,7 +6,6 @@ namespace: network
 components:
   - ../../components/common
 resources:
-  - ./e1000e-fix/ks.yaml
   - ./external/ks.yaml
   - ./internal/ks.yaml
   - ./mc-router/ks.yaml

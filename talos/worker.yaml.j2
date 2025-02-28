@@ -24,6 +24,9 @@ machine:
       - interface: bond0
         bond:
           mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: 00:e0:4c:68:*
+              driver: r8169
         mtu: 1500
         dhcp: true
         vlans:
@@ -113,8 +116,3 @@ cluster:
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
     key: ""
----
-apiVersion: v1alpha1
-kind: WatchdogTimerConfig
-device: /dev/watchdog0
-timeout: 5m

@@ -19,6 +19,21 @@ machine:
     nodeIP:
       validSubnets: ["192.168.42.0/24"]
     disableManifestsDirectory: true
+  network:
+    interfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: 00:e0:4c:68:*
+              driver: r8169
+        mtu: 1500
+        dhcp: true
+        vip:
+          ip: 192.168.42.120
+        vlans:
+          - { vlanId: 10, dhcp: false, mtu: 1500 }
+          - { vlanId: 70, dhcp: false, mtu: 1500 }
   install:
     extraKernelArgs:
       - i915.enable_guc=2                   # Comet Lake CPU / iGPU
@@ -170,8 +185,3 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
     advertisedSubnets: ["192.168.42.0/24"]
   allowSchedulingOnControlPlanes: true
----
-apiVersion: v1alpha1
-kind: WatchdogTimerConfig
-device: /dev/watchdog0
-timeout: 5m

@@ -1,20 +1,6 @@
 machine:
   network:
     hostname: k8s-2
-    interfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-          deviceSelectors:
-            - hardwareAddr: 70:b5:e8:57:*
-              driver: r8169
-        mtu: 1500
-        dhcp: true
-        vip:
-          ip: 192.168.42.120
-        vlans:
-          - { vlanId: 10, dhcp: false, mtu: 1500 }
-          - { vlanId: 70, dhcp: false, mtu: 1500 }
   install:
     diskSelector:
       model: CL1-3D256-Q11 NVMe SSSTC 256GB

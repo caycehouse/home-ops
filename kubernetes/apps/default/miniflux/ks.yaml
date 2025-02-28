@@ -16,7 +16,7 @@ spec:
       namespace: database
     - name: onepassword
       namespace: external-secrets
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/default/miniflux/app
   postBuild:
     substitute:
@@ -24,6 +24,7 @@ spec:
       GATUS_PATH: /healthcheck
       GATUS_SUBDOMAIN: rss
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

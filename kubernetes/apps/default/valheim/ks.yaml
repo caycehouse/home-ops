@@ -17,7 +17,7 @@ spec:
       namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/default/valheim/app
   postBuild:
     substitute:
@@ -25,6 +25,7 @@ spec:
       GATUS_URL: udp://valheim.default.svc.cluster.local:2456
       VOLSYNC_CAPACITY: 5Gi
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

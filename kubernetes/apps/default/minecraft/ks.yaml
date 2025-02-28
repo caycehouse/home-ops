@@ -17,7 +17,7 @@ spec:
       namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/default/minecraft/app
   postBuild:
     substitute:
@@ -25,6 +25,7 @@ spec:
       GATUS_URL: tcp://minecraft-minecraft.default.svc.cluster.local:25565
       VOLSYNC_CAPACITY: 15Gi
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

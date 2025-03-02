@@ -4,13 +4,13 @@
     {
       "description": ["Allowed postgresql major release"],
       "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["postgresql"],
+      "matchPackageNames": ["/postgresql/"],
       "allowedVersions": "<17"
     },
     {
       "description": ["Loose versioning for non-semver containers"],
       "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["changedetection", "plex"],
+      "matchPackageNames": ["/changedetection/", "/plex/"],
       "versioning": "loose"
     }
   ]

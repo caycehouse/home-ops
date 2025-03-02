@@ -182,10 +182,6 @@ spec:
           revision: 1
           datasource:
             - { name: DS_LOCAL, value: Prometheus }
-        node-feature-discovery:
-          url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105

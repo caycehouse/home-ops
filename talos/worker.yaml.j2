@@ -96,6 +96,7 @@ machine:
     modules:
       - name: nbd
   nodeLabels:
+    intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: main
     topology.kubernetes.io/zone: w
 cluster:

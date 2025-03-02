@@ -30,7 +30,6 @@ resources:
   # - ./satisfactory/ks.yaml
   # - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml
-  - ./tautulli/ks.yaml
   - ./twitchdropsminer/ks.yaml
   # - ./valheim/ks.yaml
   - ./zigbee/ks.yaml

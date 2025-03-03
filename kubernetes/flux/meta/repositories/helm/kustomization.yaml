@@ -5,16 +5,10 @@ kind: Kustomization
 resources:
   - ./actions-runner-controller.yaml
   - ./backube.yaml
-  - ./bjw-s.yaml
   - ./cilium.yaml
-  - ./cloudnative-pg.yaml
-  - ./controlplaneio.yaml
-  - ./coredns.yaml
   - ./descheduler.yaml
-  - ./dragonfly-operator.yaml
   - ./emqx.yaml
   - ./external-dns.yaml
-  - ./external-secrets.yaml
   - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./intel.yaml
@@ -24,7 +18,5 @@ resources:
   - ./nextcloud.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
-  - ./prometheus-community.yaml
   - ./rook-ceph.yaml
-  - ./spegel.yaml
   - ./wiremind.yaml

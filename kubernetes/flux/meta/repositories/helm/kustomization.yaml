@@ -27,5 +27,4 @@ resources:
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
   - ./spegel.yaml
-  - ./stakater.yaml
   - ./wiremind.yaml

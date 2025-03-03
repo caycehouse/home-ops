@@ -6,14 +6,10 @@ metadata:
   name: &app dragonfly
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: dragonfly-operator
-      version: v1.1.10
-      sourceRef:
-        kind: HelmRepository
-        name: dragonfly-operator
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: dragonfly-operator
+    namespace: database
   install:
     remediation:
       retries: 3

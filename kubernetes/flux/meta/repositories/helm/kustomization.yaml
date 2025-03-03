@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./backube.yaml
   - ./cilium.yaml
-  - ./cloudnative-pg.yaml
   - ./descheduler.yaml
   - ./dragonfly-operator.yaml
   - ./emqx.yaml

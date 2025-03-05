@@ -26,15 +26,15 @@ jobs:
           github-token: "${{ steps.app-token.outputs.token }}"
           result-encoding: string
           script: |
-            const { data: releases } = await github.rest.repos.listTags({
+            const { data: tags } = await github.rest.repos.listTags({
               owner: context.repo.owner,
               repo: context.repo.repo,
               per_page: 1,
             });
 
             let previousTag = "0.0.0"; // Default if no previous release exists
-            if (releases.length > 0) {
-              previousTag = releases[0].tag_name;
+            if (tags.length > 0) {
+              previousTag = tags[0].name;
             }
 
             const [previousMajor, previousMinor, previousPatch] = previousTag.split('.').map(Number);
@@ -59,9 +59,20 @@ jobs:
         with:
           github-token: "${{ steps.app-token.outputs.token }}"
           script: |
+            const tagName = "${{ steps.determine-next-tag.outputs.result }}";
+
+            const tag = await github.rest.git.createTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: tagName,
+              message: tagName,
+              object: context.sha,
+              type: "commit"
+            })
+
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: refs/tags/${{ steps.determine-next-tag.outputs.result }},
-              sha: context.sha
+              ref: `refs/tags/${tagName}`,
+              sha: tag.data.sha
             })

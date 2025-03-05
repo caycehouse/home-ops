@@ -71,6 +71,7 @@ spec:
         controller: go2rtc
         ports:
           http:
+            primary: true
             port: *port
           rtsp:
             port: 554

@@ -22,7 +22,8 @@ cluster:
   name: main
 cni:
   exclusive: false
-devices: bond+
+dashboards:
+  enabled: true
 endpointRoutes:
   enabled: true
 envoy:
@@ -56,8 +57,6 @@ prometheus:
   serviceMonitor:
     enabled: true
     trustCRDsExist: true
-dashboards:
-  enabled: true
 rollOutCiliumPods: true
 routingMode: native
 securityContext:
@@ -80,3 +79,6 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
+tls:
+  secretsNamespace:
+    create: false

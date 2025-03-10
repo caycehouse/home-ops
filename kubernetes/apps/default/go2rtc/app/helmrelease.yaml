@@ -58,14 +58,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |
-          [{
-            "name": "multus-iot",
-            "namespace": "network",
-            "ips": ["192.168.70.121/24"],
-            "mac": "8a:84:98:e3:05:c6"
-          }]
     service:
       app:
         controller: go2rtc

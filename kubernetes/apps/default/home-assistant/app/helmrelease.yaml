@@ -75,7 +75,7 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: home-assistant
           gethomepage.dev/name: HASS
-          gethomepage.dev/app: home-assistant
+          gethomepage.dev/app: *app
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
           - "hass.housefam.casa"

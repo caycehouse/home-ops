@@ -101,6 +101,7 @@ spec:
           gethomepage.dev/group: Services
           gethomepage.dev/icon: sh-atuin
           gethomepage.dev/name: Atuin
+          gethomepage.dev/app: *app
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
           - "sh.housefam.casa"

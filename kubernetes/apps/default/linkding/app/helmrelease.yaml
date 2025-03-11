@@ -61,6 +61,7 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: linkding
           gethomepage.dev/name: linkding
+          gethomepage.dev/app: *app
         hostnames: ["bookmarks.housefam.casa"]
         parentRefs:
           - name: external

@@ -254,6 +254,7 @@ spec:
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: grafana
           gethomepage.dev/name: Grafana
+          gethomepage.dev/app: *app
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
         parentRefs:
           - name: internal

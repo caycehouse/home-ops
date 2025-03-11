@@ -63,6 +63,7 @@ spec:
           gethomepage.dev/group: Games
           gethomepage.dev/icon: foundry-vtt
           gethomepage.dev/name: Foundry VTT
+          gethomepage.dev/app: *app
         hostnames: ["foundry.housefam.casa"]
         parentRefs:
           - name: external

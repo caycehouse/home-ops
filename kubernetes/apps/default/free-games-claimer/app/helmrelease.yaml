@@ -61,6 +61,7 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: mdi-gamepad
           gethomepage.dev/name: free-games-claimer
+          gethomepage.dev/app: *app
         hostnames: ["fgc.housefam.casa"]
         parentRefs:
           - name: internal

@@ -51,7 +51,7 @@ spec:
         controller: free-games-claimer
         ports:
           http:
-            port: 6080
+            port: &port 6080
     route:
       app:
         annotations:

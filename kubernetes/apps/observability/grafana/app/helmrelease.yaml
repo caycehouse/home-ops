@@ -256,17 +256,21 @@ spec:
       - vonage-status-panel
     serviceMonitor:
       enabled: true
-    ingress:
-      enabled: true
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/href: "https://grafana.housefam.casa"
-        gethomepage.dev/description: Analytics & Monitoring
-        gethomepage.dev/group: Observability
-        gethomepage.dev/icon: grafana
-        gethomepage.dev/name: Grafana
-      ingressClassName: internal
-      hosts: ["grafana.housefam.casa"]
+    route:
+      main:
+        enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/href: "https://grafana.housefam.casa"
+          gethomepage.dev/description: Analytics & Monitoring
+          gethomepage.dev/group: Observability
+          gethomepage.dev/icon: grafana
+          gethomepage.dev/name: Grafana
+        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
     persistence:
       enabled: false
     testFramework:

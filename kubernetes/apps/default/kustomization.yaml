@@ -13,7 +13,6 @@ resources:
   - ./atuin/ks.yaml
   - ./changedetection/ks.yaml
   - ./dumbwhois/ks.yaml
-  - ./echo/ks.yaml
   - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml
   - ./go2rtc/ks.yaml

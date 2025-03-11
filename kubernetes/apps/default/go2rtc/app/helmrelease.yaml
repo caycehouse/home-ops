@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: go2rtc
+  name: &app go2rtc
 spec:
   interval: 1h
   chartRef:
@@ -80,7 +80,7 @@ spec:
           webrtc-udp:
             port: 8555
             protocol: UDP
-    ingress:
+    route:
       app:
         annotations:
           gethomepage.dev/description: Ultimate camera streaming application
@@ -89,14 +89,15 @@ spec:
           gethomepage.dev/href: "https://go2rtc.housefam.casa"
           gethomepage.dev/icon: go2rtc
           gethomepage.dev/name: go2rtc
-        className: internal
-        hosts:
-          - host: go2rtc.housefam.casa
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config-file:
         type: configMap

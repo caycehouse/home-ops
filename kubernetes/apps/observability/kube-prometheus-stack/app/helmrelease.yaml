@@ -39,19 +39,22 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      ingress:
-        enabled: true
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://alertmanager.housefam.casa"
-          gethomepage.dev/description: Notification orchestration for Prometheus
-          gethomepage.dev/group: Observability
-          gethomepage.dev/icon: alertmanager
-          gethomepage.dev/name: Alertmanager
-          gethomepage.dev/app: alertmanager
-        ingressClassName: internal
-        hosts: ["alertmanager.housefam.casa"]
-        pathType: Prefix
+      route:
+        main:
+          enabled: true
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/href: "https://alertmanager.housefam.casa"
+            gethomepage.dev/description: Notification orchestration for Prometheus
+            gethomepage.dev/group: Observability
+            gethomepage.dev/icon: alertmanager
+            gethomepage.dev/name: Alertmanager
+            gethomepage.dev/app: alertmanager
+          hostnames: ["alertmanager.housefam.casa"]
+          parentRefs:
+            - name: internal
+              namespace: kube-system
+              sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
@@ -72,21 +75,24 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
-      ingress:
-        enabled: true
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://prometheus.housefam.casa"
-          gethomepage.dev/description: Insightful Data Visualization
-          gethomepage.dev/group: Observability
-          gethomepage.dev/icon: prometheus
-          gethomepage.dev/name: Prometheus
-          gethomepage.dev/app: prometheus
-          gethomepage.dev/widget.type: prometheus
-          gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-        ingressClassName: internal
-        hosts: ["prometheus.housefam.casa"]
-        pathType: Prefix
+      route:
+        main:
+          enabled: true
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/href: "https://prometheus.housefam.casa"
+            gethomepage.dev/description: Insightful Data Visualization
+            gethomepage.dev/group: Observability
+            gethomepage.dev/icon: prometheus
+            gethomepage.dev/name: Prometheus
+            gethomepage.dev/app: prometheus
+            gethomepage.dev/widget.type: prometheus
+            gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
+          hostnames: ["prometheus.housefam.casa"]
+          parentRefs:
+            - name: internal
+              namespace: kube-system
+              sectionName: https
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false

@@ -69,7 +69,6 @@ spec:
           enabled: true
           annotations:
             external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             gethomepage.dev/enabled: "true"
             gethomepage.dev/href: https://mcsrvstat.us/server/mc.thefryer.games
             gethomepage.dev/description: Vanilla Minecraft server

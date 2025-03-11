@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: nightly@sha256:13c2d53ff1a659b0e7c9d3b525f5b535ebfe6c031404d6d63bf8a2d9f7a30f56 # TODO: Switch once Gateway API is released.
+              tag: dev@sha256:5aede68488434a32e6eeaba4651795cac10c9732c4c803c2419ac6ce2904af52 # TODO: Switch once Gateway API is released.
               # tag: v0.10.9@sha256:b6d732817572f9af99ec168b10641b8f7820f30cfa5a5cc5c68f1e291804bec8
             env:
               HOMEPAGE_ALLOWED_HOSTS: homepage.housefam.casa

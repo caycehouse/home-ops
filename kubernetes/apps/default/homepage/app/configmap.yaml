@@ -38,6 +38,7 @@ data:
   kubernetes.yaml: |
     ---
     mode: cluster
+    route: gateway
 
   services.yaml: |
     ---

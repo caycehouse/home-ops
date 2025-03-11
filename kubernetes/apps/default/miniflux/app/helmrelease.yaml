@@ -104,7 +104,9 @@ spec:
           gethomepage.dev/widget.type: miniflux
           gethomepage.dev/widget.url: http://miniflux.default.svc.cluster.local
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_MINIFLUX_API_KEY}}` }}"
-        hostnames: ["rss.housefam.casa"]
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
+          - "rss.housefam.casa"
         parentRefs:
           - name: external
             namespace: kube-system

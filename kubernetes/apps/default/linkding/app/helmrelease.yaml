@@ -62,7 +62,9 @@ spec:
           gethomepage.dev/icon: linkding
           gethomepage.dev/name: linkding
           gethomepage.dev/app: *app
-        hostnames: ["bookmarks.housefam.casa"]
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
+          - "bookmarks.housefam.casa"
         parentRefs:
           - name: external
             namespace: kube-system

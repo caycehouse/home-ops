@@ -1,6 +1,6 @@
 ---
 originRequest:
-  matchSNItoHost: true
+  originServerName: external.housefam.casa
 
 ingress:
   - hostname: housefam.casa

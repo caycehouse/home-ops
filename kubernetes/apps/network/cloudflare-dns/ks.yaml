@@ -47,7 +47,7 @@ spec:
       kind: CustomResourceDefinition
       name: dnsendpoints.externaldns.k8s.io
   interval: 1h
-  path: ./kubernetes/apps/network/cloudflare-dns-ipv4/app
+  path: ./kubernetes/apps/network/cloudflare-dns/ipv4
   prune: true
   retryInterval: 2m
   sourceRef:

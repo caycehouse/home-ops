@@ -53,7 +53,7 @@ spec:
         controller: foundryvtt
         ports:
           http:
-            port: 30000
+            port: &port 30000
     route:
       app:
         annotations:

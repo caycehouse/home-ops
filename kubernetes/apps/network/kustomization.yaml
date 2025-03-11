@@ -6,7 +6,7 @@ namespace: network
 components:
   - ../../components/common
 resources:
-  - ./external/ks.yaml
-  - ./internal/ks.yaml
+  - ./external-dns-unifi/ks.yaml
+  - ./ingress-nginx-unifi/ks.yaml
   - ./mc-router/ks.yaml
   - ./multus/ks.yaml

@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/plex
-              tag: 1.41.4.9463-630c9f557@sha256:bee1d5904c0548e5daa0caf536a88cfbbda659542616142128c9ae89ff237573
+              tag: 1.41.5.9522-a96edc606@sha256:92587d99c2c2a5f17f95eebbf8c95b7d849fa3c4e54ee0b3220caca5c20ae1a7
             env:
               TZ: America/New_York
               PLEX_ADVERTISE_URL: https://plex.housefam.casa:443,http://192.168.42.128:32400

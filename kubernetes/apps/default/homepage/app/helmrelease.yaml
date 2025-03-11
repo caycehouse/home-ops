@@ -20,7 +20,6 @@ spec:
   values:
     controllers:
       homepage:
-        replicas: 2
         strategy: RollingUpdate
         pod:
           annotations:
@@ -64,11 +63,6 @@ spec:
             port: &port 3000
     route:
       app:
-        annotations:
-          nginx.ingress.kubernetes.io/affinity: 'cookie'
-          nginx.ingress.kubernetes.io/session-cookie-name: 'homepage-http-cookie'
-          nginx.ingress.kubernetes.io/session-cookie-expires: '172800'
-          nginx.ingress.kubernetes.io/session-cookie-max-age: '172800'
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
         parentRefs:
           - name: external

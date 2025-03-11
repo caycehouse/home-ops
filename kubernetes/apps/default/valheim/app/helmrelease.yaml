@@ -80,7 +80,7 @@ spec:
         controller: valheim
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: "192.168.42.133"
+          lbipam.cilium.io/ips: 192.168.42.133, ::ffff:192.168.42.133
         ports:
           gameplay:
             port: 2456

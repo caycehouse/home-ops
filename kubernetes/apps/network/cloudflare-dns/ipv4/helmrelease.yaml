@@ -44,7 +44,7 @@ spec:
     triggerLoopOnEvent: true
     policy: sync
     sources: ["crd", "gateway-httproute"]
-    txtOwnerId: default
+    txtOwnerId: ipv4
     txtPrefix: k8s.
     domainFilters: ["housefam.casa", "thefryer.games"]
     serviceMonitor:

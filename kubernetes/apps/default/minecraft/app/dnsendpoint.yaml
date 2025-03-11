@@ -3,12 +3,12 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: mc-router
+  name: minecraft
 spec:
   endpoints:
-    - dnsName: "mc-router.thefryer.games"
+    - dnsName: "mc.thefryer.games"
       recordType: CNAME
-      targets: ["ipv4.housefam.casa"]
+      targets: ["mc-router.thefryer.games"]
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"

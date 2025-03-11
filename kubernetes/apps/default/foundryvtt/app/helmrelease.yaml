@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: foundryvtt
+  name: &app foundryvtt
 spec:
   interval: 1h
   chartRef:
@@ -53,8 +53,8 @@ spec:
         controller: foundryvtt
         ports:
           http:
-            port: 30000
-    ingress:
+            port: &port 30000
+    route:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
@@ -63,14 +63,15 @@ spec:
           gethomepage.dev/group: Games
           gethomepage.dev/icon: foundry-vtt
           gethomepage.dev/name: Foundry VTT
-        className: external
-        hosts:
-          - host: "foundry.housefam.casa"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["foundry.housefam.casa"]
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: foundryvtt

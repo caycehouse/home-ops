@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: meshcentral
+  name: &app meshcentral
 spec:
   interval: 1h
   chartRef:
@@ -43,8 +43,8 @@ spec:
         controller: meshcentral
         ports:
           http:
-            port: 4430
-    ingress:
+            port: &port 4430
+    route:
       app:
         annotations:
           external-dns.alpha.kubernetes.io/target: ipv4.housefam.casa
@@ -55,14 +55,15 @@ spec:
           gethomepage.dev/group: Remote Access
           gethomepage.dev/icon: meshcentral
           gethomepage.dev/name: MeshCentral
-        className: external
-        hosts:
-          - host: "{{ .Release.Name }}.housefam.casa"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        parentRefs:
+          - name: ipv4
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config-file:
         type: configMap

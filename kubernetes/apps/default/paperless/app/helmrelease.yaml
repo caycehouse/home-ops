@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: paperless
+  name: &app paperless
 spec:
   interval: 1h
   chartRef:
@@ -80,7 +80,7 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
         annotations:
           gethomepage.dev/description: Document management system
@@ -92,14 +92,15 @@ spec:
           gethomepage.dev/widget.type: paperlessngx
           gethomepage.dev/widget.url: http://paperless.default.svc.cluster.local:8000
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}` }}"
-        className: external
-        hosts:
-          - host: "paperless.housefam.casa"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: paperless

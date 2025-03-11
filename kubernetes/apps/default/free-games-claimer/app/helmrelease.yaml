@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: free-games-claimer
+  name: &app free-games-claimer
 spec:
   interval: 1h
   chartRef:
@@ -51,8 +51,8 @@ spec:
         controller: free-games-claimer
         ports:
           http:
-            port: 6080
-    ingress:
+            port: &port 6080
+    route:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
@@ -61,14 +61,15 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: mdi-gamepad
           gethomepage.dev/name: free-games-claimer
-        className: internal
-        hosts:
-          - host: fgc.housefam.casa
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["fgc.housefam.casa"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: free-games-claimer

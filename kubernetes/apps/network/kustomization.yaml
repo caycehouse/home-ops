@@ -8,7 +8,10 @@ components:
   - ../../components/repos/app-template
   - ../../components/repos/minecraft
 resources:
-  - ./external-dns-unifi/ks.yaml
-  - ./ingress-nginx-unifi/ks.yaml
+  - ./cloudflare-ddns/ks.yaml
+  - ./cloudflare-dns/ks.yaml
+  - ./cloudflare-tunnel/ks.yaml
+  - ./echo/ks.yaml
   - ./mc-router/ks.yaml
   - ./multus/ks.yaml
+  - ./unifi-dns/ks.yaml

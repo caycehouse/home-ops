@@ -1,0 +1,10 @@
+---
+originRequest:
+  originServerName: external.housefam.casa
+
+ingress:
+  - hostname: housefam.casa
+    service: &svc https://cilium-gateway-external.kube-system.svc.cluster.local
+  - hostname: "*.housefam.casa"
+    service: *svc
+  - service: http_status:404

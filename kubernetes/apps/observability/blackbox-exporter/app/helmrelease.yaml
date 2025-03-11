@@ -33,21 +33,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: blackbox-exporter
-    ingress:
-      enabled: true
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/description: Blackbox endpoint prober
-        gethomepage.dev/group: Services
-        gethomepage.dev/icon: mdi-alpha-b-box
-        gethomepage.dev/name: Blackbox exporter
-        gethomepage.dev/app: prometheus-blackbox-exporter
-      className: internal
-      hosts:
-        - host: blackbox-exporter.housefam.casa
-          paths:
-            - path: /
-              pathType: Prefix
     securityContext:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false

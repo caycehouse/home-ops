@@ -37,6 +37,7 @@ data:
 
   kubernetes.yaml: |
     ---
+    gateway: true
     mode: cluster
     route: gateway
 

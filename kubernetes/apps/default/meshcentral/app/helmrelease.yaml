@@ -57,7 +57,7 @@ spec:
           gethomepage.dev/name: MeshCentral
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
         parentRefs:
-          - name: external
+          - name: ipv4
             namespace: kube-system
             sectionName: https
         rules:

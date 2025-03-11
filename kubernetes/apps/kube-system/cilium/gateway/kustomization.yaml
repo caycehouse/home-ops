@@ -6,4 +6,5 @@ resources:
   - ./certificate.yaml
   - ./external.yaml
   - ./internal.yaml
+  - ./ipv4.yaml
   - ./pushsecret.yaml

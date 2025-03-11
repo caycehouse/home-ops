@@ -76,7 +76,9 @@ spec:
           gethomepage.dev/icon: home-assistant
           gethomepage.dev/name: HASS
           gethomepage.dev/app: home-assistant
-        hostnames: ["hass.housefam.casa"]
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
+          - "hass.housefam.casa"
         parentRefs:
           - name: external
             namespace: kube-system

@@ -5,8 +5,6 @@ kind: HTTPRoute
 metadata:
   name: nextcloud
   annotations:
-    external-dns.alpha.kubernetes.io/target: ipv4.housefam.casa
-    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://nc.housefam.casa"
     gethomepage.dev/description: Self-hosted file sharing

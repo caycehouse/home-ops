@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: linkding
+  name: &app linkding
 spec:
   interval: 1h
   chartRef:
@@ -51,8 +51,8 @@ spec:
         controller: linkding
         ports:
           http:
-            port: 9090
-    ingress:
+            port: &port 9090
+    route:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
@@ -61,11 +61,12 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: linkding
           gethomepage.dev/name: linkding
-        className: external
-        hosts:
-          - host: bookmarks.housefam.casa
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["bookmarks.housefam.casa"]
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port

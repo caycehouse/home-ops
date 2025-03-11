@@ -8,6 +8,7 @@ components:
   - ../../components/repos/app-template
   - ../../components/repos/minecraft
 resources:
+  - ./cloudflare-ddns/ks.yaml
   - ./cloudflare-dns/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
   - ./echo/ks.yaml

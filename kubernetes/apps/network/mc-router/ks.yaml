@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-external-dns
-      namespace: network
+    - name: external-dns-cloudflare
+      namespace: cloudflare
   interval: 1h
   path: ./kubernetes/apps/network/mc-router/app
   prune: true

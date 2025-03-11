@@ -1,0 +1,10 @@
+---
+originRequest:
+  originServerName: external.housefam.casa
+
+ingress:
+  - hostname: housefam.casa
+    service: https://ingress-nginx-cloudflare-controller.network.svc.cluster.local:443
+  - hostname: "*.housefam.casa"
+    service: https://ingress-nginx-cloudflare-controller.network.svc.cluster.local:443
+  - service: http_status:404

@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/externaldns.k8s.io/dnsendpoint_v1alpha1.json
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: cloudflare-tunnel
+spec:
+  endpoints:
+    - dnsName: external.housefam.casa
+      recordType: CNAME
+      targets: ["8ff256a0-7c0f-4755-80e6-5fdc9f3edc6b.cfargotunnel.com"]

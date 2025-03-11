@@ -41,7 +41,8 @@ spec:
       failureThreshold: 60
       periodSeconds: 10
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: &host atm9.thefryer.games
+      external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
+      mc-router.itzg.me/externalServerName: atm9.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -66,32 +67,6 @@ spec:
         enabled: true
         existingSecret: *secret
         secretKey: RCON_PASSWORD
-      extraPorts:
-      - name: metrics
-        containerPort: 9225
-        protocol: TCP
-        service:
-          enabled: true
-          embedded: false
-          type: ClusterIP
-          port: 9225
-        ingress:
-          ingressClassName: external
-          enabled: true
-          annotations:
-            external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: https://mcsrvstat.us/server/atm9.thefryer.games
-            gethomepage.dev/description: All the Mods 9
-            gethomepage.dev/group: Games
-            gethomepage.dev/icon: https://media.forgecdn.net/avatars/thumbnails/902/338/256/256/638350403793040080.png
-            gethomepage.dev/name: All the Mods 9
-            gethomepage.dev/app: minecraft
-            gethomepage.dev/widget.type: minecraft
-            gethomepage.dev/widget.url: udp://atm9-minecraft.default.svc.cluster.local:25565
-          hosts:
-           - name: *host
     persistence:
       dataDir:
         enabled: true

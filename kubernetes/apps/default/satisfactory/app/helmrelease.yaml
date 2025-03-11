@@ -66,6 +66,7 @@ spec:
         controller: satisfactory
         type: LoadBalancer
         annotations:
+          external-dns.alpha.kubernetes.io/target: ipv4.thefryer.games
           external-dns.alpha.kubernetes.io/hostname: satisfactory.thefryer.games
           lbipam.cilium.io/ips: 192.168.42.130, ::ffff:192.168.42.130
         ports:
@@ -75,27 +76,6 @@ spec:
           game-udp:
             port: 7777
             protocol: UDP
-    ingress:
-      app:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: ipv4.thefryer.games
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: The factory must prevail!
-          gethomepage.dev/group: Games
-          gethomepage.dev/icon: https://cdn2.steamgriddb.com/icon_thumb/a12848aeac58ac57e95977f93fec17fd.png
-          gethomepage.dev/name: Satisfactory
-          gethomepage.dev/widget.type: gamedig
-          gethomepage.dev/widget.serverType: satisfactory
-          gethomepage.dev/widget.url: udp://satisfactory.default.svc.cluster.local:7777
-        className: external
-        hosts:
-          - host: "satisfactory.thefryer.games"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: 9225
     persistence:
       config:
         existingClaim: satisfactory

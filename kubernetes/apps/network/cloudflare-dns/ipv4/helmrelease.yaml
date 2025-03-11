@@ -1,19 +1,9 @@
 ---
-# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/source.toolkit.fluxcd.io/helmrepository_v1.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: cloudflare-dns
-  namespace: network # Required for Renovate lookups
-spec:
-  interval: 12h
-  url: https://kubernetes-sigs.github.io/external-dns
----
 # yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app cloudflare-dns
+  name: &app cloudflare-dns-ipv4
 spec:
   interval: 1h
   chart:
@@ -48,10 +38,9 @@ spec:
             key: *name
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
-      - --cloudflare-proxied
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
-      - --gateway-label-filter=gateway==external
+      - --gateway-label-filter=gateway==ipv4
     triggerLoopOnEvent: true
     policy: sync
     sources: ["crd", "gateway-httproute"]

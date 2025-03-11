@@ -31,7 +31,8 @@ spec:
     livenessProbe:
       initialDelaySeconds: 120
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: &host allinone.thefryer.games
+      external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
+      mc-router.itzg.me/externalServerName: allinone.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -56,32 +57,6 @@ spec:
         enabled: true
         existingSecret: *secret
         secretKey: RCON_PASSWORD
-      extraPorts:
-      - name: metrics
-        containerPort: 9225
-        protocol: TCP
-        service:
-          enabled: true
-          embedded: false
-          type: ClusterIP
-          port: 9225
-        ingress:
-          ingressClassName: external
-          enabled: true
-          annotations:
-            external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: https://mcsrvstat.us/server/allinone.thefryer.games
-            gethomepage.dev/description: Modded One Block
-            gethomepage.dev/group: Games
-            gethomepage.dev/icon: https://media.forgecdn.net/avatars/342/91/637485703554418199.png
-            gethomepage.dev/name: All in One
-            gethomepage.dev/app: minecraft
-            gethomepage.dev/widget.type: minecraft
-            gethomepage.dev/widget.url: udp://allinone-minecraft.default.svc.cluster.local:25565
-          hosts:
-           - name: *host
     persistence:
       dataDir:
         enabled: true

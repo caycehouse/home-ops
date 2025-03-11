@@ -80,6 +80,7 @@ spec:
         controller: valheim
         type: LoadBalancer
         annotations:
+          external-dns.alpha.kubernetes.io/target: ipv4.thefryer.games
           lbipam.cilium.io/ips: 192.168.42.133, ::ffff:192.168.42.133
         ports:
           gameplay:
@@ -88,27 +89,6 @@ spec:
           auth:
             port: 2457
             protocol: UDP
-    ingress:
-      app:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: ipv4.thefryer.games
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Skål!
-          gethomepage.dev/group: Games
-          gethomepage.dev/icon: https://cdn2.steamgriddb.com/icon/a0b83c02d720415dada82e08bc09e9f3/32/256x256.png
-          gethomepage.dev/name: Valheim
-          gethomepage.dev/widget.type: gamedig
-          gethomepage.dev/widget.serverType: valheim
-          gethomepage.dev/widget.url: udp://valheim.default.svc.cluster.local:2457
-        className: external
-        hosts:
-          - host: "valheim.thefryer.games"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: 9225
     persistence:
       config:
         existingClaim: valheim

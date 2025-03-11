@@ -41,7 +41,8 @@ spec:
       failureThreshold: 60
       periodSeconds: 10
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: &host seaopolis.thefryer.games
+      external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
+      mc-router.itzg.me/externalServerName: seaopolis.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -69,32 +70,6 @@ spec:
         enabled: true
         existingSecret: *secret
         secretKey: RCON_PASSWORD
-      extraPorts:
-      - name: metrics
-        containerPort: 9225
-        protocol: TCP
-        service:
-          enabled: true
-          embedded: false
-          type: ClusterIP
-          port: 9225
-        ingress:
-          ingressClassName: external
-          enabled: true
-          annotations:
-            external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/href: https://mcsrvstat.us/server/seaopolis.thefryer.games
-            gethomepage.dev/description: "Seaopolis: Submerged"
-            gethomepage.dev/group: Games
-            gethomepage.dev/icon: https://media.forgecdn.net/avatars/thumbnails/996/291/256/256/638512959898606189.png
-            gethomepage.dev/name: "Seaopolis: Submerged"
-            gethomepage.dev/app: minecraft
-            gethomepage.dev/widget.type: minecraft
-            gethomepage.dev/widget.url: udp://seaopolis-minecraft.default.svc.cluster.local:25565
-          hosts:
-           - name: *host
     persistence:
       dataDir:
         enabled: true

@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/caycehouse/free-games-claimer
-              tag: main@sha256:b1e3e22b4f755647fc0e495361f859d272d27b17e6788878090b7a4a1f34e205
+              tag: main@sha256:870434e862aa517c5683b4329b3976ca83ec0ee84dde1a868e9db78afee16b33
             env:
               PG_REDEEM: 1
               PG_CLAIMDLC: 1

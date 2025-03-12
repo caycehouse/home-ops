@@ -35,7 +35,7 @@ machine:
           ip: 192.168.42.120
         vlans:
           - { vlanId: 10, dhcp: false, mtu: 1500 }
-          - { vlanId: 70, dhcp: true, mtu: 1500 }
+          - { vlanId: 70, dhcp: false, mtu: 1500 }
   install:
     extraKernelArgs:
       - i915.enable_guc=2                   # Comet Lake CPU / iGPU

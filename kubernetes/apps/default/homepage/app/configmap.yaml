@@ -50,8 +50,7 @@ data:
                 widget:
                   type: unifi
                   url: https://unifi.internal
-                  username: {{HOMEPAGE_VAR_HOMEPAGE_UNIFI_USER}}
-                  password: {{HOMEPAGE_VAR_HOMEPAGE_UNIFI_PASS}}
+                  key: {{HOMEPAGE_VAR_UNIFI_API_KEY}}
           - R730XD iDRAC:
                 icon: idrac
                 description: Dell Remote Access Controller

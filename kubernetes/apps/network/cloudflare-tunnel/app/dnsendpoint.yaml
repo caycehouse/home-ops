@@ -8,4 +8,4 @@ spec:
   endpoints:
     - dnsName: external.housefam.casa
       recordType: CNAME
-      targets: ["8ff256a0-7c0f-4755-80e6-5fdc9f3edc6b.cfargotunnel.com"]
+      targets: ["${CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"]

@@ -79,7 +79,6 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: changedetection
           gethomepage.dev/name: changedetection.io
-          gethomepage.dev/app: *app
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
         parentRefs:
           - name: internal

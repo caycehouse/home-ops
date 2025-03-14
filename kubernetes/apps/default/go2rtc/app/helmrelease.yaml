@@ -89,7 +89,6 @@ spec:
           gethomepage.dev/href: "https://go2rtc.housefam.casa"
           gethomepage.dev/icon: go2rtc
           gethomepage.dev/name: go2rtc
-          gethomepage.dev/app: *app
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
         parentRefs:
           - name: internal

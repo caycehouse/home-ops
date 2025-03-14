@@ -69,7 +69,6 @@ spec:
           gethomepage.dev/href: "https://whois.housefam.casa"
           gethomepage.dev/icon: sh-dumbwhois
           gethomepage.dev/name: DumbWhois
-          gethomepage.dev/app: *app
         hostnames: ["whois.housefam.casa"]
         parentRefs:
           - name: internal

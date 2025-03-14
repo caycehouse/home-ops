@@ -99,7 +99,6 @@ spec:
           gethomepage.dev/group: Reading
           gethomepage.dev/href: "https://rss.housefam.casa"
           gethomepage.dev/icon: miniflux
-          gethomepage.dev/app: *app
           gethomepage.dev/name: Miniflux
           gethomepage.dev/widget.type: miniflux
           gethomepage.dev/widget.url: http://miniflux.default.svc.cluster.local

@@ -77,7 +77,6 @@ spec:
           gethomepage.dev/group: Services
           gethomepage.dev/icon: mdi-list-status
           gethomepage.dev/name: Kromgo
-          gethomepage.dev/app: *app
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
         parentRefs:
           - name: external

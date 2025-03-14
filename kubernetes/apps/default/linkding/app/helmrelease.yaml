@@ -61,7 +61,6 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: linkding
           gethomepage.dev/name: linkding
-          gethomepage.dev/app: *app
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
           - "bookmarks.housefam.casa"

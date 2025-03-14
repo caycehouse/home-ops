@@ -86,7 +86,6 @@ spec:
           gethomepage.dev/href: "https://plex.housefam.casa"
           gethomepage.dev/icon: plex
           gethomepage.dev/name: Plex
-          gethomepage.dev/app: *app
           gethomepage.dev/widget.type: plex
           gethomepage.dev/widget.url: http://plex.default.svc.cluster.local:32400
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PLEX_TOKEN}}` }}"

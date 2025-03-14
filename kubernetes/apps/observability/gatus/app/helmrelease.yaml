@@ -109,7 +109,6 @@ spec:
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: gatus
           gethomepage.dev/name: Gatus
-          gethomepage.dev/app: *app
         hostnames:
            - "{{ .Release.Name }}.housefam.casa"
            - status.housefam.casa

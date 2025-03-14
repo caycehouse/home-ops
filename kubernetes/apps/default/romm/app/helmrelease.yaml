@@ -72,7 +72,6 @@ spec:
           gethomepage.dev/href: "https://romm.housefam.casa"
           gethomepage.dev/icon: romm
           gethomepage.dev/name: RomM
-          gethomepage.dev/app: *app
           gethomepage.dev/widget.type: romm
           gethomepage.dev/widget.url: http://romm.default.svc.cluster.local:8080
         hostnames: ["{{ .Release.Name }}.housefam.casa"]

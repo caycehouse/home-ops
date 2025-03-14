@@ -89,7 +89,6 @@ spec:
           gethomepage.dev/href: "https://paperless.housefam.casa"
           gethomepage.dev/icon: paperless-ngx
           gethomepage.dev/name: Paperless-ngx
-          gethomepage.dev/app: *app
           gethomepage.dev/widget.type: paperlessngx
           gethomepage.dev/widget.url: http://paperless.default.svc.cluster.local:8000
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}` }}"

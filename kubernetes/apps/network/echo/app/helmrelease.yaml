@@ -79,7 +79,6 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: mdi-web-check
           gethomepage.dev/name: "{{ .Release.Name }}"
-          gethomepage.dev/app: *app
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
         parentRefs:
           - name: external

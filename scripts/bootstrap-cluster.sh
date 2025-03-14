@@ -122,6 +122,8 @@ function apply_crds() {
         https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.1/experimental-install.yaml
         # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
         https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.81.0/stripped-down-crds.yaml
+        # renovate: depName=k8snetworkplumbingwg/network-attachment-definition-client datasource=github-releases
+        https://raw.githubusercontent.com/k8snetworkplumbingwg/network-attachment-definition-client/refs/tags/v1.7.5/artifacts/networks-crd.yaml
     )
 
     for crd in "${crds[@]}"; do

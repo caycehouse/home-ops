@@ -3,14 +3,14 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: app-template
+  name: minecraft
 spec:
   interval: 1h
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 3.7.3
-  url: oci://ghcr.io/bjw-s/helm/app-template
+    tag: 4.25.0
+  url: oci://ghcr.io/onedr0p/charts-mirror/minecraft
   verify:
     provider: cosign

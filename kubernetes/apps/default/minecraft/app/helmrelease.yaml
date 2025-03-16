@@ -67,7 +67,7 @@ spec:
       MEMORY: ""
       OVERRIDE_WHITELIST: "true"
       # renovate: datasource=github-releases depName=caycehouse/fabulously-optimized-server
-      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/refs/tags/v6.5.0-beta.6/pack.toml"
+      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/refs/tags/v6.5.0-beta.8/pack.toml"
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule playersSleepingPercentage 0

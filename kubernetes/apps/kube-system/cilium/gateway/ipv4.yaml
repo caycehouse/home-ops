@@ -6,8 +6,6 @@ metadata:
   name: ipv4
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname ipv4.housefam.casa
-  labels:
-    gateway: ipv4
 spec:
   gatewayClassName: cilium
   addresses:

@@ -3,17 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: seaopolis
+  name: &app seaopolis
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: minecraft
-      version: 4.24.0
-      sourceRef:
-        kind: HelmRepository
-        name: itzg
-        namespace: default
+  chartRef:
+    kind: OCIRepository
+    name: minecraft
   install:
     remediation:
       retries: 3
@@ -25,6 +20,7 @@ spec:
       retries: 3
     timeout: 10m
   values:
+    fullnameOverride: *app
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
     image:

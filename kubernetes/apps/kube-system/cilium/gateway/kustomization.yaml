@@ -8,3 +8,4 @@ resources:
   - ./internal.yaml
   - ./ipv4.yaml
   - ./pushsecret.yaml
+  - ./redirect.yaml

@@ -13,7 +13,7 @@ metadata:
 rules:
     - apiGroups: ["apps", "extensions"]
       resources: ["deployments"]
-      resourceNames: ["atm9-minecraft"]
+      resourceNames: ["atm9"]
       verbs: ["get", "patch", "list", "watch"]
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.2-standalone-strict/rolebinding-rbac-v1.json
@@ -53,5 +53,5 @@ spec:
                 - bash
                 - -c
                 - >-
-                  kubectl rollout restart deployment/atm9-minecraft &&
-                  kubectl rollout status deployment/atm9-minecraft
+                  kubectl rollout restart deployment/atm9 &&
+                  kubectl rollout status deployment/atm9

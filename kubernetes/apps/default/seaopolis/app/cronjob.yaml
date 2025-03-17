@@ -13,7 +13,7 @@ metadata:
 rules:
     - apiGroups: ["apps", "extensions"]
       resources: ["deployments"]
-      resourceNames: ["seaopolis-minecraft"]
+      resourceNames: ["seaopolis"]
       verbs: ["get", "patch", "list", "watch"]
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.2-standalone-strict/rolebinding-rbac-v1.json
@@ -53,5 +53,5 @@ spec:
                 - bash
                 - -c
                 - >-
-                  kubectl rollout restart deployment/seaopolis-minecraft &&
-                  kubectl rollout status deployment/seaopolis-minecraft
+                  kubectl rollout restart deployment/seaopolis &&
+                  kubectl rollout status deployment/seaopolis

@@ -20,7 +20,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_URL: tcp://seaopolis-minecraft.default.svc.cluster.local:25565
+      GATUS_URL: tcp://seaopolis.default.svc.cluster.local:25565
       VOLSYNC_CAPACITY: 8Gi
   prune: true
   retryInterval: 2m

@@ -12,5 +12,5 @@ spec:
   ref:
     tag: 4.26.0
   url: oci://ghcr.io/joryirving/minecraft-server-charts/minecraft
-  verify:
-    provider: cosign
+  # verify:
+  #   provider: cosign

@@ -10,7 +10,7 @@
     {
       description: "Loose versioning for non-semver containers",
       matchDatasources: ["docker"],
-      matchPackageNames: ["/changedetection/", "/plex/"],
+      matchPackageNames: ["/changedetection/"],
       versioning: "loose",
     },
   ],

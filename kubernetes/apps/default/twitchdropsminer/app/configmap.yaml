@@ -15,6 +15,7 @@ data:
         "exclude": {
             "__type": "set",
             "data": [
+                "Black Desert",
                 "Metin2",
                 "Mir Korabley",
                 "NARAKA: BLADEPOINT",

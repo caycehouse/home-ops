@@ -27,8 +27,10 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/valentin-metz/twitchdropsminer
-              tag: master@sha256:04673d9c374ac35daa31fc46be85eff7011ecda80311b490d9666c9bb7105abd
+              repository: ghcr.io/journeydocker/twitchdropsminer
+              tag: main@sha256:411fe15edaf21e98b72c6c611e751d28857f73f2395779d2f8d04b08020ab98f
+            env:
+              UNLINKED_CAMPAIGNS: 1
             resources:
               requests:
                 cpu: 25m

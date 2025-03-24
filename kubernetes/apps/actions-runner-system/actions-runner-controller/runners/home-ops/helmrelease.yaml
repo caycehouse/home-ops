@@ -51,7 +51,7 @@ spec:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/caycehouse/actions-runner:2.323.0@sha256:793a604e3285b168bb60da5e4264bb72eb9d288aaf5f722d79a6368aa6a00cd5
+            image: ghcr.io/caycehouse/actions-runner:2.323.0@sha256:1fe681df4a993515833f32a6bd53240fc85e876c9d1280d848485ffc29f6c07a
             command: ["/home/runner/run.sh"]
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER

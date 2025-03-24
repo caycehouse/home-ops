@@ -60,6 +60,8 @@ spec:
         passwordKey: POSTGRES_PASSWORD
     metrics:
       enabled: true
+      image:
+        repository: ghcr.io/xperimental/nextcloud-exporter
       serviceMonitor:
         enabled: true
       timeout: 10s

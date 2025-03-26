@@ -12,5 +12,3 @@ spec:
   ref:
     tag: 4.26.0
   url: oci://ghcr.io/itzg/minecraft-server-charts/minecraft
-  # verify:
-  #   provider: cosign

@@ -77,3 +77,8 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+    persistence:
+      public-assets:
+        globalMounts:
+          - path: /app/public/assets
+        type: emptyDir

@@ -79,6 +79,6 @@ spec:
                 port: *port
     persistence:
       public-assets:
+        type: emptyDir
         globalMounts:
           - path: /app/public/assets
-        type: emptyDir

@@ -11,7 +11,7 @@ spec:
     name: app-template
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
@@ -109,8 +109,8 @@ spec:
           gethomepage.dev/icon: gatus
           gethomepage.dev/name: Gatus
         hostnames:
-           - "{{ .Release.Name }}.housefam.casa"
-           - status.housefam.casa
+          - "{{ .Release.Name }}.housefam.casa"
+          - status.housefam.casa
         parentRefs:
           - name: external
             namespace: kube-system

@@ -112,7 +112,7 @@ spec:
           value: "10G"
       extraInitContainers:
         - name: init-db
-          image: ghcr.io/caycehouse/postgres-init:16
+          image: ghcr.io/home-operations/postgres-init:17
           envFrom:
             - secretRef:
                 name: *secret

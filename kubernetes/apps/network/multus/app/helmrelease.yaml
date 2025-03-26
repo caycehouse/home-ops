@@ -24,8 +24,8 @@ spec:
         initContainers:
           cni-plugins:
             image:
-              repository: ghcr.io/caycehouse/cni-plugins
-              tag: v1.6.2@sha256:fe464613f7e08a0dac444786530ea31349d0f3fed4d3715a8428875370437d9c
+              repository: ghcr.io/home-operations/cni-plugins
+              tag: 1.6.2@sha256:078ddbb602860268c20c4fd3e31a047315f5b686545588de534aade7059a7764
         containers:
           multus:
             image:

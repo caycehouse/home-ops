@@ -44,7 +44,7 @@ spec:
       vanillaTweaksShareCodes:
         - f8rjVA
         - FF8soj
-      version: "1.21.4"
+      version: "1.21.5"
       viewDistance: 7
       whitelist: "FryyourBacon"
       rcon:

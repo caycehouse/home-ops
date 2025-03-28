@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/felddy/foundryvtt
-              tag: 12.331.0@sha256:306930efe642caa5541add4e269127a3a9122e007496bb22b524f7d9bcc755fc
+              tag: 13.339.0@sha256:9d84d7a0b6721fbb2df73bb64b83babac8f52ea6b1923ac374a8c4220d082a3b
             env:
               FOUNDRY_COMPRESS_WEBSOCKET: "true"
               FOUNDRY_MINIFY_STATIC_FILES: "true"

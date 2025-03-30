@@ -30,8 +30,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/caycehouse/free-games-claimer
-              tag: main@sha256:263072ce9753ff9688844235ef301febfbc7db4cdbf46f95279dc9e4882f6b85
+              repository: ghcr.io/vogler/free-games-claimer
+              tag: latest@sha256:fe7209c36af0616b661ea4c36fddf0335d37b6c2704b414967395c20c28933d9
             env:
               PG_REDEEM: 1
               PG_CLAIMDLC: 1

@@ -15,7 +15,7 @@ webrtc:
 
 streams:
   back_yard:
-    - rtspx://192.168.1.1:7441/y28EDHrFfp11hXwk
+    - rtspx://192.168.1.1:7441/g0uW9oWIwOYxfFr4
   front_doorbell:
     - rtspx://192.168.1.1:7441/9OSfARR88cBMJtht
   living_room:

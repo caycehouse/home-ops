@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: wolveix/satisfactory-server
-              tag: v1.9.6@sha256:af12e212f6d3194b333004658a1898dfea5c571bc693de4c5c52a0249938beb3
+              tag: v1.9.7@sha256:b6ba3261c93068edc298847e4916a9345e17c0bdb1d9b6f7452ecdd1e1569fff
             env:
               AUTOPAUSE: false
               MAXTICKRATE: 120 # default is 30

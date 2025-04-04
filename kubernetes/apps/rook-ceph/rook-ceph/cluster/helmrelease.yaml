@@ -24,6 +24,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: rook-ceph-cluster
+  driftDetection:
+    mode: warn
   install:
     remediation:
       retries: -1

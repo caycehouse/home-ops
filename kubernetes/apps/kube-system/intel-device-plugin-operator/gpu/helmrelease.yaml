@@ -28,6 +28,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: intel-device-plugins-gpu
+  driftDetection:
+    mode: warn
   install:
     remediation:
       retries: -1

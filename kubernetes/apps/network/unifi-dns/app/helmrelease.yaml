@@ -28,6 +28,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: unifi-dns
+  driftDetection:
+    mode: warn
   install:
     disableSchemaValidation: true # Ref: https://github.com/kubernetes-sigs/external-dns/issues/5206
     remediation:

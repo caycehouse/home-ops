@@ -28,6 +28,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: nextcloud
+  driftDetection:
+    mode: warn
   install:
     remediation:
       retries: -1

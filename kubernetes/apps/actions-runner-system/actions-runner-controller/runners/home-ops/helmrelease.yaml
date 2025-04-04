@@ -23,6 +23,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set
+  driftDetection:
+    mode: warn
   install:
     remediation:
       retries: -1

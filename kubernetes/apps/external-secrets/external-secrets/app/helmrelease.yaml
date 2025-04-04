@@ -28,6 +28,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: external-secrets
+  driftDetection:
+    mode: warn
   install:
     remediation:
       retries: -1

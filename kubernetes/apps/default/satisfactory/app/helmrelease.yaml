@@ -37,7 +37,7 @@ spec:
                 memory: 8Gi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             probes:
               liveness: &probes
@@ -88,3 +88,12 @@ spec:
           - path: /config/gamefiles
         size: 10Gi
         storageClass: ceph-block
+      steam-config:
+        type: emptyDir
+        globalMounts:
+          - path: /home/steam/.config
+            subPath: config
+          - path: /home/steam/.steam
+            subPath: steam
+      tmp:
+        type: emptyDir

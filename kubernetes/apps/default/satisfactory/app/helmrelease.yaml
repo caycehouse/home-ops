@@ -47,7 +47,7 @@ spec:
                   exec:
                     command:
                       - /bin/bash
-                      - /healthcheck.sh
+                      - /home/steam/healthcheck.sh
                   initialDelaySeconds: 120
                   periodSeconds: 30
                   timeoutSeconds: 10

@@ -101,8 +101,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           case "${{ matrix.image }}" in
-            *caycehouse*)
-              gh attestation verify --owner caycehouse oci://${{ matrix.image }} ;;
             *home-operations*)
               gh attestation verify --owner home-operations oci://${{ matrix.image }} ;;
           esac

@@ -76,7 +76,7 @@ spec:
           gethomepage.dev/name: HASS
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
-          - "hass.housefam.casa"
+          - hass.housefam.casa
         parentRefs:
           - name: external
             namespace: kube-system

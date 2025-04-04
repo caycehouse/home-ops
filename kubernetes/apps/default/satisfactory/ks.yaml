@@ -13,7 +13,7 @@ spec:
     - ../../../../components/gatus/app
     - ../../../../components/volsync
   dependsOn:
-    - name: external-external-dns
+    - name: cloudflare-dns
       namespace: network
     - name: rook-ceph-cluster
       namespace: rook-ceph

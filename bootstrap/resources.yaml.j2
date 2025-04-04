@@ -43,10 +43,10 @@ data:
   tls.crt: op://kubernetes/housefam-casa-tls/tls.crt
   tls.key: op://kubernetes/housefam-casa-tls/tls.key
 ---
- apiVersion: v1
- kind: Secret
- metadata:
-   name: cloudflare-tunnel-id-secret
-   namespace: network
- stringData:
-   CLOUDFLARE_TUNNEL_ID: op://kubernetes/cloudflare/CLOUDFLARE_TUNNEL_ID
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-tunnel-id-secret
+  namespace: network
+stringData:
+  CLOUDFLARE_TUNNEL_ID: op://kubernetes/cloudflare/CLOUDFLARE_TUNNEL_ID

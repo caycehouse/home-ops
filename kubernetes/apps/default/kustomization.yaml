@@ -25,7 +25,7 @@ resources:
   - ./nextcloud/ks.yaml
   # - ./oceanblock/ks.yaml
   - ./paperless/ks.yaml
-  # - ./satisfactory/ks.yaml
+  - ./satisfactory/ks.yaml
   # - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./twitchdropsminer/ks.yaml

@@ -35,6 +35,7 @@ spec:
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxWorldSize: 29999984
+      memory: ""
       motd: "The Fryer's Minecraft Server"
       ops: "FryyourBacon,3lGanso"
       overrideServerProperties: true

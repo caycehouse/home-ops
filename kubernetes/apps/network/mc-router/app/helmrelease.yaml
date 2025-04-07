@@ -31,9 +31,19 @@ spec:
     remediation:
       retries: 3
   values:
+    minecraftRouter:
+      connectionRateLimit: 10
     services:
       minecraft:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 192.168.42.140, ::ffff:192.168.42.140
           external-dns.alpha.kubernetes.io/hostname: mc-router.thefryer.games
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities: { drop: ["ALL"] }
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000

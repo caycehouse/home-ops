@@ -23,8 +23,8 @@ spec:
         containers:
           app:
             image:
-              repository: wolveix/satisfactory-server
-              tag: v1.9.7@sha256:b6ba3261c93068edc298847e4916a9345e17c0bdb1d9b6f7452ecdd1e1569fff
+              repository: ghcr.io/wolveix/satisfactory-server
+              tag: v1.9.7@sha256:bf78c2694b19e40dcdf73ba4ef630825301a518a69103a7bcdaff5538f061193
             env:
               AUTOPAUSE: false
               MAXTICKRATE: 120 # default is 30

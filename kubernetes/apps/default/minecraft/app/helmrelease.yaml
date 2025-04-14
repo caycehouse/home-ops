@@ -37,7 +37,7 @@ spec:
       maxWorldSize: 29999984
       memory: ""
       motd: "The Fryer's Minecraft Server"
-      ops: "FryyourBacon,3lGanso"
+      ops: "FryyourBacon,ScrambleYourEggs,3lGanso"
       overrideServerProperties: true
       removeOldMods: true
       spawnProtection: 0

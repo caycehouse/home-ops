@@ -23,6 +23,7 @@ spec:
     image:
       repository: ghcr.io/itzg/minecraft-server
       tag: 2025.4.0-java8@sha256:60fe81ac770f7687f6f6ac9d9de06277e2e2528d909ba4fde47b55abb062ff60
+      pullPolicy: IfNotPresent
     livenessProbe:
       initialDelaySeconds: 120
     serviceAnnotations:

@@ -29,9 +29,10 @@ homekit:
       - client_id=${GO2RTC_HOMEKIT_CLIENT_ID_0}&client_public=${GO2RTC_HOMEKIT_CLIENT_PUBLIC_0}&permissions=0
       - client_id=${GO2RTC_HOMEKIT_CLIENT_ID_1}&client_public=${GO2RTC_HOMEKIT_CLIENT_PUBLIC_1}&permissions=1
   chicken_coop:
-    pairings:
-      - client_id=${GO2RTC_HOMEKIT_CLIENT_ID_0}&client_public=${GO2RTC_HOMEKIT_CLIENT_PUBLIC_0}&permissions=0
-      - client_id=${GO2RTC_HOMEKIT_CLIENT_ID_1}&client_public=${GO2RTC_HOMEKIT_CLIENT_PUBLIC_1}&permissions=1
+    pin: 11223344
+    #pairings:
+      #- client_id=${GO2RTC_HOMEKIT_CLIENT_ID_0}&client_public=${GO2RTC_HOMEKIT_CLIENT_PUBLIC_0}&permissions=0
+      #- client_id=${GO2RTC_HOMEKIT_CLIENT_ID_1}&client_public=${GO2RTC_HOMEKIT_CLIENT_PUBLIC_1}&permissions=1
   side_yard:
     pairings:
       - client_id=${GO2RTC_HOMEKIT_CLIENT_ID_0}&client_public=${GO2RTC_HOMEKIT_CLIENT_PUBLIC_0}&permissions=0

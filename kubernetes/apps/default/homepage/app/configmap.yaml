@@ -51,11 +51,6 @@ data:
                   type: unifi
                   url: https://unifi.internal
                   key: {{HOMEPAGE_VAR_UNIFI_API_KEY}}
-          - R730XD iDRAC:
-                icon: idrac
-                description: Dell Remote Access Controller
-                href: https://192.168.1.132
-                ping: 192.168.1.132
     - Storage:
           - TrueNAS Scale:
                 icon: truenas-scale

@@ -133,15 +133,15 @@ In my cluster there are three instances of [ExternalDNS](https://github.com/kube
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
-| Device              | CPU          | OS Disk Size | Data Disk Size                      | Ram  | Operating System    | Purpose               |
-|---------------------|--------------|--------------|-------------------------------------|------|---------------------|-----------------------|
-| OptiPlex 5080 Micro | i5-10600T    | 256GB NVMe   | 960GB SSD (rook-ceph)               | 64GB | Talos               | Kubernetes Controller |
-| OptiPlex 3090 Micro | i5-10500T    | 256GB NVMe   | 960GB SSD (rook-ceph)               | 64GB | Talos               | Kubernetes Controller |
-| OptiPlex 3080 Micro | i5-10500T    | 256GB NVMe   | 960GB SSD (rook-ceph)               | 64GB | Talos               | Kubernetes Controller |
-| OptiPlex 3090 Micro | i5-10500T    | 256GB NVMe   | 960GB SSD (rook-ceph)               | 64GB | Talos               | Kubernetes Worker     |
-| PowerEdge r730xd    | 2xE5-2620 v3 | 1TB SSD      | 2x10TB & 8x3TB ZFS (mirrored vdevs) | 64GB | TrueNAS Scale 24.04 | NFS + Backup Server   |
-| UniFi UDMP          | -            | -            | 1x3TB HDD                           | -    | -                   | Router & NVR          |
-| UniFi USW-48-PoE    | -            | -            | -                                   | -    | -                   | SFP+ PoE Switch       |
+| Device              | CPU       | OS Disk Size | Data Disk Size          | Ram  | Operating System    | Purpose               |
+|---------------------|-----------|--------------|-------------------------|------|---------------------|-----------------------|
+| OptiPlex 5080 Micro | i5-10600T | 256GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Controller |
+| OptiPlex 3090 Micro | i5-10500T | 256GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Controller |
+| OptiPlex 3080 Micro | i5-10500T | 256GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Controller |
+| OptiPlex 3090 Micro | i5-10500T | 256GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Worker     |
+| Aoostar R1          | N100      | 512GB NVMe   | 2x10TB (mirrored vdevs) | 64GB | TrueNAS Scale 25.04 | NFS + Backup Server   |
+| UniFi UDMP          | -         | -            | 1x3TB HDD               | -    | -                   | Router & NVR          |
+| UniFi USW-48-PoE    | -         | -            | -                       | -    | -                   | SFP+ PoE Switch       |
 
 ---
 

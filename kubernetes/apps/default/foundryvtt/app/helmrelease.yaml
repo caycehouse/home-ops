@@ -84,5 +84,10 @@ spec:
     persistence:
       data:
         existingClaim: foundryvtt
+      node-home:
+        type: emptyDir
+        globalMounts:
+          - path: /home/node/resources
+            subPath: resources
       tmp:
         type: emptyDir

@@ -104,5 +104,3 @@ spec:
           - path: /config/tts
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp

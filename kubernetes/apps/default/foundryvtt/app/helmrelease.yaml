@@ -84,3 +84,5 @@ spec:
     persistence:
       data:
         existingClaim: foundryvtt
+      tmp:
+        type: emptyDir

@@ -37,7 +37,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: nextcloud
-      tag: 31.0.4-apache@sha256:bfaae94c86d344077838e75e3e11c2339c233a557c1f3859fdac79038820d9bf
+      tag: 31.0.4-apache@sha256:ad4da6574b6dcb75c185128b091e6ac613f0aabda7ce7f75c9730d9f706e37d0
     cronjob:
       enabled: true
       resources:

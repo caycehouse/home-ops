@@ -22,7 +22,7 @@ spec:
       APP: *app
       GATUS_URL: tcp://minecraft.default.svc.cluster.local:25565
       # renovate: datasource=github-releases depName=caycehouse/fabulously-optimized-server
-      PACKWIZ_VERSION: v6.6.0-alpha.7
+      PACKWIZ_VERSION: v6.6.0-alpha.8
       VOLSYNC_CAPACITY: 15Gi
   prune: true
   retryInterval: 2m

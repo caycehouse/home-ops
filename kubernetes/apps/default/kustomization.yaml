@@ -7,11 +7,8 @@ components:
   - ../../components/common
   - ../../components/repos/minecraft
 resources:
-  # - ./allinone/ks.yaml
-  # - ./atm9/ks.yaml
   - ./atuin/ks.yaml
   - ./changedetection/ks.yaml
-  - ./foundryvtt/ks.yaml
   - ./free-games-claimer/ks.yaml
   - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
@@ -19,14 +16,9 @@ resources:
   - ./isponsorblocktv/ks.yaml
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
-  - ./minecraft/ks.yaml
   - ./miniflux/ks.yaml
   - ./nextcloud/ks.yaml
-  # - ./oceanblock/ks.yaml
   - ./paperless/ks.yaml
-  - ./satisfactory/ks.yaml
-  # - ./seaopolis/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./twitchdropsminer/ks.yaml
-  # - ./valheim/ks.yaml
   - ./zigbee/ks.yaml

@@ -27,6 +27,7 @@ spec:
     livenessProbe:
       initialDelaySeconds: 120
     serviceAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: mc.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
       mc-router.itzg.me/externalServerName: mc.thefryer.games
     minecraftServer:

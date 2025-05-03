@@ -4,7 +4,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app foundryvtt
-  namespace: &namespace default
+  namespace: &namespace games
 spec:
   commonMetadata:
     labels:
@@ -16,7 +16,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/default/foundryvtt/app
+  path: ./kubernetes/apps/games/foundryvtt/app
   postBuild:
     substitute:
       APP: *app

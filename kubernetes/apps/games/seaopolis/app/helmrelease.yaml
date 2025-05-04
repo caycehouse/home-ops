@@ -83,7 +83,6 @@ spec:
       SNOOPER_ENABLED: "false"
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
-      USE_AIKAR_FLAGS: "true"
     envFrom:
       - secretRef:
           name: *secret

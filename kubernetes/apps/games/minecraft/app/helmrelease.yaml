@@ -72,7 +72,6 @@ spec:
       SIMULATION_DISTANCE: "4"
       SNOOPER_ENABLED: "false"
       SYNC_CHUNK_WRITES: "false"
-      USE_AIKAR_FLAGS: "true"
     envFrom:
       - secretRef:
           name: *secret

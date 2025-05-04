@@ -49,7 +49,7 @@ spec:
       maxPlayers: 10
       maxTickTime: 180000
       memory: ""
-      motd: "GT:New Horizons 2.7.4"
+      motd: "GT:New Horizons ${PACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true
       spawnProtection: 1

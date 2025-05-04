@@ -37,9 +37,9 @@ spec:
       failureThreshold: 60
       periodSeconds: 10
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: gtnh.thefryer.games
+      external-dns.alpha.kubernetes.io/hostname: &hostname gtnh.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-      mc-router.itzg.me/externalServerName: gtnh.thefryer.games
+      mc-router.itzg.me/externalServerName: *hostname
     minecraftServer:
       difficulty: "hard"
       eula: "true"

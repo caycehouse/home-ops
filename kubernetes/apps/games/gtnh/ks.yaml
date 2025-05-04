@@ -21,6 +21,8 @@ spec:
     substitute:
       APP: *app
       GATUS_URL: tcp://gtnh.games.svc.cluster.local:25565
+      # renovate: datasource=github-releases depName=GTNewHorizons/GT-New-Horizons-Modpack
+      PACK_VERSION: 2.7.3
       VOLSYNC_CAPACITY: 32Gi
   prune: true
   retryInterval: 2m

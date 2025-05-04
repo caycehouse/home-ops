@@ -70,7 +70,7 @@ spec:
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
-      GENERIC_PACKS: GT_New_Horizons_2.7.4_Server_Java_17-21
+      GENERIC_PACKS: GT_New_Horizons_${PACK_VERSION}_Server_Java_17-21
       GENERIC_PACKS_SUFFIX: .zip
       GENERIC_PACKS_PREFIX: https://downloads.gtnewhorizons.com/ServerPacks/
       OVERRIDE_WHITELIST: "true"

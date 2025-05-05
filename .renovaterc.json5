@@ -8,7 +8,6 @@
     "github>caycehouse/home-ops//.renovate/packageRules.json5",
   ],
   ignorePaths: [
-    "**/*.sops.*",
     "**/resources/**",
   ],
   flux: {

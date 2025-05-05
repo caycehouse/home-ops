@@ -62,7 +62,6 @@ There is a template over at [onedr0p/cluster-template](https://github.com/onedr0
 - [external-secrets](https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect).
 - [multus](https://github.com/k8snetworkplumbingwg/multus-cni): Multi-homed pod networking.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
-- [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
 - [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
 

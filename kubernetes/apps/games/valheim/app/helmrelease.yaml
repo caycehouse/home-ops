@@ -1,0 +1,99 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valheim
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+    timeout: 20m
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+    timeout: 20m
+  values:
+    controllers:
+      valheim:
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/lloesche/valheim-server
+              tag: latest@sha256:8f1c5fc831c900312b4a47c1fe57bfc03b574c1433ea502f5d8f0ad301a22a83
+            env:
+              BACKUPS: "false"
+              SERVER_NAME: "The Fryer's Valheim Server"
+              STATUS_HTTP: true
+              TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: valheim-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/bash
+                      - -c
+                      - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/bash
+                      - -c
+                      - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/bash
+                      - -c
+                      - test "$(jq .error /opt/valheim/htdocs/status.json)" == null
+                  failureThreshold: 120
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 320m
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      terminationGracePeriodSeconds: 120
+    service:
+      app:
+        controller: valheim
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/target: ipv4.thefryer.games
+          lbipam.cilium.io/ips: 192.168.42.133, ::ffff:192.168.42.133
+        ports:
+          gameplay:
+            port: 2456
+            protocol: UDP
+          auth:
+            port: 2457
+            protocol: UDP
+    persistence:
+      config:
+        existingClaim: valheim
+      runtime:
+        accessMode: ReadWriteOnce
+        globalMounts:
+          - path: /opt/valheim
+        size: 30Gi
+        storageClass: ceph-block

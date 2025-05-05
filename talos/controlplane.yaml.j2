@@ -38,8 +38,11 @@ machine:
           - { vlanId: 70, dhcp: false, mtu: 1500 }
   install:
     extraKernelArgs:
-      - i915.enable_guc=2                   # Comet Lake CPU / iGPU
+      - -init_on_alloc                      # Less security, faster puter
+      - -init_on_free                       # Less security, faster puter
+      - -selinux                            # Less security, faster puter
       - apparmor=0                          # Less security, faster puter
+      - i915.enable_guc=2                   # Comet Lake CPU / iGPU
       - init_on_alloc=0                     # Less security, faster puter
       - init_on_free=0                      # Less security, faster puter
       - mitigations=off                     # Less security, faster puter

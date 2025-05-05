@@ -109,14 +109,14 @@ function apply_crds() {
     log debug "Applying CRDs"
 
     local -r crds=(
+        # renovate: datasource=github-releases depName=kubernetes-sigs/external-dns
+        https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/v0.16.1/docs/sources/crd/crd-manifest.yaml
         # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
         https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
         # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
         https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.82.0/stripped-down-crds.yaml
-        # renovate: datasource=github-releases depName=kubernetes-sigs/external-dns
-        https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/v0.16.1/docs/sources/crd/crd-manifest.yaml
-        # renovate: depName=k8snetworkplumbingwg/network-attachment-definition-client datasource=github-releases
-        https://raw.githubusercontent.com/k8snetworkplumbingwg/network-attachment-definition-client/refs/tags/v1.7.5/artifacts/networks-crd.yaml
+        # renovate: datasource=github-releases depName=k8snetworkplumbingwg/network-attachment-definition-client
+        https://raw.githubusercontent.com/k8snetworkplumbingwg/network-attachment-definition-client/refs/tags/v1.7.6/artifacts/networks-crd.yaml
     )
 
     for crd in "${crds[@]}"; do

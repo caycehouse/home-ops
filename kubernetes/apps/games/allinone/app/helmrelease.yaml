@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app allinone
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: minecraft
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *app
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/itzg/minecraft-server
+      tag: 2025.4.2-java8@sha256:6a507460189770883cc2ee99bd7277b2bf16986c9e7d85bb371b04d2b754ac8d
+      pullPolicy: IfNotPresent
+    livenessProbe:
+      initialDelaySeconds: 120
+    serviceAnnotations:
+      external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
+      mc-router.itzg.me/externalServerName: allinone.thefryer.games
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      maxPlayers: 10
+      maxTickTime: 180000
+      memory: "6G"
+      motd: "All in One | 1.5.4b"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      spawnProtection: 0
+      type: "AUTO_CURSEFORGE"
+      viewDistance: 7
+      whitelist: "FryyourBacon"
+      autoCurseForge:
+        apiKey:
+          existingSecret: &secret allinone-secret
+          secretKey: CF_API_KEY
+        filenameMatcher: "1.5.4"
+        slug: "all-in-one-modded-one-block"
+      rcon:
+        enabled: true
+        existingSecret: *secret
+        secretKey: RCON_PASSWORD
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: allinone
+    extraEnv:
+      ALLOW_FLIGHT: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
+      OVERRIDE_WHITELIST: "true"
+      SNOOPER_ENABLED: "false"
+      SYNC_CHUNK_WRITES: "false"
+      USE_AIKAR_FLAGS: "true"
+    envFrom:
+      - secretRef:
+          name: *secret
+    resources:
+      requests:
+        cpu: 500m
+        memory: &mem 8Gi
+      limits:
+        memory: *mem

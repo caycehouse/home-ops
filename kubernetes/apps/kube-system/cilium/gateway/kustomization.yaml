@@ -7,5 +7,5 @@ resources:
   - ./external.yaml
   - ./internal.yaml
   - ./ipv4.yaml
-  # - ./pushsecret.yaml
+  - ./pushsecret.yaml
   - ./redirect.yaml

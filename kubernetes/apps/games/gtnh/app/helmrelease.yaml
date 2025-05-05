@@ -1,0 +1,93 @@
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app gtnh
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: minecraft
+  install:
+    remediation:
+      retries: -1
+    timeout: 10m
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+    timeout: 10m
+  values:
+    fullnameOverride: *app
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/itzg/minecraft-server
+      tag: 2025.4.2-java21@sha256:b4b149e64bfec97dd61fcbf2269643344691898e16a328b71492e79a571392a9
+      pullPolicy: IfNotPresent
+    livenessProbe: &probes
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      failureThreshold: 3
+      timeoutSeconds: 2
+    readinessProbe: *probes
+    startupProbe:
+      enabled: true
+      failureThreshold: 60
+      periodSeconds: 10
+    serviceAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: &hostname gtnh.thefryer.games
+      external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
+      mc-router.itzg.me/externalServerName: *hostname
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      jvmXXOpts: "-XX:MaxRAMPercentage=75 -Dfml.readTimeout=180 @java9args.txt"
+      levelType: "rwg"
+      maxPlayers: 10
+      maxTickTime: 180000
+      memory: ""
+      motd: "GT:New Horizons ${PACK_VERSION}"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      spawnProtection: 1
+      type: "CUSTOM"
+      viewDistance: 8
+      whitelist: "FryyourBacon"
+      rcon:
+        enabled: true
+        existingSecret: &secret gtnh-secret
+        secretKey: RCON_PASSWORD
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: gtnh
+    extraEnv:
+      ALLOW_FLIGHT: "true"
+      CUSTOM_JAR_EXEC: -jar lwjgl3ify-forgePatches.jar nogui
+      ENABLE_COMMAND_BLOCK: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
+      GENERIC_PACKS: GT_New_Horizons_${PACK_VERSION}_Server_Java_17-21
+      GENERIC_PACKS_SUFFIX: .zip
+      GENERIC_PACKS_PREFIX: https://downloads.gtnewhorizons.com/ServerPacks/
+      OVERRIDE_WHITELIST: "true"
+      MEMORY: ""
+      OP_PERMISSION_LEVEL: "3"
+      SKIP_GENERIC_PACK_UPDATE_CHECK: "true"
+      SNOOPER_ENABLED: "false"
+      STOP_SERVER_ANNOUNCE_DELAY: 60
+      SYNC_CHUNK_WRITES: "false"
+    envFrom:
+      - secretRef:
+          name: *secret
+    extraPodSpec:
+      terminationGracePeriodSeconds: "120"
+    resources:
+      requests:
+        cpu: 500m
+        memory: &mem 12Gi
+      limits:
+        memory: *mem

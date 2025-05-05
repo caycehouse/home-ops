@@ -10,7 +10,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 8.12.1
+    tag: 8.14.2
   url: oci://ghcr.io/grafana/helm-charts/grafana
 ---
 # yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
@@ -122,17 +122,17 @@ spec:
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         emqx:
-           # renovate: depName="EMQX"
-           gnetId: 17446
-           revision: 2
-           datasource:
-             - { name: DS_PROMETHEUS, value: Prometheus }
+          # renovate: depName="EMQX"
+          gnetId: 17446
+          revision: 2
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         envoy:
-           # renovate: depName="Envoy Proxy Monitoring gRPC"
-           gnetId: 23239
-           revision: 1
-           datasource:
-             - { name: DS_AFRANET_PROMETHEUS, value: Prometheus }
+          # renovate: depName="Envoy Proxy Monitoring gRPC"
+          gnetId: 23239
+          revision: 1
+          datasource:
+            - { name: DS_AFRANET_PROMETHEUS, value: Prometheus }
         external-dns:
           # renovate: depName="External-dns"
           gnetId: 15038
@@ -182,8 +182,9 @@ spec:
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
-          revision: 39
-          datasource: Prometheus
+          revision: 40
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         nextcloud:
           # renovate: depName="Nextcloud"
           gnetId: 20716

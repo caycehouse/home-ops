@@ -26,7 +26,3 @@ spec:
           sourceLabels:
             - pod
           targetLabel: instance
-        - action: replace
-          # for dashboards
-          replacement: emqx
-          targetLabel: job

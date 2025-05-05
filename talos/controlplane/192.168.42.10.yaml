@@ -1,0 +1,9 @@
+---
+machine:
+  install:
+    diskSelector:
+      model: PC SN520 NVMe WDC 256GB
+  network:
+    hostname: k8s-0
+  nodeLabels:
+    topology.kubernetes.io/zone: m

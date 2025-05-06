@@ -57,7 +57,7 @@ function main() {
         log error "Failed to merge configs" "base=$(basename "${NODE_BASE}")" "patch=$(basename "${NODE_PATCH}")"
     fi
 
-    machine_config="$(printf "%s\n%s" "$machine_config" "$(cat "${ROOT_DIR}"/talos/extradocs/*.yaml)")"
+    machine_config="$(printf "%s\n%s" "$machine_config" "$(cat "${ROOT_DIR}"/talos/extramanifests/*.yaml)")"
 
     echo "${machine_config}"
 }

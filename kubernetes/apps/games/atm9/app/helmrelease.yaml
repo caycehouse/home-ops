@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app seaopolis
+  name: &app atm9
 spec:
   interval: 1h
   chartRef:
@@ -38,17 +38,16 @@ spec:
       periodSeconds: 10
     serviceAnnotations:
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-      mc-router.itzg.me/externalServerName: seaopolis.thefryer.games
+      mc-router.itzg.me/externalServerName: atm9.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      levelType: skyblockbuilder:skyblock
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxTickTime: 180000
       memory: ""
-      motd: "Seaopolis: Submerged | 3.2"
+      motd: "All the Mods 9 | 0.3.5"
       ops: "FryyourBacon"
       overrideServerProperties: true
       spawnProtection: 1
@@ -57,12 +56,10 @@ spec:
       whitelist: "FryyourBacon"
       autoCurseForge:
         apiKey:
-          existingSecret: &secret seaopolis-secret
+          existingSecret: &secret atm9-secret
           secretKey: CF_API_KEY
-        excludeMods:
-          - clear-water
-        filenameMatcher: "3.2"
-        slug: "seaopolis-submerged"
+        filenameMatcher: "0.3.5"
+        slug: "all-the-mods-9"
       rcon:
         enabled: true
         existingSecret: *secret
@@ -70,20 +67,19 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: seaopolis
+        existingClaim: atm9
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
+      OVERRIDE_WHITELIST: "true"
       MEMORY: ""
       OP_PERMISSION_LEVEL: "3"
-      OVERRIDE_WHITELIST: "true"
       SIMULATION_DISTANCE: "4"
       SNOOPER_ENABLED: "false"
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
-      USE_AIKAR_FLAGS: "true"
     envFrom:
       - secretRef:
           name: *secret
@@ -92,6 +88,6 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: &mem 6Gi
+        memory: &mem 12Gi
       limits:
         memory: *mem

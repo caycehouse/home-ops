@@ -3,8 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app valheim
-  namespace: &namespace default
+  name: &app oceanblock
+  namespace: &namespace games
 spec:
   commonMetadata:
     labels:
@@ -16,12 +16,12 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/default/valheim/app
+  path: ./kubernetes/apps/games/oceanblock/app
   postBuild:
     substitute:
       APP: *app
-      GATUS_URL: udp://valheim.default.svc.cluster.local:2456
-      VOLSYNC_CAPACITY: 5Gi
+      GATUS_URL: tcp://oceanblock.games.svc.cluster.local:25565
+      VOLSYNC_CAPACITY: 15Gi
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -29,4 +29,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
+  timeout: 5m
   wait: false

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app minecraft
+  name: &app seaopolis
 spec:
   interval: 1h
   chartRef:
@@ -12,69 +12,82 @@ spec:
   install:
     remediation:
       retries: -1
+    timeout: 10m
   upgrade:
     cleanupOnFail: true
     remediation:
       retries: 3
+    timeout: 10m
   values:
     fullnameOverride: *app
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2025.4.2-java21@sha256:b4b149e64bfec97dd61fcbf2269643344691898e16a328b71492e79a571392a9
+      tag: 2025.4.2-java17@sha256:723e2163dce7aa8cafd987241751517bdd0bad807c300d83eb3f259cd10f35bf
       pullPolicy: IfNotPresent
-    livenessProbe:
-      initialDelaySeconds: 120
+    livenessProbe: &probes
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      failureThreshold: 3
+      timeoutSeconds: 2
+    readinessProbe: *probes
+    startupProbe:
+      enabled: true
+      failureThreshold: 60
+      periodSeconds: 10
     serviceAnnotations:
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-      mc-router.itzg.me/externalServerName: mc.thefryer.games
+      mc-router.itzg.me/externalServerName: seaopolis.thefryer.games
     minecraftServer:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
+      levelType: skyblockbuilder:skyblock
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
-      maxWorldSize: 29999984
+      maxTickTime: 180000
       memory: ""
-      motd: "The Fryer's Minecraft Server"
-      ops: "FryyourBacon,ScrambleYourEggs,3lGanso"
+      motd: "Seaopolis: Submerged | 3.2"
+      ops: "FryyourBacon"
       overrideServerProperties: true
-      removeOldMods: true
-      spawnProtection: 0
-      type: "FABRIC"
-      vanillaTweaksShareCodes:
-        - f8rjVA
-        - FF8soj
-      version: "1.21.5"
-      viewDistance: 7
+      spawnProtection: 1
+      type: "AUTO_CURSEFORGE"
+      viewDistance: 6
       whitelist: "FryyourBacon"
+      autoCurseForge:
+        apiKey:
+          existingSecret: &secret seaopolis-secret
+          secretKey: CF_API_KEY
+        excludeMods:
+          - clear-water
+        filenameMatcher: "3.2"
+        slug: "seaopolis-submerged"
       rcon:
         enabled: true
-        existingSecret: &secret minecraft-secret
+        existingSecret: *secret
         secretKey: RCON_PASSWORD
     persistence:
       dataDir:
         enabled: true
-        existingClaim: minecraft
+        existingClaim: seaopolis
     extraEnv:
       ALLOW_FLIGHT: "true"
+      ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
       MEMORY: ""
+      OP_PERMISSION_LEVEL: "3"
       OVERRIDE_WHITELIST: "true"
-      PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/refs/tags/${PACKWIZ_VERSION}/pack.toml"
-      RCON_CMDS_STARTUP: |-
-        gamerule doFireTick false
-        gamerule playersSleepingPercentage 0
-        scoreboard objectives setdisplay list ts_Deaths
       SIMULATION_DISTANCE: "4"
       SNOOPER_ENABLED: "false"
+      STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
-      USE_AIKAR_FLAGS: "true"
     envFrom:
       - secretRef:
           name: *secret
+    extraPodSpec:
+      terminationGracePeriodSeconds: "120"
     resources:
       requests:
         cpu: 500m

@@ -3,8 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app minecraft
-  namespace: &namespace default
+  name: &app satisfactory
+  namespace: &namespace games
 spec:
   commonMetadata:
     labels:
@@ -13,16 +13,16 @@ spec:
     - ../../../../components/gatus/app
     - ../../../../components/volsync
   dependsOn:
+    - name: cloudflare-dns
+      namespace: network
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/default/minecraft/app
+  path: ./kubernetes/apps/games/satisfactory/app
   postBuild:
     substitute:
       APP: *app
-      GATUS_URL: tcp://minecraft.default.svc.cluster.local:25565
-      # renovate: datasource=github-releases depName=caycehouse/fabulously-optimized-server
-      PACKWIZ_VERSION: v6.6.0-alpha.8
+      GATUS_URL: udp://satisfactory.games.svc.cluster.local:7777
       VOLSYNC_CAPACITY: 15Gi
   prune: true
   retryInterval: 2m

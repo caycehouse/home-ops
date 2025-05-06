@@ -70,7 +70,7 @@ spec:
       - apiVersion: monitoring.giantswarm.io/v1alpha1
         kind: Silence
         metadata:
-          name: expanse-memory-high-utilization
+          name: bakery-memory-high-utilization
           namespace: observability
         spec:
           matchers:
@@ -78,5 +78,5 @@ spec:
               value: NodeMemoryHighUtilization
               isRegex: false
             - name: instance
-              value: expanse.internal:9100
+              value: bakery.internal:9100
               isRegex: false

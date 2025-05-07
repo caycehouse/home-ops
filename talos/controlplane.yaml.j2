@@ -2,7 +2,6 @@ version: v1alpha1
 debug: false
 persist: true
 machine:
-  type: controlplane
   token: op://kubernetes/talos/MACHINE_TOKEN
   ca:
     crt: op://kubernetes/talos/MACHINE_CA_CRT
@@ -39,7 +38,6 @@ machine:
   install:
     extraKernelArgs:
       - -init_on_alloc                      # Less security, faster puter
-      - -init_on_free                       # Less security, faster puter
       - -selinux                            # Less security, faster puter
       - apparmor=0                          # Less security, faster puter
       - i915.enable_guc=2                   # Comet Lake CPU / iGPU

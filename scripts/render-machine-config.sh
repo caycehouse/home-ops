@@ -17,6 +17,8 @@ set -Eeuo pipefail
 source "$(dirname "${0}")/lib/common.sh"
 export ROOT_DIR="$(git rev-parse --show-toplevel)"
 
+export SCHEMATIC_ID="$(curl --silent -X POST --data-binary @"${ROOT_DIR}"/talos/schematic.yaml https://factory.talos.dev/schematics | jq --raw-output '.id')"
+
 readonly NODE_BASE="${1:-}" NODE_PATCH="${2:-}"
 
 function cleanup() {

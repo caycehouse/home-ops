@@ -36,18 +36,7 @@ machine:
           - { vlanId: 10, dhcp: false, mtu: 1500 }
           - { vlanId: 70, dhcp: false, mtu: 1500 }
   install:
-    extraKernelArgs:
-      - -init_on_alloc                      # Less security, faster puter
-      - -selinux                            # Less security, faster puter
-      - apparmor=0                          # Less security, faster puter
-      - i915.enable_guc=2                   # Comet Lake CPU / iGPU
-      - init_on_alloc=0                     # Less security, faster puter
-      - init_on_free=0                      # Less security, faster puter
-      - intel_iommu=on                      # PCI Passthrough
-      - iommu=pt                            # PCI Passthrough
-      - mitigations=off                     # Less security, faster puter
-      - security=none                       # Less security, faster puter
-      - talos.auditd.disabled=1             # Less security, faster puter
+    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:
     - # Spegel

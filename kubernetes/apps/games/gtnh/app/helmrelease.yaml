@@ -50,8 +50,7 @@ spec:
       maxTickTime: 180000
       memory: ""
       modUrls:
-        # renovate: datasource=github-releases depName=GTNewHorizons/minecraft-prometheus-exporter
-        - https://github.com/GTNewHorizons/minecraft-prometheus-exporter/releases/download/2.0.3-GTNH/Prometheus-Exporter-1.7.10-forge-2.0.3-GTNH.jar
+        - https://github.com/GTNewHorizons/minecraft-prometheus-exporter/releases/download/${EXPORTER_VERSION}-GTNH/Prometheus-Exporter-1.7.10-forge-${EXPORTER_VERSION}-GTNH.jar
       motd: "GT:New Horizons ${PACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true

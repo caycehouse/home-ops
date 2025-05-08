@@ -169,3 +169,8 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
     advertisedSubnets: ["192.168.42.0/24"]
   allowSchedulingOnControlPlanes: true
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m

@@ -19,23 +19,14 @@ export ROOT_DIR="$(git rev-parse --show-toplevel)"
 
 export SCHEMATIC_ID="$(curl --silent -X POST --data-binary @"${ROOT_DIR}"/talos/schematic.yaml https://factory.talos.dev/schematics | jq --raw-output '.id')"
 
-readonly NODE_BASE="${1:-}" NODE_PATCH="${2:-}"
-
-function cleanup() {
-    [[ -n "${TMPFILE:-}" && -f "${TMPFILE}" ]] && rm -f "${TMPFILE}"
-}
-trap cleanup ERR EXIT
+readonly NODE_BASE="${1:?}" NODE_PATCH="${2:?}"
 
 function main() {
     # shellcheck disable=SC2034
     local -r LOG_LEVEL="info"
 
     check_env KUBERNETES_VERSION TALOS_VERSION
-    check_cli minijinja-cli op yq
-
-    if [[ -z "${NODE_BASE}" || -z "${NODE_PATCH}" ]]; then
-        log error "Missing arguments"
-    fi
+    check_cli minijinja-cli op talosctl
 
     if ! op whoami --format=json &>/dev/null; then
         log error "Failed to authenticate with 1Password CLI"
@@ -51,15 +42,16 @@ function main() {
         exit 1
     fi
 
-    TMPFILE=$(mktemp)
-    echo "${patch}" >"${TMPFILE}"
+    BASE_TMPFILE=$(mktemp)
+    echo "${base}" >"${BASE_TMPFILE}"
+
+    PATCH_TMPFILE=$(mktemp)
+    echo "${patch}" >"${PATCH_TMPFILE}"
 
     # shellcheck disable=SC2016
-    if ! machine_config=$(echo "${base}" | yq --exit-status eval-all '. as $item ireduce ({}; . * $item )' - "${TMPFILE}" 2>/dev/null) || [[ -z "${machine_config}" ]]; then
+    if ! machine_config=$(echo "${base}" | talosctl machineconfig patch "${BASE_TMPFILE}" --patch "@${PATCH_TMPFILE}") || [[ -z "${machine_config}" ]]; then
         log error "Failed to merge configs" "base=$(basename "${NODE_BASE}")" "patch=$(basename "${NODE_PATCH}")"
     fi
-
-    machine_config="$(printf "%s\n%s" "$machine_config" "$(cat "${ROOT_DIR}"/talos/extramanifests/*.yaml)")"
 
     echo "${machine_config}"
 }

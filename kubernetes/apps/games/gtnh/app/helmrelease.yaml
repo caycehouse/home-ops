@@ -55,7 +55,6 @@ spec:
       spawnProtection: 1
       type: "CUSTOM"
       viewDistance: 8
-      whitelist: "FryyourBacon"
       rcon:
         enabled: true
         existingSecret: &secret gtnh-secret

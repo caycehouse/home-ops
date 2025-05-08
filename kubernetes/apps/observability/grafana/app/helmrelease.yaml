@@ -173,6 +173,12 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
+        minecraft-gtnh:
+          # renovate: depName="Minecraft Server Stats"
+          gnetId: 16508
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         miniflux:
           url: https://raw.githubusercontent.com/miniflux/v2/main/contrib/grafana/dashboard.json
           datasource: Prometheus

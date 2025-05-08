@@ -43,12 +43,25 @@ spec:
     minecraftServer:
       difficulty: "hard"
       eula: "true"
+      extraPorts:
+        - name: metrics
+          containerPort: 19565
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: false
+            type: ClusterIP
+            port: 19565
+          ingress:
+            enabled: false
       forcegameMode: true
       jvmXXOpts: "-XX:MaxRAMPercentage=75 -Dfml.readTimeout=180 @java9args.txt"
       levelType: "rwg"
       maxPlayers: 10
       maxTickTime: 180000
       memory: ""
+      modUrls:
+        - https://github.com/GTNewHorizons/minecraft-prometheus-exporter/releases/download/${EXPORTER_VERSION}-GTNH/Prometheus-Exporter-1.7.10-forge-${EXPORTER_VERSION}-GTNH.jar
       motd: "GT:New Horizons ${PACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true

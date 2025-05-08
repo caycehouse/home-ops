@@ -38,7 +38,7 @@ spec:
       endpointURL: https://c209b8f45f329955b3e0d469af82a4e4.r2.cloudflarestorage.com
       # Note: serverName version needs to be incremented
       # when recovering from an existing cnpg cluster
-      serverName: postgres16-v11
+      serverName: postgres16-v12
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -50,7 +50,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster postgres16-v10
+      source: &previousCluster postgres16-v11
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster

@@ -36,3 +36,6 @@ spec:
       enabled: true
     prometheusRules:
       enabled: false
+      relabelings:
+        - action: labeldrop
+          regex: (pod)

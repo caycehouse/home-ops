@@ -10,10 +10,11 @@ spec:
       path: /metrics
       targetPort: metrics
       relabelings:
-        - sourceLabels: [__meta_kubernetes_pod_name]
-          targetLabel: instance
-        - targetLabel: application
+        - action: replace
+          targetLabel: job
           replacement: *name
+        - targetLabel: instance
+          replacement: gtnh.thefryer.games
   namespaceSelector:
     matchNames:
       - games

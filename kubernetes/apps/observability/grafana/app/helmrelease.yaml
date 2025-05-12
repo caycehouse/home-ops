@@ -174,8 +174,8 @@ spec:
           revision: 14
           datasource: Prometheus
         minecraft-gtnh:
-          # renovate: depName="Minecraft Server Stats"
-          gnetId: 16508
+          # renovate: depName="Minecraft Server Stats - Updated"
+          gnetId: 21835
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }

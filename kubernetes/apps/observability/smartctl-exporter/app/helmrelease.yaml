@@ -32,7 +32,14 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    serviceMonitor:
-      enabled: true
     prometheusRules:
       enabled: false
+    serviceMonitor:
+      enabled: true
+      relabelings:
+        - action: labeldrop
+          regex: (pod)
+        - action: replace
+          sourceLabels:
+            - __meta_kubernetes_endpoint_node_name
+          targetLabel: instance

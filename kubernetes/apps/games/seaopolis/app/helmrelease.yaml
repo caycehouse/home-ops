@@ -44,10 +44,9 @@ spec:
       eula: "true"
       forcegameMode: true
       levelType: skyblockbuilder:skyblock
-      jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxTickTime: 180000
-      memory: ""
+      memory: 6G
       motd: "Seaopolis: Submerged | 3.2"
       ops: "FryyourBacon"
       overrideServerProperties: true
@@ -76,7 +75,6 @@ spec:
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
-      MEMORY: ""
       OP_PERMISSION_LEVEL: "3"
       OVERRIDE_WHITELIST: "true"
       SIMULATION_DISTANCE: "4"
@@ -91,6 +89,6 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: &mem 6Gi
+        memory: &mem 7.5Gi
       limits:
         memory: *mem

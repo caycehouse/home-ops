@@ -55,11 +55,11 @@ spec:
           ingress:
             enabled: false
       forcegameMode: true
-      jvmXXOpts: "-XX:MaxRAMPercentage=75 -Dfml.readTimeout=180 @java9args.txt"
+      jvmXXOpts: "-Dfml.readTimeout=180 @java9args.txt"
       levelType: "rwg"
       maxPlayers: 10
       maxTickTime: 180000
-      memory: ""
+      memory: 6G
       modUrls:
         - https://github.com/GTNewHorizons/minecraft-prometheus-exporter/releases/download/${EXPORTER_VERSION}-GTNH/Prometheus-Exporter-1.7.10-forge-${EXPORTER_VERSION}-GTNH.jar
       motd: "GT:New Horizons ${PACK_VERSION}"
@@ -86,7 +86,6 @@ spec:
       GENERIC_PACKS_SUFFIX: .zip
       GENERIC_PACKS_PREFIX: https://downloads.gtnewhorizons.com/ServerPacks/
       OVERRIDE_WHITELIST: "true"
-      MEMORY: ""
       OP_PERMISSION_LEVEL: "3"
       SKIP_GENERIC_PACK_UPDATE_CHECK: "true"
       SNOOPER_ENABLED: "false"
@@ -100,6 +99,6 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: &mem 6Gi
+        memory: &mem 7.5Gi
       limits:
         memory: *mem

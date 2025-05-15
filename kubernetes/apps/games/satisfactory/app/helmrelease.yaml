@@ -29,7 +29,6 @@ spec:
               AUTOPAUSE: false
               MAXTICKRATE: 120 # default is 30
               ROOTLESS: true
-              STEAMBETA: true
             resources:
               requests:
                 cpu: 500m

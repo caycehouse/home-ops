@@ -16,6 +16,7 @@ resources:
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
   - ./miniflux/ks.yaml
+  - ./mosquitto/ks.yaml
   - ./nextcloud/ks.yaml
   - ./paperless/ks.yaml
   - ./smtp-relay/ks.yaml

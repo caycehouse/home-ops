@@ -18,7 +18,7 @@ spec:
       namespace: kube-system
       sectionName: https
   rules:
-    - backendRefs:
+    - backendRefs: &backendRef
         - name: nextcloud
           namespace: default
           port: 8080
@@ -39,3 +39,27 @@ spec:
               type: ReplaceFullPath
               replaceFullPath: /remote.php/dav/
             statusCode: 301
+    # rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /.well-known/webfinger
+      filters:
+        - type: URLRewrite # TODO do better after https://github.com/kubernetes-sigs/gateway-api/issues/2177
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /index.php/.well-known/webfinger
+      backendRefs: *backendRef
+    # rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /.well-known/nodeinfo
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /index.php/.well-known/nodeinfo
+      backendRefs: *backendRef

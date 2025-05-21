@@ -37,7 +37,11 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: nextcloud
-      tag: 31.0.5-apache@sha256:4294807dcce5dc9572ddf49f2419a0014c1aa592b440d51dc5679d27189641df
+      tag: 31.0.5-fpm-alpine@sha256:1817eaaa0fecd998dfbd927b51f232cf2c9066b7784bd77ffacd94c748195975
+    nginx:
+      enabled: true
+      image:
+        repository: public.ecr.aws/nginx/nginx
     cronjob:
       enabled: true
       resources:
@@ -104,10 +108,6 @@ spec:
           value: "127.0.0.1 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
         - name: OVERWRITECLIURL
           value: "https://nc.housefam.casa"
-        - name: PHP_MEMORY_LIMIT
-          value: "1024M"
-        - name: PHP_UPLOAD_LIMIT
-          value: "10G"
       extraInitContainers:
         - name: init-db
           image: ghcr.io/home-operations/postgres-init:17
@@ -122,6 +122,24 @@ spec:
           authtype: NONE
           port: 25
           secure: ""
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 16G
+          post_max_size = 16G
+          max_input_time = 3600
+          max_execution_time = 3600
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+          pm = dynamic
+          pm.max_children = 57
+          pm.start_servers = 14
+          pm.min_spare_servers = 14
+          pm.max_spare_servers = 42
+          pm.max_requests = 500
+          pm.process_idle_timeout = 10s
       hooks:
         post-installation: |-
           printf "Add missing DB indices\n"
@@ -151,7 +169,6 @@ spec:
     resources:
       requests:
         cpu: 200m
-      limits:
         memory: 5Gi
     startupProbe:
       enabled: true

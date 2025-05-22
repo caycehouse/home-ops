@@ -86,12 +86,14 @@ spec:
           - path: /config/gamefiles
         size: 10Gi
         storageClass: ceph-block
-      steam-config:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /home/steam/.config
-            subPath: config
-          - path: /home/steam/.steam
-            subPath: steam
-      tmp:
-        type: emptyDir
+        advancedMounts:
+          satisfactory:
+            app:
+              - path: /home/steam/.config
+                subPath: config
+              - path: /home/steam/.steam
+                subPath: steam
+              - path: /tmp
+                subPath: tmp

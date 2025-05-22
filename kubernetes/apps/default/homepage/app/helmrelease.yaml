@@ -75,7 +75,7 @@ spec:
     rbac:
       roles:
         homepage:
-          type: Role
+          type: ClusterRole
           rules:
             - apiGroups:
                 - ""
@@ -119,7 +119,7 @@ spec:
                 - list
       bindings:
         homepage:
-          type: RoleBinding
+          type: ClusterRoleBinding
           roleRef:
             identifier: homepage
           subjects:

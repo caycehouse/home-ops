@@ -57,7 +57,7 @@ spec:
     rbac:
       roles:
         multus:
-          type: Role
+          type: ClusterRole
           rules:
             - apiGroups: ["k8s.cni.cncf.io"]
               resources: ["*"]
@@ -70,7 +70,7 @@ spec:
               verbs: ["create", "patch", "update"]
       bindings:
         multus:
-          type: RoleBinding
+          type: ClusterRoleBinding
           roleRef:
             identifier: multus
           subjects:

@@ -2,12 +2,6 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: "Allowed postgresql major release",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/postgresql/"],
-      allowedVersions: "<17",
-    },
-    {
       description: "Loose versioning for non-semver containers",
       matchDatasources: ["docker", "github-releases"],
       matchPackageNames: ["/changedetection/", "/fabulously-optimized-server/"],

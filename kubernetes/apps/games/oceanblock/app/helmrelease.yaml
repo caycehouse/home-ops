@@ -22,7 +22,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2025.4.2-java8@sha256:6a507460189770883cc2ee99bd7277b2bf16986c9e7d85bb371b04d2b754ac8d
+      tag: 2025.5.0-java8@sha256:1fa2044e0853a30506eeac0a5b17a64b889ecee88e4ef4b0c337cd765fdc8b2a
       pullPolicy: IfNotPresent
     livenessProbe:
       initialDelaySeconds: 120

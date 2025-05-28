@@ -24,7 +24,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2025.5.1-java17@sha256:53bc863eb90c4c8452c3aac0c024ae6e065e3309f50715b4390817471be5e7a9
+      tag: 2025.5.1-java21@sha256:85e861124ca87aeef059e2c8828e16fa106c1af263a82bb03a09b8895af81034
       pullPolicy: IfNotPresent
     livenessProbe: &probes
       initialDelaySeconds: 0
@@ -83,6 +83,6 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: &mem 7.5Gi
+        memory: &mem 8Gi
       limits:
         memory: *mem

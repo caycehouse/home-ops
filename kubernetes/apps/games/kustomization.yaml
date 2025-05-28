@@ -10,9 +10,10 @@ resources:
   # - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
   - ./foundryvtt/ks.yaml
-  - ./gtnh/ks.yaml
+  # - ./gtnh/ks.yaml
   - ./minecraft/ks.yaml
   # - ./oceanblock/ks.yaml
   # - ./satisfactory/ks.yaml
   # - ./seaopolis/ks.yaml
   # - ./valheim/ks.yaml
+  - ./vh3/ks.yaml

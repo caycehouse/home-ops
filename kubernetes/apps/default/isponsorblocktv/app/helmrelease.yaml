@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dmunozv04/isponsorblocktv
-              tag: v2.5.2@sha256:33b49ff675015ba520bd6be8deef8402fbd31a4ca73ce726f670421cb6bd6f06
+              tag: v2.5.3@sha256:9610f85ce68c24207bf51ab8abb8a2d322fcb4e5cec3f9ab749115e4a5996256
             env:
               TZ: America/New_York
             securityContext:

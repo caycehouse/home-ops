@@ -21,7 +21,7 @@ spec:
     substitute:
       APP: *app
       GATUS_URL: tcp://vh3.games.svc.cluster.local:25565
-      PACK_VERSION: 3.18.1.0
+      PACK_VERSION: 3.18.2.0
       VOLSYNC_CAPACITY: 16Gi
   prune: true
   retryInterval: 2m

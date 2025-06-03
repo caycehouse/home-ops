@@ -18,6 +18,8 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
+    - name: keda
+      namespace: observability
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h

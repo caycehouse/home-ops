@@ -73,6 +73,7 @@ spec:
       ENFORCE_WHITELIST: "true"
       OVERRIDE_WHITELIST: "true"
       OP_PERMISSION_LEVEL: "3"
+      SIMULATION_DISTANCE: "10"
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
     envFrom:

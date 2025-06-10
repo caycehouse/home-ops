@@ -92,8 +92,6 @@ spec:
       config:
         existingClaim: valheim
       runtime:
-        accessMode: ReadWriteOnce
+        existingClaim: valheim-runtime
         globalMounts:
           - path: /opt/valheim
-        size: 30Gi
-        storageClass: ceph-block

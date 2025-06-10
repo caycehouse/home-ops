@@ -81,11 +81,9 @@ spec:
       config:
         existingClaim: satisfactory
       runtime:
-        accessMode: ReadWriteOnce
+        existingClaim: satisfactory-runtime
         globalMounts:
           - path: /config/gamefiles
-        size: 10Gi
-        storageClass: ceph-block
       tmpfs:
         type: emptyDir
         advancedMounts:

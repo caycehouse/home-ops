@@ -13,7 +13,7 @@ resources:
   # - ./gtnh/ks.yaml
   - ./minecraft/ks.yaml
   # - ./oceanblock/ks.yaml
-  # - ./satisfactory/ks.yaml
+  - ./satisfactory/ks.yaml
   # - ./seaopolis/ks.yaml
   # - ./valheim/ks.yaml
   - ./vh3/ks.yaml

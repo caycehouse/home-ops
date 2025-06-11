@@ -1,4 +1,6 @@
 ---
+log:
+  streams: error # UniFi Protect based setups spam the logs with WARN messages
 api:
   listen: :80
 rtsp:
@@ -6,6 +8,7 @@ rtsp:
 webrtc:
   listen: :8555
   candidates:
+    - 192.168.42.124:8555
     - stun:8555
   ice_servers:
     - urls:

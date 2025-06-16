@@ -76,16 +76,13 @@ spec:
         runAsGroup: 1000
     service:
       app:
-        controller: atuin
         ports:
           http:
-            primary: true
             port: *port
           metrics:
             port: *metricsPort
     serviceMonitor:
       app:
-        serviceName: atuin
         endpoints:
           - port: metrics
             scheme: http

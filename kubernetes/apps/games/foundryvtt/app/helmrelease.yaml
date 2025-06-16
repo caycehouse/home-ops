@@ -59,7 +59,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: foundryvtt
         ports:
           http:
             port: &port 30000

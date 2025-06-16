@@ -54,7 +54,6 @@ spec:
                 memory: 256Mi
     service:
       app:
-        controller: linkding
         ports:
           http:
             port: &port 9090

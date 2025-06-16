@@ -56,20 +56,17 @@ spec:
         runAsGroup: 1000
     service:
       app:
-        controller: smtp-relay
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: smtp-relay.housefam.casa
           lbipam.cilium.io/ips: 192.168.42.123, ::ffff:192.168.42.123
         ports:
           http:
-            primary: true
             port: *metricsPort
           smtp:
             port: *port
     serviceMonitor:
       app:
-        serviceName: smtp-relay
         endpoints:
           - port: http
             scheme: http

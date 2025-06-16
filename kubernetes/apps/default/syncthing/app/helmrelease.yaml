@@ -47,7 +47,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: syncthing
         ports:
           http:
             port: &port 8384

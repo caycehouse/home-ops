@@ -76,7 +76,6 @@ spec:
       terminationGracePeriodSeconds: 120
     service:
       app:
-        controller: valheim
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/target: ipv4.thefryer.games

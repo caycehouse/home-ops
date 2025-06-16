@@ -48,8 +48,6 @@ spec:
                 cpu: 31m
               limits:
                 memory: 2Gi
-        serviceAccount:
-          identifier: homepage
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -57,7 +55,6 @@ spec:
         runAsGroup: 1000
     service:
       app:
-        controller: homepage
         ports:
           http:
             port: &port 3000

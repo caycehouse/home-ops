@@ -62,7 +62,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: satisfactory
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: satisfactory.thefryer.games

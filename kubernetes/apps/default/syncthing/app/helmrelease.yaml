@@ -50,7 +50,7 @@ spec:
         controller: syncthing
         ports:
           http:
-            port: &port 8384
+            port: 8384
     route:
       app:
         annotations:
@@ -65,10 +65,6 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
         existingClaim: syncthing

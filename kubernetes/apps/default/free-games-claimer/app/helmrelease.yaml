@@ -50,7 +50,7 @@ spec:
         controller: free-games-claimer
         ports:
           http:
-            port: &port 6080
+            port: 6080
     route:
       app:
         annotations:
@@ -65,10 +65,6 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       data:
         existingClaim: free-games-claimer

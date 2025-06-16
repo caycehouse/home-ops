@@ -62,7 +62,7 @@ spec:
         controller: foundryvtt
         ports:
           http:
-            port: &port 30000
+            port: 30000
     route:
       app:
         annotations:
@@ -77,10 +77,6 @@ spec:
           - name: external
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       data:
         existingClaim: foundryvtt

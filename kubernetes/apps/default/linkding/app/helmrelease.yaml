@@ -57,7 +57,7 @@ spec:
         controller: linkding
         ports:
           http:
-            port: &port 9090
+            port: 9090
     route:
       app:
         annotations:
@@ -74,7 +74,3 @@ spec:
           - name: external
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port

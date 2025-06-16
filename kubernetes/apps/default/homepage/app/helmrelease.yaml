@@ -60,7 +60,7 @@ spec:
         controller: homepage
         ports:
           http:
-            port: &port 3000
+            port: 3000
     route:
       app:
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
@@ -68,10 +68,6 @@ spec:
           - name: external
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     rbac:
       roles:
         homepage:

@@ -29,16 +29,11 @@ spec:
             env:
               TZ: America/New_York
               ZIGBEE2MQTT_DATA: /config
-              # https://github.com/basnijholt/adaptive-lighting/discussions/506
-              ZIGBEE2MQTT_CONFIG_ADVANCED_CACHE_STATE_SEND_ON_STARTUP: "false"
-              ZIGBEE2MQTT_CONFIG_ADVANCED_CHANNEL: 15
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
-              # https://github.com/basnijholt/adaptive-lighting/discussions/506
-              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_FILTERED_CACHE: '["brightness", "rgb_color", "hs_color", "xy_color", "color_temp_kelvin", "color_temp", "color", "color_mode"]'
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
               ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.housefam.casa

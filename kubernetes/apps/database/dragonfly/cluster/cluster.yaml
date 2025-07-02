@@ -7,6 +7,7 @@ metadata:
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.31.0
   imagePullPolicy: IfNotPresent
+  replicas: 1
   env:
     - name: MAX_MEMORY
       valueFrom:

@@ -33,7 +33,6 @@ spec:
   values:
     crds:
       create: true
-    replicaCount: 2
     monitoring:
       podMonitorEnabled: false
       grafanaDashboard:

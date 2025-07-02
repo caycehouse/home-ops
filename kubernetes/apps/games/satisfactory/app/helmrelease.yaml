@@ -19,7 +19,6 @@ spec:
   values:
     controllers:
       satisfactory:
-        replicas: 1
         containers:
           app:
             image:

@@ -19,7 +19,6 @@ spec:
   values:
     controllers:
       twitchdropsminer:
-        replicas: 1
         pod:
           annotations:
             reloader.stakater.com/auto: "true"

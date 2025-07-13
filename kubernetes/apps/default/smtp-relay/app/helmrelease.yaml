@@ -74,8 +74,6 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     persistence:
-      cache:
-        type: emptyDir
       config-file:
         type: configMap
         name: smtp-relay-configmap
@@ -83,3 +81,5 @@ spec:
           - path: /data/maddy.conf
             subPath: maddy.conf
             readOnly: true
+      tmp:
+        type: emptyDir

@@ -37,7 +37,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: nextcloud
-      tag: 31.0.7-fpm-alpine@sha256:ad3f4f11f936721551a92bf82dbb147d217a7b8fdf4ef2e0e4eb4d2aedcfa429
+      tag: 31.0.7-fpm-alpine@sha256:1eb13d1a5468774636dd1c5524508205289d3976b2bcd86195260a0e05e38b9a
     nginx:
       enabled: true
       image:

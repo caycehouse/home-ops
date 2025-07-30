@@ -74,7 +74,7 @@ spec:
           - "{{ .Release.Name }}.housefam.casa"
           - "feeds.housefam.casa"
         parentRefs:
-          - name: external
+          - name: internal
             namespace: kube-system
             sectionName: https
     persistence:

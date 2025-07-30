@@ -21,14 +21,6 @@ spec:
       linkding:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 17
-            envFrom: &envFrom
-              - secretRef:
-                  name: linkding-secret
         containers:
           app:
             image:
@@ -36,7 +28,9 @@ spec:
               tag: 1.41.0@sha256:49346ebe531db7034a4347b83bef82838af76b39695f096c50a3dc3064d5ac1f
             env:
               LD_LOG_X_FORWARDED_FOR: "true"
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: linkding-secret
             probes:
               liveness:
                 enabled: true
@@ -73,3 +67,8 @@ spec:
           - name: external
             namespace: kube-system
             sectionName: https
+    persistence:
+      data:
+        existingClaim: linkding
+        globalMounts:
+          - path: /etc/linkding/data

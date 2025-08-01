@@ -1,0 +1,46 @@
+{
+    "autostart": false,
+    "autostart_tray": false,
+    "connection_quality": 1,
+    "exclude": {
+        "__type": "set",
+        "data": [
+            "Black Desert",
+            "Metin2",
+            "Mir Korabley",
+            "NARAKA: BLADEPOINT",
+            "Ninja Must Die",
+            "Shakes and Fidget",
+            "Summoners War: Chronicles",
+            "Warhammer 40,000: Warpforge",
+            "Warhaven",
+            "World of Tanks",
+            "World of Warships"
+        ]
+    },
+    "language": "English",
+    "priority": [
+        "Assassin's Creed Shadows",
+        "Cult of the Lamb",
+        "Diablo IV",
+        "Disney Dreamlight Valley",
+        "Elite: Dangerous",
+        "Last Epoch",
+        "New World",
+        "Overwatch 2",
+        "Path of Exile",
+        "Path of Exile 2",
+        "Rocket League",
+        "Sea of Thieves",
+        "Temtem",
+        "The Elder Scrolls Online",
+        "Tom Clancy's The Division 2",
+        "Warframe"
+    ],
+    "priority_only": false,
+    "proxy": {
+        "__type": "URL",
+        "data": ""
+    },
+    "tray_notifications": true
+}

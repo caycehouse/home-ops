@@ -5,7 +5,7 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: homepage-configmap
+  - name: twitchdropsminer-configmap
     files:
       - settings.json=./resources/settings.json
       - startup.sh=./resources/startup.sh

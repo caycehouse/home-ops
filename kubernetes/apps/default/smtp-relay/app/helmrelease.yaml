@@ -34,7 +34,7 @@ spec:
               SMTP_RELAY_SERVER_PORT: 465
             envFrom:
               - secretRef:
-                  name: smtp-relay-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -76,7 +76,7 @@ spec:
     persistence:
       config-file:
         type: configMap
-        name: smtp-relay-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /data/maddy.conf
             subPath: maddy.conf

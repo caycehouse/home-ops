@@ -59,12 +59,12 @@ spec:
     persistence:
       config-file:
         type: configMap
-        name: meshcentral-config
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - subPath: config.json
             path: /opt/meshcentral/meshcentral-data/config.json
       data:
-        existingClaim: meshcentral
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/meshcentral/meshcentral-data
             subPath: data

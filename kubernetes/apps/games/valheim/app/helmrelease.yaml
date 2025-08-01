@@ -35,7 +35,7 @@ spec:
               TZ: America/New_York
             envFrom:
               - secretRef:
-                  name: valheim-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -88,8 +88,8 @@ spec:
             protocol: UDP
     persistence:
       config:
-        existingClaim: valheim
+        existingClaim: "{{ .Release.Name }}"
       runtime:
-        existingClaim: valheim-runtime
+        existingClaim: "{{ .Release.Name }}-runtime"
         globalMounts:
           - path: /opt/valheim

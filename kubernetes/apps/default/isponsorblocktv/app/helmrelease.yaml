@@ -48,7 +48,7 @@ spec:
     persistence:
       config-file:
         type: secret
-        name: isponsorblocktv-secret
+        name: "{{ .Release.Name }}-secret"
         globalMounts:
           - path: /app/data/config.json
             subPath: config.json

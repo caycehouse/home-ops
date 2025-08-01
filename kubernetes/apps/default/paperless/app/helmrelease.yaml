@@ -37,7 +37,7 @@ spec:
               PAPERLESS_DATA_DIR: /data/local/data
             envFrom:
               - secretRef:
-                  name: paperless-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
@@ -91,6 +91,6 @@ spec:
             sectionName: https
     persistence:
       data:
-        existingClaim: paperless
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data/local

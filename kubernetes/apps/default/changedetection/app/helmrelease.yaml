@@ -85,6 +85,6 @@ spec:
             sectionName: https
     persistence:
       datastore:
-        existingClaim: changedetection
+        existingClaim: "{{ .Release.Name }}"
       tmp:
         type: emptyDir

@@ -34,7 +34,7 @@ spec:
               HASS_EXTERNAL_URL: *hass_url
             envFrom:
               - secretRef:
-                  name: home-assistant-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
@@ -82,11 +82,11 @@ spec:
             sectionName: https
     persistence:
       config:
-        existingClaim: home-assistant
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
       config-cache:
-        existingClaim: home-assistant-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/.venv
       tmpfs:

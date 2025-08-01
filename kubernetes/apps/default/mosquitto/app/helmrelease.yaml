@@ -64,10 +64,10 @@ spec:
             persistence_location /data
     persistence:
       data:
-        existingClaim: mosquitto-cache
+        existingClaim: "{{ .Release.Name }}-cache"
       config-file:
         type: configMap
-        name: mosquitto
+        name: "{{ .Release.Name }}-configmap"
         advancedMounts:
           mosquitto:
             app:

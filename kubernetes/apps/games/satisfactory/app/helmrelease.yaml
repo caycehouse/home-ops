@@ -77,9 +77,9 @@ spec:
             protocol: TCP
     persistence:
       config:
-        existingClaim: satisfactory
+        existingClaim: "{{ .Release.Name }}"
       runtime:
-        existingClaim: satisfactory-runtime
+        existingClaim: "{{ .Release.Name }}-runtime"
         globalMounts:
           - path: /config/gamefiles
       tmpfs:

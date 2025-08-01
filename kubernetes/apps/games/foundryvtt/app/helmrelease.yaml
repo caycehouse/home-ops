@@ -34,7 +34,7 @@ spec:
               FOUNDRY_TELEMETRY: "false"
             envFrom:
               - secretRef:
-                  name: foundryvtt-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -78,7 +78,7 @@ spec:
             sectionName: https
     persistence:
       data:
-        existingClaim: foundryvtt
+        existingClaim: "{{ .Release.Name }}"
       tmpfs:
         type: emptyDir
         advancedMounts:

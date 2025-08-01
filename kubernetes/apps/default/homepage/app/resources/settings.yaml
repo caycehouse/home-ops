@@ -1,0 +1,14 @@
+---
+color: indigo
+iconStyle: theme
+layout:
+  Games:
+    columns: 3
+    style: row
+  News:
+    columns: 3
+    style: row
+  Utilities:
+    columns: 3
+    style: row
+useEqualHeights: true

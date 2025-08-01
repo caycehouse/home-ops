@@ -33,7 +33,7 @@ spec:
               TZ: America/New_York
             envFrom:
               - secretRef:
-                  name: homepage-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -126,7 +126,7 @@ spec:
           - path: /app/config
       config-file:
         type: configMap
-        name: homepage-config
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - subPath: bookmarks.yaml
             path: /app/config/bookmarks.yaml

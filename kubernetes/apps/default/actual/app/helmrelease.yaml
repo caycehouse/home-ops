@@ -76,4 +76,4 @@ spec:
             sectionName: https
     persistence:
       data:
-        existingClaim: actual
+        existingClaim: "{{ .Release.Name }}"

@@ -54,7 +54,7 @@ spec:
     persistence:
       config-file:
         type: configMap
-        name: twitchdropsminer-config
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - subPath: settings.json
             path: /TwitchDropsMiner/settings.json.import
@@ -63,7 +63,7 @@ spec:
         defaultMode: 0777
       secret-file:
         type: secret
-        name: twitchdropsminer-secret
+        name: "{{ .Release.Name }}-secret"
         globalMounts:
           - subPath: cookies.jar
             path: /TwitchDropsMiner/cookies.jar.import

@@ -30,7 +30,7 @@ spec:
               LD_LOG_X_FORWARDED_FOR: "true"
             envFrom:
               - secretRef:
-                  name: linkding-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -69,6 +69,6 @@ spec:
             sectionName: https
     persistence:
       data:
-        existingClaim: linkding
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /etc/linkding/data

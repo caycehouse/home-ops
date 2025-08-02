@@ -74,6 +74,9 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     persistence:
+      cache:
+        type: emptyDir
+        medium: Memory
       config-file:
         type: configMap
         name: "{{ .Release.Name }}-configmap"
@@ -81,5 +84,3 @@ spec:
           - path: /data/maddy.conf
             subPath: maddy.conf
             readOnly: true
-      tmp:
-        type: emptyDir

@@ -19,10 +19,8 @@ spec:
   values:
     controllers:
       homepage:
-        strategy: RollingUpdate
-        pod:
-          annotations:
-            reloader.stakater.com/auto: 'true'
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -30,34 +28,46 @@ spec:
               tag: v1.4.1@sha256:39af267c9404a2af54f534a319440a9f1d3f8544181faa62223b6412e0cf00f7
             env:
               HOMEPAGE_ALLOWED_HOSTS: homepage.housefam.casa
+              PORT: &port 80
               TZ: America/New_York
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false # next.js writes ton of weird files
               capabilities: { drop: ['ALL'] }
             resources:
               requests:
-                cpu: 31m
+                cpu: 10m
               limits:
                 memory: 2Gi
     defaultPodOptions:
+      # hostUsers: false
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
           http:
-            port: 3000
+            port: *port
     route:
       app:
         hostnames: ["{{ .Release.Name }}.housefam.casa"]

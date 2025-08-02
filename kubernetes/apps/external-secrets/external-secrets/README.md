@@ -12,7 +12,7 @@ services:
       OP_HTTP_PORT: 7070
       OP_SESSION: aHVudGVyMgo=
       XDG_DATA_HOME: /config
-    image: docker.io/1password/connect-api:1.7.3
+    image: ghcr.io/1password/connect-api:1.7.4
     network_mode: host
     restart: unless-stopped
     volumes:
@@ -23,7 +23,7 @@ services:
       OP_HTTP_PORT: 7071
       OP_SESSION: aHVudGVyMgo=
       XDG_DATA_HOME: /config
-    image: docker.io/1password/connect-sync:1.7.3
+    image: ghcr.io/1password/connect-sync:1.7.4
     network_mode: host
     restart: unless-stopped
     volumes:

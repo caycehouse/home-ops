@@ -91,7 +91,7 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "status.housefam.casa"
+          gethomepage.dev/href: "https://status.housefam.casa"
           gethomepage.dev/description: Status Page
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: gatus

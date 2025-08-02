@@ -45,12 +45,6 @@ spec:
               limits:
                 memory: 2Gi
     defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
@@ -59,6 +53,13 @@ spec:
             "ips": ["192.168.10.120/24"],
             "mac": "86:de:8a:f5:17:0d"
           }]
+      hostUsers: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:

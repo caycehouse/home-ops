@@ -26,11 +26,21 @@ spec:
               tag: 0.50.8@sha256:09bbb2ae22e71deaddf8c2c7d383c5a85e8b6f4ac93fe3428e929832ec09d522
             env:
               PLAYWRIGHT_DRIVER_URL: ws://localhost:3000/?stealth=1&--disable-web-security=true
+              PORT: &port 80
+              TZ: America/New_York
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -39,24 +49,19 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 256Mi
           browser:
             image:
               repository: dgtlmoon/sockpuppetbrowser
               tag: latest@sha256:df8d9d02e1efa93d7824e81222ee638e7d0dbb0ef132bc277dc01c969e82d57e
               pullPolicy: IfNotPresent
-            env:
-              SCREEN_WIDTH: "1920"
-              SCREEN_HEIGHT: "1024"
-              SCREEN_DEPTH: "16"
-              MAX_CONCURRENT_CHROME_PROCESSES: "10"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 20m
+                cpu: 10m
               limits:
                 memory: 2Gi
     defaultPodOptions:
@@ -64,11 +69,13 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
           http:
-            port: 5000
+            port: *port
     route:
       app:
         annotations:
@@ -84,7 +91,11 @@ spec:
             namespace: kube-system
             sectionName: https
     persistence:
-      datastore:
+      config:
         existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          changedetection:
+            app:
+              - path: /datastore
       tmp:
         type: emptyDir

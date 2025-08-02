@@ -30,8 +30,9 @@ spec:
           app:
             image:
               repository: ghcr.io/vogler/free-games-claimer
-              tag: latest@sha256:d9847ba1f7e9c8212d2aaaf199bde424a98894440e0508e251a3e9448b30db5b
+              tag: dev@sha256:f7ed26524e44531ae1608be696711321f672f57e4775d3e46b5c9cb789290f1c
             env:
+              NOVNC_PORT: &port 80
               PG_REDEEM: 1
               PG_CLAIMDLC: 1
               WIDTH: 1920
@@ -44,11 +45,13 @@ spec:
                 cpu: 100m
               limits:
                 memory: 2Gi
+        pod:
+          hostUsers: false
     service:
       app:
         ports:
           http:
-            port: 6080
+            port: *port
     route:
       app:
         annotations:
@@ -64,7 +67,7 @@ spec:
             namespace: kube-system
             sectionName: https
     persistence:
-      data:
+      config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /fgc/data

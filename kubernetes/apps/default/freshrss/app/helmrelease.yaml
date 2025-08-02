@@ -46,8 +46,8 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-        pod:
-          hostUsers: false
+    defaultPodOptions:
+      hostUsers: false
     service:
       app:
         ports:

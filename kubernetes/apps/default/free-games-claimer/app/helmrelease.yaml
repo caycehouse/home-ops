@@ -45,8 +45,8 @@ spec:
                 cpu: 100m
               limits:
                 memory: 2Gi
-        pod:
-          hostUsers: false
+    defaultPodOptions:
+      hostUsers: false
     service:
       app:
         ports:

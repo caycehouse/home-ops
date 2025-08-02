@@ -17,7 +17,6 @@ resources:
   - ./isponsorblocktv/ks.yaml
   - ./linkding/ks.yaml
   - ./meshcentral/ks.yaml
-  - ./miniflux/ks.yaml
   - ./mosquitto/ks.yaml
   - ./nextcloud/ks.yaml
   - ./paperless/ks.yaml

@@ -49,6 +49,8 @@ spec:
                 cpu: 20m
               limits:
                 memory: 256Mi
+    defaultPodOptions:
+      hostUsers: false
     service:
       app:
         ports:

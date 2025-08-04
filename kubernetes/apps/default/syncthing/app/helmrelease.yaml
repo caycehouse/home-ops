@@ -25,10 +25,18 @@ spec:
               repository: ghcr.io/syncthing/syncthing
               tag: 1.30.0@sha256:74eeedb08d4912763055594f8bd98bfc039f3bc504b6cd2c2adc8294111c1251
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 8384
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -49,7 +57,7 @@ spec:
       app:
         ports:
           http:
-            port: 8384
+            port: *port
     route:
       app:
         annotations:
@@ -73,5 +81,3 @@ spec:
         type: nfs
         server: bakery.internal
         path: /mnt/storage1/Syncthing
-        globalMounts:
-          - path: /data

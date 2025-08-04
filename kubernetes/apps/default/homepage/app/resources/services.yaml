@@ -7,7 +7,7 @@
         widget:
           type: unifi
           url: https://unifi.internal
-          key: {{HOMEPAGE_VAR_UNIFI_API_KEY}}
+          key: "{{HOMEPAGE_VAR_UNIFI_API_KEY}}"
 - Storage:
     - TrueNAS Scale:
         icon: truenas-scale
@@ -20,6 +20,6 @@
         href: https://octopi.internal
         icon: octoprint
         widget:
-          key: {{HOMEPAGE_VAR_OCTOPI_API_KEY}}
+          key: "{{HOMEPAGE_VAR_OCTOPI_API_KEY}}"
           type: octoprint
           url: http://octopi.internal

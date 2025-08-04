@@ -49,8 +49,8 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     persistence:
       config-file:
-        type: configMap
-        name: "{{ .Release.Name }}-configmap"
+        type: secret
+        name: "{{ .Release.Name }}-secret"
         globalMounts:
           - path: /app/data/config.json
             subPath: config.json

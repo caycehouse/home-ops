@@ -47,21 +47,10 @@ spec:
                     path: /
                     port: *port
                   initialDelaySeconds: 0
-                  periodSeconds: 30
-                  timeoutSeconds: 2
+                  periodSeconds: 10
+                  timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: *port
-                  initialDelaySeconds: 0
-                  timeoutSeconds: 1
-                  failureThreshold: 10
-                  periodSeconds: 12
             resources:
               requests:
                 cpu: 100m
@@ -90,7 +79,7 @@ spec:
             namespace: kube-system
             sectionName: https
     persistence:
-      data:
+      config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data/local

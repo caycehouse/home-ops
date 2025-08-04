@@ -32,7 +32,7 @@ services:
 services:
   smartctl-exporter:
     command:
-      - '--smartctl.device-exclude=nvme0|.*megaraid.*'
+      - '--smartctl.device-exclude=nvme0'
     image: quay.io/prometheuscommunity/smartctl-exporter:v0.13.0
     ports:
       - '9633:9633'

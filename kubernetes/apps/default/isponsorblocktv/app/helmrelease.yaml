@@ -19,9 +19,8 @@ spec:
   values:
     controllers:
       isponsorblocktv:
-        pod:
-          annotations:
-            reloader.stakater.com/auto: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -47,8 +46,8 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     persistence:
       config-file:
-        type: secret
-        name: "{{ .Release.Name }}-secret"
+        type: configMap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /app/data/config.json
             subPath: config.json

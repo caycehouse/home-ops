@@ -28,7 +28,7 @@ spec:
               tag: 2.17.1@sha256:ab72a0ab42a792228cdbe83342b99a48acd49f7890ae54b1ae8e04401fba24ee
             env:
               PAPERLESS_PORT: &port 8000
-              PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/0
+              PAPERLESS_REDIS: redis://paperless-redis.default.svc.cluster.local:6379
               PAPERLESS_TIME_ZONE: America/New_York
               PAPERLESS_URL: "https://paperless.housefam.casa"
               PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
@@ -56,11 +56,31 @@ spec:
                 cpu: 100m
               limits:
                 memory: 2Gi
+      redis:
+        containers:
+          redis:
+            image:
+              repository: ghcr.io/valkey-io/valkey
+              tag: 8.1.3
+            resources:
+              requests:
+                cpu: 5m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
     service:
       app:
+        forceRename: "{{ .Release.Name }}"
+        primary: true
+        controller: paperless
         ports:
           http:
             port: *port
+      redis:
+        controller: redis
+        ports:
+          http:
+            port: 6379
     route:
       app:
         annotations:

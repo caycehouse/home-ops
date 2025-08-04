@@ -28,29 +28,35 @@ spec:
               tag: 1.41.0@sha256:49346ebe531db7034a4347b83bef82838af76b39695f096c50a3dc3064d5ac1f
             env:
               LD_LOG_X_FORWARDED_FOR: "true"
+              LD_SERVER_PORT: &port 80
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 256Mi
+    defaultPodOptions:
+      hostUsers: false
     service:
       app:
         ports:
           http:
-            port: 9090
+            port: *port
     route:
       app:
         annotations:
@@ -68,7 +74,7 @@ spec:
             namespace: kube-system
             sectionName: https
     persistence:
-      data:
+      config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /etc/linkding/data

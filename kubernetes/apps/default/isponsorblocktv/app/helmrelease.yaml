@@ -28,6 +28,9 @@ spec:
               tag: v2.5.3@sha256:9610f85ce68c24207bf51ab8abb8a2d322fcb4e5cec3f9ab749115e4a5996256
             env:
               TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

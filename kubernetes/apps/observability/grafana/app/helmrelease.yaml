@@ -179,12 +179,6 @@ spec:
           revision: 41
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-        nextcloud:
-          # renovate: depName="Nextcloud"
-          gnetId: 20716
-          revision: 1
-          datasource:
-            - { name: DS_LOCAL, value: Prometheus }
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105

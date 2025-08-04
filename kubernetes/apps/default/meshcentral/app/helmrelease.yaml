@@ -19,29 +19,43 @@ spec:
   values:
     controllers:
       meshcentral:
-        pod:
-          annotations:
-            reloader.stakater.com/auto: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: ghcr.io/ylianst/meshcentral
               tag: 1.1.48@sha256:daec2659d3bb600ea8ad7fc3a070422fca8c1d15479b8103aaedbf9e762b91f3
+            env:
+              HOSTNAME: "meshcentral.housefam.casa"
+              DYNAMIC_CONFIG: "true"
+              LOCAL_SESSION_RECORDING: "false"
+              REVERSE_PROXY: "https://meshcentral.housefam.casa"
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 4430
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 20m
               limits:
                 memory: 256Mi
+    defaultPodOptions:
+      hostUsers: false
     service:
       app:
         ports:
           http:
-            port: 4430
+            port: *port
     route:
       app:
         annotations:
@@ -57,13 +71,7 @@ spec:
             namespace: kube-system
             sectionName: https
     persistence:
-      config-file:
-        type: configMap
-        name: "{{ .Release.Name }}-configmap"
-        globalMounts:
-          - subPath: config.json
-            path: /opt/meshcentral/meshcentral-data/config.json
-      data:
+      config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/meshcentral/meshcentral-data

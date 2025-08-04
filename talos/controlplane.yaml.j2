@@ -39,8 +39,7 @@ machine:
     image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
     wipe: false
   files:
-    - # Spegel
-      op: create
+    - op: create
       path: /etc/cri/conf.d/20-customization.part
       content: |
         [plugins."io.containerd.cri.v1.images"]

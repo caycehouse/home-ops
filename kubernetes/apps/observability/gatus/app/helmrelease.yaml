@@ -48,7 +48,7 @@ spec:
               TZ: America/New_York
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
-              WEB_PORT: &port 80
+              GATUS_WEB_PORT: &port 80
             probes:
               liveness: &probes
                 enabled: true
@@ -76,8 +76,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
@@ -91,7 +89,7 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "status.housefam.casa"
+          gethomepage.dev/href: "https://status.housefam.casa"
           gethomepage.dev/description: Status Page
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: gatus
@@ -122,7 +120,7 @@ spec:
       gatus: {}
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        type: emptyDir
       config-file:
         type: configMap
         name: "{{ .Release.Name }}-configmap"

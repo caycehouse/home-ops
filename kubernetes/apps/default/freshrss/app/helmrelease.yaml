@@ -27,6 +27,7 @@ spec:
             env:
               CRON_MIN: "*/15"
               LISTEN: &port 80
+              TZ: America/New_York
             probes:
               liveness: &probes
                 enabled: true
@@ -45,8 +46,8 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-        pod:
-          hostUsers: false
+    defaultPodOptions:
+      hostUsers: false
     service:
       app:
         ports:

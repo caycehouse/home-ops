@@ -19,33 +19,40 @@ spec:
   values:
     controllers:
       homepage:
-        strategy: RollingUpdate
-        pod:
-          annotations:
-            reloader.stakater.com/auto: 'true'
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: v1.4.1@sha256:39af267c9404a2af54f534a319440a9f1d3f8544181faa62223b6412e0cf00f7
+              tag: v1.4.0@sha256:63434aafeb3d49be1f21ebd3c5d777fe5b7794c31342daad4e96f09b72a57188
             env:
               HOMEPAGE_ALLOWED_HOSTS: homepage.housefam.casa
+              PORT: &port 80
               TZ: America/New_York
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false # next.js writes ton of weird files
-              capabilities: { drop: ['ALL'] }
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 31m
+                cpu: 10m
               limits:
                 memory: 2Gi
     defaultPodOptions:
@@ -57,7 +64,7 @@ spec:
       app:
         ports:
           http:
-            port: 3000
+            port: *port
     route:
       app:
         hostnames: ["{{ .Release.Name }}.housefam.casa"]
@@ -130,13 +137,19 @@ spec:
         globalMounts:
           - subPath: bookmarks.yaml
             path: /app/config/bookmarks.yaml
+            readOnly: true
           - subPath: docker.yaml
             path: /app/config/docker.yaml
+            readOnly: true
           - subPath: kubernetes.yaml
             path: /app/config/kubernetes.yaml
+            readOnly: true
           - subPath: services.yaml
             path: /app/config/services.yaml
+            readOnly: true
           - subPath: settings.yaml
             path: /app/config/settings.yaml
+            readOnly: true
           - subPath: widgets.yaml
             path: /app/config/widgets.yaml
+            readOnly: true

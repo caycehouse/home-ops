@@ -75,5 +75,7 @@ spec:
             namespace: kube-system
             sectionName: https
     persistence:
-      data:
+      config:
         existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /data

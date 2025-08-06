@@ -78,8 +78,7 @@ machine:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
-      enabled: true
-      port: 7445
+      enabled: false
     hostDNS:
       enabled: true
       resolveMemberNames: true
@@ -109,6 +108,8 @@ cluster:
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
     key: ""
+  discovery:
+    enabled: false
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig

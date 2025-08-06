@@ -20,6 +20,5 @@ resources:
   - ./mosquitto/ks.yaml
   - ./paperless/ks.yaml
   - ./smtp-relay/ks.yaml
-  - ./syncthing/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./zigbee/ks.yaml

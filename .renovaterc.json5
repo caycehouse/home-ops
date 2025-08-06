@@ -6,17 +6,18 @@
     "github>caycehouse/home-ops//.renovate/grafanaDashboards.json5",
     "github>caycehouse/home-ops//.renovate/groups.json5",
     "github>caycehouse/home-ops//.renovate/packageRules.json5",
+    "github>caycehouse/home-ops//.renovate/talosFactory.json5",
   ],
   ignorePaths: [
     "**/resources/**",
   ],
   flux: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"]
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
   },
   "helm-values": {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"]
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
   },
   kubernetes: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"]
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
   },
 }

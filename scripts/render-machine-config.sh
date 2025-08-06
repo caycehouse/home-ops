@@ -17,15 +17,13 @@ set -Eeuo pipefail
 source "$(dirname "${0}")/lib/common.sh"
 export ROOT_DIR="$(git rev-parse --show-toplevel)"
 
-export SCHEMATIC_ID="$(curl --silent -X POST --data-binary @"${ROOT_DIR}"/talos/schematic.yaml https://factory.talos.dev/schematics | jq --raw-output '.id')"
-
 readonly NODE_BASE="${1:?}" NODE_PATCH="${2:?}"
 
 function main() {
     # shellcheck disable=SC2034
     local -r LOG_LEVEL="info"
 
-    check_env KUBERNETES_VERSION TALOS_VERSION
+    check_env KUBERNETES_VERSION
     check_cli minijinja-cli op talosctl
 
     if ! op whoami --format=json &>/dev/null; then

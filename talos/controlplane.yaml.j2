@@ -36,7 +36,7 @@ machine:
           - { vlanId: 10, dhcp: false, mtu: 1500 }
           - { vlanId: 70, dhcp: false, mtu: 1500 }
   install:
-    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
+    image: factory.talos.dev/metal-installer/38b7f94a429c1403b7cdf321d95bf60bdb041c2434c0c7928d7cf94d161ae248:v1.10.6
     wipe: false
   files:
     - op: create

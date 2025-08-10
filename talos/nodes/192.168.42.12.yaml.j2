@@ -1,9 +1,11 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.10/website/content/v1.10/schemas/config.schema.json
 machine:
-  type: controlplane
   network:
     hostname: k8s-2
   install:
     diskSelector:
       model: CL1-3D256-Q11 NVMe SSSTC 256GB
+  nodeLabels:
+    topology.kubernetes.io/zone: m
+  type: controlplane

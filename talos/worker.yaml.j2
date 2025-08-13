@@ -28,11 +28,11 @@ machine:
           deviceSelectors:
             - hardwareAddr: 00:e0:4c:68:*
               driver: r8169
-        mtu: 1500
+        mtu: 9000
         dhcp: true
         vlans:
-          - { vlanId: 10, dhcp: false, mtu: 1500 }
-          - { vlanId: 70, dhcp: false, mtu: 1500 }
+          - { vlanId: 10, dhcp: false, mtu: 9000 }
+          - { vlanId: 70, dhcp: false, mtu: 9000 }
   install:
     image: factory.talos.dev/metal-installer/38b7f94a429c1403b7cdf321d95bf60bdb041c2434c0c7928d7cf94d161ae248:v1.10.6
     wipe: false

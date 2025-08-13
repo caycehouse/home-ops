@@ -75,13 +75,13 @@ machine:
             - hardwareAddr: 00:e0:4c:68:*
               driver: r8169
           mode: active-backup
-        mtu: 1500
+        mtu: 9000
         dhcp: true
         vip:
           ip: 192.168.42.120
         vlans:
-          - {dhcp: false, mtu: 1500, vlanId: 10}
-          - {dhcp: false, mtu: 1500, vlanId: 70}
+          - {dhcp: false, mtu: 9000, vlanId: 10}
+          - {dhcp: false, mtu: 9000, vlanId: 70}
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: main

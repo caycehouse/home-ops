@@ -1,0 +1,31 @@
+---
+machine:
+  install:
+    diskSelector:
+      model: CL1-3D256-Q11 NVMe SSSTC 256GB
+    image: factory.talos.dev/metal-installer/38b7f94a429c1403b7cdf321d95bf60bdb041c2434c0c7928d7cf94d161ae248:v1.10.6
+  network:
+    hostname: k8s-2
+    interfaces:
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:e0:4c:68:*
+              driver: r8169
+          mode: active-backup
+        mtu: 9000
+        dhcp: true
+        vip:
+          ip: 192.168.42.120
+        vlans:
+          - {dhcp: false, mtu: 9000, vlanId: 10}
+          - {dhcp: false, mtu: 9000, vlanId: 70}
+  nodeLabels:
+    intel.feature.node.kubernetes.io/gpu: "true"
+    topology.kubernetes.io/zone: m
+  type: controlplane
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m

@@ -5,9 +5,8 @@
     "github>caycehouse/renovate-config:autoMerge.json5",
     "github>caycehouse/home-ops//.renovate/grafanaDashboards.json5",
     "github>caycehouse/home-ops//.renovate/groups.json5",
-    "github>caycehouse/home-ops//.renovate/helmfile.json5",
+    "github>caycehouse/home-ops//.renovate/overrides.json5",
     "github>caycehouse/home-ops//.renovate/packageRules.json5",
-    "github>caycehouse/home-ops//.renovate/talosFactory.json5",
   ],
   ignorePaths: [
     "**/resources/**",

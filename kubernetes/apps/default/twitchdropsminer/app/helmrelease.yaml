@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/journeydocker/twitchdropsminer
-              tag: main@sha256:5289a238893f418ef07ceebb0c72a02e306c2b7f1bfd5cd6c241a1a5a1a74e3d
+              tag: main@sha256:782a349dca1f62638ab2cd6d9534ee42fdb905cabe12fdd01a06263b970019bf
             env:
               UNLINKED_CAMPAIGNS: 1
             resources:

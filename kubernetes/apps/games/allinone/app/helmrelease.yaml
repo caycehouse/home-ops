@@ -43,7 +43,6 @@ spec:
       spawnProtection: 0
       type: "AUTO_CURSEFORGE"
       viewDistance: 7
-      whitelist: "FryyourBacon"
       autoCurseForge:
         apiKey:
           existingSecret: &secret allinone-secret

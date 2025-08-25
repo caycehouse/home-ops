@@ -57,7 +57,10 @@ spec:
         apiKey:
           existingSecret: &secret ll7-secret
           secretKey: CF_API_KEY
+        excludeMods:
+          - custom-fov
         filenameMatcher: "1.20.0"
+        forceSynchronize: true
         slug: "tnp-limitless-7"
       rcon:
         enabled: true

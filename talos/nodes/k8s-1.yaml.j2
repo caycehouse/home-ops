@@ -7,24 +7,8 @@ machine:
     hostname: k8s-1
     interfaces:
       - interface: bond0
-        bond:
-          deviceSelectors:
-            - hardwareAddr: 00:e0:4c:68:*
-              driver: r8169
-          mode: active-backup
-        mtu: 9000
-        dhcp: true
         vip:
           ip: 192.168.42.120
-        vlans:
-          - {dhcp: false, mtu: 9000, vlanId: 10}
-          - {dhcp: false, mtu: 9000, vlanId: 70}
   nodeLabels:
-    intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/zone: m
   type: controlplane
----
-apiVersion: v1alpha1
-kind: WatchdogTimerConfig
-device: /dev/watchdog0
-timeout: 5m

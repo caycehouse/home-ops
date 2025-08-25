@@ -77,7 +77,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/target: ipv4.thefryer.games
+          external-dns.alpha.kubernetes.io/hostname: valheim.thefryer.games
           lbipam.cilium.io/ips: 192.168.42.133
         ports:
           gameplay:

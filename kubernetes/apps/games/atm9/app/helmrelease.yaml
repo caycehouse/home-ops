@@ -37,8 +37,9 @@ spec:
       failureThreshold: 60
       periodSeconds: 10
     serviceAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: &hostname atm9.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-      mc-router.itzg.me/externalServerName: atm9.thefryer.games
+      mc-router.itzg.me/externalServerName: *hostname
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -52,7 +53,6 @@ spec:
       spawnProtection: 1
       type: "AUTO_CURSEFORGE"
       viewDistance: 6
-      whitelist: "FryyourBacon"
       autoCurseForge:
         apiKey:
           existingSecret: &secret atm9-secret

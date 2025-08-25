@@ -37,8 +37,9 @@ spec:
       failureThreshold: 60
       periodSeconds: 10
     serviceAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: &hostname seaopolis.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-      mc-router.itzg.me/externalServerName: seaopolis.thefryer.games
+      mc-router.itzg.me/externalServerName: *hostname
     minecraftServer:
       difficulty: "hard"
       eula: "true"

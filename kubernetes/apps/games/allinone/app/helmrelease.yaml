@@ -27,9 +27,9 @@ spec:
     livenessProbe:
       initialDelaySeconds: 120
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: allinone.thefryer.games
+      external-dns.alpha.kubernetes.io/hostname: &hostname allinone.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
-      mc-router.itzg.me/externalServerName: allinone.thefryer.games
+      mc-router.itzg.me/externalServerName: *hostname
     minecraftServer:
       difficulty: "hard"
       eula: "true"
@@ -43,7 +43,6 @@ spec:
       spawnProtection: 0
       type: "AUTO_CURSEFORGE"
       viewDistance: 7
-      whitelist: "FryyourBacon"
       autoCurseForge:
         apiKey:
           existingSecret: &secret allinone-secret

@@ -7,7 +7,7 @@ components:
   - ../../components/common
   - ../../components/repos/minecraft
 resources:
-  - ./allinone/ks.yaml
+  # - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
   # - ./foundryvtt/ks.yaml
   # - ./gtnh/ks.yaml

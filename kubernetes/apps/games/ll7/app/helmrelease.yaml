@@ -57,7 +57,7 @@ spec:
         apiKey:
           existingSecret: &secret ll7-secret
           secretKey: CF_API_KEY
-        filenameMatcher: "v1.9.0"
+        filenameMatcher: "1.9.0"
         slug: "tnp-limitless-7"
       rcon:
         enabled: true

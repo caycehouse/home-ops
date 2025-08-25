@@ -42,7 +42,6 @@ spec:
       overrideServerProperties: true
       type: "FTBA"
       viewDistance: 7
-      whitelist: "FryyourBacon"
       rcon:
         enabled: true
         existingSecret: &secret oceanblock-secret

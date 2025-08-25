@@ -54,7 +54,6 @@ spec:
       spawnProtection: 1
       type: "AUTO_CURSEFORGE"
       viewDistance: 6
-      whitelist: "FryyourBacon"
       autoCurseForge:
         apiKey:
           existingSecret: &secret seaopolis-secret

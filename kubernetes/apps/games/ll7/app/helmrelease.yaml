@@ -47,7 +47,7 @@ spec:
       maxPlayers: 10
       maxTickTime: 180000
       memory: 9G
-      motd: "§fT§9N§fP §9L§fimit§9l§fess 7 Server | v1.9.0"
+      motd: "§fT§9N§fP §9L§fimit§9l§fess 7 Server | v1.20.0"
       ops: "FryyourBacon"
       overrideServerProperties: true
       spawnProtection: 1
@@ -57,7 +57,7 @@ spec:
         apiKey:
           existingSecret: &secret ll7-secret
           secretKey: CF_API_KEY
-        filenameMatcher: "1.9.0"
+        filenameMatcher: "1.20.0"
         slug: "tnp-limitless-7"
       rcon:
         enabled: true

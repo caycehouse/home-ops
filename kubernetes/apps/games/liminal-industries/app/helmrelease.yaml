@@ -56,7 +56,7 @@ spec:
         apiKey:
           existingSecret: &secret liminal-industries-secret
           secretKey: CF_API_KEY
-        filenameMatcher: "${PACK_VERSION}"
+        filenameMatcher: ${QUOTE}${PACK_VERSION}${QUOTE}
         slug: "liminal-industries"
       rcon:
         enabled: true

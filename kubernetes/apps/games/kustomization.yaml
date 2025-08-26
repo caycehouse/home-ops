@@ -15,7 +15,7 @@ resources:
   # - ./ll7/ks.yaml
   - ./minecraft/ks.yaml
   # - ./oceanblock/ks.yaml
-  - ./pm/ks.yaml
+  # - ./pm/ks.yaml
   # - ./satisfactory/ks.yaml
   # - ./seaopolis/ks.yaml
   # - ./valheim/ks.yaml

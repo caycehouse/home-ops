@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app atm9
+  name: &app liminal-industries
 spec:
   interval: 1h
   chartRef:
@@ -37,7 +37,7 @@ spec:
       failureThreshold: 60
       periodSeconds: 10
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: &hostname atm9.thefryer.games
+      external-dns.alpha.kubernetes.io/hostname: &hostname liminal-industries.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
       mc-router.itzg.me/externalServerName: *hostname
     minecraftServer:
@@ -45,20 +45,19 @@ spec:
       eula: "true"
       forcegameMode: true
       maxPlayers: 10
-      maxTickTime: 180000
-      memory: 9G
-      motd: "All the Mods 9 | 1.0.8"
+      memory: 8G
+      motd: "Liminal Industries | ${PACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true
       spawnProtection: 1
       type: "AUTO_CURSEFORGE"
-      viewDistance: 6
+      viewDistance: 10
       autoCurseForge:
         apiKey:
-          existingSecret: &secret atm9-secret
+          existingSecret: &secret liminal-industries-secret
           secretKey: CF_API_KEY
-        filenameMatcher: "1.0.8"
-        slug: "all-the-mods-9"
+        filenameMatcher: "${PACK_VERSION}"
+        slug: "liminal-industries"
       rcon:
         enabled: true
         existingSecret: *secret
@@ -66,7 +65,7 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: atm9
+        existingClaim: liminal-industries
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_COMMAND_BLOCK: "true"
@@ -74,8 +73,7 @@ spec:
       ENFORCE_WHITELIST: "true"
       OVERRIDE_WHITELIST: "true"
       OP_PERMISSION_LEVEL: "3"
-      SIMULATION_DISTANCE: "4"
-      SNOOPER_ENABLED: "false"
+      SIMULATION_DISTANCE: "10"
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
     envFrom:

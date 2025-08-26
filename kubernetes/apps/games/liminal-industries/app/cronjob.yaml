@@ -1,0 +1,58 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.2-standalone-strict/serviceaccount-v1.json
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: restart-liminal-industries
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.2-standalone-strict/role-rbac-v1.json
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+    name: restart-liminal-industries
+rules:
+    - apiGroups: ["apps", "extensions"]
+      resources: ["deployments"]
+      resourceNames: ["liminal-industries"]
+      verbs: ["get", "patch", "list", "watch"]
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.2-standalone-strict/rolebinding-rbac-v1.json
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: restart-liminal-industries
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: restart-liminal-industries
+subjects:
+  - kind: ServiceAccount
+    name: restart-liminal-industries
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.2-standalone-strict/cronjob-batch-v1.json
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restart-liminal-industries
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "30 4,16 * * *"
+  successfulJobsHistoryLimit: 1
+  timeZone: "America/New_York"
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 600
+      backoffLimit: 1
+      template:
+        spec:
+          serviceAccountName: restart-liminal-industries
+          restartPolicy: Never
+          containers:
+            - name: kubectl
+              image: bitnami/kubectl
+              command:
+                - bash
+                - -c
+                - >-
+                  kubectl rollout restart deployment/liminal-industries &&
+                  kubectl rollout status deployment/liminal-industries

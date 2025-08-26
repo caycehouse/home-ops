@@ -105,5 +105,7 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /data/local
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/local

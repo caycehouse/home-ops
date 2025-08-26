@@ -22,6 +22,7 @@ spec:
       APP: *app
       GATUS_URL: tcp://liminal-industries.games.svc.cluster.local:25565
       PACK_VERSION: "1.18"
+      QUOTE: '"' # double quote var
       VOLSYNC_CAPACITY: 10Gi
   prune: true
   retryInterval: 2m

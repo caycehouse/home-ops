@@ -9,6 +9,7 @@ components:
 resources:
   # - ./allinone/ks.yaml
   # - ./atm9/ks.yaml
+  - ./atm8/ks.yaml
   # - ./foundryvtt/ks.yaml
   # - ./gtnh/ks.yaml
   # - ./ll7/ks.yaml

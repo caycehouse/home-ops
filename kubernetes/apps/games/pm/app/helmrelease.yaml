@@ -1,0 +1,86 @@
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app pm
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: minecraft
+  install:
+    remediation:
+      retries: -1
+    timeout: 10m
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+    timeout: 10m
+  values:
+    fullnameOverride: *app
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/itzg/minecraft-server
+      tag: 2025.8.1-java17@sha256:8004ad61ba9d7ee41bb705f10a60dcb1b26981f54d5382b778f09223371580cc
+      pullPolicy: IfNotPresent
+    livenessProbe: &probes
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      failureThreshold: 3
+      timeoutSeconds: 2
+    readinessProbe: *probes
+    startupProbe:
+      enabled: true
+      failureThreshold: 60
+      periodSeconds: 10
+    serviceAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: &hostname pm.thefryer.games
+      external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
+      mc-router.itzg.me/externalServerName: *hostname
+    minecraftServer:
+      difficulty: "hard"
+      eula: "true"
+      forcegameMode: true
+      ftbModpackId: 96
+      maxPlayers: 10
+      maxTickTime: 180000
+      memory: 9G
+      motd: "Plexiglass Mountain"
+      ops: "FryyourBacon"
+      overrideServerProperties: true
+      spawnProtection: 1
+      type: "FTBA"
+      viewDistance: 6
+      rcon:
+        enabled: true
+        existingSecret: &secret pm-secret
+        secretKey: RCON_PASSWORD
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: pm
+    extraEnv:
+      ALLOW_FLIGHT: "true"
+      ENABLE_COMMAND_BLOCK: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      ENFORCE_WHITELIST: "true"
+      OVERRIDE_WHITELIST: "true"
+      OP_PERMISSION_LEVEL: "3"
+      SIMULATION_DISTANCE: "4"
+      SNOOPER_ENABLED: "false"
+      STOP_SERVER_ANNOUNCE_DELAY: 60
+      SYNC_CHUNK_WRITES: "false"
+    envFrom:
+      - secretRef:
+          name: *secret
+    extraPodSpec:
+      terminationGracePeriodSeconds: "120"
+    resources:
+      requests:
+        cpu: 500m
+        memory: &mem 12Gi
+      limits:
+        memory: *mem

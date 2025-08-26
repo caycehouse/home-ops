@@ -47,7 +47,7 @@ spec:
       maxPlayers: 10
       maxTickTime: 180000
       memory: 9G
-      motd: "All the Mods 8 | 1.0.19b"
+      motd: "All the Mods 8 | 1.1.0"
       ops: "FryyourBacon"
       overrideServerProperties: true
       spawnProtection: 1
@@ -57,7 +57,7 @@ spec:
         apiKey:
           existingSecret: &secret atm8-secret
           secretKey: CF_API_KEY
-        filenameMatcher: "1.0.19b"
+        filenameMatcher: "1.1.0"
         slug: "all-the-mods-8"
       rcon:
         enabled: true

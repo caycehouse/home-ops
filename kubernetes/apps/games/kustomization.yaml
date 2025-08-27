@@ -8,8 +8,8 @@ components:
   - ../../components/repos/minecraft
 resources:
   # - ./allinone/ks.yaml
+  # - ./atm8/ks.yaml
   # - ./atm9/ks.yaml
-  - ./atm8/ks.yaml
   # - ./foundryvtt/ks.yaml
   # - ./gtnh/ks.yaml
   - ./liminal-industries/ks.yaml

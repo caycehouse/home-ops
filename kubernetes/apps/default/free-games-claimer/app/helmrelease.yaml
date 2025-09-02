@@ -61,7 +61,8 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: mdi-gamepad
           gethomepage.dev/name: free-games-claimer
-        hostnames: ["fgc.housefam.casa"]
+        hostnames:
+          - fgc.housefam.casa
         parentRefs:
           - name: internal
             namespace: kube-system

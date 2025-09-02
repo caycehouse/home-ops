@@ -10,4 +10,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   commonName: housefam.casa
-  dnsNames: ["housefam.casa", "*.housefam.casa"]
+  dnsNames:
+    - housefam.casa
+    - "*.housefam.casa"

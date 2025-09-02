@@ -60,10 +60,14 @@ spec:
           timeoutSeconds: 5
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["gateway-httproute", "service"]
+    sources:
+      - gateway-httproute
+      - service
     txtOwnerId: main
     txtPrefix: k8s.main.
-    domainFilters: ["housefam.casa", "thefryer.games"]
+    domainFilters:
+      - housefam.casa
+      - thefryer.games
     serviceMonitor:
       enabled: true
     podAnnotations:

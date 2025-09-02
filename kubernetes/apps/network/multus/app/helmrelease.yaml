@@ -24,7 +24,7 @@ spec:
           cni-plugins:
             image:
               repository: ghcr.io/home-operations/cni-plugins
-              tag: 1.7.1@sha256:4bd4e77e3fbc21dd63b9826a011cead1333b6975efa4d1d2631ca932bfd27371
+              tag: 1.8.0@sha256:9353f70c1d202437a492935e9c053f91c352e69c8fa683ef039ae550ac4a27f5
         containers:
           multus:
             image:
@@ -41,7 +41,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { add: ["NET_ADMIN"], drop: ["ALL"] }
+              capabilities: {add: ["NET_ADMIN"], drop: ["ALL"]}
     defaultPodOptions:
       hostNetwork: true
       priorityClassName: system-node-critical
@@ -66,15 +66,29 @@ spec:
         multus:
           type: ClusterRole
           rules:
-            - apiGroups: ["k8s.cni.cncf.io"]
-              resources: ["*"]
-              verbs: ["*"]
-            - apiGroups: [""]
-              resources: ["pods", "pods/status"]
-              verbs: ["get", "update"]
-            - apiGroups: ["", "events.k8s.io"]
-              resources: ["events"]
-              verbs: ["create", "patch", "update"]
+            - apiGroups:
+                - k8s.cni.cncf.io
+              resources:
+                - "*"
+              verbs:
+                - "*"
+            - apiGroups:
+                - ""
+              resources:
+                - pods
+                - pods/status
+              verbs:
+                - get
+                - update
+            - apiGroups:
+                - ""
+                - events.k8s.io
+              resources:
+                - events
+              verbs:
+                - create
+                - patch
+                - update
       bindings:
         multus:
           type: ClusterRoleBinding

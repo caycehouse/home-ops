@@ -49,7 +49,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false # next.js writes ton of weird files
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
@@ -67,7 +67,8 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
           - name: external
             namespace: kube-system

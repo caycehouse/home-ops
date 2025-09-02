@@ -48,10 +48,14 @@ spec:
       - --gateway-name=external
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["crd", "gateway-httproute"]
+    sources:
+      - crd
+      - gateway-httproute
     txtOwnerId: default
     txtPrefix: k8s.
-    domainFilters: ["housefam.casa", "thefryer.games"]
+    domainFilters:
+      - housefam.casa
+      - thefryer.games
     serviceMonitor:
       enabled: true
     podAnnotations:

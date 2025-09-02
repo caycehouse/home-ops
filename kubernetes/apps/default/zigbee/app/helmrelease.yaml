@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/koenkk/zigbee2mqtt
-              tag: 2.6.0@sha256:472f4f5ed5d4258056093ea5745bc0ada37628b667d7db4fb12c2ffea74b2703
+              tag: 2.6.1@sha256:22e1fc160163edee0ceef47910211e97e7b0fb18b6bc94c9b799409252409f6a
             env:
               TZ: America/New_York
               ZIGBEE2MQTT_DATA: /config
@@ -67,7 +67,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
@@ -94,7 +94,8 @@ spec:
           gethomepage.dev/group: Utilities
           gethomepage.dev/icon: zigbee2mqtt
           gethomepage.dev/name: Zigbee2MQTT
-        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
           - name: internal
             namespace: kube-system

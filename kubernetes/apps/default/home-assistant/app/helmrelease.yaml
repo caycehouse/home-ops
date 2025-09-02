@@ -38,7 +38,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"], add: ["NET_RAW"] }
+              capabilities: {drop: ["ALL"], add: ["NET_RAW"]}
             resources:
               requests:
                 cpu: 10m
@@ -64,6 +64,7 @@ spec:
       app:
         ports:
           http:
+            appProtocol: kubernetes.io/ws
             port: 8123
     route:
       app:

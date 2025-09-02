@@ -47,7 +47,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
@@ -73,7 +73,8 @@ spec:
           gethomepage.dev/group: Services
           gethomepage.dev/icon: mdi-list-status
           gethomepage.dev/name: Kromgo
-        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
           - name: external
             namespace: kube-system

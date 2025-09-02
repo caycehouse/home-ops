@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/felddy/foundryvtt
-              tag: 13.347.0@sha256:1e052d42dfb72a8085703fc784b90718b7d1931f42068aea4160f18350dd7d8b
+              tag: 13.348.0@sha256:5972fd26c7bb387df9939eb5a6d531e6250ce7855046aa41b82fc8a16f64574a
             env:
               FOUNDRY_COMPRESS_WEBSOCKET: "true"
               FOUNDRY_MINIFY_STATIC_FILES: "true"
@@ -43,7 +43,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 100m
@@ -71,7 +71,8 @@ spec:
           gethomepage.dev/group: Games
           gethomepage.dev/icon: foundry-vtt
           gethomepage.dev/name: Foundry VTT
-        hostnames: ["foundry.housefam.casa"]
+        hostnames:
+          - foundry.housefam.casa
         parentRefs:
           - name: external
             namespace: kube-system

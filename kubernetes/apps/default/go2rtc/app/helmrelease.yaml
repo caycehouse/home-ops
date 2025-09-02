@@ -57,7 +57,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
       annotations:
-        k8s.v1.cni.cncf.io/networks: |
+        k8s.v1.cni.cncf.io/networks: |-
           [{
             "name": "multus-iot",
             "namespace": "network",

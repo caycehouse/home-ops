@@ -45,7 +45,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
@@ -93,7 +93,8 @@ spec:
           gethomepage.dev/href: "https://go2rtc.housefam.casa"
           gethomepage.dev/icon: go2rtc
           gethomepage.dev/name: go2rtc
-        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
           - name: internal
             namespace: kube-system

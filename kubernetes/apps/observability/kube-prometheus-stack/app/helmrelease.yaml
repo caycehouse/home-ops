@@ -36,7 +36,8 @@ spec:
       route:
         main:
           enabled: true
-          hostnames: ["alertmanager.housefam.casa"]
+          hostnames:
+            - alertmanager.housefam.casa
           parentRefs:
             - name: internal
               namespace: kube-system
@@ -74,7 +75,8 @@ spec:
             gethomepage.dev/app: prometheus
             gethomepage.dev/widget.type: prometheus
             gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-          hostnames: ["prometheus.housefam.casa"]
+          hostnames:
+            - prometheus.housefam.casa
           parentRefs:
             - name: internal
               namespace: kube-system
@@ -117,7 +119,8 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
@@ -132,7 +135,8 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
     grafana:
       enabled: false

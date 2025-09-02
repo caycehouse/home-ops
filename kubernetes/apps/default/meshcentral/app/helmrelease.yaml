@@ -65,7 +65,8 @@ spec:
           gethomepage.dev/group: Remote Access
           gethomepage.dev/icon: meshcentral
           gethomepage.dev/name: MeshCentral
-        hostnames: ["{{ .Release.Name }}.housefam.casa"]
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
           - name: ipv4
             namespace: kube-system

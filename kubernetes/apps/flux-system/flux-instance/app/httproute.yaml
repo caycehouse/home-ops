@@ -12,7 +12,8 @@ metadata:
     gethomepage.dev/name: Flux
     gethomepage.dev/pod-selector: "app=notification-controller"
 spec:
-  hostnames: ["flux-webhook.housefam.casa"]
+  hostnames:
+    - flux-webhook.housefam.casa
   parentRefs:
     - name: external
       namespace: kube-system

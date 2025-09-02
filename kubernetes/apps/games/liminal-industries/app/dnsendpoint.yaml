@@ -8,7 +8,8 @@ spec:
   endpoints:
     - dnsName: "liminal-industries.thefryer.games"
       recordType: CNAME
-      targets: ["mc-router.thefryer.games"]
+      targets:
+        - mc-router.thefryer.games
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"

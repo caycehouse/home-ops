@@ -41,7 +41,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { add: ["NET_ADMIN"], drop: ["ALL"] }
+              capabilities: {add: ["NET_ADMIN"], drop: ["ALL"]}
     defaultPodOptions:
       hostNetwork: true
       priorityClassName: system-node-critical
@@ -66,15 +66,29 @@ spec:
         multus:
           type: ClusterRole
           rules:
-            - apiGroups: ["k8s.cni.cncf.io"]
-              resources: ["*"]
-              verbs: ["*"]
-            - apiGroups: [""]
-              resources: ["pods", "pods/status"]
-              verbs: ["get", "update"]
-            - apiGroups: ["", "events.k8s.io"]
-              resources: ["events"]
-              verbs: ["create", "patch", "update"]
+            - apiGroups:
+                - k8s.cni.cncf.io
+              resources:
+                - "*"
+              verbs:
+                - "*"
+            - apiGroups:
+                - ""
+              resources:
+                - pods
+                - pods/status
+              verbs:
+                - get
+                - update
+            - apiGroups:
+                - ""
+                - events.k8s.io
+              resources:
+                - events
+              verbs:
+                - create
+                - patch
+                - update
       bindings:
         multus:
           type: ClusterRoleBinding

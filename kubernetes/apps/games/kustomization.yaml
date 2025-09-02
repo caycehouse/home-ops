@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: games
 components:
   - ../../components/common
-  - ../../components/repos/minecraft
 resources:
   # - ./allinone/ks.yaml
   # - ./atm8/ks.yaml

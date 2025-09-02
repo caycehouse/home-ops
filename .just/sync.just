@@ -1,4 +1,4 @@
-set quiet
+set quiet := true
 set shell := ['bash', '-eu', '-o', 'pipefail', '-c']
 
 [private]

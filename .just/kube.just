@@ -1,4 +1,4 @@
-set quiet
+set quiet := true
 set shell := ['bash', '-eu', '-o', 'pipefail', '-c']
 
 [private]
@@ -7,7 +7,7 @@ default:
 
 [doc('Spawn a shell on a node')]
 node-shell node:
-    kubectl node-shell -n kube-system -x {{node}}
+    kubectl node-shell -n kube-system -x {{ node }}
 
 [doc('Prune all unused Pods')]
 prune-pods:

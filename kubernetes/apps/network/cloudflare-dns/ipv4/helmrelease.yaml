@@ -33,10 +33,14 @@ spec:
       - --gateway-name=ipv4
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["crd", "gateway-httproute"]
+    sources:
+      - crd
+      - gateway-httproute
     txtOwnerId: ipv4
     txtPrefix: k8s.
-    domainFilters: ["housefam.casa", "thefryer.games"]
+    domainFilters:
+      - housefam.casa
+      - thefryer.games
     serviceMonitor:
       enabled: true
     podAnnotations:

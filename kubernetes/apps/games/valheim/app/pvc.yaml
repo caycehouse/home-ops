@@ -4,7 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: valheim-runtime
 spec:
-  accessModes: ["ReadWriteOnce"]
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
       storage: 30Gi

@@ -43,7 +43,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 100m
@@ -71,7 +71,8 @@ spec:
           gethomepage.dev/group: Games
           gethomepage.dev/icon: foundry-vtt
           gethomepage.dev/name: Foundry VTT
-        hostnames: ["foundry.housefam.casa"]
+        hostnames:
+          - foundry.housefam.casa
         parentRefs:
           - name: external
             namespace: kube-system

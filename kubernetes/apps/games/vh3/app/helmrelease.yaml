@@ -8,7 +8,7 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: minecraft
+    name: vh3
   install:
     remediation:
       retries: -1

@@ -36,7 +36,7 @@ reboot-node node:
 
 [doc('Render Talos config for a node')]
 render-config node:
-    export CONTROLLER="$(just talos machine-controller {{ node }})"; \
+    export IS_CONTROLLER="$(just talos machine-controller {{ node }})"; \
     talosctl machineconfig patch <(just template "{{ talos_dir }}/machineconfig.yaml.j2") \
         -p @<(just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2")
 
@@ -60,8 +60,8 @@ upgrade-node node:
 
 [private]
 machine-controller node:
-    just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2" | yq -e '(.machine.type == "controlplane") // ""'
+    just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2" | yq -e 'select(.machine) | (.machine.type == "controlplane") // ""'
 
 [private]
 machine-image:
-    just template "{{ talos_dir }}/machineconfig.yaml.j2" | yq -e '.machine.install.image // ""'
+    just template "{{ talos_dir }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'

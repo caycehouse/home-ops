@@ -30,7 +30,7 @@ spec:
       - --cloudflare-dns-records-per-page=1000
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
-      - --gateway-name=ipv4
+      - --gateway-name=envoy-ipv4
     triggerLoopOnEvent: true
     policy: sync
     sources:

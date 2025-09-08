@@ -68,10 +68,9 @@ spec:
           gethomepage.dev/widget.password: "{{ `{{HOMEPAGE_VAR_FRESHRSS_API_KEY}}` }}"
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
-          - "feeds.housefam.casa"
         parentRefs:
-          - name: external
-            namespace: kube-system
+          - name: envoy-external
+            namespace: network
             sectionName: https
     persistence:
       data:

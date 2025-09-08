@@ -6,4 +6,7 @@ resources:
   - ./external.yaml
   - ./internal.yaml
   - ./ipv4.yaml
-  - ./httproute.yaml
+  - ./helmrelease.yaml
+  - ./ocirepository.yaml
+  - ./podmonitor.yaml
+  - ./servicemonitor.yaml

@@ -3,7 +3,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
-  name: envoy-ipv4
+  name: envoy
 spec:
   logging:
     level:
@@ -20,9 +20,6 @@ spec:
               cpu: 100m
             limits:
               memory: 1Gi
-      envoyService:
-        name: envoy-ipv4
-        externalTrafficPolicy: Cluster
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -35,14 +32,76 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
-  name: envoy-ipv4
+  name: envoy
 spec:
   controllerName: gateway.envoyproxy.io/gatewayclass-controller
   parametersRef:
     group: gateway.envoyproxy.io
     kind: EnvoyProxy
-    name: envoy-ipv4
+    name: envoy
     namespace: network
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: envoy-external
+  annotations:
+    external-dns.alpha.kubernetes.io/target: &hostname external.housefam.casa
+spec:
+  gatewayClassName: envoy
+  infrastructure:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: *hostname
+      lbipam.cilium.io/ips: 192.168.42.126
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: housefam-casa-tls
+---
+# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: envoy-internal
+  annotations:
+    external-dns.alpha.kubernetes.io/target: &hostname internal.housefam.casa
+spec:
+  gatewayClassName: envoy
+  infrastructure:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: *hostname
+      lbipam.cilium.io/ips: 192.168.42.121
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: housefam-casa-tls
 ---
 # yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
@@ -52,7 +111,7 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname ipv4.housefam.casa
 spec:
-  gatewayClassName: envoy-ipv4
+  gatewayClassName: envoy
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
@@ -77,47 +136,51 @@ spec:
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-helm/crds/generated/gateway.envoyproxy.io_clienttrafficpolicies.yaml
 apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: envoy
+spec:
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+  compression:
+    - type: Brotli
+    - type: Gzip
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-helm/crds/generated/gateway.envoyproxy.io_clienttrafficpolicies.yaml
+apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
 metadata:
-  name: envoy-ipv4
+  name: envoy
 spec:
   clientIPDetection:
     xForwardedFor:
       numTrustedHops: 1
   # http3: {}
-  targetRefs:
+  targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: envoy-ipv4
   tls:
     minVersion: "1.2"
     alpnProtocols:
       - h2
       - http/1.1
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-helm/crds/generated/gateway.envoyproxy.io_clienttrafficpolicies.yaml
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: BackendTrafficPolicy
-metadata:
-  name: envoy-ipv4
-spec:
-  targetRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: envoy-ipv4
-  compression:
-    - type: Brotli
-    - type: Gzip
----
 # yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: envoy-ipv4
+  name: https-redirect
   annotations:
     external-dns.alpha.kubernetes.io/controller: none
 spec:
   parentRefs:
+    - name: envoy-external
+      namespace: network
+      sectionName: http
+    - name: envoy-internal
+      namespace: network
+      sectionName: http
     - name: envoy-ipv4
       namespace: network
       sectionName: http

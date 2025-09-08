@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./external.yaml
   - ./internal.yaml
+  - ./ipv4.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
   - ./podmonitor.yaml

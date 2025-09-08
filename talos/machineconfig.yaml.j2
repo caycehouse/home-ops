@@ -17,8 +17,7 @@ machine:
       forwardKubeDNSToHost: false
       resolveMemberNames: true
     kubePrism:
-      enabled: true
-      port: 7445
+      enabled: false
     {% if ENV.IS_CONTROLLER %}
     kubernetesTalosAPIAccess:
       allowedKubernetesNamespaces:
@@ -115,6 +114,8 @@ cluster:
   clusterName: main
   controlPlane:
     endpoint: https://192.168.42.120:6443
+  discovery:
+    enabled: false
   id: op://kubernetes/talos/CLUSTER_ID
   network:
     cni:

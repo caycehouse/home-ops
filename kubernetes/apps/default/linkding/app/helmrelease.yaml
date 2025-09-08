@@ -79,8 +79,8 @@ spec:
           - "{{ .Release.Name }}.housefam.casa"
           - "bookmarks.housefam.casa"
         parentRefs:
-          - name: external
-            namespace: kube-system
+          - name: envoy-external
+            namespace: network
             sectionName: https
     persistence:
       config:

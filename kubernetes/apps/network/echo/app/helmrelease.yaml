@@ -78,6 +78,6 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
-          - name: external
-            namespace: kube-system
+          - name: envoy-external
+            namespace: network
             sectionName: https

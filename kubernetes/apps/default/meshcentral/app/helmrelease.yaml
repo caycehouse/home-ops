@@ -68,8 +68,8 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
-          - name: ipv4
-            namespace: kube-system
+          - name: envoy-ipv4
+            namespace: network
             sectionName: https
     persistence:
       config:

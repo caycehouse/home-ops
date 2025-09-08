@@ -6,4 +6,4 @@ resources:
   - ./external.yaml
   - ./internal.yaml
   - ./ipv4.yaml
-  - ./redirect.yaml
+  - ./httproute.yaml

@@ -5,6 +5,10 @@ machine:
       model: PC SN520 NVMe WDC 256GB
   network:
     hostname: k8s-0
+    interfaces:
+      - interface: bond0
+        vip:
+          ip: 192.168.42.120
   nodeLabels:
     topology.kubernetes.io/zone: m
   type: controlplane

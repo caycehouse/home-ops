@@ -1,10 +1,11 @@
 ---
-originRequest:
-  originServerName: external.housefam.casa
-
 ingress:
   - hostname: housefam.casa
-    service: &service https://envoy-external.network.svc.cluster.local
+    originRequest:
+      originServerName: housefam.casa
+    service: https://envoy-external.network.svc.cluster.local:443
   - hostname: "*.housefam.casa"
-    service: *service
+    originRequest:
+      originServerName: external.housefam.casa
+    service: https://envoy-external.network.svc.cluster.local:443
   - service: http_status:404

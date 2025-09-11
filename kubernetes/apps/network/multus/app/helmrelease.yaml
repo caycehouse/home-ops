@@ -48,19 +48,6 @@ spec:
       tolerations:
         - key: CriticalAddonsOnly
           operator: Exists
-    persistence:
-      etc-cni-net-d:
-        type: hostPath
-        hostPath: /etc/cni/net.d
-        globalMounts:
-          - path: /host/etc/cni/net.d
-      opt-cni-bin:
-        type: hostPath
-        hostPath: /opt/cni/bin
-        globalMounts:
-          - path: /host/opt/cni/bin
-      tmp:
-        type: emptyDir
     rbac:
       roles:
         multus:
@@ -98,3 +85,16 @@ spec:
             - identifier: multus
     serviceAccount:
       multus: {}
+    persistence:
+      etc-cni-net-d:
+        type: hostPath
+        hostPath: /etc/cni/net.d
+        globalMounts:
+          - path: /host/etc/cni/net.d
+      opt-cni-bin:
+        type: hostPath
+        hostPath: /opt/cni/bin
+        globalMounts:
+          - path: /host/opt/cni/bin
+      tmp:
+        type: emptyDir

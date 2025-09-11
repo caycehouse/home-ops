@@ -11,7 +11,6 @@ resources:
   - ./changedetection/ks.yaml
   - ./free-games-claimer/ks.yaml
   - ./freshrss/ks.yaml
-  - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./isponsorblocktv/ks.yaml

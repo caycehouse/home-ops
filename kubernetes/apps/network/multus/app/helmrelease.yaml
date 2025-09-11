@@ -41,7 +41,11 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {add: ["NET_ADMIN"], drop: ["ALL"]}
+              capabilities:
+                add:
+                  - NET_ADMIN
+                drop:
+                  - ALL
     defaultPodOptions:
       hostNetwork: true
       priorityClassName: system-node-critical

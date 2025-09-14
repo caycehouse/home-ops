@@ -18,6 +18,7 @@ resources:
   - ./meshcentral/ks.yaml
   - ./mosquitto/ks.yaml
   - ./paperless/ks.yaml
+  # - ./rmqtt/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./zigbee/ks.yaml

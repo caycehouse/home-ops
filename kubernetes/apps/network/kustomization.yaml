@@ -12,5 +12,4 @@ resources:
   - ./echo/ks.yaml
   - ./envoy-gateway/ks.yaml
   - ./mc-router/ks.yaml
-  - ./multus/ks.yaml
   - ./unifi-dns/ks.yaml

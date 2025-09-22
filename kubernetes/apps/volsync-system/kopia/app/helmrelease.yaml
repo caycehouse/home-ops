@@ -122,3 +122,5 @@ spec:
                 subPath: cache
               - path: /config/logs
                 subPath: logs
+              - path: /tmp
+                subPath: tmp

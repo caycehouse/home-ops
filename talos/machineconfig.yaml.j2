@@ -58,8 +58,8 @@ machine:
     disableManifestsDirectory: true
     extraConfig:
       imageMaximumGCAge: 168h # One week
-      imageGCHighThresholdPercent: 65
-      imageGCLowThresholdPercent: 45
+      imageGCHighThresholdPercent: 70
+      imageGCLowThresholdPercent: 50
       serializeImagePulls: false
     extraMounts:
       - destination: /var/openebs/local

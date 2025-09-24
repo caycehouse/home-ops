@@ -57,6 +57,9 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
+      imageMaximumGCAge: 168h # One week
+      imageGCHighThresholdPercent: 70
+      imageGCLowThresholdPercent: 50
       serializeImagePulls: false
     extraMounts:
       - destination: /var/openebs/local

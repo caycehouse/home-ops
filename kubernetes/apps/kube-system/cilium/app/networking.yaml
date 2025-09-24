@@ -64,9 +64,9 @@ metadata:
   name: kube-api
   annotations:
     lbipam.cilium.io/ips: 192.168.42.120
-    externalTrafficPolicy: Local
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   selector:
     k8s-app: kube-apiserver
     tier: control-plane

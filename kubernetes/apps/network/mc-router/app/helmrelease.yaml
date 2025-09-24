@@ -29,6 +29,8 @@ spec:
         annotations:
           lbipam.cilium.io/ips: 192.168.42.140
           external-dns.alpha.kubernetes.io/hostname: mc-router.thefryer.games
+        extraServiceSpec:
+          externalTrafficPolicy: Local
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true

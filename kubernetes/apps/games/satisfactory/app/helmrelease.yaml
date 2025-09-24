@@ -65,6 +65,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: satisfactory.thefryer.games
           lbipam.cilium.io/ips: 192.168.42.130
+          externalTrafficPolicy: Local
         ports:
           api:
             port: 7777

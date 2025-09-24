@@ -11,7 +11,7 @@ resources:
   # - ./atm9/ks.yaml
   # - ./foundryvtt/ks.yaml
   # - ./gtnh/ks.yaml
-  - ./liminal-industries/ks.yaml
+  # - ./liminal-industries/ks.yaml
   # - ./ll7/ks.yaml
   - ./minecraft/ks.yaml
   # - ./oceanblock/ks.yaml

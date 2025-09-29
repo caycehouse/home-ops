@@ -64,7 +64,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: satisfactory.thefryer.games
-          lbipam.cilium.io/ips: 192.168.42.130
+          lbipam.cilium.io/ips: 192.168.69.130
         externalTrafficPolicy: Cluster
         ports:
           api:

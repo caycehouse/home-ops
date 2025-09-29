@@ -59,7 +59,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: smtp-relay.housefam.casa
-          lbipam.cilium.io/ips: 192.168.42.123
+          lbipam.cilium.io/ips: 192.168.69.123
         externalTrafficPolicy: Cluster
         ports:
           http:

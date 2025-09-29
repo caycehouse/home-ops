@@ -6,18 +6,10 @@ metadata:
   name: &app atm9
 spec:
   interval: 1h
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: atm9
-  install:
-    remediation:
-      retries: -1
-    timeout: 10m
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-    timeout: 10m
   values:
     fullnameOverride: *app
     deploymentAnnotations:

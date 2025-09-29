@@ -9,13 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: free-games-claimer
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     controllers:
       free-games-claimer:

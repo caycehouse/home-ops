@@ -6,16 +6,10 @@ metadata:
   name: &app minecraft
 spec:
   interval: 1h
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: minecraft
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     fullnameOverride: *app
     deploymentAnnotations:

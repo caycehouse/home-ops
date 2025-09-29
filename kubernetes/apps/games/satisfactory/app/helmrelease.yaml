@@ -6,16 +6,10 @@ metadata:
   name: satisfactory
 spec:
   interval: 1h
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: satisfactory
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     controllers:
       satisfactory:

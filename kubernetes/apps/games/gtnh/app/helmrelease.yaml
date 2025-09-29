@@ -6,18 +6,10 @@ metadata:
   name: &app gtnh
 spec:
   interval: 1h
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: gtnh
-  install:
-    remediation:
-      retries: -1
-    timeout: 10m
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-    timeout: 10m
   values:
     fullnameOverride: *app
     deploymentAnnotations:

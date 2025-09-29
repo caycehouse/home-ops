@@ -79,7 +79,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: valheim.thefryer.games
           lbipam.cilium.io/ips: 192.168.69.133
-        externalTrafficPolicy: Cluster
+        externalTrafficPolicy: Local
         ports:
           gameplay:
             port: 2456

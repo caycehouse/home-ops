@@ -9,8 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/defaults
   dependsOn:
     - name: snapshot-controller
       namespace: kube-system
@@ -43,8 +41,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/defaults
   dependsOn:
     - name: volsync
       namespace: volsync-system

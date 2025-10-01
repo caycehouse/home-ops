@@ -6,17 +6,4 @@ namespace: games
 components:
   - ../../components/common
 resources:
-  # - ./allinone/ks.yaml
-  # - ./atm8/ks.yaml
-  # - ./atm9/ks.yaml
-  # - ./foundryvtt/ks.yaml
-  # - ./gtnh/ks.yaml
-  # - ./liminal-industries/ks.yaml
-  # - ./ll7/ks.yaml
   - ./minecraft/ks.yaml
-  # - ./oceanblock/ks.yaml
-  # - ./pm/ks.yaml
-  # - ./satisfactory/ks.yaml
-  # - ./seaopolis/ks.yaml
-  # - ./valheim/ks.yaml
-  # - ./vh3/ks.yaml

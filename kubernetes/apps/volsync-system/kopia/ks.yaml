@@ -21,9 +21,6 @@ spec:
       namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/volsync-system/kopia/app
-  postBuild:
-    substitute:
-      APP: *app
   prune: true
   retryInterval: 2m
   sourceRef:

@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/app
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
@@ -22,7 +21,6 @@ spec:
       APP: *app
       # renovate: datasource=github-releases depName=GTNewHorizons/minecraft-prometheus-exporter
       EXPORTER_VERSION: 2.0.2
-      GATUS_URL: tcp://gtnh.games.svc.cluster.local:25565
       # renovate: datasource=github-releases depName=GTNewHorizons/GT-New-Horizons-Modpack
       PACK_VERSION: 2.7.4
       VOLSYNC_CAPACITY: 32Gi

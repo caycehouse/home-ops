@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/app
     - ../../../../components/volsync
   dependsOn:
     - name: cloudflare-dns
@@ -22,7 +21,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_URL: udp://satisfactory.games.svc.cluster.local:7777
       VOLSYNC_CAPACITY: 15Gi
   prune: true
   retryInterval: 2m

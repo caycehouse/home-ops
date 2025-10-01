@@ -40,7 +40,7 @@ spec:
       vanillaTweaksShareCodes:
         - f8rjVA
         - FF8soj
-      version: "1.21.8"
+      version: "1.21.9"
       viewDistance: 7
       rcon:
         enabled: true

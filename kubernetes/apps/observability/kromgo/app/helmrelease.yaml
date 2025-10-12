@@ -61,6 +61,8 @@ spec:
     route:
       app:
         annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 404"]
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Safely expose metrics and health checks
           gethomepage.dev/group: Services

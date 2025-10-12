@@ -22,6 +22,8 @@ spec:
     serviceAnnotations:
       external-dns.alpha.kubernetes.io/hostname: &hostname mc.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
+      gatus.home-operations.com/endpoint: |-
+        group: services
       mc-router.itzg.me/externalServerName: *hostname
     minecraftServer:
       difficulty: "hard"

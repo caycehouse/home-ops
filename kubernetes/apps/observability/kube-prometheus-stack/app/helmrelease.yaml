@@ -16,13 +16,6 @@ spec:
         main:
           enabled: true
           annotations:
-            gatus.home-operations.com/enabled: "true"
-            gatus.home-operations.com/endpoint: |-
-              conditions: ["len([BODY]) == 0"]
-              dns:
-                query-name: {{ .Release.Name }}.housefam.casa
-                query-type: A
-              url: 1.1.1.1
           hostnames:
             - alertmanager.housefam.casa
           parentRefs:
@@ -53,13 +46,6 @@ spec:
         main:
           enabled: true
           annotations:
-            gatus.home-operations.com/enabled: "true"
-            gatus.home-operations.com/endpoint: |-
-              conditions: ["len([BODY]) == 0"]
-              dns:
-                query-name: {{ .Release.Name }}.housefam.casa
-                query-type: A
-              url: 1.1.1.1
             gethomepage.dev/enabled: "true"
             gethomepage.dev/href: "https://prometheus.housefam.casa"
             gethomepage.dev/description: Insightful Data Visualization

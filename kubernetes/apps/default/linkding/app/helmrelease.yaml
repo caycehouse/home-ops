@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: linkding
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: linkding
+  interval: 1h
   values:
     controllers:
       linkding:

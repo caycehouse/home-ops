@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: isponsorblocktv
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: isponsorblocktv
+  interval: 1h
   values:
     controllers:
       isponsorblocktv:

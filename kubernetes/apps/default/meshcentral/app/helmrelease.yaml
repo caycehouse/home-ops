@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: meshcentral
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: meshcentral
+  interval: 1h
   values:
     controllers:
       meshcentral:

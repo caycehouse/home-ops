@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: mc-router
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: mc-router
+  interval: 1h
   values:
     image:
       repository: ghcr.io/itzg/mc-router

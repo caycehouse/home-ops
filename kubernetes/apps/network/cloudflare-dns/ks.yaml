@@ -20,13 +20,11 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/cloudflare-dns/app
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 5m
 ---
 # yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -49,10 +47,8 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/cloudflare-dns/ipv4
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 5m

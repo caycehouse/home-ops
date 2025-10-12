@@ -6,9 +6,6 @@ metadata:
   name: &app mc-router
   namespace: &namespace network
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudflare-dns
       namespace: network

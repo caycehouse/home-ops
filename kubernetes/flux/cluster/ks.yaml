@@ -21,7 +21,7 @@ spec:
         apiVersion: kustomize.toolkit.fluxcd.io/v1
         kind: Kustomization
         metadata:
-          name: not-used
+          name: _
         spec:
           deletionPolicy: WaitForTermination
           patches:
@@ -29,7 +29,7 @@ spec:
                 apiVersion: helm.toolkit.fluxcd.io/v2
                 kind: HelmRelease
                 metadata:
-                  name: not-used
+                  name: _
                 spec:
                   install:
                     crds: CreateReplace

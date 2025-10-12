@@ -23,11 +23,9 @@ spec:
       PACKWIZ_VERSION: v11.1.0-alpha.3
       VOLSYNC_CAPACITY: 15Gi
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 5m
   wait: false

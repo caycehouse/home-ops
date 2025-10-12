@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: twitchdropsminer
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: twitchdropsminer
+  interval: 1h
   values:
     controllers:
       twitchdropsminer:

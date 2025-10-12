@@ -19,8 +19,6 @@ spec:
             image:
               repository: ghcr.io/home-operations/gatus-sidecar
               tag: 0.0.9@sha256:31a52dd0e579c1f865b2580a4bb715d2a893deb1351fedeaba73598e9a578cbe
-            args:
-              - --gateway=envoy-external
             resources:
               requests:
                 cpu: 10m
@@ -76,6 +74,9 @@ spec:
     route:
       app:
         annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 200"]
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://status.housefam.casa"
           gethomepage.dev/description: Status Page
@@ -95,9 +96,25 @@ spec:
           type: ClusterRole
           rules:
             - apiGroups:
+                - ""
+              resources:
+                - services
+              verbs:
+                - get
+                - watch
+                - list
+            - apiGroups:
                 - gateway.networking.k8s.io
               resources:
                 - httproutes
+              verbs:
+                - get
+                - watch
+                - list
+            - apiGroups:
+                - networking.k8s.io
+              resources:
+                - ingresses
               verbs:
                 - get
                 - watch

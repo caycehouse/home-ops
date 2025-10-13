@@ -16,6 +16,13 @@ spec:
         main:
           enabled: true
           annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/href: "https://alertmanager.housefam.casa"
+            gethomepage.dev/description: Prometheus Alertmanager
+            gethomepage.dev/group: Observability
+            gethomepage.dev/icon: alertmanager
+            gethomepage.dev/name: Alertmanager
+            gethomepage.dev/app: alertmanager
           hostnames:
             - alertmanager.housefam.casa
           parentRefs:

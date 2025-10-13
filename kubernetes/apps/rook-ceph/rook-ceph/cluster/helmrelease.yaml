@@ -74,15 +74,6 @@ spec:
         devicePathFilter: /dev/disk/by-id/ata-MTFDDAK960TCB_.*
         config:
           osdsPerDevice: "1"
-      placement:
-        mgr: &placement
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                    - key: node-role.kubernetes.io/control-plane
-                      operator: Exists
-        mon: *placement
     cephBlockPools:
       - name: ceph-blockpool
         spec:

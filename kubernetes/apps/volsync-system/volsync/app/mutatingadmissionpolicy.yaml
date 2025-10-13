@@ -31,7 +31,6 @@ spec:
     - name: has-volsync-created-by-labels
       expression: >-
         object.metadata.?labels["app.kubernetes.io/created-by"].orValue("") == "volsync"
-
   failurePolicy: Fail
   reinvocationPolicy: IfNeeded
   mutations:

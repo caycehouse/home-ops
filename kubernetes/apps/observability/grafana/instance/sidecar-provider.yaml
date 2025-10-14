@@ -4,9 +4,9 @@ kind: ConfigMap
 metadata:
   name: grafana-sidecar-provider
 data:
-  provisioning.yaml: |-
+  provider.yaml: |-
     apiVersion: 1
-    provider:
+    providers:
       - name: sidecar-provider
         type: file
         disableDeletion: false

@@ -82,8 +82,7 @@ spec:
     route:
       app:
         annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 200"]
+          gatus.home-operations.com/enabled: "false"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/href: "https://status.housefam.casa"
           gethomepage.dev/description: Status Page

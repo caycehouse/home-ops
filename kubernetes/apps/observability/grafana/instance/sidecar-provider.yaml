@@ -6,8 +6,8 @@ metadata:
 data:
   provisioning.yaml: |-
     apiVersion: 1
-    providers:
-      - name: configmap-dashboard-provider
+    provider:
+      - name: sidecar-provider
         type: file
         disableDeletion: false
         updateIntervalSeconds: 10

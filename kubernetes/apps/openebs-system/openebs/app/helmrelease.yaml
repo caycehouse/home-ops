@@ -10,6 +10,8 @@ spec:
     name: openebs
   interval: 1h
   values:
+    preUpgradeHook:
+      enabled: false
     localpv-provisioner:
       localpv:
         image:
@@ -31,8 +33,6 @@ spec:
     lvm-localpv:
       enabled: false
     mayastor:
-      enabled: false
-    preUpgradeHook:
       enabled: false
     engines:
       local:

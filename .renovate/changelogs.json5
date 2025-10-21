@@ -7,9 +7,19 @@
       changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md",
     },
     {
+      description: "Changelog URL for Atuin",
+      matchPackageNames: ["/atuin/"],
+      changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md",
+    },
+    {
       description: "Changelog URL for Cloudflared",
       matchPackageNames: ["/cloudflared/"],
       changelogUrl: "https://github.com/cloudflare/cloudflared/blob/master/RELEASE_NOTES",
+    },
+    {
+      description: "Changelog URL for Prompp",
+      matchPackageNames: ["/prompp/"],
+      changelogUrl: "https://github.com/deckhouse/prompp/blob/pp/CHANGELOG.md",
     },
     {
       description: "Changelog URL for Spegel",

@@ -63,7 +63,6 @@ spec:
         parentRefs:
           - name: envoy-ipv4
             namespace: network
-            sectionName: https
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

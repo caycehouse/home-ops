@@ -37,7 +37,6 @@ spec:
               tag: v5.27.1@sha256:f7cc027fe09ddddcb1204225200872f6d7eedbbaaccdee318e6501e3e82866fd
             env:
               GATUS_CONFIG_PATH: /config
-              GATUS_DELAY_START_SECONDS: 5
               GATUS_WEB_PORT: &port 80
               TZ: America/New_York
             probes:

@@ -5,8 +5,6 @@ kind: Kustomization
 metadata:
   name: mc-router
 spec:
-  dependsOn:
-    - name: cloudflare-dns
   interval: 1h
   path: ./kubernetes/apps/network/mc-router/app
   prune: true

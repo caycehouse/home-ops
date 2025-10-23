@@ -86,10 +86,11 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      data:
+        type: nfs
+        server: bakery.internal
+        path: /mnt/storage1/OpenCloud
         globalMounts:
           - path: /var/lib/opencloud
-            subPath: data
-          - path: /etc/opencloud
-            subPath: config
       tmp:
         type: emptyDir

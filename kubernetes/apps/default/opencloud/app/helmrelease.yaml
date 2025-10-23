@@ -86,6 +86,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /etc/opencloud
       data:
         type: nfs
         server: bakery.internal

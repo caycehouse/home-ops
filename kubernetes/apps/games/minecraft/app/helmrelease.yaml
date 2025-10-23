@@ -15,7 +15,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2025.10.2-java21@sha256:cbfb468b13a957924d24a2f1dd9676fe262566ab97b0aee9070f27b41de69d05
+      tag: 2025.10.2-java21-graalvm@sha256:314592bbcdf70bcbe02909285647ca24206367cee061eebc2bbc61f7756a1909
       pullPolicy: IfNotPresent
     livenessProbe:
       initialDelaySeconds: 120
@@ -65,6 +65,8 @@ spec:
       SIMULATION_DISTANCE: "4"
       SNOOPER_ENABLED: "false"
       SYNC_CHUNK_WRITES: "false"
+      USE_MEOWICE_FLAGS: "true"
+      USE_MEOWICE_GRAALVM_FLAGS: "true"
     envFrom:
       - secretRef:
           name: *secret

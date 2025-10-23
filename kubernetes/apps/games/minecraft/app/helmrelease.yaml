@@ -29,9 +29,9 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
+      jvmXXOpts: "-XX:MaxRAMPercentage=75"
       maxPlayers: 10
       maxWorldSize: 29999984
-      memory: 4G
       motd: "The Fryer's Minecraft Server"
       ops: "FryyourBacon"
       overrideServerProperties: true
@@ -55,6 +55,7 @@ spec:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
+      MEMORY: ""
       OVERRIDE_WHITELIST: "true"
       PACKWIZ_URL: "https://raw.githubusercontent.com/caycehouse/fabulously-optimized-server/refs/tags/${PACKWIZ_VERSION}/pack.toml"
       RCON_CMDS_STARTUP: |-

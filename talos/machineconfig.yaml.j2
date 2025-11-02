@@ -79,8 +79,8 @@ machine:
       - interface: bond0
         bond:
           deviceSelectors:
-            - hardwareAddr: 00:e0:4c:68:*
-              driver: r8169
+            - driver: r8169
+              hardwareAddr: 00:e0:4c:68:*
           mode: active-backup
         dhcp: true
         mtu: 9000

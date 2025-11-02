@@ -12,6 +12,10 @@ spec:
     staticConfig:
       static:
         - bakery.internal
+        - k8s-0.internal
+        - k8s-1.internal
+        - k8s-2.internal
+        - k8s-3.internal
         - octopi.internal
         - zigbee-controller.internal
   metricRelabelings:

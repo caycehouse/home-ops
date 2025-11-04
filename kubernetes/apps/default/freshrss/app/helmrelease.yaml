@@ -62,7 +62,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network
     persistence:
       data:

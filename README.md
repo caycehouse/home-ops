@@ -131,8 +131,7 @@ In my cluster there are three instances of [ExternalDNS](https://github.com/kube
 |---------------------|-----------|--------------|-------------------------|------|---------------------|-----------------------|
 | OptiPlex 5080 Micro | i5-10600T | 256GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Controller |
 | OptiPlex 3090 Micro | i5-10500T | 256GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Controller |
-| OptiPlex 3080 Micro | i5-10500T | 256GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Controller |
-| OptiPlex 3090 Micro | i5-10500T | 256GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Worker     |
+| OptiPlex 3090 Micro | i5-10500T | 500GB NVMe   | 960GB SSD (rook-ceph)   | 64GB | Talos               | Kubernetes Controller |
 | Aoostar R1          | N100      | 512GB NVMe   | 2x10TB (mirrored vdevs) | 64GB | TrueNAS Scale 25.04 | NFS + Backup Server   |
 | UniFi UDMP          | -         | -            | 1x3TB HDD               | -    | -                   | Router & NVR          |
 | UniFi USW-48-PoE    | -         | -            | -                       | -    | -                   | SFP+ PoE Switch       |

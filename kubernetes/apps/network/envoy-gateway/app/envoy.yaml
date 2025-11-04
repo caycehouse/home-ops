@@ -115,41 +115,6 @@ spec:
           - kind: Secret
             name: housefam-casa-tls
 ---
-# yaml-language-server: $schema=https://k8s-skeemahs.pages.dev/gateway.networking.k8s.io/gateway_v1.json
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: envoy-ipv4
-  annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname ipv4.housefam.casa
-    gatus.home-operations.com/endpoint: |-
-      client:
-        dns-resolver: tcp://1.1.1.1:53
-      group: ipv4
-spec:
-  gatewayClassName: envoy
-  infrastructure:
-    annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: 192.168.69.127
-  listeners:
-    - name: http
-      protocol: HTTP
-      port: 80
-      allowedRoutes:
-        namespaces:
-          from: Same
-    - name: https
-      protocol: HTTPS
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: housefam-casa-tls
----
 # yaml-language-server: $schema=https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-helm/crds/generated/gateway.envoyproxy.io_clienttrafficpolicies.yaml
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
@@ -212,9 +177,6 @@ spec:
       namespace: network
       sectionName: http
     - name: envoy-internal
-      namespace: network
-      sectionName: http
-    - name: envoy-ipv4
       namespace: network
       sectionName: http
   rules:

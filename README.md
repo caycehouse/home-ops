@@ -121,7 +121,7 @@ Alternative solutions to the first two of these problems would be to host a Kube
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f30e/512.gif" alt="🌎" width="20" height="20"> DNS
 
-In my cluster there are three instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) running. One for syncing private DNS records to my `UDM Pro` using [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook), while the other two instances sync public DNS to `Cloudflare`. This setup is managed by creating ingresses with three specific classes: `internal` for private DNS, `external` for public DNS (tunneled), and `ipv4` for public DNS (non-tunneled). The `external-dns` instances then syncs the DNS records to their respective platforms accordingly.
+In my cluster there are two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) running. One for syncing private DNS records to my `UDM Pro` using [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook), while the other instance sync public DNS to `Cloudflare`. This setup is managed by creating ingresses with two specific classes: `internal` for private DNS, `external` for public DNS (tunneled). The `external-dns` instances then syncs the DNS records to their respective platforms accordingly.
 
 ---
 

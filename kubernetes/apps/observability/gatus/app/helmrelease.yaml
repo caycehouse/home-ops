@@ -82,12 +82,6 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/enabled: "false"
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://status.housefam.casa"
-          gethomepage.dev/description: Status Page
-          gethomepage.dev/group: Observability
-          gethomepage.dev/icon: gatus
-          gethomepage.dev/name: Gatus
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
           - status.housefam.casa

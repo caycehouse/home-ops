@@ -76,16 +76,6 @@ spec:
             port: 6379
     route:
       app:
-        annotations:
-          gethomepage.dev/description: Document management system
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/href: "https://paperless.housefam.casa"
-          gethomepage.dev/icon: paperless-ngx
-          gethomepage.dev/name: Paperless-ngx
-          gethomepage.dev/widget.type: paperlessngx
-          gethomepage.dev/widget.url: http://paperless.default.svc.cluster.local
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}` }}"
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

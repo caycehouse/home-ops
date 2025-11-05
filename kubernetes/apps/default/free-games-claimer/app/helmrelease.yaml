@@ -47,13 +47,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://fgc.housefam.casa"
-          gethomepage.dev/description: Free games claimer
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: mdi-gamepad
-          gethomepage.dev/name: free-games-claimer
         hostnames:
           - fgc.housefam.casa
         parentRefs:

@@ -64,12 +64,6 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 200"]
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://{{ .Release.Name }}.housefam.casa"
-          gethomepage.dev/description: HTTP echo server
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: mdi-web-check
-          gethomepage.dev/name: "{{ .Release.Name }}"
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

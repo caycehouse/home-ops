@@ -7,12 +7,6 @@ metadata:
   annotations:
     gatus.home-operations.com/endpoint: |-
       conditions: ["[STATUS] == 404"]
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/description: Flux Webhook
-    gethomepage.dev/group: Services
-    gethomepage.dev/icon: flux-cd
-    gethomepage.dev/name: Flux
-    gethomepage.dev/pod-selector: "app=notification-controller"
 spec:
   hostnames:
     - flux-webhook.housefam.casa

@@ -64,13 +64,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://kopia.housefam.casa"
-          gethomepage.dev/description: Cross-platform backup tool
-          gethomepage.dev/group: Storage
-          gethomepage.dev/icon: kopia
-          gethomepage.dev/name: Kopia
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

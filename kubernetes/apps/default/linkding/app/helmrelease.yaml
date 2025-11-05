@@ -61,13 +61,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://bookmarks.housefam.casa"
-          gethomepage.dev/description: Bookmark Manager
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: linkding
-          gethomepage.dev/name: linkding
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
           - "bookmarks.housefam.casa"

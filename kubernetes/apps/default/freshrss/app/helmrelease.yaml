@@ -48,17 +48,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/description: Free, self-hostable news aggregator
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Reading
-          gethomepage.dev/href: "https://feeds.housefam.casa"
-          gethomepage.dev/icon: freshrss
-          gethomepage.dev/name: FreshRSS
-          gethomepage.dev/widget.type: freshrss
-          gethomepage.dev/widget.url: http://freshrss.default.svc.cluster.local
-          gethomepage.dev/widget.username: "{{ `{{HOMEPAGE_VAR_FRESHRSS_USERNAME}}` }}"
-          gethomepage.dev/widget.password: "{{ `{{HOMEPAGE_VAR_FRESHRSS_API_KEY}}` }}"
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

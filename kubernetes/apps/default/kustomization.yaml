@@ -15,7 +15,6 @@ resources:
   - ./free-games-claimer/ks.yaml
   - ./freshrss/ks.yaml
   - ./home-assistant/ks.yaml
-  - ./homepage/ks.yaml
   - ./isponsorblocktv/ks.yaml
   - ./linkding/ks.yaml
   - ./mosquitto/ks.yaml

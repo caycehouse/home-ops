@@ -55,13 +55,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://actual.housefam.casa"
-          gethomepage.dev/description: Budgeting and personal finance software
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: actual-budget
-          gethomepage.dev/name: Actual Budget
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

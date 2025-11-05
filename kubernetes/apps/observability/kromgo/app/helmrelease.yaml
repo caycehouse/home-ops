@@ -63,11 +63,6 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 404"]
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Safely expose metrics and health checks
-          gethomepage.dev/group: Services
-          gethomepage.dev/icon: mdi-list-status
-          gethomepage.dev/name: Kromgo
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

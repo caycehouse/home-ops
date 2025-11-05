@@ -71,13 +71,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://changedetection.housefam.casa"
-          gethomepage.dev/description: Website change detection
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: changedetection
-          gethomepage.dev/name: changedetection.io
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

@@ -17,14 +17,6 @@ spec:
       enabled: true
     route:
       dashboard:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://rook.housefam.casa"
-          gethomepage.dev/description: Distributed storage system
-          gethomepage.dev/group: Storage
-          gethomepage.dev/icon: rook
-          gethomepage.dev/name: Rook
-          gethomepage.dev/app: ceph-mgr
         host:
           name: rook.housefam.casa
           path: /

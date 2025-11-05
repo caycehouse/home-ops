@@ -63,12 +63,6 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 200"]
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://hass.housefam.casa"
-          gethomepage.dev/description: Home Automation
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: home-assistant
-          gethomepage.dev/name: HASS
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
           - hass.housefam.casa

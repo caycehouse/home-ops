@@ -80,13 +80,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/href: "https://zigbee.housefam.casa"
-          gethomepage.dev/description: Zigbee device integration hub
-          gethomepage.dev/group: Utilities
-          gethomepage.dev/icon: zigbee2mqtt
-          gethomepage.dev/name: Zigbee2MQTT
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

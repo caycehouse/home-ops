@@ -63,12 +63,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Magical Shell History
-          gethomepage.dev/group: Services
-          gethomepage.dev/icon: sh-atuin
-          gethomepage.dev/name: Atuin
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:

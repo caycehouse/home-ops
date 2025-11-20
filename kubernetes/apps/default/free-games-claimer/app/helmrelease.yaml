@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/vogler/free-games-claimer
-              tag: dev@sha256:3478c45e84a1b76ebb47370d54206c90e2a329b5157c0765f3faa2f05246ed50
+              tag: dev@sha256:dbf59df2b22a475d03d8b317ed6a31f1ee2552e60dff852c3ff5050665fc1bbf
             env:
               NOVNC_PORT: &port 80
               PG_REDEEM: 1

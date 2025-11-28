@@ -16,7 +16,7 @@ spec:
     substitute:
       APP: minecraft
       # renovate: datasource=github-releases depName=caycehouse/fabulously-optimized-server
-      PACKWIZ_VERSION: v11.1.0-beta.8
+      PACKWIZ_VERSION: v11.1.0-beta.9
       VOLSYNC_CAPACITY: 15Gi
   prune: true
   sourceRef:

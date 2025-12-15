@@ -82,12 +82,12 @@ machine:
               hardwareAddr: 00:e0:4c:68:*
           mode: active-backup
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         vlans:
           - # Trusted
             vlanId: 10
             dhcp: false
-            mtu: 9000
+            mtu: 1500
   nodeLabels:
     node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: main

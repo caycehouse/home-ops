@@ -46,7 +46,7 @@ spec:
           browser:
             image:
               repository: dgtlmoon/sockpuppetbrowser
-              tag: latest@sha256:50619e56663d81c2b46a2219ea91220c05d2e403448df8bdff12dbe4b1ab910b
+              tag: latest@sha256:01a4ab6c9b1bea143af26b864252acb6fe38631ae01cb4aa6fea7286fcbc1cf0
               pullPolicy: IfNotPresent
             securityContext:
               allowPrivilegeEscalation: false

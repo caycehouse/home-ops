@@ -12,7 +12,7 @@ spec:
   values:
     image:
       repository: ghcr.io/itzg/mc-router
-      tag: 1.38.0@sha256:9998c45520fa5670e4ed9c8d0c65b26be7d361f3aff797a2cd56b30ee30d8fe0
+      tag: 1.38.2@sha256:ff865253dfce18c2adfdec9a0e1f49dfc79a6da91ddd0134099e06d5c20a0f72
       pullPolicy: IfNotPresent
     minecraftRouter:
       connectionRateLimit: 10

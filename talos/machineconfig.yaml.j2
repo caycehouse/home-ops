@@ -54,8 +54,6 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
-      featureGates:
-        ImageVolume: true
       imageMaximumGCAge: 168h # One week
       imageGCHighThresholdPercent: 70
       imageGCLowThresholdPercent: 50
@@ -156,7 +154,7 @@ cluster:
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
+      feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.35.0
   controllerManager:

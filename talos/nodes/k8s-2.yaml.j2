@@ -1,11 +1,11 @@
 ---
 machine:
+  type: controlplane
   install:
     diskSelector:
       model: PNY CS2140 500GB SSD
   nodeLabels:
     topology.kubernetes.io/zone: m
-  type: controlplane
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig

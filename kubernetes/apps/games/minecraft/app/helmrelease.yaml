@@ -15,7 +15,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2025.12.1-java21-graalvm@sha256:c10da6e39021da2215bcefb143c5d74c434f9d4e27ef1231fbbf7391aa1e38a4
+      tag: 2026.1.0-java25-graalvm@sha256:57390cb09b3450551bed092d4e60328e991ca556ad28296efb944aa010460ec0
       pullPolicy: IfNotPresent
     livenessProbe:
       initialDelaySeconds: 120
@@ -41,6 +41,7 @@ spec:
       vanillaTweaksShareCodes:
         - f8rjVA
         - FF8soj
+      # renovate: datasource=custom.minecraft-release
       version: "1.21.11"
       viewDistance: 7
       rcon:

@@ -41,6 +41,7 @@ spec:
       vanillaTweaksShareCodes:
         - f8rjVA
         - FF8soj
+      # renovate: datasource=custom.minecraft-release
       version: "1.21.11"
       viewDistance: 7
       rcon:

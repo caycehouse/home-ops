@@ -20,7 +20,7 @@ spec:
             tty: true
             image:
               repository: ghcr.io/deinfreu/hytale-server
-              tag: experimental-0.1.2.1
+              tag: experimental-alpine-liberica-0.1.2.1
             env:
               HYTALE_CACHE: true
               SERVER_PORT: &port 5520

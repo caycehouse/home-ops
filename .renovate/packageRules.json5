@@ -4,7 +4,7 @@
     {
       description: "Loose versioning for non-semver containers",
       matchDatasources: ["docker", "github-releases"],
-      matchPackageNames: ["/changedetection/", "/fabulously-optimized-server/"],
+      matchPackageNames: ["/changedetection/", "/fabulously-optimized-server/", "/hytale-server/"],
       versioning: "loose",
     },
   ],

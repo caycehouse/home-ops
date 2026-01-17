@@ -22,12 +22,13 @@ spec:
               repository: ghcr.io/deinfreu/hytale-server
               tag: experimental-0.1.3
             env:
-              HYTALE_CACHE: true
+              HYTALE_ACCEPT_EARLY_PLUGINS: "TRUE"
+              HYTALE_CACHE: "TRUE"
+              HYTALE_MAX_PLAYERS: 10
+              HYTALE_MAX_VIEW_RADIUS: 24
+              PROD: "TRUE"
               SERVER_PORT: &port 5520
               TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

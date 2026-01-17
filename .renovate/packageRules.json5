@@ -4,8 +4,14 @@
     {
       description: "Loose versioning for non-semver containers",
       matchDatasources: ["docker", "github-releases"],
-      matchPackageNames: ["/changedetection/", "/fabulously-optimized-server/", "/hytale-server/"],
+      matchPackageNames: ["/changedetection/", "/fabulously-optimized-server/"],
       versioning: "loose",
+    },
+    {
+      description: "Regex versioning for hytale-server containers",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/hytale-server/"],
+      versioning: "regex:^experimental-?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:\\.(?<build>\\d+))?$",
     },
   ],
 }

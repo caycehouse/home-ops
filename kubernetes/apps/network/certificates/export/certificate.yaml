@@ -5,11 +5,13 @@ kind: Certificate
 metadata:
   name: housefam-casa
 spec:
-  secretName: housefam-casa-tls
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  commonName: housefam.casa
   dnsNames:
     - housefam.casa
     - "*.housefam.casa"
+  duration: 160h
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  secretName: housefam-casa-tls
+  usages:
+    - digital signature

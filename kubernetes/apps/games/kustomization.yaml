@@ -9,4 +9,5 @@ components:
 
 resources:
   - ./namespace.yaml
+  - ./hytale/ks.yaml
   - ./minecraft/ks.yaml

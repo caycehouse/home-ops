@@ -17,6 +17,7 @@ spec:
           timeZone: America/New_York
           schedule: "0 12 * * *"
           backoffLimit: 0
+          activeDeadlineSeconds: 600
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

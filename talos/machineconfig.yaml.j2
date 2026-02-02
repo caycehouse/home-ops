@@ -42,8 +42,10 @@ machine:
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True
-        nconnect=16
+        nconnect=8
         noatime=True
+        rsize=1048576
+        wsize=1048576
   install:
     image: factory.talos.dev/metal-installer/38b7f94a429c1403b7cdf321d95bf60bdb041c2434c0c7928d7cf94d161ae248:v1.12.2
     wipe: false
@@ -214,4 +216,4 @@ mtu: 1500
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
-timeout: 5m
+timeout: 10m

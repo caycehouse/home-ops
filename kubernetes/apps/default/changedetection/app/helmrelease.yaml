@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
-              tag: 0.53.6@sha256:928ec9ddf0be01dfe7ce390d3ece5c5d03d774407c8af37e41f2b780503e972a
+              tag: 0.54.1@sha256:bda857dd1c0680eb2665366ef8fe7472593c5add6558c25825a28e241888c6ea
             env:
               PLAYWRIGHT_DRIVER_URL: ws://localhost:3000/?stealth=1&--disable-web-security=true
               PORT: &port 80

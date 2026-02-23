@@ -95,7 +95,7 @@ spec:
       repository:
         type: nfs
         server: bakery.internal
-        path: /mnt/storage1/VolsyncKopia
+        path: /mnt/storage1/Kopia
         globalMounts:
           - path: /repository
       tmpfs:

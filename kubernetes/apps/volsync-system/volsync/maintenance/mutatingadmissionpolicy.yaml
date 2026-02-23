@@ -45,7 +45,7 @@ spec:
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
                   server: "bakery.internal",
-                  path: "/mnt/storage1/VolsyncKopia"
+                  path: "/mnt/storage1/Kopia"
                 }
               }
             },

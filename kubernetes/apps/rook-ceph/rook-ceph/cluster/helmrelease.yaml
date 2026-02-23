@@ -35,6 +35,7 @@ spec:
           limits:
             memory: 8Gi # Required for bootstrap
       storage:
+        devicePathFilter: /dev/disk/by-id/nvme-Dell_EC_NVMe_ISE_7400_MU_M.2_80_800GB_.*
         useAllDevices: false
         useAllNodes: true
     monitoring:
@@ -45,7 +46,7 @@ spec:
     route:
       dashboard:
         host:
-          name: rook.housefam.casa
+          name: rook.turbo.ac
           path: /
           pathType: PathPrefix
         parentRefs:

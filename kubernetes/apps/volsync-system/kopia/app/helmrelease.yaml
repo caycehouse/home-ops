@@ -94,7 +94,7 @@ spec:
             subPath: repository.config
       repository:
         type: nfs
-        server: bakery.internal
+        server: unas-2.internal
         path: /mnt/storage1/Kopia
         globalMounts:
           - path: /repository

@@ -95,7 +95,7 @@ spec:
       repository:
         type: nfs
         server: unas-2.internal
-        path: /mnt/storage1/Kopia
+        path: /var/nfs/shared/Kopia
         globalMounts:
           - path: /repository
       tmpfs:

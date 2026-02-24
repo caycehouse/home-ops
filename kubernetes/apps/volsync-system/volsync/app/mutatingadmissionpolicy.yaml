@@ -109,7 +109,7 @@ spec:
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
                   server: "unas-2.internal",
-                  path: "/mnt/storage1/Kopia"
+                  path: "/var/nfs/shared/Kopia"
                 }
               }
             }

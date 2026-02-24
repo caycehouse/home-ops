@@ -44,8 +44,8 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
-                  server: "unas-2.internal",
-                  path: "/var/nfs/shared/Kopia"
+                  server: "bakery.internal",
+                  path: "/mnt/storage1/VolsyncKopia"
                 }
               }
             },

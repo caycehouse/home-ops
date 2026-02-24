@@ -40,17 +40,16 @@ machine:
       permissions: 0o644
       content: |
         [ NFSMount_Global_Options ]
-        nfsvers=3
+        nfsvers=4.2
         hard=True
         nconnect=8
         noatime=True
-        nolock=True
         rsize=1048576
         wsize=1048576
   install:
     diskSelector:
       model: MTFDDAK960TCB
-    image: factory.talos.dev/metal-installer/af41af760a799532dbf46568d88a9bb0536329e308d02a74de5e91dea681f6c5:v1.12.4
+    image: factory.talos.dev/metal-installer/16bcc8d0eca7075fca97f63a5d3cb9042abefdb8a670b929b87cb33970529c7b:v1.12.4
     wipe: false
   kernel:
     modules:

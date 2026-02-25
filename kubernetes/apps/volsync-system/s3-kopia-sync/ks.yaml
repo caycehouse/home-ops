@@ -5,8 +5,15 @@ kind: Kustomization
 metadata:
   name: s3-kopia-sync
 spec:
+  components:
+    - ../../../../components/nfs-scaler
+  dependsOn:
+    - name: volsync
   interval: 1h
   path: ./kubernetes/apps/volsync-system/s3-kopia-sync/app
+  postBuild:
+    substitute:
+      APP: s3-kopia-sync
   prune: true
   sourceRef:
     kind: GitRepository

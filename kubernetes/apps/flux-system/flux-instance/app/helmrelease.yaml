@@ -130,3 +130,11 @@ spec:
             target:
               kind: Deployment
               name: kustomize-controller
+          - # Fail on post-build substitutions without a declared variable
+            patch: |-
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --feature-gates=StrictPostBuildSubstitutions=true
+            target:
+              kind: Deployment
+              name: kustomize-controller

@@ -48,8 +48,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    diskSelector:
-      model: MTFDDAK960TCB
+    disk: /dev/nvme0n1
     image: factory.talos.dev/metal-installer/16bcc8d0eca7075fca97f63a5d3cb9042abefdb8a670b929b87cb33970529c7b:v1.12.4
     wipe: false
   kernel:

@@ -35,16 +35,9 @@ spec:
           limits:
             memory: 8Gi # Required for bootstrap
       storage:
-        # devicePathFilter: /dev/disk/by-id/nvme.*
+        devicePathFilter: /dev/disk/by-id/ata-MTFDDAK960TCB_.*
         useAllDevices: false
-        useAllNodes: false
-        nodes:
-          - name: k8s-1
-            devices:
-              - name: /dev/nvme0n1
-          - name: k8s-2
-            devices:
-              - name: /dev/nvme0n1
+        useAllNodes: true
     monitoring:
       enabled: true
       createPrometheusRules: true

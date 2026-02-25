@@ -6,6 +6,10 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+configMapGenerator:
+  - name: s3-kopia-sync-configmap
+    files:
+      - sync.sh=./resources/sync.sh
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

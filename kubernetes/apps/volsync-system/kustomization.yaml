@@ -10,4 +10,5 @@ components:
 resources:
   - ./namespace.yaml
   - ./kopia/ks.yaml
+  - ./s3-kopia-sync/ks.yaml
   - ./volsync/ks.yaml

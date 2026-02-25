@@ -91,8 +91,8 @@ spec:
             subPath: repository.config
       repository:
         type: nfs
-        server: bakery.internal
-        path: /mnt/storage1/VolsyncKopia
+        server: unas-2.internal
+        path: /var/nfs/shared/Kopia
         globalMounts:
           - path: /repository
       tmpfs:

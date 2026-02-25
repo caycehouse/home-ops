@@ -11,7 +11,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - bakery.internal
+        - unas-2.internal
         - k8s-0.internal
         - k8s-1.internal
         - k8s-2.internal
@@ -33,7 +33,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - bakery.internal:2049
+        - unas-2.internal:2049
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter

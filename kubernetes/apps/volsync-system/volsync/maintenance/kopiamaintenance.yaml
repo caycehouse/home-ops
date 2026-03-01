@@ -3,10 +3,10 @@
 apiVersion: volsync.backube/v1alpha1
 kind: KopiaMaintenance
 metadata:
-  name: daily-local
+  name: daily-r2
 spec:
   enabled: true
   trigger:
-    schedule: 30 3,15 * * *
+    schedule: 0 3,15 * * *
   repository:
-    repository: volsync-maintenance-secret
+    repository: volsync-maintenance-r2-secret

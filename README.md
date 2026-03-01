@@ -48,7 +48,7 @@ This is a mono repository for my home infrastructure and Kubernetes cluster. I t
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f331/512.gif" alt="🌱" width="20" height="20"> Kubernetes
 
-My Kubernetes cluster is deployed with [Talos](https://www.talos.dev). This is a semi-hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server with ZFS for NFS/SMB shares, bulk file storage and backups.
+My Kubernetes cluster is deployed with [Talos](https://www.talos.dev). This is a semi-hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes.
 
 There is a template over at [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) if you want to try and follow along with some of the practices I use here.
 
@@ -132,7 +132,6 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 | OptiPlex 5080 Micro | i5-10600T        | 512GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
 | OptiPlex 3090 Micro | i5-10500T        | 256GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
 | OptiPlex 3090 Micro | i5-10500T        | 500GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
-| UNAS 2              | ARM® Cortex®-A55 |              | 2x10TB (RAID1)        | 4GB  | UniFi OS         | NFS + Backup Server   |
 | UniFi UDMP          | -                | -            | 1x3TB HDD             | -    | -                | Router & NVR          |
 | UniFi USW-48-PoE    | -                | -            | -                     | -    | -                | SFP+ PoE Switch       |
 

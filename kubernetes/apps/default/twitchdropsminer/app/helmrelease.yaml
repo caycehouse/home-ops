@@ -37,7 +37,7 @@ spec:
                     command:
                       - /bin/sh
                       - -c
-                      - /TwitchDropsMiner/healthcheck.sh
+                      - /TwitchDropsMiner/docker/healthcheck.sh
                   initialDelaySeconds: 60
                   periodSeconds: 10
                   timeoutSeconds: 5

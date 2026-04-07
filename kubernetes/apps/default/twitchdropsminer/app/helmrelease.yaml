@@ -20,7 +20,7 @@ spec:
               repository: ghcr.io/journeydocker/twitchdropsminer
               tag: main@sha256:02a3fc63bb63ef866ccdc2f41531836275331c4d2fd38c9e7e267a1dbe378730
             env:
-              UNLINKED_CAMPAIGNS: 1
+              UNLINKED_CAMPAIGNS: "1"
             resources:
               requests:
                 cpu: 25m

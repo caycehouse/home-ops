@@ -62,3 +62,10 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          twitchdropsminer:
+            app:
+              - path: /app/logs
+                subPath: logs

@@ -15,8 +15,8 @@ spec:
         containers:
           app:
             image:
-              repository: mirror.gcr.io/dungfu/twitch-drops-miner
-              tag: 16.dev.2279235
+              repository: mirror.gcr.io/rangermix/twitch-drops-miner
+              tag: 1.2.2
             env:
               TZ: America/New_York
             probes:
@@ -49,7 +49,7 @@ spec:
       app:
         ports:
           http:
-            port: 5800
+            port: 8080
     route:
       app:
         hostnames:
@@ -58,11 +58,7 @@ spec:
           - name: envoy-internal
             namespace: network
     persistence:
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /TwitchDropsMiner/cache
       data:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - path: /TwitchDropsMiner/config
+          - path: /app/data

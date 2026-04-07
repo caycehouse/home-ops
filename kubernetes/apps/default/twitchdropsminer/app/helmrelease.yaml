@@ -12,51 +12,60 @@ spec:
   values:
     controllers:
       twitchdropsminer:
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/journeydocker/twitchdropsminer
-              tag: main@sha256:02a3fc63bb63ef866ccdc2f41531836275331c4d2fd38c9e7e267a1dbe378730
+              repository: mirror.gcr.io/rangermix/twitch-drops-miner
+              tag: 1.2.2
             env:
-              UNLINKED_CAMPAIGNS: "1"
+              TZ: America/New_York
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
-                cpu: 25m
+                cpu: 10m
               limits:
-                memory: 768Mi
-            args:
-              - ./startup.sh
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - /TwitchDropsMiner/docker/healthcheck.sh
-                  initialDelaySeconds: 60
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  successThreshold: 1
-                  failureThreshold: 3
-              readiness: *probes
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 8080
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.housefam.casa"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
     persistence:
-      config-file:
-        type: configMap
-        name: "{{ .Release.Name }}-configmap"
+      data:
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - subPath: settings.json
-            path: /TwitchDropsMiner/settings.json.import
-          - subPath: startup.sh
-            path: /TwitchDropsMiner/startup.sh
-        defaultMode: 0777
-      secret-file:
-        type: secret
-        name: "{{ .Release.Name }}-secret"
-        globalMounts:
-          - subPath: cookies.jar
-            path: /TwitchDropsMiner/cookies.jar.import
+          - path: /app/data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          twitchdropsminer:
+            app:
+              - path: /app/logs
+                subPath: logs

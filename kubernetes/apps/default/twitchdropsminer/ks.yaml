@@ -5,8 +5,16 @@ kind: Kustomization
 metadata:
   name: twitchdropsminer
 spec:
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/default/twitchdropsminer/app
+  postBuild:
+    substitute:
+      APP: twitchdropsminer
   prune: true
   sourceRef:
     kind: GitRepository

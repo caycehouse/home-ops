@@ -23,8 +23,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/vogler/free-games-claimer
-              tag: dev@sha256:4a68d3b4106c8304836da9c632ee2c989dd4bebad490265991b920558b8fe6b9
+              repository: ghcr.io/p-adamiec/free-games-claimer
+              tag: enhanced@sha256:a5ceacc4dd35dcbbf48a65b6de178a14567086c97bc0c1e787cf4cff5c2493b4
             env:
               NOVNC_PORT: &port 80
               PG_REDEEM: 1
@@ -34,6 +34,13 @@ spec:
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
+            args:
+              - "bash"
+              - "-c"
+              - |
+                node epic-games;
+                node prime-gaming;
+                node gog;
             resources:
               requests:
                 cpu: 100m

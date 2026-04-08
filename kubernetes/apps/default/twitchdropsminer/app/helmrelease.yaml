@@ -15,53 +15,32 @@ spec:
         containers:
           app:
             image:
-              repository: mirror.gcr.io/rangermix/twitch-drops-miner
-              tag: 1.2.2
+              repository: mirror.gcr.io/dungfu/twitch-drops-miner
+              tag: 16.dev.2279235
             env:
               TZ: America/New_York
             probes:
               liveness:
                 enabled: true
-                spec:
-                  periodSeconds: 30
-                  timeoutSeconds: 5
-                  failureThreshold: 5
               readiness:
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/status
-                    port: &port 8080
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 5
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
                   periodSeconds: 10
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 1Gi
+                memory: 512Mi
     defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+      hostUsers: false
     service:
       app:
         ports:
           http:
-            port: *port
+            port: 5800
     route:
       app:
         hostnames:
@@ -73,11 +52,8 @@ spec:
       data:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - path: /app/data
-      tmpfs:
-        type: emptyDir
-        advancedMounts:
-          twitchdropsminer:
-            app:
-              - path: /app/logs
-                subPath: logs
+          - path: /TwitchDropsMiner/config
+      cache:
+        existingClaim: "{{ .Release.Name }}-cache"
+        globalMounts:
+          - path: /TwitchDropsMiner/cache

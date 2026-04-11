@@ -97,7 +97,49 @@ graph TD
 <details>
   <summary>Click here to see my high-level network diagram</summary>
 
-  <img src="https://github.com/user-attachments/assets/c2682514-bf6b-4aa5-a4a9-7120d3b93d75" align="center" width="600px" alt="dns"/>
+```mermaid
+graph TD
+    %% Class Definitions
+    classDef isp fill:#f87171,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef core fill:#60a5fa,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef switch fill:#a78bfa,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef device fill:#facc15,stroke:#fff,stroke-width:2px,color:#000,font-weight:bold;
+    classDef vlan fill:#1f2937,stroke:#fff,stroke-width:1px,color:#fff,font-size:12px;
+
+    %% Nodes
+    ISP[🛜 Brightspeed<br/>1Gbps WAN]:::isp
+    UDM[📦 UDM Pro]:::core
+    K8s[☸️ Kubernetes<br/>3 Nodes]:::device
+    USW[🔌 16 Port<br/>2.5G PoE]:::switch
+    DEV[💻 Devices]:::device
+    WIFI[📶 WiFi Clients]:::device
+
+    %% Subgraph for VLANs
+    subgraph VLANs [LAN +vlan]
+        direction TB
+        DEFAULT[DEFAULT<br/>192.168.1.0/24]:::vlan
+        TRUSTED[TRUSTED*<br/>192.168.10.0/24]:::vlan
+        SERVERS[SERVERS*<br/>192.168.42.0/24]:::vlan
+        GUEST[GUEST*<br/>192.168.50.0/24]:::vlan
+        SERVICES[SERVICES*<br/>192.168.69.0/24]:::vlan
+        IOT[IOT*<br/>192.168.70.0/24]:::vlan
+    end
+
+    style VLANs fill:#111,stroke:#fff,stroke-width:2px,rx:0,ry:0,padding:20px;
+
+    %% Links
+    ISP -.->|WAN| UDM
+    UDM --> USW
+    USW -- 2.5G --- K8s
+    USW --> DEV
+    USW --> WIFI
+
+    %% Style the bonded links thicker
+    linkStyle 2 stroke-width:4px,stroke:34d399;
+    linkStyle 3 stroke-width:4px,stroke:34d399;
+    linkStyle 4 stroke-width:4px,stroke:34d399;
+
+```
 </details>
 
 ---

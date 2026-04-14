@@ -98,7 +98,7 @@ graph TD
   <summary>Click here to see my high-level network diagram</summary>
 
 ```mermaid
-graph TD
+graph LR
     %% Class Definitions
     classDef isp fill:#f87171,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
     classDef core fill:#60a5fa,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
@@ -128,16 +128,19 @@ graph TD
     style VLANs fill:#111,stroke:#fff,stroke-width:2px,rx:0,ry:0,padding:20px;
 
     %% Links
+    SERVERS -.-> ISP
     ISP -.->|WAN| UDM
     UDM --> USW
     USW -- 2.5G --- K8s
     USW --> DEV
     USW --> WIFI
 
-    %% Style the bonded links thicker
+    %% Keep SERVERS->ISP as a hidden layout constraint and style bonded links thicker
+    linkStyle 0 stroke:transparent,stroke-width:0px,color:transparent;
     linkStyle 2 stroke-width:4px,stroke:34d399;
     linkStyle 3 stroke-width:4px,stroke:34d399;
     linkStyle 4 stroke-width:4px,stroke:34d399;
+    linkStyle 5 stroke-width:4px,stroke:34d399;
 
 ```
 </details>

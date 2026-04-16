@@ -123,6 +123,7 @@ graph LR
         GUEST[GUEST*<br/>192.168.50.0/24]:::vlan
         SERVICES[SERVICES*<br/>192.168.69.0/24]:::vlan
         IOT[IOT*<br/>192.168.70.0/24]:::vlan
+        WIREGUARD[WIREGUARD*<br/>192.168.80.0/24]:::vlan
     end
 
     style VLANs fill:#111,stroke:#fff,stroke-width:2px,rx:0,ry:0,padding:20px;

@@ -23,9 +23,9 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: zigbee
+  name: zigbee-controller
 spec:
-  jobName: zigbee_probe
+  jobName: zigbee_controller_probe
   module: icmp
   prober:
     url: blackbox-exporter.o11y.svc.cluster.local:9115

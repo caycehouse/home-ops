@@ -11,4 +11,4 @@ spec:
     operation: copy
   ref:
     tag: 5.3.0
-  url: oci://ghcr.io/prometheus-adapter/charts/prometheus-adapter
+  url: oci://ghcr.io/prometheus-community/charts/prometheus-adapter

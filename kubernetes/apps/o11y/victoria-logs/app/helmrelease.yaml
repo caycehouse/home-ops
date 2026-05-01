@@ -33,5 +33,5 @@ spec:
             namespace: network
       serviceMonitor:
         enabled: true
-      vector:
-        enabled: false
+    vector:
+      enabled: false

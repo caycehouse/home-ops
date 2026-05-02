@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/dungfu/twitch-drops-miner
-              tag: 16.dev.2279235
+              tag: 16.dev.ff4a2f6
             env:
               TZ: America/New_York
             probes:

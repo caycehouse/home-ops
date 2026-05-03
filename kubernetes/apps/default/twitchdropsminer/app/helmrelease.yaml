@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/dungfu/twitch-drops-miner
-              tag: webui@sha256:121f27c6b0ed5246af1e7b44134a5d0eac969423149aa4674d38be438cf7d2fb
+              tag: webui@sha256:4b446f3c076f4dfc5a4036b1812a9b663428541ac691baa179858460a13631ce
             env:
               TZ: America/New_York
             probes:

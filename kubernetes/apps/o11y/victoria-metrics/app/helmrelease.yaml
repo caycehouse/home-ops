@@ -96,11 +96,6 @@ spec:
         externalURL: https://vmalertmanager.housefam.casa
         image:
           repository: quay.io/prometheus/alertmanager
-        securityContext:
-          runAsGroup: 2000
-          runAsNonRoot: true
-          runAsUser: 1000
-          fsGroup: 2000
         storage:
           volumeClaimTemplate:
             spec:
@@ -155,8 +150,6 @@ spec:
     prometheus-node-exporter:
       enabled: false
     victoria-metrics-operator:
-      admissionWebhooks:
-        policy: Ignore
       crds:
         cleanup:
           enabled: false

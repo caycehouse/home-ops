@@ -17,7 +17,7 @@ spec:
     minecraftRouter:
       connectionRateLimit: 10
     extraEnv:
-      TZ: "America/New_York"
+      TZ: America/New_York
     services:
       minecraft:
         type: LoadBalancer

@@ -42,7 +42,7 @@ spec:
                 memory: 512Mi
           browser:
             image:
-              repository: dgtlmoon/sockpuppetbrowser
+              repository: mirror.gcr.io/dgtlmoon/sockpuppetbrowser
               tag: latest@sha256:7116c61ef9cfce3d48a7efd9355d2fbe19f593ea3cfb52a5ded40ecbcb0a3f9d
               pullPolicy: IfNotPresent
             probes:

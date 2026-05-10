@@ -15,7 +15,7 @@ spec:
         containers:
           app:
             image:
-              repository: freshrss/freshrss
+              repository: ghcr.io/freshrss/freshrss
               tag: 1.29.0-alpine@sha256:6e60e5ab638dc2c3b310f7c8d85c2e8fbf8dd133c9711af6bc9ba4fcdffac086
             env:
               CRON_MIN: "*/15"

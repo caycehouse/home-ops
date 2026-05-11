@@ -36,7 +36,7 @@ machine:
           device_ownership_from_security_context = true
   install:
     disk: /dev/nvme0n1
-    image: factory.talos.dev/metal-installer/1ef672bd265f6c9e477885182f9a7a489ae580adfc5d9a6540e4ee33742b7cd6:v1.13.0
+    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.0
     wipe: false
   kernel:
     modules:

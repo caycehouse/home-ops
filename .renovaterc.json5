@@ -1,25 +1,19 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>caycehouse/renovate-config",
-    "github>caycehouse/renovate-config:autoMerge.json5",
+    "config:recommended",
+    "docker:enableMajor",
+    "helpers:pinGitHubActionDigests",
+    "github>home-operations/renovate-presets#1.0.0",
+    "github>caycehouse/home-ops//.renovate/autoMerge.json5",
     "github>caycehouse/home-ops//.renovate/changelogs.json5",
-    "github>caycehouse/home-ops//.renovate/grafanaDashboards.json5",
     "github>caycehouse/home-ops//.renovate/groups.json5",
-    "github>caycehouse/home-ops//.renovate/minecraft.json5",
-    "github>caycehouse/home-ops//.renovate/packageRules.json5",
-    "github>caycehouse/home-ops//.renovate/talosFactory.json5",
+    "github>caycehouse/home-ops//.renovate/labels.json5",
+    ":automergeBranch",
+    ":disableRateLimiting",
+    ":gitSignOff",
+    ":semanticCommits",
+    ":timezone(America/New_York)",
   ],
-  ignorePaths: [
-    "**/resources/**",
-  ],
-  flux: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
-  "helm-values": {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
-  kubernetes: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
 }

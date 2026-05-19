@@ -7,7 +7,6 @@
     "github>caycehouse/home-ops//.renovate/grafanaDashboards.json5",
     "github>caycehouse/home-ops//.renovate/groups.json5",
     "github>caycehouse/home-ops//.renovate/minecraft.json5",
-    "github>caycehouse/home-ops//.renovate/overrides.json5",
     "github>caycehouse/home-ops//.renovate/packageRules.json5",
     "github>caycehouse/home-ops//.renovate/talosFactory.json5",
   ],

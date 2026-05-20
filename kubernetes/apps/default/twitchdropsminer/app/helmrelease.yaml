@@ -19,6 +19,7 @@ spec:
               tag: latest@sha256:8899dc6e1238b5a12d418911d5ccae6fa7a1127d177dfc3d73c30295c2b31160
             env:
               TZ: America/New_York
+              WEBUI_PORT: &port 80
             probes:
               liveness:
                 enabled: true
@@ -40,7 +41,7 @@ spec:
       app:
         ports:
           http:
-            port: 5800
+            port: *port
     route:
       app:
         hostnames:

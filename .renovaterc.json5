@@ -66,11 +66,6 @@
       matchPackageNames: ["/atuin/"],
       changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md",
     },
-    {
-      description: "Point TwitchDropsMiner at its upstream changelog",
-      matchPackageNames: ["/twitch-drops-miner/"],
-      changelogUrl: "https://github.com/fireph/docker-twitch-drops-miner/commits/main",
-    },
     // Grouping rules
     {
       description: "Actions Runner Controller Group",

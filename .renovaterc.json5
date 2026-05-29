@@ -70,6 +70,8 @@
       description: "Point TwitchDropsMiner at its upstream changelog",
       matchPackageNames: ["/twitch-drops-miner/"],
       changelogUrl: "https://github.com/fireph/docker-twitch-drops-miner/commits/main",
+      sourceUrl: "https://github.com/fireph/docker-twitch-drops-miner",
+      versioning: "loose",
     },
     // Grouping rules
     {

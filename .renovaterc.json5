@@ -59,6 +59,12 @@
     },
     // Changelog rules
     {
+      description: "Point Actual at its upstream changelog",
+      matchPackageNames: ["/actual/"],
+      changelogUrl: "https://actualbudget.org/docs/releases/",
+      sourceUrl: "https://github.com/actualbudget/actual",
+    },
+    {
       description: "Point Atuin at its upstream changelog",
       matchPackageNames: ["/atuin/"],
       changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md",

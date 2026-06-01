@@ -55,7 +55,7 @@ There is a template over at [onedr0p/cluster-template](https://github.com/onedr0
 ### Core Components
 
 - **Networking & Service Mesh**: [cilium](https://github.com/cilium/cilium) provides eBPF-based networking, while [envoy gateway](https://gateway.envoyproxy.io/) powers service-to-service communication with L7 proxying and traffic management. [cloudflared](https://github.com/cloudflare/cloudflared) secures ingress traffic via Cloudflare, and [external-dns](https://github.com/kubernetes-sigs/external-dns) keeps DNS records in sync automatically. [multus](https://github.com/k8snetworkplumbingwg/multus-cni)
- enables attaching multiple network interfaces to pods, making it possible to connect workloads to different VLANs or networks simultaneously.
+  enables attaching multiple network interfaces to pods, making it possible to connect workloads to different VLANs or networks simultaneously.
 - **Security & Secrets**: [cert-manager](https://github.com/cert-manager/cert-manager) automates SSL/TLS certificate management. For secrets, I use [external-secrets](https://github.com/external-secrets/external-secrets) with [1Password Connect](https://github.com/1Password/connect) to inject secrets into Kubernetes.
 - **Storage & Data Protection**: [rook](https://github.com/rook/rook) provides distributed storage for persistent volumes, with [volsync](https://github.com/backube/volsync) handling backups and restores. [spegel](https://github.com/spegel-org/spegel) improves reliability by running a stateless, cluster-local OCI image mirror.
 - **Automation & CI/CD**: [actions-runner-controller](https://github.com/actions/actions-runner-controller) runs self-hosted GitHub Actions runners directly in the cluster for continuous integration workflows.
@@ -144,6 +144,7 @@ graph LR
     linkStyle 5 stroke-width:4px,stroke:34d399;
 
 ```
+
 </details>
 
 ---
@@ -154,14 +155,14 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 
 Alternative solutions to the first two of these problems would be to host a Kubernetes cluster in the cloud and deploy applications like [HCVault](https://www.vaultproject.io/), [Vaultwarden](https://github.com/dani-garcia/vaultwarden), [ntfy](https://ntfy.sh/), and [Gatus](https://gatus.io/); however, maintaining another cluster and monitoring another group of workloads would be more work and probably be more or equal out to the same costs as described below.
 
-| Service                                         | Use                                                               | Cost           |
-|-------------------------------------------------|-------------------------------------------------------------------|----------------|
-| [1Password](https://1password.com/)             | Secrets with [External Secrets](https://external-secrets.io/)     | ~$65/yr        |
-| [Cloudflare](https://www.cloudflare.com/)       | Domain and S3                                                     | ~$40/yr        |
-| [GitHub](https://github.com/)                   | Hosting this repository and continuous integration/deployments    | Free           |
-| [Pushover](https://pushover.net/)               | Kubernetes Alerts and application notifications                   | $5 OTP         |
-| [UptimeRobot](https://uptimerobot.com/)         | Monitoring internet connectivity and external facing applications | Free           |
-|                                                 |                                                                   | Total: ~$9/mo  |
+| Service                                   | Use                                                               | Cost          |
+| ----------------------------------------- | ----------------------------------------------------------------- | ------------- |
+| [1Password](https://1password.com/)       | Secrets with [External Secrets](https://external-secrets.io/)     | ~$65/yr       |
+| [Cloudflare](https://www.cloudflare.com/) | Domain and S3                                                     | ~$40/yr       |
+| [GitHub](https://github.com/)             | Hosting this repository and continuous integration/deployments    | Free          |
+| [Pushover](https://pushover.net/)         | Kubernetes Alerts and application notifications                   | $5 OTP        |
+| [UptimeRobot](https://uptimerobot.com/)   | Monitoring internet connectivity and external facing applications | Free          |
+|                                           |                                                                   | Total: ~$9/mo |
 
 ---
 
@@ -173,13 +174,13 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
-| Device              | CPU              | OS Disk Size | Data Disk Size        | Ram  | Operating System | Purpose               |
-|---------------------|------------------|--------------|-----------------------|------|------------------|-----------------------|
-| OptiPlex 5080 Micro | i5-10600T        | 512GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
-| OptiPlex 3090 Micro | i5-10500T        | 256GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
-| OptiPlex 3090 Micro | i5-10500T        | 500GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
-| UniFi UDMP          | -                | -            | 1x3TB HDD             | -    | -                | Router & NVR          |
-| UniFi USW-48-PoE    | -                | -            | -                     | -    | -                | SFP+ PoE Switch       |
+| Device              | CPU       | OS Disk Size | Data Disk Size        | Ram  | Operating System | Purpose               |
+| ------------------- | --------- | ------------ | --------------------- | ---- | ---------------- | --------------------- |
+| OptiPlex 5080 Micro | i5-10600T | 512GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
+| OptiPlex 3090 Micro | i5-10500T | 256GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
+| OptiPlex 3090 Micro | i5-10500T | 500GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
+| UniFi UDMP          | -         | -            | 1x3TB HDD             | -    | -                | Router & NVR          |
+| UniFi USW-48-PoE    | -         | -            | -                     | -    | -                | SFP+ PoE Switch       |
 
 ---
 

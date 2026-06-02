@@ -67,6 +67,7 @@ spec:
       hostUsers: false
     service:
       app:
+        controller: free-games-claimer
         ports:
           http:
             port: *port

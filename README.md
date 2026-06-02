@@ -1,10 +1,18 @@
 <div align="center">
 
-<img src="https://avatars.githubusercontent.com/u/1490024" align="center" width="144px" height="144px"/>
+<img src="https://avatars.githubusercontent.com/u/1490024" align="center" width="175px" height="175px"/>
 
 ### <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="16" height="16"> My Home Operations Repository <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a7/512.gif" alt="🚧" width="16" height="16">
 
 _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="🤖" width="16" height="16">
+
+</div>
+
+<div align="center">
+
+[![Home-Internet](https://img.shields.io/uptimerobot/status/m797044251-175b66fd080347cba92eab7d?label=Home%20Internet&logo=ubiquiti&color=97ca00)](https://status.housefam.casa)&nbsp;&nbsp;
+[![Status-Page](https://img.shields.io/uptimerobot/status/m797044253-d5e05cfb7efa9b098b99d258?label=Status%20Page&logo=statuspage&color=97ca00)](https://status.housefam.casa)&nbsp;&nbsp;
+[![Alertmanager](https://img.shields.io/endpoint?url=https%3A%2F%2Fhealthchecks.io%2Fb%2F2%2F03387ff3-d245-4a6f-89b7-c20f9b494bd0.shields&label=Alertmanager&logo=prometheus&logoColor=white&color=97ca00)](https://status.housefam.casa)
 
 </div>
 
@@ -15,14 +23,6 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 [![Kubernetes](https://kromgo.housefam.casa/badges/kubernetes_version)](https://kubernetes.io)&nbsp;&nbsp;
 [![Flux](https://kromgo.housefam.casa/badges/flux_version)](https://fluxcd.io)&nbsp;&nbsp;
 [![Renovate](https://img.shields.io/github/actions/workflow/status/caycehouse/home-ops/renovate.yaml?branch=main&label&logo=renovate&color=blue)](https://github.com/caycehouse/home-ops/actions/workflows/renovate.yaml)
-
-</div>
-
-<div align="center">
-
-[![Home-Internet](https://img.shields.io/uptimerobot/status/m797044251-175b66fd080347cba92eab7d?color=brightgreeen&label=Home%20Internet&style=for-the-badge&logo=ubiquiti&logoColor=white)](https://status.housefam.casa)&nbsp;&nbsp;
-[![Status-Page](https://img.shields.io/uptimerobot/status/m797044253-d5e05cfb7efa9b098b99d258?color=brightgreeen&label=Status%20Page&style=for-the-badge&logo=statuspage&logoColor=white)](https://status.housefam.casa)&nbsp;&nbsp;
-[![Alertmanager](https://img.shields.io/endpoint?url=https%3A%2F%2Fhealthchecks.io%2Fb%2F2%2F03387ff3-d245-4a6f-89b7-c20f9b494bd0.shields&style=for-the-badge&logo=prometheus&logoColor=white&label=Alertmanager)](https://status.housefam.casa)
 
 </div>
 
@@ -131,18 +131,17 @@ graph LR
     %% Links
     SERVERS -.-> ISP
     ISP -.->|WAN| UDM
-    UDM --> USW
-    USW -- 2.5G --- K8s
+    UDM -- 10G --- USW
+    USW -- 2.5G --> K8s
     USW --> DEV
     USW --> WIFI
 
     %% Keep SERVERS->ISP as a hidden layout constraint and style bonded links thicker
     linkStyle 0 stroke:transparent,stroke-width:0px,color:transparent;
-    linkStyle 2 stroke-width:4px,stroke:34d399;
-    linkStyle 3 stroke-width:4px,stroke:34d399;
-    linkStyle 4 stroke-width:4px,stroke:34d399;
-    linkStyle 5 stroke-width:4px,stroke:34d399;
-
+    linkStyle 2 stroke-width:4px;
+    linkStyle 3 stroke-width:4px;
+    linkStyle 4 stroke-width:2px;
+    linkStyle 5 stroke-width:4px;
 ```
 
 </details>
@@ -174,13 +173,27 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
-| Device              | CPU       | OS Disk Size | Data Disk Size        | Ram  | Operating System | Purpose               |
-| ------------------- | --------- | ------------ | --------------------- | ---- | ---------------- | --------------------- |
-| OptiPlex 5080 Micro | i5-10600T | 512GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
-| OptiPlex 3090 Micro | i5-10500T | 256GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
-| OptiPlex 3090 Micro | i5-10500T | 500GB NVMe   | 800GB SSD (rook-ceph) | 64GB | Talos            | Kubernetes Controller |
-| UniFi UDMP          | -         | -            | 1x3TB HDD             | -    | -                | Router & NVR          |
-| UniFi USW-48-PoE    | -         | -            | -                     | -    | -                | SFP+ PoE Switch       |
+### Compute
+
+**Dell OptiPlex 5080 Micro (i5-10600T) × 1** · 64 GB RAM · Talos / Kubernetes
+
+- **OS** — 512 GB AirDisk P10 NVMe (2280)
+- **Rook-Ceph** — 800 GB Micron 5100 PRO SATA SSD
+
+**Dell OptiPlex 3090 Micro (i5-10500T) × 1** · 64 GB RAM · Talos / Kubernetes
+
+- **OS** — 256 GB Western Digital PC SN520 NVMe (2230)
+- **Rook-Ceph** — 800 GB Micron 5100 PRO SATA SSD
+
+**Dell OptiPlex 3090 Micro (i5-10500T) × 1** · 64 GB RAM · Talos / Kubernetes
+
+- **OS** — 500 GB PNY CS2140 NVMe (2280)
+- **Rook-Ceph** — 800 GB Micron 5100 PRO SATA SSD
+
+### Networking — UniFi
+
+- **UDM Pro** — router & NVR · 1 × 10 TB HGST Ultrastar He10 HDD
+- **USW Pro Max 16 PoE** — 2.5 G PoE++ switch
 
 ---
 

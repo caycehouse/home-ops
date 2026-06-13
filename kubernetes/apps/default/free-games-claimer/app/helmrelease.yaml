@@ -11,6 +11,23 @@ spec:
   interval: 1h
   values:
     controllers:
+      fgc-bootstrap:
+        type: job
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/busybox
+              tag: 1.38.0@sha256:7e2c04dd50ede647bf4a7a4c8dbd629dd4971cd139b9b88fb22bfc3c7a6c13df
+            command:
+              - "/bin/sh"
+              - "-c"
+              - "echo 'Binding PVC for VolSync'; exit 0"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10Mi
+              limits:
+                memory: 50Mi
       free-games-claimer:
         type: cronjob
         cronjob:
@@ -50,6 +67,7 @@ spec:
       hostUsers: false
     service:
       app:
+        controller: free-games-claimer
         ports:
           http:
             port: *port

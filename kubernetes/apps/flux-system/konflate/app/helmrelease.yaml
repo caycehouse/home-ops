@@ -12,6 +12,10 @@ spec:
   values:
     config:
       repo: github://caycehouse/home-ops
+      statusChecks: true
+      prComments: true
+      publicUrl: https://{{ .Release.Name }}.housefam.casa
+      mcp: true
     secret:
       existingSecret: konflate-webhook-token-secret
     httpRoute:

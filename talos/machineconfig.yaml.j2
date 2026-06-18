@@ -20,9 +20,10 @@ machine:
     kubernetesTalosAPIAccess:
       enabled: true
       allowedKubernetesNamespaces:
-        - actions-runner-system
+        - flux-system
         - system-upgrade
       allowedRoles:
+        - os:operator
         - os:admin
     {% endif %}
     rbac: true

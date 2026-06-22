@@ -54,7 +54,7 @@ kubernetes/apps/<namespace>/
         └── externalsecret.yaml # optional, pulls from 1Password Connect
 ```
 
-- The per-namespace `kustomization.yaml` sets the `namespace:` and lists each app's `./­<app>/ks.yaml`. Adding an app = create the `<app>/` tree **and** register `./­<app>/ks.yaml` here.
+- The per-namespace `kustomization.yaml` sets the `namespace:` and lists each app's `./<app>/ks.yaml`. Adding an app = create the `<app>/` tree **and** register `./<app>/ks.yaml` here.
 - Each app's `ks.yaml` is a Flux `Kustomization` (not a kustomize one). It declares `dependsOn` (most stateful apps depend on `rook-ceph-cluster` in `rook-ceph`), `targetNamespace`, optional `components`, and `postBuild.substitute` (commonly `APP: <name>`, consumed by shared components).
 
 ### Charts & images

@@ -12,35 +12,47 @@ spec:
   values:
     controllers:
       free-games-claimer:
-        type: cronjob
-        cronjob:
-          timeZone: America/New_York
-          schedule: "0 12 * * *"
-          backoffLimit: 0
-          activeDeadlineSeconds: 600
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/p-adamiec/free-games-claimer
-              tag: enhanced@sha256:a5ceacc4dd35dcbbf48a65b6de178a14567086c97bc0c1e787cf4cff5c2493b4
+              repository: ghcr.io/feldorn/free-games-claimer
+              tag: latest@sha256:ddb050991d93dbd6b86fa6419b2c790ecb0bc84d3378a75810bb0ae07270e3e8
             env:
-              NOVNC_PORT: &port 80
-              PG_REDEEM: 1
-              PG_CLAIMDLC: 1
-              WIDTH: 1920
-              HEIGHT: 1080
+              LOOP: "86400"
+              NOVNC_PORT: &novncPort 6080
+              NOVNC_URL: https://fgc-vnc.housefam.casa
+              PANEL_PORT: &port 80
+              PG_CLAIMDLC: "1"
+              PG_REDEEM: "1"
+              START_TIME: "12:00"
+              TZ: America/New_York
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
-            args:
-              - "bash"
-              - "-c"
-              - |
-                node epic-games;
-                node prime-gaming;
-                node gog;
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 100m
@@ -50,9 +62,14 @@ spec:
       hostUsers: false
     service:
       app:
+        primary: true
         ports:
           http:
             port: *port
+      novnc:
+        ports:
+          http:
+            port: *novncPort
     route:
       app:
         hostnames:
@@ -60,6 +77,20 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+      novnc:
+        hostnames:
+          - fgc-vnc.housefam.casa
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: novnc
+                port: *novncPort
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

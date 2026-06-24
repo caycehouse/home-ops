@@ -70,6 +70,12 @@
       changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md",
     },
     {
+      description: "Point Free Games Claimer at its upstream changelog",
+      matchPackageNames: ["/free-games-claimer/"],
+      changelogUrl: "https://github.com/feldorn/free-games-claimer/blob/main/CHANGELOG.md",
+      sourceUrl: "https://github.com/feldorn/free-games-claimer",
+    },
+    {
       description: "Point TwitchDropsMiner at its upstream changelog",
       matchPackageNames: ["/twitch-drops-miner/"],
       changelogUrl: "https://github.com/fireph/docker-twitch-drops-miner/commits/main",

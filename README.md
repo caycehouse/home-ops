@@ -34,6 +34,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 [![Pods](https://kromgo.housefam.casa/badges/cluster_pod_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![CPU](https://kromgo.housefam.casa/badges/cluster_cpu_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![Memory](https://kromgo.housefam.casa/badges/cluster_memory_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Power](https://kromgo.housefam.casa/badges/cluster_power_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![Alerts](https://kromgo.housefam.casa/badges/cluster_alert_count)](https://github.com/home-operations/kromgo)
 
 </div>

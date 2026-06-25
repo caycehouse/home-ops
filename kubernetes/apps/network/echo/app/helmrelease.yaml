@@ -13,6 +13,7 @@ spec:
     replicaCount: 2
     config:
       kubernetes: true
+      prettyPrint: true
       trustedProxies:
         - 10.69.0.0/16
     httpRoute:

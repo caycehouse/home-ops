@@ -17,7 +17,9 @@ spec:
         disable: false
       csi:
         readAffinity:
-          enabled: false # https://github.com/ceph/ceph-csi/issues/5772
+          enabled: true
+          crushLocationLabels:
+            - kubernetes.io/hostname
       dashboard:
         enabled: true
         urlPrefix: /

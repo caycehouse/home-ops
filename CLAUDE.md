@@ -20,8 +20,6 @@ Common cluster operations (`just kube …`):
 
 - `sync hr|ks|gitrepo|ocirepo|es` — force-reconcile all resources of a Flux kind
 - `apply-ks <ns> <ks>` / `delete-ks <ns> <ks>` — render a Flux Kustomization locally (via `flate build ks`) and apply/delete it
-- `restore <ns> <app>` — restore a PVC from VolSync (Kopia) backups
-- `snapshot` / `volsync suspend|resume` — trigger or pause VolSync backups
 - `browse-pvc <ns> <claim>`, `view-secret <ns> <secret>`, `debug-node <node>`, `prune-pods`
 
 Talos / bootstrap (destructive recipes prompt for confirmation):
@@ -65,7 +63,7 @@ Most apps use the bjw-s [`app-template`](https://github.com/bjw-s-labs/helm-char
 
 Kustomize Components included by apps via `components:` in their `ks.yaml` (or the namespace `kustomization.yaml`):
 
-- **volsync** — PVC + VolSync replication source/destination for backups; parameterized by the `${APP}` substitution from the app's `ks.yaml`.
+- **kopiur/backup** — PVC + kopiur SnapshotPolicy/SnapshotSchedule/Restore for backups; parameterized by the `${APP}` substitution from the app's `ks.yaml`. The paired **kopiur/secret** component distributes the repo ExternalSecret into each backed-up namespace.
 - **alerts** — Alertmanager + GitHub-status providers, included namespace-wide.
 - **zeroscaler** — HPA-based scale-to-zero.
 

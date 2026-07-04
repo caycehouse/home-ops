@@ -14,10 +14,6 @@ spec:
       auth:
         secretRef:
           name: kopiur-s3-secret
-  create:
-    enabled: true
-  credentialProjection:
-    allowed: true
   encryption:
     passwordSecretRef:
       name: kopiur-s3-secret
@@ -34,7 +30,12 @@ spec:
     podSecurityContext:
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
+    scratch:
+      capacity: 1Mi
+      storageClassName: openebs-hostpath
     securityContext:
       runAsUser: 1000
       runAsGroup: 1000
     ttlSecondsAfterFinished: 300
+  scheduleDefaults:
+    timezone: America/New_York

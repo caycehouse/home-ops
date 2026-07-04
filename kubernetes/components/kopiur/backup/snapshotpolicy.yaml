@@ -5,9 +5,6 @@ kind: SnapshotPolicy
 metadata:
   name: ${APP}
 spec:
-  copyMethod: Snapshot
-  credentialProjection:
-    enabled: true
   repository:
     kind: ClusterRepository
     name: s3
@@ -20,11 +17,8 @@ spec:
   verification:
     deep:
       schedule:
-        cron: H 5 * * 0
-        jitter: 1h
-        timezone: America/New_York
+        cron: H 5 1 * *
     quick:
-      cron: H 5 * * *
-      jitter: 1h
-      timezone: America/New_York
+      schedule:
+        cron: H 3 * * *
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-blockpool}

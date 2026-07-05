@@ -26,6 +26,8 @@ spec:
               PANEL_PORT: &port 80
               PG_CLAIMDLC: "1"
               PG_REDEEM: "1"
+              PUID: "1000"
+              PGID: "1000"
               PUBLIC_URL: https://fgc.housefam.casa
               START_TIME: "12:00"
               TZ: America/New_York
@@ -60,8 +62,6 @@ spec:
                 cpu: 100m
               limits:
                 memory: 2Gi
-    defaultPodOptions:
-      hostUsers: false
     service:
       app:
         primary: true

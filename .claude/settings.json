@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh search *)",
+      "Bash(git fetch *)",
+      "Bash(helm show *)",
+      "Bash(helm template *)",
+      "mcp__ccd_session__mark_chapter"
+    ]
+  }
+}

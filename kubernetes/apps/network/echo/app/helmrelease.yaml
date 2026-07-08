@@ -10,7 +10,6 @@ spec:
     name: echo
   interval: 1h
   values:
-    replicaCount: 1
     config:
       kubernetes: true
       prettyPrint: true

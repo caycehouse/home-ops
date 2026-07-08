@@ -10,7 +10,6 @@ spec:
     name: tuppr
   interval: 1h
   values:
-    replicaCount: 1
     monitoring:
       serviceMonitor:
         enabled: true

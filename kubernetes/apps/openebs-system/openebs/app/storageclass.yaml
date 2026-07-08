@@ -14,7 +14,3 @@ parameters:
   # Must match the zpool created on the node (runbook: `zpool create tank <disk>`).
   poolname: tank
 allowVolumeExpansion: true
-reclaimPolicy: Delete
-# Single node: WaitForFirstConsumer buys no placement benefit; Immediate matches
-# the prior Ceph behavior and avoids a WFFC/volume-populator edge case on restore.
-volumeBindingMode: Immediate

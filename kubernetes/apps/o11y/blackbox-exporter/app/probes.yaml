@@ -12,8 +12,6 @@ spec:
     staticConfig:
       static:
         - k8s-0.internal
-        - k8s-1.internal
-        - k8s-2.internal
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter

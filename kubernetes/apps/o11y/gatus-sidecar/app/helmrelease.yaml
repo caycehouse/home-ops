@@ -43,7 +43,7 @@ spec:
           path: config.yaml
     persistence:
       enabled: true
-      storageClass: ceph-block
+      storageClass: openebs-zfspv
       accessMode: ReadWriteOnce
       size: 5Gi
     resources:

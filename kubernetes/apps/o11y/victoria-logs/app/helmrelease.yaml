@@ -21,7 +21,7 @@ spec:
       fullnameOverride: victoria-logs
       persistentVolume:
         enabled: true
-        storageClassName: ceph-block
+        storageClassName: openebs-zfspv
         size: 50Gi
       retentionPeriod: 90d
       route:

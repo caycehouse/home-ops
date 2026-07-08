@@ -110,7 +110,7 @@ graph LR
     %% Nodes
     ISP[🛜 Brightspeed<br/>1Gbps WAN]:::isp
     UDM[📦 UDM Pro]:::core
-    K8s[☸️ Kubernetes<br/>3 Nodes]:::device
+    K8s[☸️ Kubernetes<br/>1 Node]:::device
     USW[🔌 16 Port<br/>2.5G PoE]:::switch
     DEV[💻 Devices]:::device
     WIFI[📶 WiFi Clients]:::device
@@ -179,17 +179,7 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 **Dell OptiPlex 5080 Micro (i5-10600T) × 1** · 64 GB RAM · Talos / Kubernetes
 
 - **OS** — 512 GB AirDisk P10 NVMe (2280)
-- **Rook-Ceph** — 800 GB Micron 5100 PRO SATA SSD
-
-**Dell OptiPlex 3090 Micro (i5-10500T) × 1** · 64 GB RAM · Talos / Kubernetes
-
-- **OS** — 256 GB Western Digital PC SN520 NVMe (2230)
-- **Rook-Ceph** — 800 GB Micron 5100 PRO SATA SSD
-
-**Dell OptiPlex 3090 Micro (i5-10500T) × 1** · 64 GB RAM · Talos / Kubernetes
-
-- **OS** — 500 GB PNY CS2140 NVMe (2280)
-- **Rook-Ceph** — 800 GB Micron 5100 PRO SATA SSD
+- **Storage** — 800 GB Micron 5100 PRO SATA SSD (ZFS, OpenEBS zfs-localpv)
 
 ### Networking — UniFi
 

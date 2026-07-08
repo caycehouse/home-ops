@@ -3,29 +3,6 @@
 apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
-  name: ceph-node-local-diskspace-warning
-spec:
-  matchers:
-    - name: alertname
-      value: CephNodeDiskspaceWarning
-    - name: device
-      value: /dev/sd.*
-      matchType: "=~"
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
-apiVersion: observability.giantswarm.io/v1alpha2
-kind: Silence
-metadata:
-  name: ceph-node-network-packet-drops
-spec:
-  matchers:
-    - name: alertname
-      value: CephNodeNetworkPacketDrops
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
-apiVersion: observability.giantswarm.io/v1alpha2
-kind: Silence
-metadata:
   name: hpa-maxed-out
 spec:
   matchers:

@@ -16,6 +16,7 @@ spec:
       analytics:
         enabled: false
       localpv:
+        enableLeaderElection: false
         image:
           registry: quay.io/
       hostpathClass:
@@ -32,6 +33,12 @@ spec:
           keep: false
     zfs-localpv:
       enabled: true
+      zfs:
+        # Talos installs ZFS at a non-standard path
+        bin: /usr/local/sbin/zfs
+      zfsNode:
+        # /home is read-only on Talos; use a writable path under /var
+        encrKeysDir: /var/local/openebs/keys
     lvm-localpv:
       enabled: false
     mayastor:

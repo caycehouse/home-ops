@@ -176,8 +176,8 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 **Dell OptiPlex 5080 Micro (i5-10600T) × 1** · 64 GB RAM · Talos / Kubernetes
 
-- **OS** — 512 GB AirDisk P10 NVMe (2280)
-- **Storage** — 800 GB Micron 5100 PRO SATA SSD (LVM thin, Miroir local)
+- **OS** — 500 GB PNY CS2140 NVMe (2280)
+- **Storage** — 960 GB Micron 5100 PRO SATA SSD (LVM thin, Miroir local)
 
 ### Networking — UniFi
 

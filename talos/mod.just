@@ -4,24 +4,6 @@ set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
-[doc('Ensure the OpenEBS ZFS pool exists')]
-zfs-ensure node pool="tank" vdev="/dev/disk/by-label/r-zfs-data":
-    if just talos zfs-host-run "{{ node }}" zpool-check "/usr/local/sbin/zpool list -H -o name {{ pool }}" >/dev/null; then
-        just log info "ZFS pool already exists" node "{{ node }}" pool "{{ pool }}"
-    else
-        just log info "Creating ZFS pool" node "{{ node }}" pool "{{ pool }}" vdev "{{ vdev }}"
-        just talos zfs-host-run "{{ node }}" zpool-create \
-            '/usr/local/sbin/zpool create -f -m none -o ashift=12 -O compression=zstd -O atime=off -O xattr=sa "{{ pool }}" "$VDEV"' \
-            "{{ vdev }}"
-    fi
-
-    just talos zfs-status "{{ node }}" "{{ pool }}"
-
-[doc('Show OpenEBS ZFS pool status')]
-zfs-status node pool="tank":
-    just talos zfs-host-run "{{ node }}" zfs-status \
-        '/usr/local/sbin/zpool status "{{ pool }}" && /usr/local/sbin/zfs list -r "{{ pool }}"'
-
 [confirm('Apply Talos config to ' + node + ' [y|N] ?')]
 [doc('Apply Talos config to a node')]
 apply-node node *args:
@@ -50,7 +32,7 @@ render-config node:
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]
 reset-node node *args:
-    talosctl -n "{{ node }}" reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --system-labels-to-wipe r-zfs-data --graceful=false {{ args }}
+    talosctl -n "{{ node }}" reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --system-labels-to-wipe r-miroir --graceful=false {{ args }}
 
 [confirm('Shutdown node ' + node + ' [y|N] ?')]
 [doc('Shutdown a node')]
@@ -70,19 +52,6 @@ upgrade-node node *args:
 [private]
 schematic-id:
     curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
-
-[private]
-zfs-host-run node pod cmd vdev="":
-    trap 'kubectl delete pod "{{ pod }}" --ignore-not-found --wait=false >/dev/null 2>&1 || true' EXIT
-
-    kubectl delete pod "{{ pod }}" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-    kubectl run "{{ pod }}" --attach --rm --restart=Never --pod-running-timeout=2m \
-        --image=mirror.gcr.io/alpine:latest \
-        --privileged \
-        --env=CMD={{ quote(cmd) }} \
-        --env=VDEV={{ quote(vdev) }} \
-        --overrides='{"spec":{"nodeName":"{{ node }}","hostNetwork":true,"hostPID":true}}' \
-        --command -- /bin/sh -ec 'nsenter -t 1 -m -u -i -n -- /bin/sh -ec "$CMD"'
 
 [private]
 machine-controller node:

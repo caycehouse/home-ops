@@ -71,5 +71,5 @@ spec:
       resources:
         requests:
           storage: 5Gi
-      storageClassName: openebs-zfspv
+      storageClassName: miroir-local
   disableDefaultSecurityContext: All

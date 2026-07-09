@@ -38,7 +38,7 @@
     "kube-system": "kubernetes",
     "network": "connection",
     "o11y": "event",
-    "openebs-system": "base",
+    "miroir-system": "base",
     "system-upgrade": "update",
     "kopiur-system": "aws"
   },

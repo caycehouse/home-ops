@@ -6,7 +6,7 @@
       "Bash(git fetch *)",
       "Bash(helm show *)",
       "Bash(helm template *)",
-      "Bash(just kube --list)",
+      "Bash(just --list kube)",
       "Bash(just kube render-local-ks *)",
       "Bash(mise exec -- kubectl get *)",
       "mcp__ccd_session__mark_chapter"

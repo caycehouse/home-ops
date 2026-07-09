@@ -41,8 +41,8 @@ machine:
     wipe: false
   kernel:
     modules:
+      - name: dm_thin_pool
       - name: nbd
-      - name: zfs
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -51,14 +51,6 @@ machine:
       imageGCHighThresholdPercent: 70
       imageGCLowThresholdPercent: 50
       serializeImagePulls: false
-    extraMounts:
-      - destination: /var/openebs/local
-        options:
-          - bind
-          - rshared
-          - rw
-        source: /var/openebs/local
-        type: bind
     image: ghcr.io/siderolabs/kubelet:v1.36.2
     nodeIP:
       validSubnets:
@@ -201,7 +193,7 @@ mtu: 1500
 ---
 apiVersion: v1alpha1
 kind: RawVolumeConfig
-name: zfs-data
+name: miroir
 provisioning:
   diskSelector:
     match: disk.transport == "sata" && !disk.rotational && !system_disk

@@ -58,7 +58,7 @@ There is a template over at [onedr0p/cluster-template](https://github.com/onedr0
 - **Networking & Service Mesh**: [cilium](https://github.com/cilium/cilium) provides eBPF-based networking, while [envoy gateway](https://gateway.envoyproxy.io/) powers service-to-service communication with L7 proxying and traffic management. [cloudflared](https://github.com/cloudflare/cloudflared) secures ingress traffic via Cloudflare, and [external-dns](https://github.com/kubernetes-sigs/external-dns) keeps DNS records in sync automatically. [multus](https://github.com/k8snetworkplumbingwg/multus-cni)
   enables attaching multiple network interfaces to pods, making it possible to connect workloads to different VLANs or networks simultaneously.
 - **Security & Secrets**: [cert-manager](https://github.com/cert-manager/cert-manager) automates SSL/TLS certificate management. For secrets, I use [external-secrets](https://github.com/external-secrets/external-secrets) with [1Password Connect](https://github.com/1Password/connect) to inject secrets into Kubernetes.
-- **Storage & Data Protection**: [OpenEBS](https://github.com/openebs/openebs) ZFS LocalPV provides local persistent volumes on a Talos-managed raw volume, with [kopiur](https://github.com/home-operations/kopiur) handling backups and restores. OpenEBS hostpath is retained as a non-default class for explicitly transient scratch/cache needs only. Bootstrap verifies the ZFS pool and prompts before creating it.
+- **Storage & Data Protection**: [Miroir](https://github.com/home-operations/miroir) provides LVM thin-backed local persistent volumes on a Talos-managed raw volume, with [kopiur](https://github.com/home-operations/kopiur) handling backups and restores.
 - **Automation & CI/CD**: [actions-runner-controller](https://github.com/actions/actions-runner-controller) runs self-hosted GitHub Actions runners directly in the cluster for continuous integration workflows.
 
 ### GitOps
@@ -82,13 +82,13 @@ This Git repository contains the following directories under [Kubernetes](./kube
 
 ### Flux Workflow
 
-This is a high-level look how Flux deploys my applications with dependencies. In most cases a `HelmRelease` will depend on other `HelmRelease`'s, in other cases a `Kustomization` will depend on other `Kustomization`'s, and in rare situations an app can depend on a `HelmRelease` and a `Kustomization`. The example below shows that `atuin` won't be deployed or upgrade until the `openebs` Helm release is installed or in a healthy state.
+This is a high-level look how Flux deploys my applications with dependencies. In most cases a `HelmRelease` will depend on other `HelmRelease`'s, in other cases a `Kustomization` will depend on other `Kustomization`'s, and in rare situations an app can depend on a `HelmRelease` and a `Kustomization`. The example below shows that `atuin` won't be deployed or upgrade until Miroir is installed and healthy.
 
 ```mermaid
 graph TD
-    A>Kustomization: openebs] -->|Creates| B[HelmRelease: openebs]
-    B>HelmRelease: atuin] -->|Creates| C(HelmRelease: atuin)
-    C>HelmRelease: atuin] -->|Depends on| B>HelmRelease: openebs]
+    A[Kustomization: miroir] -->|Creates| B[HelmRelease: miroir]
+    C[Kustomization: atuin] -->|Creates| D[HelmRelease: atuin]
+    C -->|Depends on| A
 ```
 
 ### Networking
@@ -177,7 +177,7 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 **Dell OptiPlex 5080 Micro (i5-10600T) × 1** · 64 GB RAM · Talos / Kubernetes
 
 - **OS** — 512 GB AirDisk P10 NVMe (2280)
-- **Storage** — 800 GB Micron 5100 PRO SATA SSD (ZFS, OpenEBS zfs-localpv)
+- **Storage** — 800 GB Micron 5100 PRO SATA SSD (LVM thin, Miroir local)
 
 ### Networking — UniFi
 

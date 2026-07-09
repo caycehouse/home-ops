@@ -8,8 +8,8 @@ spec:
   components:
     - ../../../../components/kopiur/backup
   dependsOn:
-    - name: openebs
-      namespace: openebs-system
+    - name: miroir
+      namespace: miroir-system
   interval: 1h
   path: ./kubernetes/apps/default/changedetection/app
   postBuild:

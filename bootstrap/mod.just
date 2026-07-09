@@ -10,7 +10,7 @@ nodes := `talosctl config info -o yaml | yq -r -e '.nodes | join (" ")'`
 
 [confirm('Bootstrap cluster? [y|N]')]
 [doc('Bootstrap a Talos & Kubernetes cluster end-to-end')]
-cluster: nodes k8s (kubeconfig "node") base apps storage kubeconfig
+cluster: nodes k8s (kubeconfig "node") base apps kubeconfig
 
 [private]
 nodes:
@@ -61,13 +61,6 @@ apps:
     if ! helmfile -f "{{ source_directory() }}/helmfile/apps.yaml" sync --hide-notes; then
         just log fatal "Failed to sync helmfile" "stage" "{{ recipe_name() }}"
     fi
-
-[private]
-storage:
-    just log info "Running stage..." "stage" "{{ recipe_name() }}"
-    kubectl wait nodes --for=condition=Ready=True --all --timeout=5m
-    node="$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')"
-    just talos zfs-ensure "$node"
 
 # Wait until nodes register as Ready=False. They only become Ready=True once the CNI is healthy.
 [private]

@@ -5,83 +5,22 @@ set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 [doc('Ensure the OpenEBS ZFS pool exists')]
-zfs-ensure node pool="tank":
-    safe_node="$(printf '%s' "{{ node }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-')"
-    zfs_vdev="${ZFS_VDEV:-/dev/disk/by-label/r-zfs-data}"
-
-    run_host() {
-        local pod="$1"
-        local cmd="$2"
-
-        kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-        overrides="$(jq -n \
-          --arg node "{{ node }}" \
-          --arg cmd "$cmd" \
-          --arg vdev "$zfs_vdev" \
-          '{apiVersion:"v1",spec:{nodeName:$node,hostNetwork:true,hostPID:true,restartPolicy:"Never",containers:[{name:"zfs",image:"mirror.gcr.io/alpine:latest",securityContext:{privileged:true},env:[{name:"CMD",value:$cmd},{name:"VDEV",value:$vdev}],command:["/bin/sh","-ec","nsenter -t 1 -m -u -i -n -- /bin/sh -ec \"$CMD\""]}]}}')"
-        kubectl run "$pod" --restart=Never --image=mirror.gcr.io/alpine:latest --overrides="$overrides" >/dev/null
-        for _ in {1..120}; do
-            phase="$(kubectl get pod "$pod" -o jsonpath='{.status.phase}' 2>/dev/null || true)"
-            case "$phase" in
-                Succeeded)
-                    kubectl logs "$pod"
-                    kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-                    return 0
-                    ;;
-                Failed)
-                    kubectl logs "$pod" || true
-                    kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-                    return 1
-                    ;;
-            esac
-            sleep 1
-        done
-        kubectl logs "$pod" || true
-        kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-        return 1
-    }
-
-    if run_host "zpool-check-${safe_node}" "/usr/local/sbin/zpool list -H -o name {{ pool }}" >/dev/null; then
+zfs-ensure node pool="tank" vdev="/dev/disk/by-label/r-zfs-data":
+    if just talos zfs-host-run "{{ node }}" zpool-check "/usr/local/sbin/zpool list -H -o name {{ pool }}" >/dev/null; then
         just log info "ZFS pool already exists" node "{{ node }}" pool "{{ pool }}"
     else
-        just log info "Creating ZFS pool" node "{{ node }}" pool "{{ pool }}" vdev "$zfs_vdev"
-        run_host "zpool-create-${safe_node}" 'set -- $VDEV; /usr/local/sbin/zpool create -f -m none -o ashift=12 -O compression=zstd -O atime=off -O xattr=sa "{{ pool }}" "$@"'
+        just log info "Creating ZFS pool" node "{{ node }}" pool "{{ pool }}" vdev "{{ vdev }}"
+        just talos zfs-host-run "{{ node }}" zpool-create \
+            '/usr/local/sbin/zpool create -f -m none -o ashift=12 -O compression=zstd -O atime=off -O xattr=sa "{{ pool }}" "$VDEV"' \
+            "{{ vdev }}"
     fi
 
     just talos zfs-status "{{ node }}" "{{ pool }}"
 
 [doc('Show OpenEBS ZFS pool status')]
 zfs-status node pool="tank":
-    safe_node="$(printf '%s' "{{ node }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-')"
-    safe_pool="$(printf '%s' "{{ pool }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-')"
-    pod="zfs-status-${safe_node}-${safe_pool}"
-    cmd='/usr/local/sbin/zpool status "{{ pool }}" && /usr/local/sbin/zfs list -r "{{ pool }}"'
-
-    kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-    overrides="$(jq -n \
-      --arg node "{{ node }}" \
-      --arg cmd "$cmd" \
-      '{apiVersion:"v1",spec:{nodeName:$node,hostNetwork:true,hostPID:true,restartPolicy:"Never",containers:[{name:"zfs",image:"mirror.gcr.io/alpine:latest",securityContext:{privileged:true},env:[{name:"CMD",value:$cmd}],command:["/bin/sh","-ec","nsenter -t 1 -m -u -i -n -- /bin/sh -ec \"$CMD\""]}]}}')"
-    kubectl run "$pod" --restart=Never --image=mirror.gcr.io/alpine:latest --overrides="$overrides" >/dev/null
-    for _ in {1..120}; do
-        phase="$(kubectl get pod "$pod" -o jsonpath='{.status.phase}' 2>/dev/null || true)"
-        case "$phase" in
-            Succeeded)
-                kubectl logs "$pod"
-                kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-                return 0
-                ;;
-            Failed)
-                kubectl logs "$pod" || true
-                kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-                return 1
-                ;;
-        esac
-        sleep 1
-    done
-    kubectl logs "$pod" || true
-    kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-    return 1
+    just talos zfs-host-run "{{ node }}" zfs-status \
+        '/usr/local/sbin/zpool status "{{ pool }}" && /usr/local/sbin/zfs list -r "{{ pool }}"'
 
 [confirm('Apply Talos config to ' + node + ' [y|N] ?')]
 [doc('Apply Talos config to a node')]
@@ -131,6 +70,19 @@ upgrade-node node *args:
 [private]
 schematic-id:
     curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
+
+[private]
+zfs-host-run node pod cmd vdev="":
+    trap 'kubectl delete pod "{{ pod }}" --ignore-not-found --wait=false >/dev/null 2>&1 || true' EXIT
+
+    kubectl delete pod "{{ pod }}" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+    kubectl run "{{ pod }}" --attach --rm --restart=Never --pod-running-timeout=2m \
+        --image=mirror.gcr.io/alpine:latest \
+        --privileged \
+        --env=CMD={{ quote(cmd) }} \
+        --env=VDEV={{ quote(vdev) }} \
+        --overrides='{"spec":{"nodeName":"{{ node }}","hostNetwork":true,"hostPID":true}}' \
+        --command -- /bin/sh -ec 'nsenter -t 1 -m -u -i -n -- /bin/sh -ec "$CMD"'
 
 [private]
 machine-controller node:

@@ -10,14 +10,14 @@ spec:
     name: miroir
   interval: 1h
   values:
+    monitoring:
+      serviceMonitor:
+        enabled: true
     nodes:
       k8s-0:
         backend: lvmthin
         device: /dev/disk/by-partlabel/r-miroir
-    monitoring:
-      serviceMonitor:
-        enabled: true
-    storageClass:
-      isDefault: true
     replicatedStorageClass:
       create: false
+    storageClass:
+      isDefault: true

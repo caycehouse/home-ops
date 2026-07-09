@@ -36,7 +36,8 @@ machine:
         [plugins."io.containerd.cri.v1.runtime"]
           device_ownership_from_security_context = true
   install:
-    disk: /dev/nvme0n1
+    diskSelector:
+      model: PNY CS2140 500GB SSD
     image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.5
     wipe: false
   kernel:
@@ -47,10 +48,9 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
-      imageMaximumGCAge: 168h # One week
-      imageGCHighThresholdPercent: 70
-      imageGCLowThresholdPercent: 50
       serializeImagePulls: false
+      shutdownGracePeriod: 90s
+      shutdownGracePeriodCriticalPods: 60s
     image: ghcr.io/siderolabs/kubelet:v1.36.2
     nodeIP:
       validSubnets:
@@ -194,8 +194,8 @@ kind: RawVolumeConfig
 name: miroir
 provisioning:
   diskSelector:
-    match: disk.transport == "sata" && !disk.rotational && !system_disk
-  minSize: 700GB
+    match: disk.model == "MTFDDAK960TCB" && !system_disk
+  minSize: 900GB
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig

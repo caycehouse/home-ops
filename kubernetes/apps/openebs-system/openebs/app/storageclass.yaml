@@ -13,4 +13,5 @@ parameters:
   recordsize: 128k
   # Must match the zpool created on the node (runbook: `zpool create tank <disk>`).
   poolname: tank
+  shared: "true"
 allowVolumeExpansion: true

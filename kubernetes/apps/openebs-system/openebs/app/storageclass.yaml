@@ -11,7 +11,7 @@ parameters:
   fstype: zfs
   compression: zstd
   recordsize: 16k
-  # Must match the zpool created on the node; see docs/zfs-openebs.md.
+  # Must match the zpool created by `just talos zfs-ensure`.
   poolname: tank
   shared: "yes"
 allowVolumeExpansion: true

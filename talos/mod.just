@@ -4,79 +4,52 @@ set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
-[doc('Print manual command to create the OpenEBS ZFS pool')]
-zfs-create-command node *vdev:
-    test -n "{{ vdev }}"
-    cat <<'EOF'
-    # Review the vdev before running this. It wipes: {{ vdev }}
-    # Prefer a stable /dev/disk/by-id/... path over /dev/sdX or /dev/nvmeXnY.
+[confirm('Create missing OpenEBS ZFS pool? This wipes the selected vdev [y|N] ?')]
+[doc('Ensure the OpenEBS ZFS pool exists')]
+zfs-ensure node pool="tank":
+    safe_node="$(printf '%s' "{{ node }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-')"
+    zfs_vdev="${ZFS_VDEV:-/dev/disk/by-label/r-zfs-data}"
 
-    pod="zpool-create-{{ node }}"
-    cleanup() {
-      kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
-    }
-    trap cleanup EXIT
-    cleanup
-    overrides="$(jq -n --arg node "{{ node }}" --arg pool "tank" --arg vdev "{{ vdev }}" \
-      '{apiVersion:"v1",spec:{nodeName:$node,hostNetwork:true,hostPID:true,restartPolicy:"Never",containers:[{name:"zpool",image:"mirror.gcr.io/alpine:latest",securityContext:{privileged:true},env:[{name:"POOL",value:$pool},{name:"VDEV",value:$vdev}],command:["/bin/sh","-ec","set -- $VDEV; nsenter -t 1 -m -u -i -n -- /usr/local/sbin/zpool create -f -m none -o ashift=12 -O compression=zstd -O atime=off -O xattr=sa \"$POOL\" \"$@\""]}]}}')"
-    kubectl run "$pod" --restart=Never --image=mirror.gcr.io/alpine:latest --overrides="$overrides"
-    kubectl wait --for=jsonpath='{.status.phase}'=Succeeded "pod/$pod" --timeout=120s
-    kubectl logs "$pod"
-    EOF
+    run_host() {
+        local pod="$1"
+        local cmd="$2"
 
-[doc('List candidate disks before creating the OpenEBS ZFS pool')]
-zfs-disks node:
-    talosctl -n "{{ node }}" get disks
-    talosctl -n "{{ node }}" list /dev/disk/by-id || true
-
-[doc('Run non-destructive ZFS/Talos preflight checks')]
-zfs-preflight node:
-    just talos zfs-disks "{{ node }}"
-    echo
-    talosctl -n "{{ node }}" list /usr/local/sbin | rg '(^|[[:space:]/])(zfs|zpool)([[:space:]]|$)'
-    echo
-    talosctl -n "{{ node }}" mounts | rg '/var/openebs/local|/var/lib/kubelet' || true
-
-[doc('Show OpenEBS ZFS pool status from a privileged debug pod')]
-zfs-status node pool="tank":
-    pod="zfs-status-{{ node }}"
-    cleanup() {
         kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+        overrides="$(jq -n \
+          --arg node "{{ node }}" \
+          --arg cmd "$cmd" \
+          --arg vdev "$zfs_vdev" \
+          '{apiVersion:"v1",spec:{nodeName:$node,hostNetwork:true,hostPID:true,restartPolicy:"Never",containers:[{name:"zfs",image:"mirror.gcr.io/alpine:latest",securityContext:{privileged:true},env:[{name:"CMD",value:$cmd},{name:"VDEV",value:$vdev}],command:["/bin/sh","-ec","nsenter -t 1 -m -u -i -n -- /bin/sh -ec \"$CMD\""]}]}}')"
+        kubectl run "$pod" --restart=Never --image=mirror.gcr.io/alpine:latest --overrides="$overrides" >/dev/null
+        for _ in {1..120}; do
+            phase="$(kubectl get pod "$pod" -o jsonpath='{.status.phase}' 2>/dev/null || true)"
+            case "$phase" in
+                Succeeded)
+                    kubectl logs "$pod"
+                    kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+                    return 0
+                    ;;
+                Failed)
+                    kubectl logs "$pod" || true
+                    kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+                    return 1
+                    ;;
+            esac
+            sleep 1
+        done
+        kubectl logs "$pod" || true
+        kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+        return 1
     }
-    trap cleanup EXIT
-    cleanup
-    overrides="$(jq -n --arg node "{{ node }}" --arg pool "{{ pool }}" \
-      '{apiVersion:"v1",spec:{nodeName:$node,hostNetwork:true,hostPID:true,restartPolicy:"Never",containers:[{name:"zfs",image:"mirror.gcr.io/alpine:latest",securityContext:{privileged:true},env:[{name:"POOL",value:$pool}],command:["/bin/sh","-ec","nsenter -t 1 -m -u -i -n -- /usr/local/sbin/zpool status \"$POOL\" && nsenter -t 1 -m -u -i -n -- /usr/local/sbin/zpool list -o name,size,allocated,free,capacity,health,readonly \"$POOL\" && nsenter -t 1 -m -u -i -n -- /usr/local/sbin/zfs get -r -o name,property,value,source compression,atime,xattr \"$POOL\""]}]}}')"
-    kubectl run "$pod" --restart=Never --image=mirror.gcr.io/alpine:latest --overrides="$overrides"
-    kubectl wait --for=jsonpath='{.status.phase}'=Succeeded "pod/$pod" --timeout=120s
-    kubectl logs "$pod"
 
-[doc('Verify ZFS/OpenEBS/Kopiur storage wiring after bootstrap')]
-zfs-verify node pool="tank":
+    if run_host "zpool-check-${safe_node}" "/usr/local/sbin/zpool list -H -o name {{ pool }}" >/dev/null; then
+        just log info "ZFS pool already exists" node "{{ node }}" pool "{{ pool }}"
+    else
+        just log info "Creating ZFS pool" node "{{ node }}" pool "{{ pool }}" vdev "$zfs_vdev"
+        run_host "zpool-create-${safe_node}" 'set -- $VDEV; /usr/local/sbin/zpool create -f -m none -o ashift=12 -O compression=zstd -O atime=off -O xattr=sa "{{ pool }}" "$@"'
+    fi
+
     just talos zfs-status "{{ node }}" "{{ pool }}"
-
-    default_class="$(kubectl get storageclass openebs-zfspv -o jsonpath='{.metadata.annotations.storageclass\.kubernetes\.io/is-default-class}')"
-    test "$default_class" = "true"
-
-    hostpath_default="$(kubectl get storageclass openebs-hostpath -o jsonpath='{.metadata.annotations.storageclass\.kubernetes\.io/is-default-class}' 2>/dev/null || true)"
-    test "$hostpath_default" != "true"
-
-    snapshot_driver="$(kubectl get volumesnapshotclass zfspv-snapshot -o jsonpath='{.driver}')"
-    test "$snapshot_driver" = "zfs.csi.openebs.io"
-
-    kubectl get snapshotpolicies.kopiur.home-operations.com -A -o json | jq -e '
-      [
-        .items[]
-        | select(.spec.mover.cache.mode == "Persistent")
-        | select(.spec.mover.cache.storageClassName != "openebs-zfspv")
-        | "\(.metadata.namespace)/\(.metadata.name)"
-      ] as $bad
-      | if ($bad | length) == 0 then true
-        else error("Persistent Kopiur cache must use openebs-zfspv: " + ($bad | join(", ")))
-        end
-    '
-
-    just log info "Verified ZFS storage wiring" node "{{ node }}" pool "{{ pool }}"
 
 [confirm('Apply Talos config to ' + node + ' [y|N] ?')]
 [doc('Apply Talos config to a node')]
@@ -106,7 +79,7 @@ render-config node:
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]
 reset-node node *args:
-    talosctl -n "{{ node }}" reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false {{ args }}
+    talosctl -n "{{ node }}" reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --system-labels-to-wipe r-zfs-data --graceful=false {{ args }}
 
 [confirm('Shutdown node ' + node + ' [y|N] ?')]
 [doc('Shutdown a node')]

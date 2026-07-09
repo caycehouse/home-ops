@@ -200,6 +200,14 @@ parent: bond0
 mtu: 1500
 ---
 apiVersion: v1alpha1
+kind: RawVolumeConfig
+name: zfs-data
+provisioning:
+  diskSelector:
+    match: disk.transport == "sata" && !disk.rotational && !system_disk
+  minSize: 700GB
+---
+apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
 timeout: 5m

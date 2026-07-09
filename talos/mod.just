@@ -4,7 +4,6 @@ set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
-[confirm('Create missing OpenEBS ZFS pool? This wipes the selected vdev [y|N] ?')]
 [doc('Ensure the OpenEBS ZFS pool exists')]
 zfs-ensure node pool="tank":
     safe_node="$(printf '%s' "{{ node }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-')"

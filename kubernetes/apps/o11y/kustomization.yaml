@@ -19,4 +19,3 @@ resources:
   - ./smartctl-exporter/ks.yaml
   - ./unpoller/ks.yaml
   - ./victoria-logs/ks.yaml
-  - ./zfs-exporter/ks.yaml

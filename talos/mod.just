@@ -50,6 +50,39 @@ zfs-ensure node pool="tank":
 
     just talos zfs-status "{{ node }}" "{{ pool }}"
 
+[doc('Show OpenEBS ZFS pool status')]
+zfs-status node pool="tank":
+    safe_node="$(printf '%s' "{{ node }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-')"
+    safe_pool="$(printf '%s' "{{ pool }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-')"
+    pod="zfs-status-${safe_node}-${safe_pool}"
+    cmd='/usr/local/sbin/zpool status "{{ pool }}" && /usr/local/sbin/zfs list -r "{{ pool }}"'
+
+    kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+    overrides="$(jq -n \
+      --arg node "{{ node }}" \
+      --arg cmd "$cmd" \
+      '{apiVersion:"v1",spec:{nodeName:$node,hostNetwork:true,hostPID:true,restartPolicy:"Never",containers:[{name:"zfs",image:"mirror.gcr.io/alpine:latest",securityContext:{privileged:true},env:[{name:"CMD",value:$cmd}],command:["/bin/sh","-ec","nsenter -t 1 -m -u -i -n -- /bin/sh -ec \"$CMD\""]}]}}')"
+    kubectl run "$pod" --restart=Never --image=mirror.gcr.io/alpine:latest --overrides="$overrides" >/dev/null
+    for _ in {1..120}; do
+        phase="$(kubectl get pod "$pod" -o jsonpath='{.status.phase}' 2>/dev/null || true)"
+        case "$phase" in
+            Succeeded)
+                kubectl logs "$pod"
+                kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+                return 0
+                ;;
+            Failed)
+                kubectl logs "$pod" || true
+                kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+                return 1
+                ;;
+        esac
+        sleep 1
+    done
+    kubectl logs "$pod" || true
+    kubectl delete pod "$pod" --ignore-not-found --wait=false >/dev/null 2>&1 || true
+    return 1
+
 [confirm('Apply Talos config to ' + node + ' [y|N] ?')]
 [doc('Apply Talos config to a node')]
 apply-node node *args:

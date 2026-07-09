@@ -10,8 +10,8 @@ provisioner: zfs.csi.openebs.io
 parameters:
   fstype: zfs
   compression: zstd
-  recordsize: 128k
+  recordsize: 16k
   # Must match the zpool created on the node (runbook: `zpool create tank <disk>`).
   poolname: tank
-  shared: "true"
+  shared: "yes"
 allowVolumeExpansion: true

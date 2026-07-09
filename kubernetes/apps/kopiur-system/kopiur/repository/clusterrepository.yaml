@@ -23,12 +23,14 @@ spec:
     cache:
       capacity: 1Mi
       mode: Ephemeral
+      # Hostpath is only used for transient Kopiur mover storage.
       storageClassName: openebs-hostpath
     podSecurityContext:
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
     scratch:
       capacity: 1Mi
+      # Hostpath is only used for transient Kopiur mover storage.
       storageClassName: openebs-hostpath
     securityContext:
       runAsUser: 1000

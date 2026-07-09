@@ -11,7 +11,7 @@ parameters:
   fstype: zfs
   compression: zstd
   recordsize: 16k
-  # Must match the zpool created on the node (runbook: `zpool create tank <disk>`).
+  # Must match the zpool created on the node; see docs/zfs-openebs.md.
   poolname: tank
   shared: "yes"
 allowVolumeExpansion: true

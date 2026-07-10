@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmproxy_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMProxy
+metadata:
+  name: litellm
+spec:
+  image: ghcr.io/berriai/litellm:v1.91.1@sha256:47afa74b495c802317712e5b8c8a65e7ca30c96636e9b618a5f8130eec72a8ee
+  generalSettings:
+    health_check_endpoint: /v1/health
+  envFrom:
+    - secretRef:
+        name: litellm-secret
+  route:
+    hostnames:
+      - litellm.housefam.casa
+    parentRefs:
+      - name: envoy-external
+        namespace: network
+  resources:
+    requests:
+      cpu: 25m
+    limits:
+      memory: 4Gi

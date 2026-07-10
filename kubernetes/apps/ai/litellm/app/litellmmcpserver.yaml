@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmcpserver_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMMCPServer
+metadata:
+  name: ha-mcp
+spec:
+  alias: ha_mcp
+  proxyRef: litellm
+  transport: http
+  workload:
+    image: ghcr.io/homeassistant-ai/ha-mcp:7.5.0@sha256:caf35cccdec9c4b33f9b09d2bc9de6225719d954763c67a73fb0195fb4dcf360
+    command: ["ha-mcp-web"]
+    port: 8080
+    path: /mcp
+    env:
+      - name: HOMEASSISTANT_URL
+        value: http://home-assistant.default.svc.cluster.local:8123
+      - name: MCP_PORT
+        value: "8080"
+      - name: TZ
+        value: America/New_York
+      - name: HOMEASSISTANT_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: ha-mcp-secret
+            key: HOMEASSISTANT_TOKEN
+    resources:
+      requests:
+        cpu: 10m
+      limits:
+        memory: 512Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: ["ALL"]
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+    volumeMounts:
+      - name: tmp
+        mountPath: /tmp
+    volumes:
+      - name: tmp
+        emptyDir: {}

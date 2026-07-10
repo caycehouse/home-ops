@@ -184,6 +184,11 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 - **UDM Pro** — router & NVR · 1 × 10 TB HGST Ultrastar He10 HDD
 - **USW Pro Max 16 PoE** — 2.5 G PoE++ switch
 
+### Power — UniFi
+
+- **UniFi UPS 2U** — rack power backup for network and compute equipment
+- **UniFi PDU Pro** — switched power distribution and remote outlet control for recovery
+
 ---
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.gif" alt="🌟" width="20" height="20"> Stargazers

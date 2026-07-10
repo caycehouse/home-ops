@@ -58,3 +58,69 @@ spec:
   proxyRef: litellm
   transport: http
   url: http://konflate.flux-system.svc.cluster.local:8080/mcp
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmcpserver_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMMCPServer
+metadata:
+  name: actual-mcp
+spec:
+  alias: actual_mcp
+  proxyRef: litellm
+  transport: http
+  authType: bearer_token
+  authTokenRef:
+    name: actual-mcp-secret
+    key: MCP_SSE_AUTHORIZATION
+  workload:
+    image: ghcr.io/agigante80/actual-mcp-server:0.8.9@sha256:0712f3b85e6cc2c42784d3f150648a06152fffb9463c31df85596e186e6ad81b
+    port: 3600
+    path: /http
+    env:
+      - name: ACTUAL_SERVER_URL
+        value: http://actual.default.svc.cluster.local
+      - name: MCP_BRIDGE_PORT
+        value: "3600"
+      - name: MCP_BRIDGE_DATA_DIR
+        value: /app/data
+      - name: ACTUAL_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: actual-mcp-secret
+            key: ACTUAL_PASSWORD
+      - name: ACTUAL_BUDGET_SYNC_ID
+        valueFrom:
+          secretKeyRef:
+            name: actual-mcp-secret
+            key: ACTUAL_BUDGET_SYNC_ID
+      - name: MCP_SSE_AUTHORIZATION
+        valueFrom:
+          secretKeyRef:
+            name: actual-mcp-secret
+            key: MCP_SSE_AUTHORIZATION
+    resources:
+      requests:
+        cpu: 10m
+      limits:
+        memory: 512Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: ["ALL"]
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+    volumeMounts:
+      - name: data
+        mountPath: /app/data
+      - name: tmp
+        mountPath: /tmp
+    volumes:
+      - name: data
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}

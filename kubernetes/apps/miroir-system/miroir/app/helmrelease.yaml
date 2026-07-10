@@ -11,7 +11,15 @@ spec:
   interval: 1h
   values:
     monitoring:
-      serviceMonitor:
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            dashboards: grafana
+      podMonitor:
+        enabled: true
+      prometheusRule:
         enabled: true
     nodes:
       k8s-0:

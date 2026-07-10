@@ -11,8 +11,8 @@ spec:
   interval: 1h
   valuesFrom:
     - kind: ConfigMap
-      name: kube-state-metrics-configmap
-      valuesKey: kube-state-metrics.yaml
+      name: flux-metrics-configmap
+      valuesKey: flux-metrics.yaml
   values:
     cleanPrometheusOperatorObjectNames: true
     alertmanager:

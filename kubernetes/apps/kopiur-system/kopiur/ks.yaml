@@ -30,6 +30,15 @@ spec:
     - name: kopiur
     - name: miroir
       namespace: miroir-system
+  healthChecks:
+    - apiVersion: kopiur.home-operations.com/v1alpha1
+      kind: ClusterRepository
+      name: s3
+  healthCheckExprs:
+    - apiVersion: kopiur.home-operations.com/v1alpha1
+      kind: ClusterRepository
+      failed: has(status.phase) && status.phase == 'Failed'
+      current: has(status.phase) && status.phase == 'Ready'
   interval: 1h
   path: ./kubernetes/apps/kopiur-system/kopiur/repository
   prune: true

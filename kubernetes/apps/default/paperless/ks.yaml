@@ -8,8 +8,8 @@ spec:
   components:
     - ../../../../components/kopiur/backup
   dependsOn:
-    - name: miroir
-      namespace: miroir-system
+    - name: kopiur-repository
+      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/default/paperless/app
   postBuild:

@@ -117,21 +117,6 @@
       },
       minimumGroupSize: 5,
     },
-    {
-      description: "Rook-Ceph Group",
-      groupName: "rook-ceph",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      minimumGroupSize: 2,
-    },
-    {
-      description: "Hold Rook-Ceph at v1.19.x",
-      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
-      allowedVersions: "<1.20.0",
-    },
     // Labeling rules
     {
       matchUpdateTypes: ["major"],

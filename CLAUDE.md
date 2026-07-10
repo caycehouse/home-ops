@@ -12,8 +12,8 @@ Tasks are run through [`just`](https://github.com/casey/just) with [`mise`](http
 
 ```sh
 just --list                      # all recipe groups (kube, talos, bootstrap)
-just kube --list                 # cluster operational recipes
-just talos --list                # node lifecycle recipes
+just --list kube                 # cluster operational recipes
+just --list talos                # node lifecycle recipes
 ```
 
 Common cluster operations (`just kube …`):
@@ -53,7 +53,7 @@ kubernetes/apps/<namespace>/
 ```
 
 - The per-namespace `kustomization.yaml` sets the `namespace:` and lists each app's `./<app>/ks.yaml`. Adding an app = create the `<app>/` tree **and** register `./<app>/ks.yaml` here.
-- Each app's `ks.yaml` is a Flux `Kustomization` (not a kustomize one). It declares `dependsOn` (most stateful apps depend on `rook-ceph-cluster` in `rook-ceph`), `targetNamespace`, optional `components`, and `postBuild.substitute` (commonly `APP: <name>`, consumed by shared components).
+- Each app's `ks.yaml` is a Flux `Kustomization` (not a kustomize one). It declares `dependsOn` (most stateful apps depend on `miroir` in `miroir-system`), `targetNamespace`, optional `components`, and `postBuild.substitute` (commonly `APP: <name>`, consumed by shared components).
 
 ### Charts & images
 

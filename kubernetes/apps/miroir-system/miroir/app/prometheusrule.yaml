@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: miroir-rules
+spec:
+  groups:
+    - name: miroir
+      rules:
+        - alert: MiroirPoolUsageHigh
+          annotations:
+            summary: Miroir pool on {{ $labels.node }} has high {{ $labels.pool_usage_reason }}.
+          expr: miroir_node_pool_info{pool_usage_high="True"} == 1
+          for: 5m
+          labels:
+            severity: critical

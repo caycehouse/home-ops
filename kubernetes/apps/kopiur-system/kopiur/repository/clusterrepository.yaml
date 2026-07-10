@@ -9,30 +9,16 @@ spec:
     all: true
   backend:
     s3:
-      bucket: kopiur
-      endpoint: c209b8f45f329955b3e0d469af82a4e4.r2.cloudflarestorage.com
       auth:
         secretRef:
-          name: kopiur-s3-secret
+          name: kopiur-repository-secret
+          namespace: kopiur-system
+      bucket: kopiur
+      endpoint: c209b8f45f329955b3e0d469af82a4e4.r2.cloudflarestorage.com
   encryption:
     passwordSecretRef:
-      name: kopiur-s3-secret
+      name: kopiur-repository-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
-  moverDefaults:
-    cache:
-      capacity: 1Mi
-      mode: Ephemeral
-      storageClassName: openebs-hostpath
-    podSecurityContext:
-      fsGroup: 1000
-      fsGroupChangePolicy: OnRootMismatch
-    scratch:
-      capacity: 1Mi
-      storageClassName: openebs-hostpath
-    securityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-    ttlSecondsAfterFinished: 300
   scheduleDefaults:
     timezone: America/New_York

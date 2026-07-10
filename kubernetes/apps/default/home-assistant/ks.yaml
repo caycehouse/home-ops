@@ -10,8 +10,8 @@ spec:
   dependsOn:
     - name: multus-networks
       namespace: kube-system
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: miroir
+      namespace: miroir-system
   interval: 1h
   path: ./kubernetes/apps/default/home-assistant/app
   postBuild:

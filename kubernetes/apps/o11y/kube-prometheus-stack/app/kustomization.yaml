@@ -9,9 +9,9 @@ resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
 configMapGenerator:
-  - name: flux-metrics-configmap
+  - name: kube-state-metrics-configmap
     files:
-      - flux-metrics.yaml=./resources/flux-metrics.yaml
+      - kube-state-metrics.yaml=./resources/kube-state-metrics.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

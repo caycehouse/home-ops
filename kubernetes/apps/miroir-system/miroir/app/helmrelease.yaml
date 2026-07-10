@@ -3,21 +3,21 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: tuppr
+  name: miroir
 spec:
   chartRef:
     kind: OCIRepository
-    name: tuppr
+    name: miroir
   interval: 1h
   values:
     monitoring:
       serviceMonitor:
         enabled: true
-      prometheusRule:
-        enabled: true
-      dashboards:
-        enabled: true
-        grafanaOperator:
-          enabled: true
-          matchLabels:
-            dashboards: grafana
+    nodes:
+      k8s-0:
+        backend: lvmthin
+        device: /dev/disk/by-partlabel/r-miroir
+    replicatedStorageClass:
+      create: false
+    storageClass:
+      isDefault: true

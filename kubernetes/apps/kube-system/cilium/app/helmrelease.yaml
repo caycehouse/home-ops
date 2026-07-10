@@ -10,7 +10,6 @@ spec:
     name: cilium
   interval: 1h
   values:
-    autoDirectNodeRoutes: true
     bandwidthManager:
       enabled: true
       bbr: true
@@ -57,7 +56,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      replicas: 2
+      replicas: 1
       rollOutPods: true
     pmtuDiscovery:
       enabled: true

@@ -36,35 +36,25 @@ machine:
         [plugins."io.containerd.cri.v1.runtime"]
           device_ownership_from_security_context = true
   install:
-    disk: /dev/nvme0n1
+    diskSelector:
+      model: PNY CS2140 500GB SSD
     image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.5
     wipe: false
   kernel:
     modules:
+      - name: dm_thin_pool
       - name: nbd
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
-      imageMaximumGCAge: 168h # One week
-      imageGCHighThresholdPercent: 70
-      imageGCLowThresholdPercent: 50
       serializeImagePulls: false
-    extraMounts:
-      - destination: /var/openebs/local
-        options:
-          - bind
-          - rshared
-          - rw
-        source: /var/openebs/local
-        type: bind
+      shutdownGracePeriod: 90s
+      shutdownGracePeriodCriticalPods: 60s
     image: ghcr.io/siderolabs/kubelet:v1.36.2
     nodeIP:
       validSubnets:
         - 192.168.42.0/24
-  nodeLabels:
-    node.kubernetes.io/gpu: "true"
-    topology.kubernetes.io/region: main
   sysctls:
     fs.inotify.max_user_instances: "8192"
     fs.inotify.max_user_watches: "1048576"
@@ -165,14 +155,6 @@ cluster:
             score:
               disabled:
                 - name: ImageLocality
-          pluginConfig:
-            - name: PodTopologySpread
-              args:
-                defaultingType: List
-                defaultConstraints:
-                  - maxSkew: 1
-                    topologyKey: kubernetes.io/hostname
-                    whenUnsatisfiable: ScheduleAnyway
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.36.2
@@ -206,6 +188,14 @@ name: bond0.10
 vlanID: 10
 parent: bond0
 mtu: 1500
+---
+apiVersion: v1alpha1
+kind: RawVolumeConfig
+name: miroir
+provisioning:
+  diskSelector:
+    match: disk.model == "MTFDDAK960TCB" && !system_disk
+  minSize: 900GB
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig

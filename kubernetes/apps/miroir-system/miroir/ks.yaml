@@ -3,16 +3,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: drm-exporter
+  name: miroir
 spec:
   dependsOn:
-    - name: intel-gpu-resource-driver
+    - name: snapshot-controller
+      namespace: kube-system
   interval: 1h
-  path: ./kubernetes/apps/kube-system/drm-exporter/app
+  path: ./kubernetes/apps/miroir-system/miroir/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: kube-system
-  wait: false
+  targetNamespace: miroir-system
+  wait: true

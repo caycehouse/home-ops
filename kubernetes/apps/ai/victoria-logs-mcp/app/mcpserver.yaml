@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmcpserver_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMMCPServer
+metadata:
+  name: victoria-logs-mcp
+spec:
+  alias: victoria_logs
+  transport: http
+  workload:
+    image: ghcr.io/victoriametrics/mcp-victorialogs:v1.9.0@sha256:af6afb6e36f3678e9d5096d155372a33b8c3e45e9a5de756129c6e5628dbff9d
+    port: 8081
+    path: /mcp
+    env:
+      - name: VL_INSTANCE_ENTRYPOINT
+        value: http://victoria-logs.o11y.svc.cluster.local:9428
+      - name: MCP_SERVER_MODE
+        value: http
+      - name: MCP_LISTEN_ADDR
+        value: :8081
+    resources:
+      requests:
+        cpu: 10m
+      limits:
+        memory: 256Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: ["ALL"]
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch

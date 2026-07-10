@@ -11,3 +11,9 @@ resources:
   - ./namespace.yaml
   - ./litellm/ks.yaml
   - ./litellm-operator/ks.yaml
+  - ./ha-mcp/ks.yaml
+  - ./actual-mcp/ks.yaml
+  - ./flux-operator-mcp/ks.yaml
+  - ./grafana-mcp/ks.yaml
+  - ./victoria-logs-mcp/ks.yaml
+  - ./konflate-mcp/ks.yaml

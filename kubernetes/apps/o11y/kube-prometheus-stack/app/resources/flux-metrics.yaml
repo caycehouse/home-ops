@@ -21,13 +21,6 @@ kube-state-metrics:
         verbs:
           - list
           - watch
-      - apiGroups:
-          - miroir.home-operations.com
-        resources:
-          - miroirnodes
-        verbs:
-          - list
-          - watch
   customResourceState:
     enabled: true
     config:
@@ -369,32 +362,3 @@ kube-state-metrics:
                   webhook_path:
                     - status
                     - webhookPath
-          - groupVersionKind:
-              group: miroir.home-operations.com
-              version: v1alpha1
-              kind: MiroirNode
-            metricNamePrefix: miroir
-            metrics:
-              - name: node_pool_info
-                help: The state of a Miroir storage node pool.
-                each:
-                  type: Info
-                  info:
-                    labelsFromPath:
-                      node:
-                        - metadata
-                        - name
-                labelsFromPath:
-                  backend:
-                    - spec
-                    - backend
-                  pool_usage_high:
-                    - status
-                    - conditions
-                    - "[type=PoolUsageHigh]"
-                    - status
-                  pool_usage_reason:
-                    - status
-                    - conditions
-                    - "[type=PoolUsageHigh]"
-                    - reason

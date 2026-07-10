@@ -60,7 +60,7 @@
     // Changelog rules
     {
       description: "Point Actual at its upstream changelog",
-      matchPackageNames: ["/actual/"],
+      matchPackageNames: ["/actualbudget\\/actual$/"],
       changelogUrl: "https://actualbudget.org/docs/releases/",
       sourceUrl: "https://github.com/actualbudget/actual",
     },

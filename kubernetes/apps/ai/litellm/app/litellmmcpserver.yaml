@@ -165,6 +165,10 @@ spec:
         drop: ["ALL"]
     podSecurityContext:
       runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmcpserver_v1alpha1.json
 apiVersion: litellm.home-operations.com/v1alpha1

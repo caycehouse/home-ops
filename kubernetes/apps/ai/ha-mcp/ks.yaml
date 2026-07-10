@@ -3,12 +3,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: litellm
+  name: ha-mcp
 spec:
   dependsOn:
     - name: litellm-operator
   interval: 1h
-  path: ./kubernetes/apps/ai/litellm/app
+  path: ./kubernetes/apps/ai/ha-mcp/app
   prune: true
   sourceRef:
     kind: GitRepository

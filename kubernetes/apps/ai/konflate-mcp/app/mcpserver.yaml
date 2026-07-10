@@ -1,0 +1,10 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmcpserver_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMMCPServer
+metadata:
+  name: konflate-mcp
+spec:
+  alias: konflate
+  transport: http
+  url: http://konflate.flux-system.svc.cluster.local:8080/mcp

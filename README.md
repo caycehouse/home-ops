@@ -131,7 +131,7 @@ graph LR
     SERVERS -.-> ISP
     ISP -.->|WAN| UDM
     UDM -- 10G --- USW
-    USW -- 2.5G --> K8s
+    USW -- 1G --> K8s
     USW --> DEV
     USW --> WIFI
 

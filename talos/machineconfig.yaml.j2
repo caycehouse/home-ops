@@ -167,7 +167,7 @@ apiVersion: v1alpha1
 kind: LinkAliasConfig
 name: net0
 selector:
-  match: link.driver == "r8169" && mac(link.permanent_addr).startsWith("00:e0:4c:68:")
+  match: link.driver == "e1000e" && mac(link.permanent_addr).startsWith("a4:bb:6d:7b:")
 ---
 apiVersion: v1alpha1
 kind: BondConfig

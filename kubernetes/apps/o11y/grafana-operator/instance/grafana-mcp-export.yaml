@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/pushsecret_v1alpha1.json
+apiVersion: external-secrets.io/v1alpha1
+kind: PushSecret
+metadata:
+  name: grafana-mcp
+spec:
+  secretStoreRefs:
+    - name: onepassword-connect
+      kind: ClusterSecretStore
+  selector:
+    secret:
+      name: grafana-mcp
+  data:
+    - match:
+        secretKey: token
+        remoteRef:
+          remoteKey: grafana-mcp
+          property: GRAFANA_SERVICE_ACCOUNT_TOKEN

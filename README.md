@@ -178,6 +178,7 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 - **OS** — 500 GB PNY CS2140 NVMe (2280)
 - **Storage** — 960 GB Micron 5100 PRO SATA SSD (LVM thin, Miroir local)
+- **Out-of-band** — GL.iNet Comet PoE (GL-RM1PE)
 
 ### Networking — UniFi
 

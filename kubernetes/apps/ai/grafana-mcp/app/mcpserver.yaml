@@ -9,7 +9,17 @@ spec:
   transport: http
   workload:
     image: grafana/mcp-grafana@sha256:c99c0a0fdb68e2fd8a9a0f0f42014cfc316deb92847472df7e9447c3f5bb2710
-    args: ["-t", "streamable-http", "--address", ":8000", "--disable-write", "--disable-admin"]
+    args:
+      [
+        "-t",
+        "streamable-http",
+        "--address",
+        ":8000",
+        "--disable-write",
+        "--disable-admin",
+        "--allowed-hosts",
+        "grafana-mcp.ai.svc.cluster.local:8000",
+      ]
     port: 8000
     path: /mcp
     env:

@@ -15,6 +15,11 @@ spec:
     env:
       - name: GRAFANA_URL
         value: https://grafana.housefam.casa
+      - name: GRAFANA_SERVICE_ACCOUNT_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: grafana-mcp-secret
+            key: GRAFANA_SERVICE_ACCOUNT_TOKEN
     resources:
       requests:
         cpu: 10m

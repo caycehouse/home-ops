@@ -25,7 +25,8 @@ spec:
       k8s-0:
         backend: lvmthin
         device: /dev/disk/by-partlabel/r-miroir
-    replicatedStorageClass:
-      create: false
-    storageClass:
-      isDefault: true
+    storageClasses:
+      - name: miroir-local
+        isDefault: true
+    volumeSnapshotClasses:
+      - name: miroir-snap

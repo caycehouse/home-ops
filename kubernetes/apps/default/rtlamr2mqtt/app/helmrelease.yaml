@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rtlamr2mqtt
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: rtlamr2mqtt
+  interval: 1h
+  values:
+    controllers:
+      rtlamr2mqtt:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: mirror.gcr.io/allangood/rtlamr2mqtt
+              tag: 2026.5.9@sha256:0c2f49d3106f3c5b0e6cb3c1d79ae5af547519a694b026b2b8f6565fbb0ee8eb
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    persistence:
+      config-file:
+        type: secret
+        name: "{{ .Release.Name }}-secret"
+        globalMounts:
+          - path: /etc/rtlamr2mqtt.yaml
+            subPath: rtlamr2mqtt.yaml
+            readOnly: true

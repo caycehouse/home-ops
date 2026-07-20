@@ -43,11 +43,14 @@ spec:
       viewDistance: 12
       modrinth:
         projects:
-          - lithium
+          - c2me-fabric:alpha
+          - debugify
           - ferrite-core
           - krypton
+          - lithium
+          - packet-fixer
           - scalablelux
-          - c2me-fabric:alpha
+          - spark
         downloadDependencies: required
         allowedVersionType: release
       rcon:

@@ -5,7 +5,7 @@ kind: LiteLLMProxy
 metadata:
   name: litellm
 spec:
-  image: ghcr.io/berriai/litellm:v1.93.0-rc.1@sha256:2fdd90b14e3d9244ce297f418b983d8cfd90ba6e72a10a8ddb30f7cf64852390
+  image: ghcr.io/berriai/litellm:v1.94.0-rc.1@sha256:0f0a2e85b3771af16074117d9054cc43830f27d20ef7a0fa7908594f59a8dbc0
   generalSettings:
     health_check_endpoint: /v1/health
   envFrom:

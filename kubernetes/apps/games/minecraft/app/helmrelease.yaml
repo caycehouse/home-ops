@@ -45,6 +45,7 @@ spec:
         projects:
           - c2me-fabric:alpha
           - debugify
+          - fabric-api
           - ferrite-core
           - krypton
           - lithium

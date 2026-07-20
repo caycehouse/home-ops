@@ -96,4 +96,4 @@ Secrets are never in-repo. `ExternalSecret` resources pull from **1Password Conn
 - When renaming or moving an app, rename **every** resource (`ks.yaml` name, HelmRelease, OCIRepository, ExternalSecret target, generated ConfigMap, PrometheusRule) and update the namespace `kustomization.yaml` reference — names cascade because release name drives resource names.
 - Prefer `git mv` for renames to preserve history.
 - Reloader: pod-roll-on-config-change is opt-in via the workload annotation `reloader.stakater.com/auto: "true"`.
-- Talos node config is templated: `talos/machineconfig.yaml.j2` + `talos/nodes/<node>.yaml.j2`, rendered through `minijinja-cli | vals eval` (the root `just template` recipe).
+- Talos node config is templated: `talos/machineconfig.yaml.j2` + `talos/nodes/<node>.yaml.j2`, rendered through `minijinja-cli | op inject` (the root `just template` recipe).

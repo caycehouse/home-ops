@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/downflate
-              tag: main@sha256:516c747dca576f15e0184866030da45b6523cf3f5b786e42d893b82e006f666c
+              tag: main@sha256:e393b528c80ef98323e162fbbf0d11523dd74bb7f981e8f7c3f60ce854931cb4
             env:
               DOWNFLATE_ADDR: :80
               DOWNFLATE_REPO: github://caycehouse/home-ops

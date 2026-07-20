@@ -39,10 +39,7 @@ spec:
       removeOldMods: true
       spawnProtection: 0
       type: "FABRIC"
-      vanillaTweaksShareCodes:
-        - f8rjVA
-        - FF8soj
-      # renovate: datasource=custom.minecraft-release
+      # renovate: datasource=custom.minecraft-release depName=minecraft
       version: "26.2"
       viewDistance: 12
       modrinth:
@@ -62,6 +59,15 @@ spec:
       dataDir:
         enabled: true
         existingClaim: minecraft
+    extraVolumes:
+      - volumeMounts:
+          - name: vanillatweaks
+            mountPath: /config/vanillatweaks
+            readOnly: true
+        volumes:
+          - name: vanillatweaks
+            configMap:
+              name: minecraft-vanillatweaks
     extraEnv:
       ALLOW_FLIGHT: "true"
       ENABLE_ROLLING_LOGS: "true"
@@ -76,9 +82,12 @@ spec:
       SYNC_CHUNK_WRITES: "false"
       USE_MEOWICE_FLAGS: "true"
       USE_MEOWICE_GRAALVM_FLAGS: "true"
-    envFrom:
-      - secretRef:
-          name: *secret
+      VANILLATWEAKS_FILE: "/config/vanillatweaks/vt-datapacks.json,/config/vanillatweaks/vt-craftingtweaks.json"
+      WHITELIST:
+        valueFrom:
+          secretKeyRef:
+            name: *secret
+            key: WHITELIST
     resources:
       requests:
         cpu: 500m

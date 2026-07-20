@@ -1,6 +1,15 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: ["github>home-operations/renovate-presets#2.1.0", ":timezone(America/New_York)"],
+  customDatasources: {
+    "minecraft-release": {
+      defaultRegistryUrlTemplate: "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json",
+      format: "json",
+      transformTemplates: [
+        '{ "releases": $map(versions[type=\'release\'], function($v) { { "version": $v.id, "releaseTimestamp": $v.releaseTime } }) }',
+      ],
+    },
+  },
   packageRules: [
     // Auto-merge rules
     {

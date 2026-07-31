@@ -14,6 +14,7 @@ spec:
     image:
       repository: mirror.gcr.io/coredns/coredns
     k8sAppLabelOverride: kube-dns
+    priorityClassName: system-cluster-critical
     serviceAccount:
       create: true
     service:
@@ -26,6 +27,10 @@ spec:
             use_tcp: true
         port: 53
         plugins:
+          - name: template
+            parameters: ANY AAAA
+            configBlock: |-
+              authority "{{ .Zone }} 60 IN SOA ns.dns.cluster.local. hostmaster.cluster.local. (1 60 60 60 60)"
           - name: errors
           - name: health
             configBlock: |-
@@ -38,18 +43,13 @@ spec:
               fallthrough in-addr.arpa ip6.arpa
           - name: autopath
             parameters: "@kubernetes"
-          # Nodes are IPv4-only (IPv6 disabled on bond0); answer AAAA with NODATA
-          # so pods never dial an unreachable IPv6 address (e.g. R2 for kopiur).
-          - name: template
-            parameters: IN AAAA
-            configBlock: |-
-              rcode NOERROR
           - name: forward
             parameters: . /etc/resolv.conf
           - name: cache
             configBlock: |-
               prefetch 20
               serve_stale
+              servfail 0
           - name: loop
           - name: reload
           - name: loadbalance

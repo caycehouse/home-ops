@@ -12,7 +12,7 @@ spec:
     name: actual-mcp-secret
     key: MCP_SSE_AUTHORIZATION
   workload:
-    image: ghcr.io/agigante80/actual-mcp-server:0.8.17@sha256:a1b02f4daa949f548433392c65a2967583b3e62f3bf215e82ee201e4f062600a
+    image: ghcr.io/agigante80/actual-mcp-server:0.9.2@sha256:b90390aaf07e81ff5976182b82e19877ebfe765901c229600f2770d4be3b43b4
     port: 3600
     path: /http
     env:

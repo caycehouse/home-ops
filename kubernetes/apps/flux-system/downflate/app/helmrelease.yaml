@@ -23,6 +23,7 @@ spec:
               DOWNFLATE_ADDR: :80
               DOWNFLATE_REPO: github://caycehouse/home-ops
               DOWNFLATE_CLUSTER_PATH: ./kubernetes/flux/cluster
+              DOWNFLATE_RESTRICT_EGRESS: "true"
               DOWNFLATE_NODES:
                 valueFrom:
                   fieldRef:

@@ -12,8 +12,6 @@ spec:
   values:
     controllers:
       home-assistant:
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -21,9 +19,6 @@ spec:
               tag: 2026.8.1@sha256:e1f54eb0306d7ded8b3cdee70c21178413cd175aa3e526452af0e086a39ecc51
             env:
               TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true

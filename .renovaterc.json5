@@ -79,6 +79,38 @@
       matchPackageNames: ["/twitch-drops-miner/"],
       changelogUrl: "https://github.com/fireph/docker-twitch-drops-miner/commits/main",
     },
+    {
+      description: "Point Envoy at its upstream changelog",
+      matchPackageNames: ["/envoyproxy\\/envoy$/"],
+      sourceUrl: "https://github.com/envoyproxy/envoy",
+    },
+    {
+      description: "Point Grafana Operator at its upstream changelog",
+      matchPackageNames: ["/helm-charts\\/grafana-operator$/"],
+      sourceUrl: "https://github.com/grafana/grafana-operator",
+    },
+    {
+      description: "Point Silence Operator at its upstream changelog",
+      matchPackageNames: ["/giantswarm\\/silence-operator$/"],
+      sourceUrl: "https://github.com/giantswarm/silence-operator",
+    },
+    {
+      description: "Point External Secrets at its upstream changelog",
+      matchPackageNames: ["/charts\\/external-secrets$/"],
+      sourceUrl: "https://github.com/external-secrets/external-secrets",
+    },
+    {
+      description: "Point 1Password Connect at its upstream changelog",
+      matchPackageNames: ["/1password\\/connect$/"],
+      changelogUrl: "https://github.com/1Password/connect-helm-charts/releases/tag/connect-{{newVersion}}",
+      sourceUrl: "https://github.com/1Password/connect-helm-charts",
+    },
+    {
+      description: "Point UniFi Network MCP at its upstream changelog",
+      matchPackageNames: ["/unifi-network-mcp/"],
+      changelogUrl: "https://github.com/sirkirby/unifi-mcp/releases/tag/network/v{{newVersion}}",
+      sourceUrl: "https://github.com/sirkirby/unifi-mcp",
+    },
     // Grouping rules
     {
       description: "Actions Runner Controller Group",

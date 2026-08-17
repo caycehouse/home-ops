@@ -8,7 +8,7 @@ spec:
   alias: unifi_mcp
   transport: http
   workload:
-    image: ghcr.io/sirkirby/unifi-network-mcp:0.27.0@sha256:dd3db4d7f1970c9c82f0447aef5eb2f3f6ae7d84ff5e91396236bcd7446d1dd5
+    image: ghcr.io/sirkirby/unifi-network-mcp:0.27.1@sha256:91f2a5f2f63b721e17606d8a47270a809c11bdf731497ebaf255caf39cc150ab
     port: 3000
     path: /mcp
     env:

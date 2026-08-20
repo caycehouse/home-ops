@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: victoria-logs
 spec:
-  dependsOn:
-    - name: miroir
-      namespace: miroir-system
   interval: 1h
   path: ./kubernetes/apps/o11y/victoria-logs/app
   prune: true

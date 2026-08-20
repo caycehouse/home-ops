@@ -10,8 +10,6 @@ spec:
   dependsOn:
     - name: multus-networks
       namespace: kube-system
-    - name: kopiur-repository
-      namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/default/home-assistant/app
   postBuild:

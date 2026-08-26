@@ -29,8 +29,9 @@ spec:
       failureThreshold: 3
       timeoutSeconds: 5
     startupProbe:
+      # chart only templates failureThreshold/periodSeconds here
       enabled: true
-      failureThreshold: 180
+      failureThreshold: 90
       periodSeconds: 10
     serviceAnnotations:
       external-dns.alpha.kubernetes.io/hostname: &hostname atm10a.thefryer.games
@@ -57,6 +58,8 @@ spec:
           key: ""
         filenameMatcher: "${MODPACK_VERSION}.zip"
         slug: "all-the-mods-10-aeronautics"
+        excludeMods:
+          - simple-backups
       rcon:
         enabled: true
         # Image generates a random password per start and writes it where
@@ -72,8 +75,6 @@ spec:
       ALLOW_FLIGHT: "true"
       CF_OVERRIDES_EXCLUSIONS: |-
         shaderpacks/**
-      # TEMPORARY: remove once the first boot's heap/non-heap split is known
-      DEBUG_MEMORY: "true"
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
@@ -83,7 +84,7 @@ spec:
         stop
       RCON_CMDS_STARTUP: |-
         gamerule playersSleepingPercentage 0
-      SIMULATION_DISTANCE: "4"
+      SIMULATION_DISTANCE: "6"
       SNOOPER_ENABLED: "false"
       STOP_DURATION: 180
       STOP_SERVER_ANNOUNCE_DELAY: 60
@@ -98,7 +99,7 @@ spec:
     resources:
       requests:
         cpu: 2000m
-        memory: &mem 14Gi
+        memory: &mem 12Gi
       limits:
         memory: *mem
     podSecurityContext:

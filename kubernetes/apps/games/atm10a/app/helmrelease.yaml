@@ -43,6 +43,7 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
+      icon: "https://media.forgecdn.net/avatars/thumbnails/1992/863/256/256/639226851425896647.png"
       maxPlayers: 6
       maxTickTime: 180000
       memory: "75%"

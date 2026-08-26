@@ -6,6 +6,17 @@
     "github>home-operations/renovate-presets//apps/talosFactory.json5#8.1.0",
     ":timezone(America/New_York)",
   ],
+  customDatasources: {
+    // CurseForge's own API needs an x-api-key header; cfwidget is an
+    // unauthenticated proxy over the same data.
+    "curseforge-modpack": {
+      defaultRegistryUrlTemplate: "https://api.cfwidget.com/minecraft/modpacks/{{packageName}}",
+      format: "json",
+      transformTemplates: [
+        '{"releases": [files[type="release"].{"version": $match(display, /[0-9]+(\\.[0-9]+)+$/)[0].match, "releaseTimestamp": uploaded_at}]}',
+      ],
+    },
+  },
   packageRules: [
     // Auto-merge rules
     {
@@ -61,6 +72,14 @@
       automerge: true,
       automergeType: "branch",
       ignoreTests: true,
+    },
+    {
+      description: "Never auto-merge CurseForge modpacks; updating one rewrites a live world",
+      matchDatasources: ["custom.curseforge-modpack"],
+      versioning: "loose",
+      automerge: false,
+      addLabels: ["modpack"],
+      changelogUrl: "https://www.curseforge.com/minecraft/modpacks/{{depName}}/files/all",
     },
     // Changelog rules
     {

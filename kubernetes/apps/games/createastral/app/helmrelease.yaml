@@ -31,7 +31,7 @@ spec:
     startupProbe:
       # chart only templates failureThreshold/periodSeconds here
       enabled: true
-      failureThreshold: 90
+      failureThreshold: 45
       periodSeconds: 10
     serviceAnnotations:
       external-dns.alpha.kubernetes.io/hostname: &hostname createastral.thefryer.games
@@ -52,7 +52,7 @@ spec:
       overrideServerProperties: true
       spawnProtection: 1
       type: "AUTO_CURSEFORGE"
-      viewDistance: 8
+      viewDistance: 10
       autoCurseForge:
         # Blank key falls through to the API key baked into the image
         apiKey:
@@ -87,9 +87,9 @@ spec:
         stop
       RCON_CMDS_STARTUP: |-
         gamerule playersSleepingPercentage 0
-      SIMULATION_DISTANCE: "6"
+      SIMULATION_DISTANCE: "8"
       SNOOPER_ENABLED: "false"
-      STOP_DURATION: 180
+      STOP_DURATION: 120
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
       USE_MEOWICE_FLAGS: "true"
@@ -98,11 +98,11 @@ spec:
       - secretRef:
           name: *secret
     extraPodSpec:
-      terminationGracePeriodSeconds: "300"
+      terminationGracePeriodSeconds: "240"
     resources:
       requests:
         cpu: 2000m
-        memory: &mem 12Gi
+        memory: &mem 8Gi
       limits:
         memory: *mem
     podSecurityContext:

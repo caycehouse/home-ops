@@ -66,6 +66,9 @@ spec:
           # Rewrites server.properties at init from the pack's
           # default-server.properties, clobbering everything set here.
           - default-server-properties
+          # kopiur already backs up this PVC offsite; an in-PVC backup
+          # mod means snapshotting our own archives into that copy.
+          - ftb-backups-3
       rcon:
         enabled: true
         # Image generates a random password per start and writes it where

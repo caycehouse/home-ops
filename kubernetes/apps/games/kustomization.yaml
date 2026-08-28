@@ -10,4 +10,4 @@ components:
 
 resources:
   - ./namespace.yaml
-  - ./createastral/ks.yaml
+  - ./stoneblock4/ks.yaml

@@ -83,9 +83,15 @@ spec:
         existingClaim: *app
     extraEnv:
       ALLOW_FLIGHT: "true"
+      # Reward tables are excluded because FTB Quests rewrites them
+      # lowercase while the pack ships them uppercase. On a
+      # case-sensitive filesystem the installer restores the uppercase
+      # set alongside, every table loads twice, and the duplicate
+      # lootcrates abort the creative tab build and kill the server.
       CF_OVERRIDES_EXCLUSIONS: |-
         shaderpacks/**
         mods/rgp-client-*.jar
+        config/ftbquests/quests/reward_tables/**
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"

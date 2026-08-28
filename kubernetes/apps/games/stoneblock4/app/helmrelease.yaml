@@ -56,7 +56,7 @@ spec:
       # would only wall non-ops out of the overworld stone mining world.
       spawnProtection: 1
       type: "AUTO_CURSEFORGE"
-      viewDistance: 8
+      viewDistance: 10
       autoCurseForge:
         # Blank key falls through to the API key baked into the image
         apiKey:
@@ -95,7 +95,7 @@ spec:
         stop
       RCON_CMDS_STARTUP: |-
         gamerule playersSleepingPercentage 0
-      SIMULATION_DISTANCE: "6"
+      SIMULATION_DISTANCE: "10"
       SNOOPER_ENABLED: "false"
       STOP_DURATION: 180
       STOP_SERVER_ANNOUNCE_DELAY: 60

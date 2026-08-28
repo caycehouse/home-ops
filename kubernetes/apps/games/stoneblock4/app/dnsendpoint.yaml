@@ -3,10 +3,10 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: createastral
+  name: stoneblock4
 spec:
   endpoints:
-    - dnsName: "createastral.thefryer.games"
+    - dnsName: "stoneblock4.thefryer.games"
       recordType: CNAME
       targets:
         - mc-router.thefryer.games

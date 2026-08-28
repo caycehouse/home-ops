@@ -40,6 +40,7 @@ spec:
         group: services
       mc-router.itzg.me/externalServerName: *hostname
     minecraftServer:
+      allowNether: false
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
@@ -50,7 +51,9 @@ spec:
       motd: "FTB StoneBlock 4 | ${MODPACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true
-      spawnProtection: 1
+      # Pack intent: spawn is an FTB Team Bases lobby hub, not a play
+      # area. Players portal out to team bases in their own dimensions.
+      spawnProtection: 512
       type: "AUTO_CURSEFORGE"
       viewDistance: 8
       autoCurseForge:
@@ -59,6 +62,10 @@ spec:
           key: ""
         filenameMatcher: "${MODPACK_VERSION}.zip"
         slug: "ftb-stoneblock-4"
+        excludeMods:
+          # Rewrites server.properties at init from the pack's
+          # default-server.properties, clobbering everything set here.
+          - default-server-properties
       rcon:
         enabled: true
         # Image generates a random password per start and writes it where

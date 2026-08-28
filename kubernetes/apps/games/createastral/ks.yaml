@@ -16,7 +16,7 @@ spec:
     substitute:
       APP: createastral
       # renovate: datasource=custom.curseforge-modpack depName=create-astral
-      MODPACK_VERSION: "2.1.5b"
+      MODPACK_VERSION: "2.1.5"
       KOPIUR_CAPACITY: 32Gi
   prune: true
   sourceRef:

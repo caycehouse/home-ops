@@ -76,7 +76,7 @@
     {
       description: "Never auto-merge CurseForge modpacks; updating one rewrites a live world",
       matchDatasources: ["custom.curseforge-modpack"],
-      versioning: "loose",
+      versioning: "deb",
       automerge: false,
       addLabels: ["modpack"],
       changelogUrl: "https://www.curseforge.com/minecraft/modpacks/{{depName}}/files/all",

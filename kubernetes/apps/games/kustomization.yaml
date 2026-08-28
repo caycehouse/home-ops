@@ -10,4 +10,4 @@ components:
 
 resources:
   - ./namespace.yaml
-  - ./atm10a/ks.yaml
+  - ./createastral/ks.yaml

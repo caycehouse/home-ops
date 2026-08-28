@@ -3,11 +3,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app atm10a
+  name: &app createastral
 spec:
   chartRef:
     kind: OCIRepository
-    name: atm10a
+    name: createastral
   interval: 1h
   timeout: 30m
   values:
@@ -16,7 +16,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2026.8.2-java21-graalvm@sha256:aaa4148b64faae6b7e4035bebb9b8161a95ad404949355f2758041dcb3aaf788
+      tag: 2026.8.2-java17-graalvm@sha256:8cb9716bd7f8ca11eff8fbb6949bdf3bc88fe75767ed722b5c67105cde5bc207
       pullPolicy: IfNotPresent
     livenessProbe:
       initialDelaySeconds: 0
@@ -34,7 +34,7 @@ spec:
       failureThreshold: 90
       periodSeconds: 10
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: &hostname atm10a.thefryer.games
+      external-dns.alpha.kubernetes.io/hostname: &hostname createastral.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
       gatus.home-operations.com/endpoint: |-
         group: services
@@ -43,11 +43,11 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      icon: "https://media.forgecdn.net/avatars/thumbnails/1992/863/256/256/639226851425896647.png"
+      icon: "https://media.forgecdn.net/avatars/thumbnails/768/269/256/256/638104922297531668.png"
       maxPlayers: 6
       maxTickTime: 180000
       memory: "75%"
-      motd: "All the Mods 10 Aeronautics | ${MODPACK_VERSION}"
+      motd: "Create: Astral | ${MODPACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true
       spawnProtection: 1
@@ -58,16 +58,16 @@ spec:
         apiKey:
           key: ""
         filenameMatcher: "${MODPACK_VERSION}.zip"
-        slug: "all-the-mods-10-aeronautics"
+        slug: "create-astral"
         excludeMods:
-          - simple-backups
+          - ftb-backups-2
       rcon:
         enabled: true
         # Image generates a random password per start and writes it where
         # rcon-cli finds it; existingSecret only suppresses the unused
         # chart-managed rcon Secret.
         withGeneratedPassword: true
-        existingSecret: &secret atm10a-secret
+        existingSecret: &secret createastral-secret
     persistence:
       dataDir:
         enabled: true
@@ -76,6 +76,8 @@ spec:
       ALLOW_FLIGHT: "true"
       CF_OVERRIDES_EXCLUSIONS: |-
         shaderpacks/**
+        mods/sodium*.jar
+        mods/cem-*.jar
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"

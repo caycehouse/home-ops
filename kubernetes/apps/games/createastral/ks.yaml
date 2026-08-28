@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: atm10a
+  name: createastral
 spec:
   components:
     - ../../../../components/kopiur/backup
@@ -11,12 +11,12 @@ spec:
     - name: kopiur-repository
       namespace: kopiur-system
   interval: 1h
-  path: ./kubernetes/apps/games/atm10a/app
+  path: ./kubernetes/apps/games/createastral/app
   postBuild:
     substitute:
-      APP: atm10a
-      # renovate: datasource=custom.curseforge-modpack depName=all-the-mods-10-aeronautics
-      MODPACK_VERSION: "0.5.1"
+      APP: createastral
+      # renovate: datasource=custom.curseforge-modpack depName=create-astral
+      MODPACK_VERSION: "2.1.5b"
       KOPIUR_CAPACITY: 32Gi
   prune: true
   sourceRef:

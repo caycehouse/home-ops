@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: atm10a
+  name: createastral
 spec:
   interval: 15m
   layerSelector:

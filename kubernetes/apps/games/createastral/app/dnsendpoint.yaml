@@ -3,10 +3,10 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: atm10a
+  name: createastral
 spec:
   endpoints:
-    - dnsName: "atm10a.thefryer.games"
+    - dnsName: "createastral.thefryer.games"
       recordType: CNAME
       targets:
         - mc-router.thefryer.games

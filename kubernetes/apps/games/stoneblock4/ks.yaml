@@ -15,8 +15,10 @@ spec:
   postBuild:
     substitute:
       APP: stoneblock4
-      # renovate: datasource=custom.curseforge-modpack depName=ftb-stoneblock-4
-      MODPACK_VERSION: "1.20.0"
+      # renovate: datasource=custom.ftb-modpack depName=130
+      # Numeric FTB version id; 100484 is release 1.20.0. The installer
+      # rejects anything non-numeric, so this cannot track the name.
+      FTB_MODPACK_VERSION_ID: "100484"
       KOPIUR_CAPACITY: 32Gi
   prune: true
   sourceRef:

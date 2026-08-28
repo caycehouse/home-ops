@@ -16,6 +16,16 @@
         '{"releases": [files[type="release"].{"version": $match(display, /[0-9]+(\\.[0-9]+)+[a-z]?$/)[0].match, "releaseTimestamp": uploaded_at}]}',
       ],
     },
+    // FTB's own API. The FTBA installer only accepts a numeric version id,
+    // so this tracks ids, not the readable release names. Ids rise with
+    // release date, so ordering holds.
+    "ftb-modpack": {
+      defaultRegistryUrlTemplate: "https://api.feed-the-beast.com/v1/modpacks/public/modpack/{{packageName}}",
+      format: "json",
+      transformTemplates: [
+        '{"releases": [versions[type="release" and private=false].{"version": $string(id), "releaseTimestamp": $fromMillis(released * 1000)}]}',
+      ],
+    },
   },
   packageRules: [
     // Auto-merge rules
@@ -80,6 +90,14 @@
       automerge: false,
       addLabels: ["modpack"],
       changelogUrl: "https://www.curseforge.com/minecraft/modpacks/{{depName}}/files/all",
+    },
+    {
+      description: "Never auto-merge FTB modpacks; updating one rewrites a live world",
+      matchDatasources: ["custom.ftb-modpack"],
+      versioning: "regex:^(?<major>\\d+)$",
+      automerge: false,
+      addLabels: ["modpack"],
+      changelogUrl: "https://www.feed-the-beast.com/modpacks/{{depName}}",
     },
     // Changelog rules
     {

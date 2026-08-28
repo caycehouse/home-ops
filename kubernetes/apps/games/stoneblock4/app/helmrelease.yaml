@@ -44,32 +44,21 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
+      ftbModpackId: "130"
+      ftbModpackVersionId: "${FTB_MODPACK_VERSION_ID}"
       icon: "https://media.forgecdn.net/avatars/thumbnails/1495/561/256/256/638971627504237551.jpg"
       maxPlayers: 6
       maxTickTime: 180000
       memory: "75%"
-      motd: "FTB StoneBlock 4 | ${MODPACK_VERSION}"
+      motd: "FTB StoneBlock 4"
       ops: "FryyourBacon"
       overrideServerProperties: true
       # FTB Chunks team claims handle protection, and the lobby is its
       # own dimension that spawn-protection never covers. The pack's 512
       # would only wall non-ops out of the overworld stone mining world.
       spawnProtection: 1
-      type: "AUTO_CURSEFORGE"
+      type: "FTBA"
       viewDistance: 10
-      autoCurseForge:
-        # Blank key falls through to the API key baked into the image
-        apiKey:
-          key: ""
-        filenameMatcher: "${MODPACK_VERSION}.zip"
-        slug: "ftb-stoneblock-4"
-        excludeMods:
-          # Rewrites server.properties at init from the pack's
-          # default-server.properties, clobbering everything set here.
-          - default-server-properties
-          # kopiur already backs up this PVC offsite; an in-PVC backup
-          # mod means snapshotting our own archives into that copy.
-          - ftb-backups-3
       rcon:
         enabled: true
         # Image generates a random password per start and writes it where
@@ -83,53 +72,6 @@ spec:
         existingClaim: *app
     extraEnv:
       ALLOW_FLIGHT: "true"
-      # FTB Quests rewrites these reward tables under lowercase names
-      # while the pack ships them uppercase. Those are one file on a
-      # case-insensitive filesystem and two here, so the installer
-      # sees its own names missing, restores all 31 beside the
-      # lowercase set, and every table loads twice; the duplicate
-      # lootcrates then abort the creative tab build and kill the
-      # server. Ignoring them keeps the pack looking up to date so it
-      # is not re-downloaded every start. Refresh this list if a pack
-      # update changes the quest set.
-      CF_IGNORE_MISSING_FILES: |-
-        config/ftbquests/quests/reward_tables/0C5DDA99EE8027D3.snbt
-        config/ftbquests/quests/reward_tables/1320ECC4666318A7.snbt
-        config/ftbquests/quests/reward_tables/135B4037C1A40D88.snbt
-        config/ftbquests/quests/reward_tables/16E7488E801B3DAA.snbt
-        config/ftbquests/quests/reward_tables/1892AD44EB5DD99D.snbt
-        config/ftbquests/quests/reward_tables/1D31E6EC121FF83B.snbt
-        config/ftbquests/quests/reward_tables/1DA364008CA08643.snbt
-        config/ftbquests/quests/reward_tables/20D1BF16232BD665.snbt
-        config/ftbquests/quests/reward_tables/21A38B78E82935CD.snbt
-        config/ftbquests/quests/reward_tables/28714053C75776A5.snbt
-        config/ftbquests/quests/reward_tables/2CB2563E52E0EEFC.snbt
-        config/ftbquests/quests/reward_tables/2F1621E7D65D48A1.snbt
-        config/ftbquests/quests/reward_tables/30F4E308726EB2AD.snbt
-        config/ftbquests/quests/reward_tables/3621231FD4F80730.snbt
-        config/ftbquests/quests/reward_tables/37F7F856288632A7.snbt
-        config/ftbquests/quests/reward_tables/3FFF5862073B3D97.snbt
-        config/ftbquests/quests/reward_tables/5529BA88A208797B.snbt
-        config/ftbquests/quests/reward_tables/56235F58490C3C41.snbt
-        config/ftbquests/quests/reward_tables/5C5A40864844587A.snbt
-        config/ftbquests/quests/reward_tables/5E58BEB7F462AA87.snbt
-        config/ftbquests/quests/reward_tables/6105D334632923AE.snbt
-        config/ftbquests/quests/reward_tables/61FD9A6CC07465C1.snbt
-        config/ftbquests/quests/reward_tables/657A949F0952B7D4.snbt
-        config/ftbquests/quests/reward_tables/6835AC5E14D58A8C.snbt
-        config/ftbquests/quests/reward_tables/6B1481D18D7F1F24.snbt
-        config/ftbquests/quests/reward_tables/6B9058CED94B574F.snbt
-        config/ftbquests/quests/reward_tables/70ADF260F7A38A21.snbt
-        config/ftbquests/quests/reward_tables/73C257EFB0D405CE.snbt
-        config/ftbquests/quests/reward_tables/790A03E65CE8EBE4.snbt
-        config/ftbquests/quests/reward_tables/7CDA9FD69979A8C9.snbt
-        config/ftbquests/quests/reward_tables/7D0A27C985829037.snbt
-      # Backstop for a genuine reinstall, which would otherwise write
-      # the uppercase set back and reintroduce the duplicates.
-      CF_OVERRIDES_EXCLUSIONS: |-
-        shaderpacks/**
-        mods/rgp-client-*.jar
-        config/ftbquests/quests/reward_tables/**
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
@@ -139,6 +81,15 @@ spec:
         stop
       RCON_CMDS_STARTUP: |-
         gamerule playersSleepingPercentage 0
+      # The FTB server pack ships both of these and FTBA has no exclude
+      # mechanism, so they are deleted after the install instead.
+      # default-server-properties rewrites server.properties at init and
+      # would drop the whitelist; ftb-backups-3 writes archives into the
+      # PVC that kopiur already backs up offsite.
+      # INCLUDE is not optional: unset it and the default *.jar wipes
+      # every mod in the pack.
+      REMOVE_OLD_MODS: "true"
+      REMOVE_OLD_MODS_INCLUDE: "default-server-properties-*.jar,ftb-backups-3-*.jar"
       SIMULATION_DISTANCE: "10"
       SNOOPER_ENABLED: "false"
       STOP_DURATION: 180

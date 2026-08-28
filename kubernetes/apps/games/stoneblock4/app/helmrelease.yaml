@@ -97,6 +97,8 @@ spec:
       ENFORCE_WHITELIST: "true"
       OP_PERMISSION_LEVEL: "3"
       OVERRIDE_WHITELIST: "true"
+      RCON_CMDS_LAST_DISCONNECT: |-
+        stop
       RCON_CMDS_STARTUP: |-
         gamerule playersSleepingPercentage 0
       SIMULATION_DISTANCE: "10"

@@ -51,9 +51,10 @@ spec:
       motd: "FTB StoneBlock 4 | ${MODPACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true
-      # Pack intent: spawn is an FTB Team Bases lobby hub, not a play
-      # area. Players portal out to team bases in their own dimensions.
-      spawnProtection: 512
+      # FTB Chunks team claims handle protection, and the lobby is its
+      # own dimension that spawn-protection never covers. The pack's 512
+      # would only wall non-ops out of the overworld stone mining world.
+      spawnProtection: 1
       type: "AUTO_CURSEFORGE"
       viewDistance: 8
       autoCurseForge:

@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: createastral
+  name: stoneblock4
 spec:
   components:
     - ../../../../components/kopiur/backup
@@ -11,12 +11,12 @@ spec:
     - name: kopiur-repository
       namespace: kopiur-system
   interval: 1h
-  path: ./kubernetes/apps/games/createastral/app
+  path: ./kubernetes/apps/games/stoneblock4/app
   postBuild:
     substitute:
-      APP: createastral
-      # renovate: datasource=custom.curseforge-modpack depName=create-astral
-      MODPACK_VERSION: "2.1.5b"
+      APP: stoneblock4
+      # renovate: datasource=custom.curseforge-modpack depName=ftb-stoneblock-4
+      MODPACK_VERSION: "1.20.0"
       KOPIUR_CAPACITY: 32Gi
   prune: true
   sourceRef:

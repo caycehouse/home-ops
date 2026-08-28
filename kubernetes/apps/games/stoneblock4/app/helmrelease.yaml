@@ -3,11 +3,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app createastral
+  name: &app stoneblock4
 spec:
   chartRef:
     kind: OCIRepository
-    name: createastral
+    name: stoneblock4
   interval: 1h
   timeout: 30m
   values:
@@ -16,7 +16,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2026.8.2-java17-graalvm@sha256:8cb9716bd7f8ca11eff8fbb6949bdf3bc88fe75767ed722b5c67105cde5bc207
+      tag: 2026.8.2-java21-graalvm@sha256:aaa4148b64faae6b7e4035bebb9b8161a95ad404949355f2758041dcb3aaf788
       pullPolicy: IfNotPresent
     livenessProbe:
       initialDelaySeconds: 0
@@ -31,10 +31,10 @@ spec:
     startupProbe:
       # chart only templates failureThreshold/periodSeconds here
       enabled: true
-      failureThreshold: 45
+      failureThreshold: 90
       periodSeconds: 10
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: &hostname createastral.thefryer.games
+      external-dns.alpha.kubernetes.io/hostname: &hostname stoneblock4.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
       gatus.home-operations.com/endpoint: |-
         group: services
@@ -43,31 +43,29 @@ spec:
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      icon: "https://media.forgecdn.net/avatars/thumbnails/768/269/256/256/638104922297531668.png"
+      icon: "https://media.forgecdn.net/avatars/thumbnails/1495/561/256/256/638971627504237551.jpg"
       maxPlayers: 6
       maxTickTime: 180000
       memory: "75%"
-      motd: "Create: Astral | ${MODPACK_VERSION}"
+      motd: "FTB StoneBlock 4 | ${MODPACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true
       spawnProtection: 1
       type: "AUTO_CURSEFORGE"
-      viewDistance: 10
+      viewDistance: 8
       autoCurseForge:
         # Blank key falls through to the API key baked into the image
         apiKey:
           key: ""
         filenameMatcher: "${MODPACK_VERSION}.zip"
-        slug: "create-astral"
-        excludeMods:
-          - ftb-backups-2
+        slug: "ftb-stoneblock-4"
       rcon:
         enabled: true
         # Image generates a random password per start and writes it where
         # rcon-cli finds it; existingSecret only suppresses the unused
         # chart-managed rcon Secret.
         withGeneratedPassword: true
-        existingSecret: &secret createastral-secret
+        existingSecret: &secret stoneblock4-secret
     persistence:
       dataDir:
         enabled: true
@@ -76,8 +74,7 @@ spec:
       ALLOW_FLIGHT: "true"
       CF_OVERRIDES_EXCLUSIONS: |-
         shaderpacks/**
-        mods/sodium*.jar
-        mods/cem-*.jar
+        mods/rgp-client-*.jar
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
@@ -87,9 +84,9 @@ spec:
         stop
       RCON_CMDS_STARTUP: |-
         gamerule playersSleepingPercentage 0
-      SIMULATION_DISTANCE: "8"
+      SIMULATION_DISTANCE: "6"
       SNOOPER_ENABLED: "false"
-      STOP_DURATION: 120
+      STOP_DURATION: 180
       STOP_SERVER_ANNOUNCE_DELAY: 60
       SYNC_CHUNK_WRITES: "false"
       USE_MEOWICE_FLAGS: "true"
@@ -98,11 +95,11 @@ spec:
       - secretRef:
           name: *secret
     extraPodSpec:
-      terminationGracePeriodSeconds: "240"
+      terminationGracePeriodSeconds: "300"
     resources:
       requests:
         cpu: 2000m
-        memory: &mem 8Gi
+        memory: &mem 12Gi
       limits:
         memory: *mem
     podSecurityContext:

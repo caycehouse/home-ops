@@ -58,7 +58,7 @@ spec:
       # would only wall non-ops out of the overworld stone mining world.
       spawnProtection: 1
       type: "FTBA"
-      viewDistance: 10
+      viewDistance: 8
       rcon:
         enabled: true
         # Image generates a random password per start and writes it where
@@ -90,7 +90,7 @@ spec:
       # every mod in the pack.
       REMOVE_OLD_MODS: "true"
       REMOVE_OLD_MODS_INCLUDE: "default-server-properties-*.jar,ftb-backups-3-*.jar"
-      SIMULATION_DISTANCE: "10"
+      SIMULATION_DISTANCE: "6"
       SNOOPER_ENABLED: "false"
       STOP_DURATION: 180
       STOP_SERVER_ANNOUNCE_DELAY: 60

@@ -99,6 +99,12 @@
       addLabels: ["modpack"],
       changelogUrl: "https://www.feed-the-beast.com/modpacks/{{depName}}",
     },
+    {
+      description: "CoreDNS 1.14.3+ prefetch poisons autopath answers, hold until fixed upstream",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/coredns/charts/coredns"],
+      enabled: false,
+    },
     // Changelog rules
     {
       description: "Point Actual at its upstream changelog",

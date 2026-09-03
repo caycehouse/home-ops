@@ -27,6 +27,12 @@
       ],
     },
   },
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ["before 3am on the first day of the month"],
+    commitMessageExtra: "({{manager}})",
+    additionalBranchPrefix: "{{manager}}-",
+  },
   packageRules: [
     // Auto-merge rules
     {
@@ -98,12 +104,6 @@
       automerge: false,
       addLabels: ["modpack"],
       changelogUrl: "https://www.feed-the-beast.com/modpacks/{{depName}}",
-    },
-    {
-      description: "CoreDNS 1.14.3+ prefetch poisons autopath answers, hold until fixed upstream",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["ghcr.io/coredns/charts/coredns"],
-      enabled: false,
     },
     // Changelog rules
     {
@@ -190,6 +190,35 @@
         commitMessageTopic: "{{{groupName}}} group",
       },
       minimumGroupSize: 5,
+    },
+    {
+      description: "Mise Tools Group",
+      matchManagers: ["mise"],
+      groupName: "mise tools",
+      groupSlug: "mise-tools",
+    },
+    {
+      // After the mise tools catch-all so talos wins its own group; unites the
+      // mise pin, the factory installer image, and the tuppr upgrade version
+      description: "Talos Group",
+      groupName: "talos",
+      matchPackageNames: ["siderolabs/talos"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "CoreDNS 1.14.3+ prefetch poisons autopath answers, hold until fixed",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/coredns/charts/coredns"],
+      enabled: false,
+    },
+    {
+      description: "1Password CLI is not resolvable on GitHub, bump manually",
+      matchManagers: ["mise"],
+      matchDepNames: ["1password-cli"],
+      enabled: false,
     },
     // Labeling rules
     {

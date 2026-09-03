@@ -43,6 +43,15 @@ parent: bond0
 mtu: 1500
 ---
 apiVersion: v1alpha1
+kind: ResolverConfig
+searchDomains:
+  domains: []
+hostDNS:
+  enabled: true
+  forwardKubeDNSToHost: true # Requires Cilium socketLB features
+  resolveMemberNames: true
+---
+apiVersion: v1alpha1
 kind: DiscoveryServiceConfig
 name: default
 endpoint: https://discovery.talos.dev/
@@ -68,6 +77,14 @@ provisioning:
   diskSelector:
     match: disk.model == "MTFDDAK960TCB" && !system_disk
   minSize: 900GB
+---
+apiVersion: v1alpha1
+kind: FilesystemTrimConfig
+interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: FilesystemScrubConfig
+interval: 168h0m0s
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
@@ -122,6 +139,8 @@ kind: KubeNodeConfig
 nodeIP:
   validSubnets:
     - 192.168.42.0/24
+labels:
+  topology.kubernetes.io/region: main
 ---
 apiVersion: v1alpha1
 kind: KubeletConfig

@@ -3,11 +3,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app stoneblock4
+  name: &app atm10a
 spec:
   chartRef:
     kind: OCIRepository
-    name: stoneblock4
+    name: atm10a
   interval: 1h
   timeout: 30m
   values:
@@ -34,44 +34,48 @@ spec:
       failureThreshold: 90
       periodSeconds: 10
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: &hostname stoneblock4.thefryer.games
+      external-dns.alpha.kubernetes.io/hostname: &hostname atm10a.thefryer.games
       external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
       gatus.home-operations.com/endpoint: |-
         group: services
       mc-router.itzg.me/externalServerName: *hostname
     minecraftServer:
-      allowNether: false
       difficulty: "hard"
       eula: "true"
       forcegameMode: true
-      ftbModpackId: "130"
-      ftbModpackVersionId: "${FTB_MODPACK_VERSION_ID}"
-      icon: "https://media.forgecdn.net/avatars/thumbnails/1495/561/256/256/638971627504237551.jpg"
+      icon: "https://media.forgecdn.net/avatars/thumbnails/1992/863/256/256/639226851425896647.png"
       maxPlayers: 6
       maxTickTime: 180000
       memory: "75%"
-      motd: "FTB StoneBlock 4"
+      motd: "All the Mods 10 Aeronautics | ${MODPACK_VERSION}"
       ops: "FryyourBacon"
       overrideServerProperties: true
-      # FTB Chunks team claims handle protection, and the lobby is its
-      # own dimension that spawn-protection never covers. The pack's 512
-      # would only wall non-ops out of the overworld stone mining world.
       spawnProtection: 1
-      type: "FTBA"
+      type: "AUTO_CURSEFORGE"
       viewDistance: 8
+      autoCurseForge:
+        # Blank key falls through to the API key baked into the image
+        apiKey:
+          key: ""
+        filenameMatcher: "${MODPACK_VERSION}.zip"
+        slug: "all-the-mods-10-aeronautics"
+        excludeMods:
+          - simple-backups
       rcon:
         enabled: true
         # Image generates a random password per start and writes it where
         # rcon-cli finds it; existingSecret only suppresses the unused
         # chart-managed rcon Secret.
         withGeneratedPassword: true
-        existingSecret: &secret stoneblock4-secret
+        existingSecret: &secret atm10a-secret
     persistence:
       dataDir:
         enabled: true
         existingClaim: *app
     extraEnv:
       ALLOW_FLIGHT: "true"
+      CF_OVERRIDES_EXCLUSIONS: |-
+        shaderpacks/**
       ENABLE_COMMAND_BLOCK: "true"
       ENABLE_ROLLING_LOGS: "true"
       ENFORCE_WHITELIST: "true"
@@ -81,15 +85,6 @@ spec:
         stop
       RCON_CMDS_STARTUP: |-
         gamerule playersSleepingPercentage 0
-      # The FTB server pack ships both of these and FTBA has no exclude
-      # mechanism, so they are deleted after the install instead.
-      # default-server-properties rewrites server.properties at init and
-      # would drop the whitelist; ftb-backups-3 writes archives into the
-      # PVC that kopiur already backs up offsite.
-      # INCLUDE is not optional: unset it and the default *.jar wipes
-      # every mod in the pack.
-      REMOVE_OLD_MODS: "true"
-      REMOVE_OLD_MODS_INCLUDE: "default-server-properties-*.jar,ftb-backups-3-*.jar"
       SIMULATION_DISTANCE: "6"
       SNOOPER_ENABLED: "false"
       STOP_DURATION: 180

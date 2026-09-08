@@ -10,4 +10,4 @@ components:
 
 resources:
   - ./namespace.yaml
-  - ./stoneblock4/ks.yaml
+  - ./atm10a/ks.yaml

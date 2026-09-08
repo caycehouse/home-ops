@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: stoneblock4
+  name: atm10a
 spec:
   interval: 15m
   layerSelector:

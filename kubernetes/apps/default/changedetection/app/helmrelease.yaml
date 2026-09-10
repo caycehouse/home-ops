@@ -43,7 +43,7 @@ spec:
           browser:
             image:
               repository: mirror.gcr.io/dgtlmoon/sockpuppetbrowser
-              tag: latest@sha256:f166a963b550c29af465c2fac518212e7e3a75f14f0d2b840cf4b79677295764
+              tag: latest@sha256:322e475f7fe5bdbd59b4e946ce5a605adc10289700dd116026999e5b787ec982
               pullPolicy: IfNotPresent
             probes:
               liveness:

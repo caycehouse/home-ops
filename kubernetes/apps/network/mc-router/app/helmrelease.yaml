@@ -23,7 +23,7 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 192.168.69.140
-          external-dns.alpha.kubernetes.io/hostname: mc-router.thefryer.games
+          external-dns.kubernetes.io/hostname: mc-router.thefryer.games
       extraServiceSpec:
         externalTrafficPolicy: Local
     securityContext:

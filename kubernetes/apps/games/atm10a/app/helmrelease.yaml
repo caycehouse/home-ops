@@ -34,8 +34,8 @@ spec:
       failureThreshold: 90
       periodSeconds: 10
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: &hostname atm10a.thefryer.games
-      external-dns.alpha.kubernetes.io/target: mc-router.thefryer.games
+      external-dns.kubernetes.io/hostname: &hostname atm10a.thefryer.games
+      external-dns.kubernetes.io/target: mc-router.thefryer.games
       gatus.home-operations.com/endpoint: |-
         group: services
       mc-router.itzg.me/externalServerName: *hostname

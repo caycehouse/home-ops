@@ -74,6 +74,9 @@ spec:
         existingClaim: *app
     extraEnv:
       ALLOW_FLIGHT: "true"
+      # FTB Quests removes these at runtime; without this every start reinstalls the modpack
+      CF_IGNORE_MISSING_FILES: |-
+        config/ftbquests/quests/lang/**
       CF_OVERRIDES_EXCLUSIONS: |-
         shaderpacks/**
       ENABLE_COMMAND_BLOCK: "true"

@@ -2,10 +2,10 @@
   "recommendations": [
     "oxc.oxc-vscode",
     "blueglassblock.better-json5",
+    "Catppuccin.catppuccin-vsc-icons",
     "hverlin.mise-vscode",
     "irongeek.vscode-env",
     "nefrob.vscode-just-syntax",
-    "PKief.material-icon-theme",
     "redhat.vscode-yaml"
   ]
 }

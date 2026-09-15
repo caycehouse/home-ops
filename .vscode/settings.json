@@ -14,33 +14,37 @@
     "**/*.json5": "json5"
   },
   "files.trimTrailingWhitespace": true,
-  "material-icon-theme.files.associations": {
-    "*.gotmpl": "smarty",
-    "helmfile.yaml": "helm",
-    "kubeconfig": "kubernetes",
-    "talosconfig": "kubernetes"
+  "catppuccin-icons.associations.extensions": {
+    "gotmpl": "go-template"
   },
-  "material-icon-theme.folders.associations": {
+  "catppuccin-icons.associations.files": {
+    "helmfile.yaml": "helm",
+    "kubeconfig": "config",
+    "talosconfig": "config"
+  },
+  "catppuccin-icons.associations.folders": {
     // top level
-    ".github/workflows": "ci",
-    ".private": "archive",
-    ".renovate": "robot",
-    "bootstrap": "seeders",
-    "bootstrap/helmfile.d": "helm",
-    "flux": "pipe",
-    "talos": "linux",
+    "workflows": "folder_workflows",
+    ".private": "folder_private",
+    "bootstrap": "folder_scripts",
+    "helmfile": "folder_config",
+    "kubernetes": "folder_kubernetes",
+    "flux": "folder_workflows",
+    "talos": "folder_linux",
+    "nodes": "folder_server",
     // namespaces
-    "actions-runner-system": "github",
-    "cert-manager": "guard",
-    "default": "home",
-    "external-secrets": "secure",
-    "flux-system": "pipe",
-    "kube-system": "kubernetes",
-    "network": "connection",
-    "o11y": "event",
-    "miroir-system": "dump",
-    "system-upgrade": "update",
-    "kopiur-system": "aws"
+    "ai": "folder_cloud",
+    "cert-manager": "folder_security",
+    "default": "folder_app",
+    "external-secrets": "folder_private",
+    "flux-system": "folder_workflows",
+    "games": "folder_roblox",
+    "kube-system": "folder_kubernetes",
+    "network": "folder_connection",
+    "o11y": "folder_debug",
+    "miroir-system": "folder_database",
+    "system-upgrade": "folder_download",
+    "kopiur-system": "folder_aws"
   },
   "terminal.integrated.fontSize": 14,
   "vs-kubernetes": {

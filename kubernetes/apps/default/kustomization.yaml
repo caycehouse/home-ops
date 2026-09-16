@@ -15,6 +15,4 @@ resources:
   - ./free-games-claimer/ks.yaml
   - ./freshrss/ks.yaml
   - ./home-assistant/ks.yaml
-  - ./mosquitto/ks.yaml
   - ./twitchdropsminer/ks.yaml
-  - ./zigbee/ks.yaml

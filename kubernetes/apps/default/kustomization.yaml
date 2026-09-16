@@ -16,6 +16,5 @@ resources:
   - ./freshrss/ks.yaml
   - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./rtlamr2mqtt/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./zigbee/ks.yaml

@@ -96,10 +96,6 @@ kind: KernelModuleConfig
 name: dm_thin_pool
 ---
 apiVersion: v1alpha1
-kind: KernelModuleConfig
-name: nbd
----
-apiVersion: v1alpha1
 kind: SysctlConfig
 params:
   fs.inotify.max_user_instances: "8192"
@@ -120,16 +116,12 @@ params:
   net.ipv4.tcp_window_scaling: "1"
   net.ipv4.tcp_wmem: 4096 65536 67108864
   net/ipv6/conf/bond0.10/disable_ipv6: "1" # keep the host off IPv6 on the Trusted segment
-  sunrpc.tcp_max_slot_table_entries: "128"
-  sunrpc.tcp_slot_table_entries: "128"
   user.max_user_namespaces: "11255"
 ---
 apiVersion: v1alpha1
 kind: CRICustomizationConfig
 name: containerd
 content: |
-  [plugins."io.containerd.cri.v1.images"]
-    discard_unpacked_layers = false
   [plugins."io.containerd.cri.v1.runtime"]
     device_ownership_from_security_context = true
 ---

@@ -133,11 +133,6 @@
       sourceUrl: "https://github.com/grafana/grafana-operator",
     },
     {
-      description: "Point Silence Operator at its upstream changelog",
-      matchPackageNames: ["/giantswarm\\/silence-operator$/"],
-      sourceUrl: "https://github.com/giantswarm/silence-operator",
-    },
-    {
       description: "Point External Secrets at its upstream changelog",
       matchPackageNames: ["/charts\\/external-secrets$/"],
       sourceUrl: "https://github.com/external-secrets/external-secrets",

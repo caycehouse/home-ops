@@ -84,7 +84,6 @@ Kustomize Components included by apps via `components:` in their `ks.yaml` (or t
 
 - **kopiur/backup** — PVC + kopiur SnapshotPolicy/SnapshotSchedule/Restore for backups; parameterized by the `${APP}` substitution from the app's `ks.yaml`. The paired **kopiur/secret** component distributes the repo ExternalSecret into each backed-up namespace.
 - **alerts** — Alertmanager + GitHub-status providers, included namespace-wide.
-- **zeroscaler** — HPA-based scale-to-zero.
 
 ### Secrets
 

@@ -13,7 +13,7 @@ spec:
     substitute:
       APP: atm10a
       # renovate: datasource=custom.curseforge-modpack depName=all-the-mods-10-aeronautics
-      MODPACK_VERSION: "0.6.0"
+      MODPACK_VERSION: "0.6.1"
       KOPIUR_CAPACITY: 32Gi
   prune: true
   sourceRef:

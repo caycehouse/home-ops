@@ -141,5 +141,5 @@ jobs:
             `https://redirect.github.com` so the linked issues, PRs and
             releases do not receive a backlink notification.
           claude_args: |
-            --model claude-sonnet-5
+            --model claude-sonnet-5-5
             --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,mcp__github_inline_comment__create_inline_comment,Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*),Bash(gh release list:*),Bash(gh release view:*)"

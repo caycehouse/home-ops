@@ -105,7 +105,7 @@ jobs:
             4. For a Helm chart bump, inspect both chart versions directly
                instead of relying on release notes alone: compare
                `helm show values <chart> --version OLD` with the same for NEW,
-               and use `helm show readme` or `helm template` when a new
+               and use `helm show readme` or `helm show chart` when a new
                resource or default needs confirming. Charts in an
                OCIRepository are pulled as `oci://<url>` without the tag.
 
@@ -169,7 +169,7 @@ jobs:
               `redirect.github.com`.
           claude_args: |
             --model claude-sonnet-5-5
-            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*),Bash(helm show:*),Bash(helm template:*)"
+            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*),Bash(helm show:*)"
 
       - name: Generate Comment Token
         if: ${{ hashFiles('.claude-review.md') != '' }}
@@ -193,9 +193,9 @@ jobs:
             s{&#(?:x([0-9a-f]+)|(\d+));}{my $c = defined $1 ? hex $1 : $2; chr($c) =~ m{[0-9A-Za-z#@./:-]} ? chr($c) : $&}gie;
             s{&(num|commat|period|sol|colon);}{{num=>"#",commat=>"@",period=>".",sol=>"/",colon=>":"}->{lc $1}}gie;
             s{(?<![\w.-])(?:(?:https?:)?//)?(?:www\.)?github\.com(?::\d+)?(?=/)}{https://redirect.github.com}gi;
-            s{(?<!&)#(?=\d)}{#&#8203;}g;
+            s{(&#\d+;)|#(?=\d)}{defined $1 ? $1 : "#&#8203;"}ge;
             s{\b(GH)-(?=\d)}{$1&#8203;-}gi;
-            s{(?<![\w`.-])@(?=[A-Za-z0-9])}{@&#8203;}g;
+            s{(?<!\w)@(?=[A-Za-z0-9])}{@&#8203;}g;
             s{([\w.-]+/[\w.-]+)@(?=[0-9a-f]{7,40}\b)}{$1@&#8203;}g;
           ' .claude-review.md
           gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file .claude-review.md

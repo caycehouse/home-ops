@@ -192,7 +192,7 @@ jobs:
           perl -pi -e '
             s{&#(?:x([0-9a-f]+)|(\d+));}{my $c = defined $1 ? hex $1 : $2; chr($c) =~ m{[0-9A-Za-z#@./:-]} ? chr($c) : $&}gie;
             s{&(num|commat|period|sol|colon);}{{num=>"#",commat=>"@",period=>".",sol=>"/",colon=>":"}->{lc $1}}gie;
-            s{(?<![\w.-])(?:(?:https?:)?//)?(?:www\.)?github\.com(?::\d+)?(?=/)}{https://redirect.github.com}gi;
+            s{(?<![\w.-])(?:(?:https?:)?//(?:www\.)?|www\.)github\.com(?::\d+)?(?=/)}{https://redirect.github.com}gi;
             s{(&#\d+;)|#(?=\d)}{defined $1 ? $1 : "#&#8203;"}ge;
             s{\b(GH)-(?=\d)}{$1&#8203;-}gi;
             s{(?<!\w)@(?=[A-Za-z0-9])}{@&#8203;}g;

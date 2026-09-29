@@ -125,8 +125,9 @@ jobs:
             ## Report
 
             Write the review to `.claude-review.md` in the current working
-            directory; a later workflow step posts it as a single top-level
-            comment. Do not post comments yourself. Use this structure and omit
+            directory; a later workflow step posts it as the PR's review
+            comment, replacing any earlier review. Do not post comments
+            yourself. Use this structure and omit
             empty sections:
 
             ```
@@ -169,7 +170,7 @@ jobs:
               `redirect.github.com`.
           claude_args: |
             --model claude-sonnet-5-5
-            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*),Bash(helm show:*)"
+            --allowedTools "WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*),Bash(helm show:*)"
 
       - name: Generate Comment Token
         if: ${{ hashFiles('.claude-review.md') != '' }}
@@ -184,6 +185,7 @@ jobs:
         if: ${{ hashFiles('.claude-review.md') != '' }}
         env:
           GH_TOKEN: ${{ steps.comment-token.outputs.token }}
+          BOT_LOGIN: ${{ steps.comment-token.outputs.app-slug }}[bot]
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           # Neutralize GitHub autolinks so upstream issues are neither
@@ -192,10 +194,18 @@ jobs:
           perl -pi -e '
             s{&#(?:x([0-9a-f]+)|(\d+));}{my $c = defined $1 ? hex $1 : $2; chr($c) =~ m{[0-9A-Za-z#@./:-]} ? chr($c) : $&}gie;
             s{&(num|commat|period|sol|colon);}{{num=>"#",commat=>"@",period=>".",sol=>"/",colon=>":"}->{lc $1}}gie;
-            s{(?<![\w.-])(?:(?:https?:)?//(?:www\.)?|www\.)github\.com(?::\d+)?(?=/)}{https://redirect.github.com}gi;
+            s{(?<![\w.-])(?:(?:https?:)?//(?:[^/\s@]*@)?(?:www\.)?|www\.)github\.com\.?(?::\d+)?(?=/)}{https://redirect.github.com}gi;
             s{(&#\d+;)|#(?=\d)}{defined $1 ? $1 : "#&#8203;"}ge;
             s{\b(GH)-(?=\d)}{$1&#8203;-}gi;
             s{(?<!\w)@(?=[A-Za-z0-9])}{@&#8203;}g;
             s{([\w.-]+/[\w.-]+)@(?=[0-9a-f]{7,40}\b)}{$1@&#8203;}g;
           ' .claude-review.md
-          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file .claude-review.md
+          marker='<!-- claude-renovate-review -->'
+          { echo "$marker"; cat .claude-review.md; } > "$RUNNER_TEMP/review.md"
+          comment_id=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" \
+            --jq ".[] | select(.user.login == \"$BOT_LOGIN\" and (.body | startswith(\"$marker\"))) | .id" | tail -n1)
+          if [[ -n "$comment_id" ]]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$comment_id" -F body=@"$RUNNER_TEMP/review.md" > /dev/null
+          else
+            gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file "$RUNNER_TEMP/review.md"
+          fi

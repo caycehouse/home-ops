@@ -102,6 +102,12 @@ jobs:
                each finding against what this repository actually uses. A
                breaking change in a feature that is not used here is not
                actionable; leave it out.
+            4. For a Helm chart bump, inspect both chart versions directly
+               instead of relying on release notes alone: compare
+               `helm show values <chart> --version OLD` with the same for NEW,
+               and use `helm show readme` or `helm template` when a new
+               resource or default needs confirming. Charts in an
+               OCIRepository are pulled as `oci://<url>` without the tag.
 
             If the diff contains anything other than version bumps, check it
             for changes that would break Flux reconciliation or take down a
@@ -109,6 +115,12 @@ jobs:
 
             Report only problems you are confident in; do not comment on style
             or praise the change.
+
+            If you could not verify something that could affect the running
+            cluster (a new default, a new resource, a changed value), keep
+            investigating with the tools you have. If it is still unresolved,
+            use the verdict "Needs manual review" and state exactly what is
+            unverified; never answer "Safe to merge" with an open question.
 
             ## Report
 
@@ -118,7 +130,7 @@ jobs:
             empty sections:
 
             ```
-            **Verdict**: Safe to merge | Changes required before merge
+            **Verdict**: Safe to merge | Needs manual review | Changes required before merge
 
             **Breaking changes**:
             - [package] OLD ➔ NEW: [what changed], introduced in [version]. Affects `path/to/file`. Fix: [brief description]
@@ -157,7 +169,7 @@ jobs:
               `redirect.github.com`.
           claude_args: |
             --model claude-sonnet-5-5
-            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*)"
+            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*),Bash(helm show:*),Bash(helm template:*)"
 
       - name: Post Review
         if: ${{ hashFiles('.claude-review.md') != '' }}

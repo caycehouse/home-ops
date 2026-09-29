@@ -127,8 +127,7 @@ jobs:
             Write the review to `.claude-review.md` in the current working
             directory; a later workflow step posts it as the PR's review
             comment, replacing any earlier review. Do not post comments
-            yourself. Use this structure and omit
-            empty sections:
+            yourself. Use this structure and omit empty sections:
 
             ```
             **Verdict**: Safe to merge | Needs manual review | Changes required before merge

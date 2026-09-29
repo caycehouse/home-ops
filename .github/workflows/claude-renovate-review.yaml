@@ -47,7 +47,7 @@ jobs:
           client-id: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_CLIENT_ID }}
           private-key: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_PRIVATE_KEY }}
           permission-contents: read
-          permission-pull-requests: write
+          permission-pull-requests: read
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -171,17 +171,29 @@ jobs:
             --model claude-sonnet-5-5
             --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*),Bash(helm show:*),Bash(helm template:*)"
 
+      - name: Generate Comment Token
+        if: ${{ hashFiles('.claude-review.md') != '' }}
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: comment-token
+        with:
+          client-id: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_CLIENT_ID }}
+          private-key: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_PRIVATE_KEY }}
+          permission-pull-requests: write
+
       - name: Post Review
         if: ${{ hashFiles('.claude-review.md') != '' }}
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ steps.comment-token.outputs.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           # Neutralize GitHub autolinks so upstream issues are neither
-          # mislinked to this repository nor sent a backlink.
+          # mislinked to this repository nor sent a backlink. Entities are
+          # decoded first because GitHub autolinks after decoding them.
           perl -pi -e '
-            s{https?://(?:www\.)?github\.com/}{https://redirect.github.com/}g;
-            s{#(?=\d)}{#&#8203;}g;
+            s{&#(?:x([0-9a-f]+)|(\d+));}{my $c = defined $1 ? hex $1 : $2; chr($c) =~ m{[0-9A-Za-z#@./:-]} ? chr($c) : $&}gie;
+            s{&(num|commat|period|sol|colon);}{{num=>"#",commat=>"@",period=>".",sol=>"/",colon=>":"}->{lc $1}}gie;
+            s{(?<![\w.-])(?:(?:https?:)?//)?(?:www\.)?github\.com(?::\d+)?(?=/)}{https://redirect.github.com}gi;
+            s{(?<!&)#(?=\d)}{#&#8203;}g;
             s{\b(GH)-(?=\d)}{$1&#8203;-}gi;
             s{(?<![\w`.-])@(?=[A-Za-z0-9])}{@&#8203;}g;
             s{([\w.-]+/[\w.-]+)@(?=[0-9a-f]{7,40}\b)}{$1@&#8203;}g;

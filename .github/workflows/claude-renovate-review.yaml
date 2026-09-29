@@ -65,7 +65,8 @@ jobs:
             PR NUMBER: ${{ github.event.pull_request.number }}
 
             You review this Renovate dependency update pull request and report
-            problems. You do not change files.
+            problems. You do not change repository files; the only file you
+            write is `.claude-review.md`.
 
             This is a GitOps repository for a Talos Linux Kubernetes cluster
             reconciled by Flux. It holds Kubernetes manifests, Flux
@@ -78,7 +79,7 @@ jobs:
 
             Start with `gh pr view --comments` and `gh pr diff`. If an earlier
             comment from this review already covers the same change (the PR was
-            only rebased), stop without commenting.
+            only rebased), stop without writing the review file.
 
             For every version bump in the diff (container image, chart, Talos,
             Kubernetes, CLI tool, GitHub Action):
@@ -111,8 +112,10 @@ jobs:
 
             ## Report
 
-            Post exactly one top-level comment with `gh pr comment`, using this
-            structure and omitting empty sections:
+            Write the review to `.claude-review.md` in the current working
+            directory; a later workflow step posts it as a single top-level
+            comment. Do not post comments yourself. Use this structure and omit
+            empty sections:
 
             ```
             **Verdict**: Safe to merge | Changes required before merge
@@ -133,13 +136,42 @@ jobs:
             - [URLs]
             ```
 
-            Additionally use `mcp__github_inline_comment__create_inline_comment`
-            (with `confirmed: true`) to anchor a problem to the specific line
-            it concerns.
+            ## Referencing other repositories
 
-            When citing github.com URLs, rewrite the host to
-            `https://redirect.github.com` so the linked issues, PRs and
-            releases do not receive a backlink notification.
+            Your review is posted in ${{ github.repository }}. GitHub
+            autolinks some text patterns, so an upstream issue or PR written
+            the wrong way either links to the wrong issue in this repository
+            or leaves a backlink on the upstream one. Follow these rules in
+            the review, including quoted release-note text and PR titles:
+
+            - Never write `#123`, `GH-123`, `owner/repo#123`, `owner/repo@sha`
+              or an `@username` mention. Rewrite them in prose as
+              `owner/repo PR 123`, `owner/repo issue 123` or `username`, with
+              no `#` or `@`.
+            - Link upstream issues, PRs, commits and releases only as full
+              Markdown links on `https://redirect.github.com`, for example
+              `[sirkirby/unifi-mcp PR 750](https://redirect.github.com/sirkirby/unifi-mcp/pull/750)`.
+              Never use a `https://github.com` URL.
+            - Before finishing, reread the review file and fix any `#` followed
+              by a digit, `@` before a name, or `github.com` host that is not
+              `redirect.github.com`.
           claude_args: |
             --model claude-sonnet-5-5
-            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,mcp__github_inline_comment__create_inline_comment,Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*),Bash(gh release list:*),Bash(gh release view:*)"
+            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*)"
+
+      - name: Post Review
+        if: ${{ hashFiles('.claude-review.md') != '' }}
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Neutralize GitHub autolinks so upstream issues are neither
+          # mislinked to this repository nor sent a backlink.
+          perl -pi -e '
+            s{https?://(?:www\.)?github\.com/}{https://redirect.github.com/}g;
+            s{#(?=\d)}{#&#8203;}g;
+            s{\b(GH)-(?=\d)}{$1&#8203;-}gi;
+            s{(?<![\w`.-])@(?=[A-Za-z0-9])}{@&#8203;}g;
+            s{([\w.-]+/[\w.-]+)@(?=[0-9a-f]{7,40}\b)}{$1@&#8203;}g;
+          ' .claude-review.md
+          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file .claude-review.md

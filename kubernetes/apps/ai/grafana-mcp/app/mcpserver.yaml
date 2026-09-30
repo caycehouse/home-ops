@@ -8,7 +8,7 @@ spec:
   alias: grafana
   transport: http
   workload:
-    image: grafana/mcp-grafana@sha256:e532630f849c7584604525f98df2d4d6037e83fa04756f2a8d4441ef5f72b1cf
+    image: grafana/mcp-grafana@sha256:5ab27e1d27e8bc95af7b92ede16dd3267e9ac0883dd777aecac64aec26f5e8c3
     args:
       [
         "-t",

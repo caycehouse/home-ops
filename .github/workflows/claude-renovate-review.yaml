@@ -97,7 +97,9 @@ jobs:
                Releases (`gh release list`, `gh release view`), CHANGELOG,
                UPGRADING or migration documents, the wrapper's and the inner
                component's changelogs separately, and web search as a last
-               resort. If nothing exists, say so explicitly; never guess or
+               resort. A linked changelog is often an index of versions or
+               files; open each version's own page before concluding it has
+               no notes. If nothing exists, say so explicitly; never guess or
                fabricate.
             3. Read the files in this repository that configure or consume the
                component (HelmRelease values, Kustomizations, ConfigMaps,

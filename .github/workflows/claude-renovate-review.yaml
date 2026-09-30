@@ -124,6 +124,8 @@ jobs:
             investigating with the tools you have. If it is still unresolved,
             use the verdict "Needs manual review" and state exactly what is
             unverified; never answer "Safe to merge" with an open question.
+            A denied tool call or missing release notes is never a reason to
+            stop: continue with what you have and still write the review.
 
             ## Report
 
@@ -174,7 +176,7 @@ jobs:
               `redirect.github.com`.
           claude_args: |
             --model claude-sonnet-5-5
-            --allowedTools "WebFetch,WebSearch,Edit(./.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*),Bash(helm show:*)"
+            --allowedTools "WebFetch,WebSearch,Edit(/${{ github.workspace }}/.claude-review.md),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh release list:*),Bash(gh release view:*),Bash(helm show:*)"
 
       - name: Generate Comment Token
         if: ${{ hashFiles('.claude-review.md') != '' }}

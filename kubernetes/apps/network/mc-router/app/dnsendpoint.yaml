@@ -11,5 +11,5 @@ spec:
       targets:
         - ipv4.housefam.casa
       providerSpecific:
-        - name: external-dns.kubernetes.io/cloudflare-proxied
+        - name: cloudflare/proxied
           value: "false"

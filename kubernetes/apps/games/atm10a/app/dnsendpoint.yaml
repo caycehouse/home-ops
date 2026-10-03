@@ -11,5 +11,5 @@ spec:
       targets:
         - mc-router.thefryer.games
       providerSpecific:
-        - name: external-dns.kubernetes.io/cloudflare-proxied
+        - name: cloudflare/proxied
           value: "false"

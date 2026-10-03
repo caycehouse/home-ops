@@ -27,12 +27,6 @@
       ],
     },
   },
-  lockFileMaintenance: {
-    enabled: true,
-    schedule: ["before 3am on the first day of the month"],
-    commitMessageExtra: "({{manager}})",
-    additionalBranchPrefix: "{{manager}}-",
-  },
   packageRules: [
     // Auto-merge rules
     {

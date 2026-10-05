@@ -46,7 +46,6 @@ spec:
     txtPrefix: k8s.main.%{record_type}-
     domainFilters:
       - housefam.casa
-      - thefryer.games
     serviceMonitor:
       enabled: true
     podAnnotations:

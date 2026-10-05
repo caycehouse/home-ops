@@ -6,10 +6,10 @@ metadata:
   name: atm10a
 spec:
   endpoints:
-    - dnsName: "atm10a.thefryer.games"
+    - dnsName: "atm10a.housefam.casa"
       recordType: CNAME
       targets:
-        - mc-router.thefryer.games
+        - mc-router.housefam.casa
       providerSpecific:
         - name: cloudflare/proxied
           value: "false"

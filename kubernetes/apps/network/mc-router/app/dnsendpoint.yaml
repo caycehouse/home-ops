@@ -6,7 +6,7 @@ metadata:
   name: mc-router
 spec:
   endpoints:
-    - dnsName: "mc-router.thefryer.games"
+    - dnsName: "mc-router.housefam.casa"
       recordType: CNAME
       targets:
         - ipv4.housefam.casa

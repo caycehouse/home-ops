@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/actualbudget/actual
-              tag: 26.9.0-alpine
+              tag: 26.9.0-alpine@sha256:1c14eef351234f4b5dd0433865b5de89d70bdbdc57368d5b07e910662c6498f9
             env:
               ACTUAL_PORT: &port 80
             probes:

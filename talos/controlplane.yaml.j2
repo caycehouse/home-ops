@@ -110,8 +110,7 @@ image: registry.k8s.io/kube-scheduler:v1.37.1
 apiVersion: v1alpha1
 kind: KubeTalosAPIAccessConfig
 allowedRoles:
-  - os:operator
   - os:admin
 allowedKubernetesNamespaces:
-  - flux-system
+  - actions-runner-system
   - system-upgrade

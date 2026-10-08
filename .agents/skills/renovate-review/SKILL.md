@@ -96,20 +96,9 @@ Kubernetes capabilities see flate's bundled version, not the cluster's.
 Within that, take the label values, resource names and ports the exposure
 search depends on from the render rather than from a reading of the
 template, and narrow it with `--show-only <template path>` when the whole
-output is too long.
-
-To see what the bump changes rather than what the new chart produces,
-diff the render against the base branch, which renders both trees:
-
-```
-flate diff hr <name> -n <namespace> --base origin/main --no-progress
-```
-
-The diff names every changed field per resource: renamed resources,
-changed label values, new or removed objects, RBAC and image changes.
-Prefer it over reading two templates side by side. When the base tree is
-not available (a shallow checkout), what the old chart produced is read
-upstream, or from the names this repository already refers to.
+output is too long. Only the head is checked out, so the old chart does
+not render here: what it produced is read upstream, or from the names this
+repository already refers to.
 
 ## Exposure here
 
@@ -142,17 +131,10 @@ empty, is enough.
 - Flux reconciles `kubernetes/` from `main`: a merge rolls out within
   minutes.
 - `.renovaterc.json5` is the source for how Renovate treats this update:
-  its `automerge` rules with `automergeType: "pr"` say whether the PR
-  merges on its own, in which case the review is the last look before the
-  merge (`automergeType: "branch"` updates never open a PR); its
-  `groupName` rules say which PRs move several packages at once, each of
-  which the review covers; its `type/*` label should agree with the title.
-  The shared preset marks a major update with `!`, and also a minor update
-  of a `0.x` version, which can break: a `type/minor` PR with `!` on a
-  `0.x` package is expected, not drift.
-- CurseForge and FTB modpack updates (the `modpack` label) never
-  automerge: updating one rewrites a live world. Weigh mod removals,
-  Minecraft version changes and world-format notes, and say whether the
-  world needs a backup before the merge.
+  its `automerge` rules say whether the PR merges on its own, in which case
+  the review is the last look before the merge; its `groupName` rules say
+  which PRs move several packages at once, each of which the review
+  covers; its labels and the shared preset's `!` on a major update should
+  agree with the title, and drift between them is worth a note.
 - Secrets are ExternalSecrets from 1Password: judge key names and mappings
   from the manifests.

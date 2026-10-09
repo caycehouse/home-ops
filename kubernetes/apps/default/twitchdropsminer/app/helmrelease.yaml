@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/dungfu/twitch-drops-miner
-              tag: latest@sha256:1ff8be29efa8623bde837ef72b426514ec26e394cca4f05b573e95ffdf4d1e7d
+              tag: latest@sha256:853eeb90c13dfbc555d5d47913039d53a23c63228618ca1dc46d94e38c5d8ae7
             env:
               TZ: America/New_York
               WEBUI_PORT: &port 80

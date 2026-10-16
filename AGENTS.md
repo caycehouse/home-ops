@@ -43,7 +43,6 @@ Use these read-only tools automatically when relevant. Do not perform cluster mu
 
 The cluster also hosts MCP servers for its applications and PR workflow — reach for these when the task calls for them (not for cluster investigation):
 
-- `konflate-*` — inspect open Renovate/bot PRs (list, diff, summary); pairs with the `merge-renovate-prs` skill.
 - `ha_mcp-*` — read and control Home Assistant (entities, automations, scripts, dashboards). Treat state changes as mutations: confirm before acting.
 - `actual_mcp-*` — query and modify the Actual Budget ledger (accounts, transactions, budgets). Treat writes as mutations: confirm before acting.
 - `unifi_mcp-*` — read and control the UniFi Network controller (clients, devices, firewall/port rules, events). Treat writes as mutations: confirm before acting.

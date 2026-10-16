@@ -16,5 +16,4 @@ resources:
   - ./flux-operator-mcp/ks.yaml
   - ./grafana-mcp/ks.yaml
   - ./victoria-logs-mcp/ks.yaml
-  - ./konflate-mcp/ks.yaml
   - ./unifi-mcp/ks.yaml

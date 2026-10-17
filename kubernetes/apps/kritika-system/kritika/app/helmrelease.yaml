@@ -11,7 +11,7 @@ spec:
   interval: 1h
   values:
     deploymentAnnotations:
-      reloader.stakater.com/auto: "true"
+      secret.reloader.stakater.com/auto: "true"
     config:
       webUrl: https://{{ .Release.Name }}.housefam.casa
       auth:

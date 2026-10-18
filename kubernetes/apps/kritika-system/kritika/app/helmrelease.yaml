@@ -25,6 +25,9 @@ spec:
       embedding:
         model: openrouter/voyageai/voyage-code-4
         dims: 1024
+        documentPrompt: "Represent the document for retrieval: "
+        queryPrompt: "Represent the query for retrieving supporting documents: "
+        similarFloor: 0.3
       apps:
         github:
           accounts: [caycehouse]
@@ -36,7 +39,6 @@ spec:
         openrouter: { type: openrouter, apiKey: { env: KRITIKA_OPENROUTER_API_KEY } }
       egress:
         allow: ["*"]
-        cache: [github.com]
         deny: [10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, "*.internal"]
       trigger:
         exclude: [{ name: forks, expr: pr.fork }]
@@ -53,13 +55,15 @@ spec:
     gatewayCache:
       enabled: true
     runner:
-      runtimeClass: gvisor
-      resources:
-        requests:
-          cpu: 10m
-          memory: 512Mi
-        limits:
-          memory: 2Gi
+      podTemplate:
+        spec:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 512Mi
+            limits:
+              memory: 2Gi
+          runtimeClassName: gvisor
     httpRoute:
       enabled: true
       annotations:

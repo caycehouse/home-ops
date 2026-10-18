@@ -63,7 +63,7 @@ spec:
               memory: 512Mi
             limits:
               memory: 2Gi
-          runtimeClass: gvisor
+          runtimeClassName: gvisor
     httpRoute:
       enabled: true
       annotations:

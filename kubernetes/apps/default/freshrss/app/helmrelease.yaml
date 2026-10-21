@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/freshrss/freshrss
-              tag: 1.30.2-alpine@sha256:9f74a0e2fec6525df04af8dbcf2185b2a8d2cedcf6e37e7354cac9c23b22eca0
+              tag: 1.30.3-alpine@sha256:490efcf728806dcf1bab8a96965764146c85f06479bf23ffd634814c3aab6ad0
             env:
               CRON_MIN: "*/15"
               LISTEN: &port 80

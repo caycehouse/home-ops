@@ -23,6 +23,8 @@ spec:
               ACTUAL_SERVER_URL: http://actual.default.svc.cluster.local
               MCP_BRIDGE_PORT: &port 80
               MCP_BRIDGE_DATA_DIR: /app/data
+              # Internal-only behind the MCP gateway, matching the other MCP servers.
+              MCP_ALLOW_UNAUTHENTICATED: true
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

@@ -23,10 +23,6 @@ spec:
       kind: Backend
       name: actual
       path: /http
-      securityPolicy:
-        apiKey:
-          secretRef:
-            name: agent-router-mcp-actual-secret
     - group: gateway.envoyproxy.io
       kind: Backend
       name: flux

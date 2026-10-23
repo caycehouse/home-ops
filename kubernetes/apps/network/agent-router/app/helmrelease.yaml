@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: agent-router-crds
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: agent-router-crds
+  interval: 1h
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: agent-router
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: agent-router
+  dependsOn:
+    - name: agent-router-crds
+  interval: 1h
+  values:
+    controller:
+      image:
+        repository: mirror.gcr.io/envoyproxy/ai-gateway-controller
+      mutatingWebhook:
+        # The webhook fails closed on pod creation, so only envoy-internal (the
+        # gateway serving MCPRoutes) depends on this controller being up.
+        objectSelector:
+          matchLabels:
+            app.kubernetes.io/managed-by: envoy-gateway
+            gateway.envoyproxy.io/owning-gateway-name: envoy-internal
+    extProc:
+      image:
+        repository: mirror.gcr.io/envoyproxy/ai-gateway-extproc
+    envoyGateway:
+      namespace: network

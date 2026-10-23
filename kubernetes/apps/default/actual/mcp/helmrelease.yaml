@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: actual-mcp
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: actual-mcp
+  interval: 1h
+  values:
+    controllers:
+      actual-mcp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/agigante80/actual-mcp-server
+              tag: 0.24.0@sha256:903a3e89c9803607f5cb1bc7ccf88ce115ba546f75ec6af53450beae31c7fec0
+            env:
+              ACTUAL_SERVER_URL: http://actual.default.svc.cluster.local
+              MCP_BRIDGE_PORT: &port 80
+              MCP_BRIDGE_DATA_DIR: /app/data
+              # Internal-only behind the MCP gateway, matching the other MCP servers.
+              MCP_ALLOW_UNAUTHENTICATED: true
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    persistence:
+      tmp:
+        type: emptyDir
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /app/data

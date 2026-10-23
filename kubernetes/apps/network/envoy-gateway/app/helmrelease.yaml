@@ -14,6 +14,28 @@ spec:
       imageRegistry: mirror.gcr.io
     config:
       envoyGateway:
+        extensionApis:
+          enableBackend: true
+        extensionManager:
+          hooks:
+            xdsTranslator:
+              translation:
+                listener:
+                  includeAll: true
+                route:
+                  includeAll: true
+                cluster:
+                  includeAll: true
+                secret:
+                  includeAll: true
+              post:
+                - Translation
+                - Cluster
+                - Route
+          service:
+            fqdn:
+              hostname: ai-gateway-controller.network.svc.cluster.local
+              port: 1063
         provider:
           kubernetes:
             deploy:

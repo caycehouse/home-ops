@@ -1,0 +1,66 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: actual
+spec:
+  endpoints:
+    - fqdn:
+        hostname: actual-mcp.default.svc.cluster.local
+        port: 80
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: flux
+spec:
+  endpoints:
+    - fqdn:
+        hostname: flux-operator-mcp.flux-system.svc.cluster.local
+        port: 9090
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: grafana
+spec:
+  endpoints:
+    - fqdn:
+        hostname: grafana-mcp.o11y.svc.cluster.local
+        port: 80
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: home-assistant
+spec:
+  endpoints:
+    - fqdn:
+        hostname: home-assistant-mcp.default.svc.cluster.local
+        port: 80
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: unifi
+spec:
+  endpoints:
+    - fqdn:
+        hostname: unifi-mcp.network.svc.cluster.local
+        port: 80
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: victoria-logs
+spec:
+  endpoints:
+    - fqdn:
+        hostname: victoria-logs-mcp.o11y.svc.cluster.local
+        port: 80

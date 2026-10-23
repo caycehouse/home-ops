@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: &name actual-mcp
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+  ingress:
+    # Only the MCP gateway; host covers kubelet probes.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: network
+            gateway.envoyproxy.io/owning-gateway-name: envoy-internal
+    - fromEntities:
+        - host

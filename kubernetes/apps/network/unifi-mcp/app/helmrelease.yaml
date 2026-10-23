@@ -1,0 +1,72 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: unifi-mcp
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: unifi-mcp
+  interval: 1h
+  values:
+    controllers:
+      unifi-mcp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/sirkirby/unifi-network-mcp
+              tag: 0.39.3@sha256:46dd60f81049480fdd0238df6bdd8846f9263f5f7f95bbbdd86cc71989428314
+            env:
+              TZ: America/New_York
+              HOME: /tmp
+              UNIFI_HOST: 192.168.1.1
+              UNIFI_PORT: 443
+              UNIFI_VERIFY_SSL: false
+              UNIFI_MCP_HTTP_ENABLED: true
+              UNIFI_MCP_HTTP_TRANSPORT: streamable-http
+              UNIFI_MCP_HOST: 0.0.0.0
+              UNIFI_MCP_PORT: &port 80
+              # In-cluster east-west traffic only; the MCP gateway reaches this over
+              # the service DNS name, which the default host allowlist would reject.
+              UNIFI_MCP_ENABLE_DNS_REBINDING_PROTECTION: false
+              LOG_FORMAT: json
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    persistence:
+      tmp:
+        type: emptyDir

@@ -1,0 +1,2 @@
+[mcp_servers.memini.http_headers]
+X-Memini-Namespace = "caycehouse/home-ops"

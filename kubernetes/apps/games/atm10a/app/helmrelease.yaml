@@ -98,8 +98,7 @@ spec:
     envFrom:
       - secretRef:
           name: *secret
-    extraPodSpec:
-      terminationGracePeriodSeconds: "300"
+    terminationGracePeriodSeconds: 300
     resources:
       requests:
         cpu: 2000m

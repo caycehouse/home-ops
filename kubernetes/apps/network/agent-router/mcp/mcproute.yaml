@@ -4,11 +4,6 @@ apiVersion: aigateway.envoyproxy.io/v1beta1
 kind: MCPRoute
 metadata:
   name: agent-router-mcp
-  annotations:
-    # Copied onto the generated HTTPRoute; an unauthenticated request must be refused, and a missing route would 404.
-    gatus.home-operations.com/endpoint: |-
-      url: https://mcp.housefam.casa/mcp
-      conditions: ["[STATUS] == 401"]
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io

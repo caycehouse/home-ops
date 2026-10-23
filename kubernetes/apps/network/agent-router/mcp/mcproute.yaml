@@ -5,10 +5,10 @@ kind: MCPRoute
 metadata:
   name: agent-router-mcp
   annotations:
-    # Copied onto the generated HTTPRoute; a bare GET on an MCP endpoint is never a 200.
+    # Copied onto the generated HTTPRoute; an unauthenticated request must be refused, and a missing route would 404.
     gatus.home-operations.com/endpoint: |-
       url: https://mcp.housefam.casa/mcp
-      conditions: ["[STATUS] < 500"]
+      conditions: ["[STATUS] == 401"]
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io
@@ -18,6 +18,13 @@ spec:
   hostnames:
     - mcp.housefam.casa
   path: /mcp
+  securityPolicy:
+    apiKeyAuth:
+      credentialRefs:
+        - name: agent-router-mcp-secret
+      extractFrom:
+        - headers:
+            - authorization
   backendRefs:
     - group: gateway.envoyproxy.io
       kind: Backend

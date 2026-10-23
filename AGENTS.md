@@ -47,7 +47,7 @@ The cluster also hosts MCP servers for its applications and PR workflow — reac
 - `actual__*` — query and modify the Actual Budget ledger (accounts, transactions, budgets). Treat writes as mutations: confirm before acting.
 - `unifi__*` — read and control the UniFi Network controller (clients, devices, firewall/port rules, events). Treat writes as mutations: confirm before acting.
 
-Each MCP server lives next to the app it serves (for example `kubernetes/apps/default/home-assistant/mcp/`). They are aggregated by the Agent Router `MCPRoute` in `kubernetes/apps/network/agent-router/mcp/` at `https://mcp.housefam.casa/mcp` (internal-only, no client auth); each tool's prefix is its `Backend` name. The Agent Router controller itself is installed from `kubernetes/apps/network/agent-router/app/` and hooks into Envoy Gateway as an extension.
+Each MCP server lives next to the app it serves (for example `kubernetes/apps/default/home-assistant/mcp/`). They are aggregated by the Agent Router `MCPRoute` in `kubernetes/apps/network/agent-router/mcp/` at `https://mcp.housefam.casa/mcp` (internal-only; clients send the shared key from the `mcp-gateway` 1Password item as `Authorization: Bearer <key>`); each tool's prefix is its `Backend` name. The write-capable servers (Home Assistant, Actual, UniFi) accept traffic only from the `envoy-internal` pods. The Agent Router controller itself is installed from `kubernetes/apps/network/agent-router/app/` and hooks into Envoy Gateway as an extension.
 
 ## Architecture
 

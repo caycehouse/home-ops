@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/aigateway.envoyproxy.io/mcproute_v1beta1.json
+apiVersion: aigateway.envoyproxy.io/v1beta1
+kind: MCPRoute
+metadata:
+  name: agent-router-mcp
+  annotations:
+    # Copied onto the generated HTTPRoute; a bare GET on an MCP endpoint is never a 200.
+    gatus.home-operations.com/endpoint: |-
+      url: https://mcp.housefam.casa/mcp
+      conditions: ["[STATUS] < 500"]
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
+      sectionName: https
+  hostnames:
+    - mcp.housefam.casa
+  path: /mcp
+  backendRefs:
+    - group: gateway.envoyproxy.io
+      kind: Backend
+      name: actual
+      path: /http
+      securityPolicy:
+        apiKey:
+          secretRef:
+            name: agent-router-mcp-actual-secret
+    - group: gateway.envoyproxy.io
+      kind: Backend
+      name: flux
+    - group: gateway.envoyproxy.io
+      kind: Backend
+      name: grafana
+    - group: gateway.envoyproxy.io
+      kind: Backend
+      name: home-assistant
+    - group: gateway.envoyproxy.io
+      kind: Backend
+      name: unifi
+    - group: gateway.envoyproxy.io
+      kind: Backend
+      name: victoria-logs

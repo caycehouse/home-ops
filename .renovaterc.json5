@@ -120,6 +120,11 @@
       changelogUrl: "https://github.com/fireph/docker-twitch-drops-miner/commits/main",
     },
     {
+      description: "Point Agent Router at its upstream changelog",
+      matchPackageNames: ["/ai-gateway-crds-helm$/", "/ai-gateway-helm$/"],
+      sourceUrl: "https://github.com/theagentrouter/agent-router",
+    },
+    {
       description: "Point Envoy at its upstream changelog",
       matchPackageNames: ["/envoyproxy\\/envoy$/"],
       sourceUrl: "https://github.com/envoyproxy/envoy",
@@ -147,6 +152,16 @@
       sourceUrl: "https://github.com/sirkirby/unifi-mcp",
     },
     // Grouping rules
+    {
+      description: "Agent Router Group",
+      groupName: "agent-router",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/ai-gateway-crds-helm$/", "/ai-gateway-helm$/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
     {
       description: "Flux Operator Group",
       groupName: "flux-operator",

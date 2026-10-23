@@ -9,6 +9,7 @@ components:
 
 resources:
   - ./namespace.yaml
+  - ./agent-router/ks.yaml
   - ./certificates/ks.yaml
   - ./cloudflare-dns/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
@@ -17,3 +18,4 @@ resources:
   - ./envoy-gateway/ks.yaml
   - ./mc-router/ks.yaml
   - ./unifi-dns/ks.yaml
+  - ./unifi-mcp/ks.yaml

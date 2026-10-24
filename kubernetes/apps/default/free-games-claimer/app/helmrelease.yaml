@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/feldorn/free-games-claimer
-              tag: 2.12.13@sha256:ebee723f6e7c23291361b146d8954427b93c55928084b42bbcb968d8bc514872
+              tag: 2.12.15@sha256:b2346ec3da3d32473523f89c6117cae55bd73b2215a34a5707a9cd4cf2398c24
             env:
               LOOP: "86400"
               NOVNC_PORT: &novncPort 6080

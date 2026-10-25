@@ -31,7 +31,6 @@ spec:
         # gateway serving MCPRoutes) depends on this controller being up.
         objectSelector:
           matchLabels:
-            app.kubernetes.io/managed-by: envoy-gateway
             gateway.envoyproxy.io/owning-gateway-name: envoy-internal
     extProc:
       image:

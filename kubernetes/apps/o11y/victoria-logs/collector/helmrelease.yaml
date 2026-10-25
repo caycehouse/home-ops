@@ -10,7 +10,6 @@ spec:
     name: victoria-logs-collector
   interval: 1h
   values:
-    fullnameOverride: victoria-logs-collector
     global:
       image:
         registry: quay.io

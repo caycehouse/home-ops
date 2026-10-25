@@ -49,14 +49,12 @@ spec:
                   httpGet:
                     path: /api/health
                     port: *port
-                  periodSeconds: 10
                   timeoutSeconds: 5
                   failureThreshold: 5
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
-                  periodSeconds: 10
             resources:
               requests:
                 cpu: 100m
@@ -64,7 +62,6 @@ spec:
                 memory: 2Gi
     service:
       app:
-        primary: true
         ports:
           http:
             port: *port
@@ -82,7 +79,6 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
       novnc:
         hostnames:
           - fgc-vnc.housefam.casa
@@ -92,7 +88,6 @@ spec:
         rules:
           - backendRefs:
               - identifier: novnc
-                port: *novncPort
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

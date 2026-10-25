@@ -41,10 +41,8 @@ spec:
             namespace: network
         rules:
           - backendRefs:
-              - identifier: main
-                port: ui
+              - port: ui
       mcp:
-        enabled: true
         hostnames:
           - "{{ .Release.Name }}.housefam.casa"
         parentRefs:
@@ -52,14 +50,11 @@ spec:
             namespace: network
         rules:
           - backendRefs:
-              - identifier: main
-                port: http
+              - port: http
             matches:
               - path:
-                  type: PathPrefix
                   value: /mcp
               - path:
-                  type: PathPrefix
                   value: /v1
     serviceMonitor:
       main:

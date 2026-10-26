@@ -32,7 +32,6 @@ spec:
       # chart only templates failureThreshold/periodSeconds here
       enabled: true
       failureThreshold: 90
-      periodSeconds: 10
     serviceAnnotations:
       external-dns.kubernetes.io/hostname: &hostname atm10a.housefam.casa
       external-dns.kubernetes.io/target: mc-router.housefam.casa
@@ -106,7 +105,6 @@ spec:
       limits:
         memory: *mem
     podSecurityContext:
-      runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch

@@ -49,4 +49,3 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: kritika-system
-  wait: false

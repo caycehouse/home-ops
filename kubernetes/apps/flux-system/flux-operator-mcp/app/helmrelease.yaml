@@ -10,7 +10,6 @@ spec:
     name: flux-operator-mcp
   interval: 1h
   values:
-    transport: http
     readonly: true
     networkPolicy:
       ingress:
@@ -19,10 +18,6 @@ spec:
       create: false
     serviceAccount:
       create: false
-      name: flux-operator-mcp
     resources:
-      requests:
-        cpu: 10m
-        memory: 64Mi
       limits:
         memory: 256Mi

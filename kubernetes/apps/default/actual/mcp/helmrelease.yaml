@@ -18,13 +18,14 @@ spec:
           app:
             image:
               repository: ghcr.io/agigante80/actual-mcp-server
-              tag: 0.24.15@sha256:d24bf2f1aec81b63ba309fc6f967c1fc7c4abf4ad77390fce347ba6d85174f9b
+              tag: 0.25.1@sha256:746fea306ef93743bbed0df62cb4c043de28bd2df638cab206163e905de291d0
             env:
               ACTUAL_SERVER_URL: http://actual.default.svc.cluster.local
               MCP_BRIDGE_PORT: &port 80
               MCP_BRIDGE_DATA_DIR: /app/data
               # Internal-only behind the MCP gateway, matching the other MCP servers.
               MCP_ALLOW_UNAUTHENTICATED: true
+              MCP_ALLOWED_HOSTS: actual-mcp.default.svc.cluster.local
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

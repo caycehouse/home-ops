@@ -25,6 +25,7 @@ spec:
               MCP_BRIDGE_DATA_DIR: /app/data
               # Internal-only behind the MCP gateway, matching the other MCP servers.
               MCP_ALLOW_UNAUTHENTICATED: true
+              MCP_ALLOWED_HOSTS: actual-mcp.default.svc.cluster.local
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

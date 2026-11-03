@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/agigante80/actual-mcp-server
-              tag: 0.25.1@sha256:746fea306ef93743bbed0df62cb4c043de28bd2df638cab206163e905de291d0
+              tag: 0.26.0@sha256:795a4f1a50f1a8226ca128e7fafefdce308ca6c0cc6fe555607feee7fbce8fde
             env:
               ACTUAL_SERVER_URL: http://actual.default.svc.cluster.local
               MCP_BRIDGE_PORT: &port 80

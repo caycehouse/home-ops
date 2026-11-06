@@ -51,7 +51,7 @@ metadata:
 spec:
   endpoints:
     - fqdn:
-        hostname: unifi-mcp.network.svc.cluster.local
+        hostname: unifi-mcp.default.svc.cluster.local
         port: 80
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backend_v1alpha1.json

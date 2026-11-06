@@ -17,3 +17,4 @@ resources:
   - ./home-assistant/ks.yaml
   - ./memini/ks.yaml
   - ./twitchdropsminer/ks.yaml
+  - ./unifi-mcp/ks.yaml

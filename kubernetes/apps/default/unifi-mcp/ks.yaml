@@ -6,10 +6,10 @@ metadata:
   name: unifi-mcp
 spec:
   interval: 1h
-  path: ./kubernetes/apps/network/unifi-mcp/app
+  path: ./kubernetes/apps/default/unifi-mcp/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: network
+  targetNamespace: default

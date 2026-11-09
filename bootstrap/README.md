@@ -4,7 +4,7 @@ Everything needed to take freshly installed Talos nodes to a cluster that Flux
 manages on its own. The entire process is driven by a single command:
 
 ```sh
-just bootstrap cluster
+mise run //bootstrap:cluster
 ```
 
 Once it completes, Flux reconciles the rest of the repository and this
@@ -12,14 +12,13 @@ directory is not used again until the next rebuild.
 
 ## Prerequisites
 
-- Tools pinned in `.mise/config.toml` installed via `mise install` (talosctl,
-  just, minijinja-cli, op, yq, jq), plus kubectl, helm, helmfile, kustomize and
-  gum on the PATH (not pinned here).
+- mise, talosctl, minijinja-cli, op, yq, jq, kubectl, helm, helmfile, kustomize and
+  gum on the PATH.
 - A signed-in 1Password CLI (`op`). Machine secrets never live in this repo; every
   `op://` reference in the Talos configs and bootstrap manifests is resolved
   at apply time with `op inject`.
 - A valid `talosconfig` at the repo root (mise points `TALOSCONFIG` there).
-  The justfile derives the controller endpoint and node list from
+  The bootstrap tasks derive the controller endpoint and node list from
   `talosctl config info`, so nothing is hardcoded here.
 - The UDM configuration below. `k8s.internal` points at the Cilium
   LoadBalancer VIP, which exists only once Cilium is installed, so bootstrap
@@ -101,11 +100,11 @@ No custom UDM boot scripts or kernel settings are required for this setup.
 
 ## Stages
 
-`just bootstrap cluster` runs these stages in order (see [mod.just](mod.just)):
+`mise run //bootstrap:cluster` runs these stages in order (see [mise.toml](mise.toml)):
 
 ```mermaid
 graph LR
-    nodes --> k8s --> kubeconfig_node["kubeconfig (node IP)"] --> base --> apps --> kubeconfig_vip["kubeconfig (Cilium VIP)"]
+    nodes --> k8s --> kubeconfig --> base --> apps
 ```
 
 1. **nodes** - Renders each node's Talos config (`talos/*.j2` templates plus
@@ -116,7 +115,8 @@ graph LR
 3. **kubeconfig** - Fetches the kubeconfig with `talosctl kubeconfig`, then
    rewrites the server address to the controller's node IP: the generated
    `https://k8s.internal:6443` points at the Cilium VIP, which does not
-   exist yet.
+   exist yet. The final stage re-fetches the kubeconfig so the endpoint
+   returns to `k8s.internal` once Cilium is serving it.
 4. **base** - Waits for every control plane apiserver to answer `/readyz`
    and for nodes to register (they stay `Ready=False` until the CNI is
    installed), then applies:
@@ -138,12 +138,9 @@ graph LR
     Once `flux-instance` is healthy, Flux reconciles `kubernetes/` and manages
     these same releases from then on.
 
-6. **kubeconfig** - Re-fetches the kubeconfig so its endpoint returns to
-   `https://k8s.internal:6443` once Cilium is serving the VIP.
-
 > [!TIP]
 > Every stage is safe to re-run. If bootstrap fails partway, fix the issue
-> and run `just bootstrap cluster` again.
+> and run `mise run //bootstrap:cluster` again.
 
 ## Data restore (Kopiur)
 
@@ -160,7 +157,7 @@ passive volume-populator source: when Flux applies the app on a fresh
 cluster, the PVC is provisioned by restoring the latest snapshot for the
 app's SnapshotPolicy from the repository. The PVC stays unbound while the
 restore mover Job runs, so the app's pod simply stays `Pending` until the
-data is back; no restore-specific ordering is needed.
+data is back; no ordering logic needed anywhere.
 
 Because the `Restore`s use `onMissingSnapshot: Continue`, an app with no
 snapshot yet (a brand-new app, or a deliberately fresh start) comes up with

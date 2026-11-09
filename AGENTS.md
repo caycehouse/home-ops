@@ -8,28 +8,26 @@ A GitOps mono-repo for a home Kubernetes cluster running on [Talos](https://talo
 
 ## Tooling & commands
 
-Tasks are run through [`just`](https://github.com/casey/just) with [`mise`](https://mise.jdx.dev) managing the toolchain and environment. `mise` exports `KUBECONFIG`, `TALOSCONFIG`, and `FLATE_PATH` (see `.mise/config.toml`), so always run commands through `mise`/`just` rather than invoking `kubectl`/`talosctl`/`flate` with ad-hoc env. Recipes live in `*/mod.just` modules wired up from the root `.justfile`.
+Tasks are run through [`mise`](https://mise.jdx.dev), which also manages the toolchain and environment. `mise` exports `KUBECONFIG`, `TALOSCONFIG`, and `FLATE_PATH` (see `.mise/config.toml`), so always run commands through `mise` rather than invoking `kubectl`/`talosctl`/`flate` with ad-hoc env. Tasks live in the `bootstrap/`, `kubernetes/`, and `talos/` `mise.toml` files, wired up as monorepo config roots from `.mise/config.toml`.
 
 ```sh
-just --list                      # all recipe groups (kube, talos, bootstrap)
-just --list kube                 # cluster operational recipes
-just --list talos                # node lifecycle recipes
+mise tasks ls --all    # all tasks (root, bootstrap, kubernetes, talos)
 ```
 
-Common cluster operations (`just kube …`):
+Common cluster operations (`mise run //kubernetes:…`):
 
 - `sync hr|ks|gitrepo|ocirepo|es` — force-reconcile all resources of a Flux kind
 - `apply-ks <ns> <ks>` / `delete-ks <ns> <ks>` — render a Flux Kustomization locally (via `flate build ks`) and apply/delete it
 - `browse-pvc <ns> <claim>`, `view-secret <ns> <secret>`, `debug-node <node>`, `prune-pods`
 
-Talos / bootstrap (destructive recipes prompt for confirmation):
+Talos / bootstrap (destructive tasks prompt for confirmation):
 
-- `just talos apply-node <node>`, `upgrade-node <node>`, `upgrade-k8s <version>`, `reboot-node`, `reset-node`
-- `just bootstrap cluster` — full Talos + Kubernetes bring-up from scratch
+- `mise run //talos:apply-node <node>`, `upgrade-node <node>`, `upgrade-k8s <version>`, `reboot-node`, `reset-node`
+- `mise run //bootstrap:cluster` — full Talos + Kubernetes bring-up from scratch
 
 ### Validation
 
-There is no test suite. Validation = "does Flux render and accept it." Pre-commit hooks come from a remote `lefthook` config (`.lefthook.toml` → home-operations/.github). To check a change locally, render the affected Flux Kustomization with `flate build ks <path>` (what `just kube render-local-ks` does) and confirm it produces clean YAML before pushing. For Helm chart changes, `helm template` against the pinned chart version is the fastest sanity check.
+There is no test suite. Validation = "does Flux render and accept it." Pre-commit hooks come from a remote `lefthook` config (`.lefthook.toml` → home-operations/.github). To check a change locally, render the affected Flux Kustomization with `flate build ks <path>` (what `mise run //kubernetes:render-local-ks` does) and confirm it produces clean YAML before pushing. For Helm chart changes, `helm template` against the pinned chart version is the fastest sanity check.
 
 ### Live-system investigation
 
@@ -51,9 +49,9 @@ Each MCP server lives next to the app it serves (for example `kubernetes/apps/de
 
 ## Architecture
 
-### Flux reconciliation flow
+### App layout
 
-`kubernetes/flux/cluster/ks.yaml` is the root Kustomization. It points Flux at `./kubernetes/apps` and recursively applies the top-level `kustomization.yaml` in each directory. It also injects cluster-wide defaults via a `patches` block (HelmRelease install/upgrade/rollback behavior, remediation/retries) — individual apps do **not** repeat these.
+The root Kustomization `kubernetes/flux/cluster/ks.yaml` injects cluster-wide HelmRelease defaults (install/upgrade/rollback behavior, remediation/retries) via `patches`; individual apps do **not** repeat these.
 
 The directory hierarchy is a strict three-level pattern:
 
@@ -73,10 +71,6 @@ kubernetes/apps/<namespace>/
 - The per-namespace `kustomization.yaml` sets the `namespace:` and lists each app's `./<app>/ks.yaml`. Adding an app = create the `<app>/` tree **and** register `./<app>/ks.yaml` here.
 - Each app's `ks.yaml` is a Flux `Kustomization` (not a kustomize one). It declares `dependsOn` (only when another Kustomization must land first, e.g. for its CRDs like `cloudflare-dns` providing `DNSEndpoint`), `targetNamespace`, optional `components`, and `postBuild.substitute` (commonly `APP: <name>`, consumed by shared components).
 
-### Charts & images
-
-Most apps use the bjw-s [`app-template`](https://github.com/bjw-s-labs/helm-charts) chart, referenced as an `OCIRepository` whose `chartRef` the `HelmRelease` consumes. Image and chart versions are pinned (tag + digest) and bumped by Renovate (`.renovaterc.json5`) — auto-merge is configured for trusted/home-operations OCI digests and GitHub Actions.
-
 ### Reusable components (`kubernetes/components/`)
 
 Kustomize Components included by apps via `components:` in their `ks.yaml` (or the namespace `kustomization.yaml`):
@@ -93,5 +87,6 @@ Secrets are never in-repo. `ExternalSecret` resources pull from **1Password Conn
 - YAML files start with a `# yaml-language-server: $schema=…` line; keep it and use the home-operations schema host for Flux/CRD kinds.
 - When renaming or moving an app, rename **every** resource (`ks.yaml` name, HelmRelease, OCIRepository, ExternalSecret target, generated ConfigMap, PrometheusRule) and update the namespace `kustomization.yaml` reference — names cascade because release name drives resource names.
 - Prefer `git mv` for renames to preserve history.
+- Most apps use the bjw-s `app-template` chart. Pin image and chart versions (tag + digest); Renovate bumps them.
 - Reloader: pod-roll-on-config-change is opt-in via the workload annotation `reloader.stakater.com/auto: "true"`.
-- Talos node config is composed from `talos/cluster.yaml.j2` + `talos/<role>.yaml.j2` + `talos/nodes/<role>/<node>.yaml.j2` (role comes from the node file's directory), each rendered through `minijinja-cli | op inject` (the root `just template` recipe) and merged with `talosctl machineconfig patch`. See `talos/README.md`.
+- Talos node config is composed from `talos/cluster.yaml.j2` + `talos/<role>.yaml.j2` + `talos/nodes/<role>/<node>.yaml.j2` (role comes from the node file's directory), each rendered through `minijinja-cli | op inject` (the root `//:template` task) and merged with `talosctl machineconfig patch`. See `talos/README.md`.

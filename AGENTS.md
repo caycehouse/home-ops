@@ -69,7 +69,7 @@ kubernetes/apps/<namespace>/
 ```
 
 - The per-namespace `kustomization.yaml` sets the `namespace:` and lists each app's `./<app>/ks.yaml`. Adding an app = create the `<app>/` tree **and** register `./<app>/ks.yaml` here.
-- Each app's `ks.yaml` is a Flux `Kustomization` (not a kustomize one). It declares `dependsOn` (only when another Kustomization must land first, e.g. for its CRDs like `cloudflare-dns` providing `DNSEndpoint`), `targetNamespace`, optional `components`, and `postBuild.substitute` (commonly `APP: <name>`, consumed by shared components).
+- Each app's `ks.yaml` is a Flux `Kustomization` (not a kustomize one). It declares `dependsOn` (only when its manifests need CRDs or resources that bootstrap doesn't preinstall, like `cloudflare-dns` providing `DNSEndpoint`, or an always-running pod needs something to start; not for prerequisites of on-demand job pods), `targetNamespace`, optional `components`, and `postBuild.substitute` (commonly `APP: <name>`, consumed by shared components).
 
 ### Reusable components (`kubernetes/components/`)
 

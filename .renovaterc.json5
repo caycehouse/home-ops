@@ -121,11 +121,6 @@
       sourceUrl: "https://github.com/actualbudget/actual",
     },
     {
-      description: "Point Atuin at its upstream changelog",
-      matchPackageNames: ["/atuin/"],
-      changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md",
-    },
-    {
       description: "Point TwitchDropsMiner at its upstream changelog",
       matchPackageNames: ["/twitch-drops-miner/"],
       changelogUrl: "https://github.com/fireph/docker-twitch-drops-miner/commits/main",
@@ -161,6 +156,44 @@
       matchPackageNames: ["/unifi-network-mcp/"],
       changelogUrl: "https://github.com/sirkirby/unifi-mcp/releases/tag/network/v{{newVersion}}",
       sourceUrl: "https://github.com/sirkirby/unifi-mcp",
+    },
+    {
+      description: "Point Prometheus Blackbox Exporter chart at its upstream changelog",
+      matchPackageNames: ["/prometheus-community\\/charts\\/prometheus-blackbox-exporter$/"],
+      changelogUrl: "https://github.com/prometheus-community/helm-charts/releases/tag/prometheus-blackbox-exporter-{{newVersion}}",
+      sourceUrl: "https://github.com/prometheus-community/helm-charts",
+    },
+    {
+      description: "Point Prometheus Smartctl Exporter chart at its upstream changelog",
+      matchPackageNames: ["/prometheus-community\\/charts\\/prometheus-smartctl-exporter$/"],
+      changelogUrl: "https://github.com/prometheus-community/helm-charts/releases/tag/prometheus-smartctl-exporter-{{newVersion}}",
+      sourceUrl: "https://github.com/prometheus-community/helm-charts",
+    },
+    {
+      description: "Point Reloader at its upstream changelog",
+      matchPackageNames: ["/stakater\\/charts\\/reloader$/"],
+      changelogUrl: "https://github.com/stakater/Reloader/releases/tag/chart-v{{newVersion}}",
+    },
+    {
+      description: "Point CoreDNS chart at its upstream changelog",
+      matchPackageNames: ["/coredns\\/charts\\/coredns$/"],
+      changelogUrl: "https://github.com/coredns/helm/releases/tag/coredns-{{newVersion}}",
+    },
+    {
+      description: "Point Multus chart at its upstream changelog",
+      matchPackageNames: ["/home-operations\\/charts\\/multus$/"],
+      changelogUrl: "https://github.com/home-operations/helm-charts/releases/tag/multus-{{newVersion}}",
+    },
+    {
+      description: "Point Snapshot Controller chart at its upstream changelog",
+      matchPackageNames: ["/home-operations\\/charts\\/snapshot-controller$/"],
+      changelogUrl: "https://github.com/home-operations/helm-charts/releases/tag/snapshot-controller-{{newVersion}}",
+    },
+    {
+      description: "Point CloudNativePG PostgreSQL at its upstream changelog",
+      matchPackageNames: ["/cloudnative-pg\\/postgresql$/"],
+      changelogUrl: "https://www.postgresql.org/docs/release/{{newMajor}}.{{newMinor}}/",
+      sourceUrl: "https://github.com/cloudnative-pg/postgres-containers",
     },
     // Grouping rules
     {

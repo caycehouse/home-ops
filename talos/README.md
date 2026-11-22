@@ -11,7 +11,7 @@ rendered on demand and pushed to nodes with `talosctl`.
 | `cluster.yaml.j2`                       | Documents applied to every node                                           |
 | `controlplane.yaml.j2`                  | Control-plane-only documents, including `machine.type`                    |
 | `workers.yaml.j2`                       | Worker-only documents (does not exist yet; created with the first worker) |
-| `nodes/<role>/<node>.yaml.j2`           | Per-node documents (hostname and node-specific labels)                    |
+| `nodes/<role>/<node>.yaml.j2`           | Per-node documents (hostname, zone)                                       |
 | `nodes/<role>/<node>.schematic.yaml.j2` | Optional per-node schematic override                                      |
 | `schematic.yaml.j2`                     | Shared [Image Factory](https://factory.talos.dev) schematic               |
 | `mise.toml`                             | Tasks (`mise run //talos:...`)                                            |
@@ -27,9 +27,8 @@ talosctl machineconfig patch <(cluster.yaml.j2) \
 ```
 
 Each layer passes through `minijinja-cli` (strict Jinja templating; the schematic ID arrives as a
-`-D` define) and `op inject` (1Password secret resolution) before `talosctl` merges them. Later
-patches are strategically merged according to Talos's configuration patch rules; documents that
-do not exist in the earlier layers are appended.
+`-D` define) and `op inject` (1Password secret resolution) before `talosctl` merges them. Later patches strategically merge into
+earlier ones: documents with the same kind/name are deep-merged, new documents are appended.
 
 Two conventions keep the layers honest:
 
@@ -53,10 +52,6 @@ whose hardware diverges from the fleet. No overrides exist today.
 
 - `machine.ca` and `cluster.ca` merge as a cert+key **unit**: a patch supplying only `key` blanks
   `crt`. This is why `controlplane.yaml.j2` repeats the `crt` references alongside the keys.
-- `KubeAPIServerConfig` suppresses Talos's implicit authn/authz defaults: with that document
-  present, the `KubeAuthorizerConfig` (`node`/`Node`, `rbac`/`RBAC`, in that order) and
-  `KubeAuthenticationConfig` documents are mandatory. Neither `talosctl validate` nor
-  `apply-config --dry-run` catches their absence; kube-apiserver crash-loops on restart instead.
 - Rendering a worker before `workers.yaml.j2` and `nodes/workers/` exist fails loudly. Adding the
   first worker means creating `workers.yaml.j2` (with `machine: { type: worker }` and a `ca` block
   carrying `crt` only) plus `nodes/workers/<node>.yaml.j2`.

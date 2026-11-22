@@ -5,6 +5,7 @@ kind: Cluster
 metadata:
   name: kritika-postgres
 spec:
+  enablePDB: false
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ImageCatalog

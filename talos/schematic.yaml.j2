@@ -1,5 +1,10 @@
 ---
 customization:
+  extraKernelArgs:
+    - -selinux # Disable SELinux (removes the default selinux=1)
+    - audit=0 # Disable kernel audit
+    - selinux=0 # Disable SELinux
+    - talos.auditd.disabled=1 # Disable Talos auditd (pair with audit=0)
   systemExtensions:
     officialExtensions:
       - siderolabs/gvisor # Sandboxed containers

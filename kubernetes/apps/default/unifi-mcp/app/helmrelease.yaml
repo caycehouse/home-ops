@@ -26,6 +26,7 @@ spec:
               UNIFI_MCP_HOST: 0.0.0.0
               UNIFI_MCP_HTTP_ENABLED: true
               UNIFI_MCP_PORT: &port 80
+              UNIFI_NETWORK_WEBSOCKET_ENABLED: false
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

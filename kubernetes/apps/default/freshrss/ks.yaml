@@ -15,7 +15,7 @@ spec:
       KOPIUR_PGID: "82"
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: freshrss
     namespace: flux-system
   targetNamespace: default

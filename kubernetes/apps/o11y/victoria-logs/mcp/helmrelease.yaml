@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/victoriametrics/mcp-victorialogs
-              tag: v1.9.0@sha256:af6afb6e36f3678e9d5096d155372a33b8c3e45e9a5de756129c6e5628dbff9d
+              tag: v1.10.0@sha256:20e156e78ae9c59ec7edfcc2600d78d4ab938b75b3f2ebb726a947ddbc3ad5e3
             env:
               VL_INSTANCE_ENTRYPOINT: http://victoria-logs.o11y.svc.cluster.local:9428
               MCP_SERVER_MODE: http

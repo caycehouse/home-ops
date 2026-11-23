@@ -17,3 +17,12 @@ spec:
       kind: Restore
       expr: |-
         !(status.phase in ['Resolving', 'Restoring'])
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      expr: |-
+        has(status.readyInstances) && status.readyInstances == object.spec.instances &&
+        has(status.conditions) && status.conditions.exists(e, e.type == 'Ready' && e.status == 'True')
+    - apiVersion: miroir.home-operations.com/v1alpha1
+      kind: MiroirVolume
+      expr: |-
+        status.phase == 'Ready'

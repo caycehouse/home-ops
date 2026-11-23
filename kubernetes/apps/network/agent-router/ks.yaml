@@ -9,8 +9,8 @@ spec:
   path: ./kubernetes/apps/network/agent-router/app
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: agent-router
     namespace: flux-system
   targetNamespace: network
   wait: true
@@ -27,7 +27,7 @@ spec:
   path: ./kubernetes/apps/network/agent-router/mcp
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: agent-router
     namespace: flux-system
   targetNamespace: network

@@ -33,15 +33,15 @@ spec:
     envoy:
       enabled: false
     hubble:
+      eventBufferCapacity: "65535"
       metrics:
         dashboards:
           enabled: true
         enabled:
-          - drop:labelsContext=source_namespace,destination_namespace;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
-          - flow:labelsContext=source_namespace,destination_namespace;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
-          - icmp:labelsContext=source_namespace,destination_namespace;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
-          - port-distribution
-          - tcp:labelsContext=source_namespace,destination_namespace;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity
+          - drop:labelsContext=source_namespace,destination_namespace;sourceContext=app|reserved-identity;destinationContext=app|reserved-identity
+          - flow:labelsContext=source_namespace,destination_namespace;sourceContext=app|reserved-identity;destinationContext=app|reserved-identity
+          - icmp:labelsContext=source_namespace,destination_namespace;sourceContext=app|reserved-identity;destinationContext=app|reserved-identity
+          - tcp:labelsContext=source_namespace,destination_namespace;sourceContext=app|reserved-identity;destinationContext=app|reserved-identity
         serviceMonitor:
           enabled: true
       relay:

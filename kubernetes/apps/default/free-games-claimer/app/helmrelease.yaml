@@ -12,8 +12,22 @@ spec:
   values:
     controllers:
       free-games-claimer:
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
+        statefulset:
+          podManagementPolicy: Parallel
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: miroir-local
+              dataSourceRef:
+                apiGroup: kopiur.home-operations.com
+                kind: Restore
+                name: "{{ .Release.Name }}"
+              globalMounts:
+                - path: /fgc/data
         containers:
           app:
             image:
@@ -88,8 +102,3 @@ spec:
         rules:
           - backendRefs:
               - identifier: novnc
-    persistence:
-      config:
-        existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /fgc/data

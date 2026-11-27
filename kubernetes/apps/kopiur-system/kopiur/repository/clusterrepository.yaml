@@ -20,6 +20,8 @@ spec:
       name: kopiur-repository-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
+  execution:
+    mode: Central
   maintenance:
     schedule:
       quick:

@@ -13,19 +13,6 @@ spec:
     controllers:
       twitchdropsminer:
         type: statefulset
-        statefulset:
-          podManagementPolicy: Parallel
-          volumeClaimTemplates:
-            - name: config
-              accessMode: ReadWriteOnce
-              size: 5Gi
-              storageClass: miroir-local
-              dataSourceRef:
-                apiGroup: kopiur.home-operations.com
-                kind: Restore
-                name: "{{ .Release.Name }}"
-              globalMounts:
-                - path: /TwitchDropsMiner/config
         containers:
           app:
             image:
@@ -51,6 +38,19 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
+        statefulset:
+          podManagementPolicy: Parallel
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: miroir-local
+              dataSourceRef:
+                apiGroup: kopiur.home-operations.com
+                kind: Restore
+                name: "{{ .Release.Name }}"
+              globalMounts:
+                - path: /TwitchDropsMiner/config
     defaultPodOptions:
       hostUsers: false
       securityContext:

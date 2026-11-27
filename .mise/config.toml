@@ -2,7 +2,7 @@ min_version = "2026.11.3"
 monorepo_root = true
 
 [env]
-FLATE_PATH = '{{config_root}}'
+FLATE_PATH = '{{config_root}}/kubernetes/apps'
 KUBECONFIG = "{{config_root}}/kubeconfig"
 MINIJINJA_CONFIG_FILE = "{{config_root}}/.minijinja.toml"
 TALOSCONFIG = "{{config_root}}/talosconfig"

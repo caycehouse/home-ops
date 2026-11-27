@@ -9,6 +9,21 @@ spec:
     kind: OCIRepository
     name: miroir
   interval: 1h
+  # The chart has no option for csi-provisioner args. With this gate on, the
+  # provisioner needs the ReferenceGrant CRD (from envoy-gateway) and rbac.yaml
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: miroir-controller
+            patch: |
+              - op: test
+                path: /spec/template/spec/containers/1/name
+                value: csi-provisioner
+              - op: add
+                path: /spec/template/spec/containers/1/args/-
+                value: --feature-gates=CrossNamespaceVolumeDataSource=true
   values:
     monitoring:
       dashboards:

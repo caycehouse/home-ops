@@ -14,6 +14,7 @@ resources:
   - ./free-games-claimer/ks.yaml
   - ./freshrss/ks.yaml
   - ./home-assistant/ks.yaml
+  - ./home-assistant-mcp/ks.yaml
   - ./memini/ks.yaml
   - ./twitchdropsminer/ks.yaml
   - ./unifi-mcp/ks.yaml

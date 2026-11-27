@@ -75,7 +75,7 @@ kubernetes/apps/<namespace>/
 
 Kustomize Components included by apps via `components:` in their `ks.yaml` (or the namespace `kustomization.yaml`):
 
-- **kopiur/backup** — PVC + kopiur SnapshotPolicy/SnapshotSchedule/Restore for backups; parameterized by the `${APP}` substitution from the app's `ks.yaml`. Snapshot backup and populator restore movers run centrally in `kopiur-system`, so the repository ExternalSecret lives only there. A restore into an existing PVC (`target.pvcRef`, or `target.pvc` when the PVC already exists) still runs in the workload namespace and needs repository credentials there, which this component does not supply.
+- **kopiur/statefulset** — kopiur SnapshotPolicy/SnapshotSchedule/Restore for backups of a StatefulSet app; parameterized by the `${APP}` substitution from the app's `ks.yaml`. The app's volumeClaimTemplate is named `config` (or `KOPIUR_CLAIM`) and its `dataSourceRef` points at the `Restore`, so the policy backs up `config-${APP}-0`. Snapshot backup and populator restore movers run centrally in `kopiur-system`, so the repository ExternalSecret lives only there. A restore into an existing PVC (`target.pvcRef`, or `target.pvc` when the PVC already exists) still runs in the workload namespace and needs repository credentials there, which this component does not supply.
 - **alerts** — Alertmanager + GitHub-status providers, included namespace-wide.
 
 ### Secrets

@@ -75,7 +75,7 @@ kubernetes/apps/<namespace>/
 
 Kustomize Components included by apps via `components:` in their `ks.yaml` (or the namespace `kustomization.yaml`):
 
-- **kopiur/backup** — PVC + kopiur SnapshotPolicy/SnapshotSchedule/Restore for backups; parameterized by the `${APP}` substitution from the app's `ks.yaml`. The paired **kopiur/secret** component distributes the repo ExternalSecret into each backed-up namespace.
+- **kopiur/backup** — PVC + kopiur SnapshotPolicy/SnapshotSchedule/Restore for backups; parameterized by the `${APP}` substitution from the app's `ks.yaml`. Movers run centrally in `kopiur-system`, so the repository ExternalSecret lives only there.
 - **alerts** — Alertmanager + GitHub-status providers, included namespace-wide.
 
 ### Secrets

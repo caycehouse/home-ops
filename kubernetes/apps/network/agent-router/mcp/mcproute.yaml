@@ -33,6 +33,9 @@ spec:
       name: home-assistant
     - group: gateway.envoyproxy.io
       kind: Backend
+      name: kubesearch
+    - group: gateway.envoyproxy.io
+      kind: Backend
       name: unifi
     - group: gateway.envoyproxy.io
       kind: Backend

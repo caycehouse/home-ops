@@ -6,7 +6,7 @@ metadata:
   name: free-games-claimer
 spec:
   components:
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/statefulset
   interval: 1h
   path: ./kubernetes/apps/default/free-games-claimer/app
   postBuild:

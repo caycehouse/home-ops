@@ -12,6 +12,18 @@ spec:
   values:
     controllers:
       home-assistant:
+        type: statefulset
+        statefulset:
+          podManagementPolicy: Parallel
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: miroir-local
+              dataSourceRef:
+                apiGroup: kopiur.home-operations.com
+                kind: Restore
+                name: "{{ .Release.Name }}"
         containers:
           app:
             image:
@@ -81,8 +93,6 @@ spec:
           - name: envoy-external
             namespace: network
     persistence:
-      config:
-        existingClaim: "{{ .Release.Name }}"
       config-cache:
         existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:

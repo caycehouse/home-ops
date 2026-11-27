@@ -5,9 +5,12 @@ kind: HelmRelease
 metadata:
   name: grafana-mcp
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: grafana-mcp
+    spec:
+      url: oci://ghcr.io/bjw-s-labs/helm/app-template
+      ref:
+        tag: 5.3.0
   interval: 1h
   values:
     controllers:

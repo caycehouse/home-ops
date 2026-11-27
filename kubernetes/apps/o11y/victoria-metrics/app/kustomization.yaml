@@ -6,7 +6,6 @@ resources:
   - ./externalsecret.yaml
   - ./grafanadashboard.yaml
   - ./helmrelease.yaml
-  - ./ocirepository.yaml
   - ./restore.yaml
   - ./snapshotpolicy.yaml
   - ./snapshotschedule.yaml

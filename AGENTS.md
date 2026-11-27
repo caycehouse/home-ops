@@ -63,8 +63,7 @@ kubernetes/apps/<namespace>/
     ├── ks.yaml                 # Flux Kustomization: path, dependsOn, components, postBuild.substitute
     └── app/
         ├── kustomization.yaml  # plain kustomize: lists the resources below
-        ├── helmrelease.yaml    # HelmRelease (values inline)
-        ├── ocirepository.yaml  # OCIRepository the HelmRelease's chartRef points at
+        ├── helmrelease.yaml    # HelmRelease (values inline; chart is an inline OCIRepository template)
         └── externalsecret.yaml # optional, pulls from 1Password Connect
 ```
 
@@ -85,7 +84,7 @@ Secrets are never in-repo. `ExternalSecret` resources pull from **1Password Conn
 ## Conventions
 
 - YAML files start with a `# yaml-language-server: $schema=…` line; keep it and use the home-operations schema host for Flux/CRD kinds.
-- When renaming or moving an app, rename **every** resource (`ks.yaml` name, HelmRelease, OCIRepository, ExternalSecret target, generated ConfigMap, PrometheusRule) and update the namespace `kustomization.yaml` reference — names cascade because release name drives resource names.
+- When renaming or moving an app, rename **every** resource (`ks.yaml` name, HelmRelease, ExternalSecret target, generated ConfigMap, PrometheusRule) and update the namespace `kustomization.yaml` reference — names cascade because release name drives resource names.
 - Prefer `git mv` for renames to preserve history.
 - Most apps use the bjw-s `app-template` chart. Pin image and chart versions (tag + digest); Renovate bumps them.
 - Reloader: pod-roll-on-config-change is opt-in via the workload annotation `reloader.stakater.com/auto: "true"`.

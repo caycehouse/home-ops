@@ -5,9 +5,12 @@ kind: HelmRelease
 metadata:
   name: agent-router-crds
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: agent-router-crds
+    spec:
+      url: oci://mirror.gcr.io/envoyproxy/ai-gateway-crds-helm
+      ref:
+        tag: 1.3.0
   interval: 1h
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
@@ -16,9 +19,12 @@ kind: HelmRelease
 metadata:
   name: agent-router
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: agent-router
+    spec:
+      url: oci://mirror.gcr.io/envoyproxy/ai-gateway-helm
+      ref:
+        tag: 1.3.0
   dependsOn:
     - name: agent-router-crds
   interval: 1h

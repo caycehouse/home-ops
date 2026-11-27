@@ -10,7 +10,7 @@ spec:
     spec:
       url: oci://ghcr.io/home-operations/charts/kritika
       ref:
-        tag: 0.0.126
+        tag: 0.0.127
   interval: 1h
   values:
     deploymentAnnotations:
